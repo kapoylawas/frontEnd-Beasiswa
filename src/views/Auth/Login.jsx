@@ -5,7 +5,7 @@ import LayoutAuth from "../../layouts/Auth";
 import Cookies from "js-cookie";
 
 //import Navigate
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 //import toast
 import toast from "react-hot-toast";
@@ -13,13 +13,13 @@ import toast from "react-hot-toast";
 //import service
 import Api from "../../services/Api";
 
-
 export default function Login() {
   //title page
   document.title = "Login - BEASISWA";
 
   const [nik, setNik] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   const [errors, setErrors] = useState([]);
 
@@ -29,13 +29,14 @@ export default function Login() {
   //method login
   const login = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     await Api.post("/api/login", {
       //data
       nik: nik,
       password: password,
     })
       .then((response) => {
+        setLoading(false);
         //set token to cookies
         Cookies.set("token", response.data.token);
 
@@ -55,6 +56,7 @@ export default function Login() {
         navigate("/admin/dashboard");
       })
       .catch((error) => {
+        setLoading(false);
         //set response error to state
         setErrors(error.response.data);
       });
@@ -75,7 +77,7 @@ export default function Login() {
         }}
       >
         <div className="col-md-7">
-          <div className="text-center mt-5 mb-3">
+          <div className="text-center mt-2 mb-3">
             <img src={"/images/sidoarjo-logo.png"} width={"100"} />
             <h4>
               <strong className="text-white mt-3">Beasiswa, SIDOARJO</strong>
@@ -84,6 +86,9 @@ export default function Login() {
           <div className="card rounded-4 shadow-sm border-top-success">
             <div className="card-body">
               <div className="form-left h-100 py-3 px-3">
+                {errors.message && (
+                  <div className="alert alert-danger">{errors.message}</div>
+                )}
                 <form onSubmit={login} className="row g-4">
                   <div className="col-12">
                     <label>NIK</label>
@@ -130,9 +135,13 @@ export default function Login() {
                   <button
                     type="submit"
                     className="btn btn-primary px-4 float-end rounded-4"
+                    disabled={isLoading}
                   >
-                    LOGIN
+                    {isLoading ? "LOADING..." : "LOGIN"}{" "}
                   </button>
+                  <Link to="/">
+                    <i class="fa-solid fa-backward"></i> KEMBALI
+                  </Link>
                 </form>
               </div>
             </div>

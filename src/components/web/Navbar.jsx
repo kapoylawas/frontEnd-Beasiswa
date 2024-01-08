@@ -67,14 +67,14 @@ export default function Navbar() {
               <div className="col-md-6 text-center mt-3">
                 <a href="#">
                   <img
-                    src="/images/logo-jbg.png"
+                    src="/images/sidoarjo-logo.png"
                     width="110"
                     className="img-responsive"
                   />
                 </a>
               </div>
               <div className="col-md-12 text-center text-white mb-3">
-                <h2 className="header-school">DESA SANTRI</h2>
+                <h2 className="header-school">BEASISWA</h2>
                 <hr />
                 <div className="header-address">
                   Jln. Diponegoro No. 58, Sidoarjo, Sidoarjo, Jawa Timur, 61225
@@ -87,11 +87,7 @@ export default function Navbar() {
                 className="d-none d-md-block d-lg-block"
                 style={{ marginTop: "60px" }}
               ></div>
-              <form
-                className="d-flex"
-                action="#"
-                method="GET"
-              >
+              <form className="d-flex" action="#" method="GET">
                 <input
                   className="form-control border-0 me-2"
                   type="search"
@@ -99,7 +95,15 @@ export default function Navbar() {
                   placeholder="cari sesuatu..."
                   aria-label="Search"
                 />
-                 <button className="btn btn-primary-dark" type="submit" style={{ backgroundColor: '#005005',borderColor: '#005005',color: 'white' }}>
+                <button
+                  className="btn btn-primary-dark"
+                  type="submit"
+                  style={{
+                    backgroundColor: "#005005",
+                    borderColor: "#005005",
+                    color: "white",
+                  }}
+                >
                   CARI
                 </button>
               </form>
@@ -138,11 +142,11 @@ export default function Navbar() {
               <li className="nav-item ms-2">
                 <Link
                   className={
-                    activeRoute[1] === "pages"
+                    activeRoute[1] === "info"
                       ? "nav-link active text-uppercase"
                       : "nav-link text-uppercase"
                   }
-                  to="/pages"
+                  to="/info"
                 >
                   <i className="fa fa-info-circle"></i> INFO BEASISWA
                 </Link>
@@ -150,13 +154,25 @@ export default function Navbar() {
               <li className="nav-item ms-2">
                 <Link
                   className={
-                    activeRoute[1] === "pages"
+                    activeRoute[1] === "registers"
                       ? "nav-link active text-uppercase"
                       : "nav-link text-uppercase"
                   }
-                  to="/register"
+                  to="/registers"
                 >
                   <i className="fa fa-circle-user"></i> REGISTER
+                </Link>
+              </li>
+              <li className="nav-item ms-2">
+                <Link
+                  className={
+                    activeRoute[1] === "login"
+                      ? "nav-link active text-uppercase"
+                      : "nav-link text-uppercase"
+                  }
+                  to="/login"
+                >
+                  <i className="fa fa-user-lock"></i> LOGIN
                 </Link>
               </li>
             </ul>

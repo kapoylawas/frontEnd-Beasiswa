@@ -2,10 +2,10 @@ import React from "react";
 
 export default function footer() {
   return (
-    <footer className="mt-2">
+    <footer className="mt-5">
       <div className="container-fluid footer-top">
         <div className="row p-4">
-          <div className="col-md-4 mb-4 mt-3">
+          <div className="col-md-4 mb-2 mt-3">
             <h5>
               TENTANG
               <strong style={{ color: "#ffd22e" }}> BEASISWA</strong>

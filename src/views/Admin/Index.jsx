@@ -4,6 +4,8 @@ import LayoutAdmin from "../../layouts/Admin";
 import { useEffect, useState } from "react";
 import Api from "../../services/Api";
 import { Link } from "react-router-dom";
+//import permissions
+import hasAnyPermission from "../../utils/Permissions";
 
 export default function Dashboard() {
   document.title = "Dashboard - Beasiswa";
@@ -29,30 +31,38 @@ export default function Dashboard() {
     });
   }, []);
 
+  //get data user from cookies
+  const user = JSON.parse(Cookies.get("user"));
+
   return (
     <LayoutAdmin>
       <main>
         <div class="container-fluid px-4 mt-5">
-          <div class="row">
-            <div class="col-xl-3 col-md-6">
-              <div class="card bg-primary text-white mb-4 border-0 shadow-sm">
-                <div class="card-body">
-                  <strong>{users}</strong> Users
-                </div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                  <Link
-                    class="small text-white stretched-link"
-                    to="/admin/users"
-                  >
-                    View Details
-                  </Link>
-                  <div class="small text-white">
-                    <i class="fas fa-angle-right"></i>
+          <div class="alert alert-success" role="alert">
+            Selamat Datang <b>{user.name}</b>
+          </div>
+          {hasAnyPermission(["permissions.index"]) && (
+            <div class="row">
+              <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div class="card-body">
+                    <strong>{users}</strong> Users
+                  </div>
+                  <div class="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      class="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div class="small text-white">
+                      <i class="fas fa-angle-right"></i>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </main>
     </LayoutAdmin>

@@ -25,6 +25,7 @@ export default function sidebar() {
       <div className="sb-sidenav-menu">
         <div className="nav">
           <div className="sb-sidenav-menu-heading"></div>
+
           <Link
             className={
               activeRoute[2] === "dashboard"
@@ -191,6 +192,37 @@ export default function sidebar() {
               )}
             </nav>
           </div>
+          {hasAnyPermission(["mahasiswa.index"]) && (
+            <>
+              <div className="sb-sidenav-menu-heading">Dashboard Mahasiswa</div>
+              <Link
+                className={
+                  activeRoute[2] === "mahasiswa"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/mahasiswa"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Mahasiswa
+              </Link>
+              <Link
+                className={
+                  activeRoute[2] === "riwayat"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/riwayat"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Riwayat Pendaftar
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <div className="sb-sidenav-footer">
