@@ -10,8 +10,24 @@ import hasAnyPermission from "../../utils/Permissions";
 export default function Dashboard() {
   document.title = "Dashboard - Beasiswa";
 
+  const [nim, setNim] = useState("");
+  const [ktm, setKtm] = useState("");
+  const [universitas, setUniversitas] = useState("");
+  const [jurusan, setJurusan] = useState("");
+  const [imageaktifkampus, setImageaktifkampus] = useState("");
+  const [imagesuratpernyataan, setImagesuratpernyataan] = useState("");
+  const [imageakrekampus, setImageakrekampus] = useState("");
+  const [pilihuniversitas, setPilihuniversitas] = useState("");
+  const [jenisuniversitas, setJenisuniversitas] = useState("");
+
+  const [isLoading, setLoading] = useState(false);
+
+  const [errors, setErros] = useState([]);
   const [users, setUsers] = useState(0);
-  console.log(users);
+
+  const [usersbyid, setUsersByid] = useState("");
+  const [step, setStep] = useState("");
+  // console.log("step users =>", step);
 
   //token from cookies
   const token = Cookies.get("token");
@@ -31,32 +47,357 @@ export default function Dashboard() {
     });
   }, []);
 
+  //hook useEffect
+  useEffect(() => {
+    //fetch api
+    Api.get("/api/admin/users/byid", {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      //set data
+      setUsersByid(response.data.data.id);
+      setStep(response.data.data.step);
+    });
+  }, []);
+
   //get data user from cookies
   const user = JSON.parse(Cookies.get("user"));
+
+  const handleFileKtm = (e) => {
+    const imageData = e.target.files[0];
+
+    if (!imageData.type.match("pdf.*")) {
+      setKtm("");
+
+      toast.error("Format File KTM Tidak Cocok Harus PDF", {
+        duration: 5000,
+        position: "top-center",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+      return;
+    }
+    setKtm(imageData);
+  };
+
+  const handleFileAktifKuliah = (e) => {
+    const imageData = e.target.files[0];
+
+    if (!imageData.type.match("pdf.*")) {
+      setImageaktifkampus("");
+
+      toast.error("Format File Surat Aktif Kulia Tidak Cocok Harus PDF", {
+        duration: 5000,
+        position: "top-center",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+      return;
+    }
+    setImageaktifkampus(imageData);
+  };
+
+  const handleFileSuratPernyataan = (e) => {
+    const imageData = e.target.files[0];
+
+    if (!imageData.type.match("pdf.*")) {
+      setImagesuratpernyataan("");
+
+      toast.error("Format File Surat Pernyataan Tidak Cocok Harus PDF", {
+        duration: 5000,
+        position: "top-center",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+      return;
+    }
+    setImagesuratpernyataan(imageData);
+  };
+
+  const handleFileAkre = (e) => {
+    const imageData = e.target.files[0];
+
+    if (!imageData.type.match("pdf.*")) {
+      setImageakrekampus("");
+
+      toast.error(
+        "Format File Surat Akredetasi Universitas Tidak Cocok Harus PDF",
+        {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        }
+      );
+      return;
+    }
+    setImageakrekampus(imageData);
+  };
+
+  const handleshowhidePilih = (event) => {
+    const getType = event.target.value;
+    setPilihuniversitas(getType);
+  };
+
+  const handleshowhideJenis = (event) => {
+    const getType = event.target.value;
+    setJenisuniversitas(getType);
+  };
 
   return (
     <LayoutAdmin>
       <main>
-        <div class="container-fluid px-4 mt-5">
-          <div class="alert alert-success" role="alert">
+        <div className="container-fluid px-4 mb-4 mt-3">
+          <div className="alert alert-success" role="alert">
             Selamat Datang <b>{user.name}</b>
           </div>
+          {hasAnyPermission(["mahasiswa.index"]) && (
+            <>
+              <hr />
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-body">
+                      <h6>
+                        <i className="fa fa-shield-alt"></i> Lengkapi Data
+                        Perguruan Tinggi Anda
+                      </h6>
+                      <hr />
+                      <form>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                NIM (No Induk Mahasiswa)
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                value={nim}
+                                onChange={(e) => setNim(e.target.value)}
+                                placeholder="Enter NIM"
+                              />
+                            </div>
+                            {errors.nim && (
+                              <div className="alert alert-danger">
+                                {errors.nim[0]}
+                              </div>
+                            )}
+                          </div>
+                          <div className="col-md-6">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Upload KTM (Kartu Induk Mahasiswa) pdf dan
+                                maksimal 2MB
+                              </label>
+                              <input
+                                type="file"
+                                className="form-control"
+                                onChange={handleFileKtm}
+                              />
+                            </div>
+                            {errors.ktm && (
+                              <div className="alert alert-danger">
+                                {errors.ktm[0]}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Universitas
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                value={universitas}
+                                onChange={(e) => setUniversitas(e.target.value)}
+                                placeholder="Enter Nama Universitas"
+                              />
+                            </div>
+                            {errors.universitas && (
+                              <div className="alert alert-danger">
+                                {errors.universitas[0]}
+                              </div>
+                            )}
+                          </div>
+                          <div className="col-md-6">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Jurusan
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                value={jurusan}
+                                onChange={(e) => setJurusan(e.target.value)}
+                                placeholder="Enter Nama Jurusan"
+                              />
+                            </div>
+                            {errors.jurusan && (
+                              <div className="alert alert-danger">
+                                {errors.jurusan[0]}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Upload Surat Aktif Kuliah pdf dan maksimal 2MB
+                              </label>
+                              <input
+                                type="file"
+                                className="form-control"
+                                onChange={handleFileAktifKuliah}
+                              />
+                            </div>
+                            {errors.imageaktifkampus && (
+                              <div className="alert alert-danger">
+                                {errors.imageaktifkampus[0]}
+                              </div>
+                            )}
+                          </div>
+                          <div className="col-md-6">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Upload Surat Pernyataan Bermaterai pdf dan
+                                maksimal 2MB
+                              </label>
+                              <input
+                                type="file"
+                                className="form-control"
+                                onChange={handleFileSuratPernyataan}
+                              />
+                            </div>
+                            {errors.imagesuratpernyataan && (
+                              <div className="alert alert-danger">
+                                {errors.imagesuratpernyataan[0]}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              Upload Akredetasi Dari Universitas pdf dan
+                              maksimal 2MB
+                            </label>
+                            <input
+                              type="file"
+                              className="form-control"
+                              onChange={handleFileAkre}
+                            />
+                          </div>
+                          {errors.imageakrekampus && (
+                            <div className="alert alert-danger">
+                              {errors.imageakrekampus[0]}
+                            </div>
+                          )}
+                        </div>
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              Pilih Universitas Dalam Negeri / Luar Negeri
+                            </label>
+                            <select
+                              className="form-select"
+                              value={pilihuniversitas}
+                              onChange={handleshowhidePilih}
+                            >
+                              <option value="">
+                                -- Pilih Universitas Dalam Negeri / Luar Negeri
+                                --
+                              </option>
+                              <option value="Dalam">Dalam Negeri</option>
+                              <option value="Luar">Luar Negeri</option>
+                            </select>
+                          </div>
+                          {errors.pilih_universitas && (
+                            <div className="alert alert-danger">
+                              {errors.pilih_universitas[0]}
+                            </div>
+                          )}
+                        </div>
+                        {pilihuniversitas === "Dalam" && (
+                          <div className="col-md-12">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Pilih Universitas Negeri / Swasta
+                              </label>
+                              <select
+                                className="form-select"
+                                value={jenisuniversitas}
+                                onChange={handleshowhideJenis}
+                              >
+                                <option value="">
+                                  -- Pilih Universitas PTN / PTS --
+                                </option>
+                                <option value="Negeri">PTN (Perguruan Tinggi Negeri)</option>
+                                <option value="Swasta">PTS (Perguruan Tinggi Swasta)</option>
+                              </select>
+                            </div>
+                            {errors.jenis_universitas && (
+                              <div className="alert alert-danger">
+                                {errors.jenis_universitas[0]}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        <div className="d-flex justify-content-center">
+                        <button
+                          type="submit"
+                          className="btn btn-md btn-primary me-2"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                        </button>
+                        <button type="reset" className="btn btn-md btn-warning">
+                          <i className="fa fa-redo"></i> Reset
+                        </button>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+          {/* KUSUS ADMIN */}
           {hasAnyPermission(["permissions.index"]) && (
-            <div class="row">
-              <div class="col-xl-3 col-md-6">
-                <div class="card bg-primary text-white mb-4 border-0 shadow-sm">
-                  <div class="card-body">
+            <div className="row">
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
                     <strong>{users}</strong> Users
                   </div>
-                  <div class="card-footer d-flex align-items-center justify-content-between">
+                  <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
-                      class="small text-white stretched-link"
+                      className="small text-white stretched-link"
                       to="/admin/users"
                     >
                       View Details
                     </Link>
-                    <div class="small text-white">
-                      <i class="fas fa-angle-right"></i>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
                     </div>
                   </div>
                 </div>

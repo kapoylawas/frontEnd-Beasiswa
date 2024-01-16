@@ -231,7 +231,7 @@ export default function Akademik() {
             </Link>
           </div>
           {users === 1 ? (
-            <div class="alert alert-danger" role="alert">
+            <div className="alert alert-danger" role="alert">
               Anda Sudah Terdaftar di Beasiswa
             </div>
           ) : (

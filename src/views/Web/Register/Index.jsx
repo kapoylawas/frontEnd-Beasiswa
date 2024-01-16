@@ -150,7 +150,7 @@ export default function Register() {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="mb-3">
-                        <label className="form-label fw-bold">Nama</label>
+                        <label className="form-label fw-bold">Nama Lengkap Sesuai KTP</label>
                         <input
                           type="text"
                           className="form-control"
@@ -389,7 +389,7 @@ export default function Register() {
                       <div className="mb-3">
                         <label className="form-label fw-bold">Password</label>
                         <input
-                          type="text"
+                          type="password"
                           className="form-control"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
@@ -407,7 +407,7 @@ export default function Register() {
                           Password Confirmation
                         </label>
                         <input
-                          type="text"
+                          type="password"
                           className="form-control"
                           value={passwordConfirmation}
                           onChange={(e) =>

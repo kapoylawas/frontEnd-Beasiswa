@@ -140,7 +140,7 @@ export default function Login() {
                     {isLoading ? "LOADING..." : "LOGIN"}{" "}
                   </button>
                   <Link to="/">
-                    <i class="fa-solid fa-backward"></i> KEMBALI
+                    <i className="fa-solid fa-backward"></i> KEMBALI
                   </Link>
                 </form>
               </div>

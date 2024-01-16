@@ -75,7 +75,7 @@ export default function index() {
   return (
     <LayoutAdmin>
       <main>
-        <div class="container-fluid px-4 mt-5">
+        <div className="container-fluid px-4 mt-5">
           <div className="row">
             <div className="col-md-8">
               <div className="row">
