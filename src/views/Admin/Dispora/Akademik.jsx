@@ -41,6 +41,10 @@ export default function Akademik() {
     setProgam(getType);
   };
 
+  const handleGPAChange = (event) => {
+    setIpk(event.target.value);
+  };
+
   // handle onchange transkrip nilai
   const handleFileTranskripNilai = (e) => {
     const imageData = e.target.files[0];
@@ -86,6 +90,21 @@ export default function Akademik() {
   const storeAkademik = async (e) => {
     e.preventDefault();
     setLoading(true);
+    // Validate GPA
+    if (parseFloat(ipk) < 3.4) {
+      // Display toast message
+      toast.error("IPK harus minimal 3.4", {
+        position: "top-center",
+        autoClose: 3000, // 3 seconds
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setLoading(false);
+      return;
+    }
     const formData = new FormData();
     formData.append("ipk", ipk);
     formData.append("semester", semester);
@@ -172,13 +191,16 @@ export default function Akademik() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="mb-3">
-                            <label className="form-label fw-bold">IPK</label>
+                            <label className="form-label fw-bold">IPK Minimum 3.4</label>
                             <input
                               type="number"
+                              step="0.01"
+                              min="0"
+                              max="4"
                               className="form-control"
                               value={ipk}
-                              onChange={(e) => setIpk(e.target.value)}
-                              placeholder="Enter IPK(Indeks Prestasi Kumulatif)"
+                              onChange={handleGPAChange}
+                              placeholder="Enter IPK(Indeks Prestasi Kumulatif) Minimum 3.4"
                             />
                           </div>
                           {errors.ipk && (
