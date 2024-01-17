@@ -14,23 +14,17 @@ export default function Akademik() {
   //navigata
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
   const [ipk, setIpk] = useState("");
-  const [universitas, setUniversitas] = useState("");
-  const [jurusan, setJurusan] = useState("");
   const [semester, setSemester] = useState("");
-  const [nim, setNim] = useState("");
-  const [uploadktm, setUploadktm] = useState("");
   const [akreKampus, setAkreKampus] = useState("");
   const [akreJurusan, setAkreJurusan] = useState("");
   const [progam, setProgam] = useState("");
-  const [suratKeteranganKampus, setSuratKeteranganKampus] = useState("");
-  const [suratPernyataan, setSuratPernyataan] = useState("");
   const [transkripNilai, setTranskripNilai] = useState("");
   const [hasilAkhir, setHasilAkhir] = useState("");
   const [isLoading, setLoading] = useState(false);
 
   const [users, setUsers] = useState("");
+  const [step, setStep] = useState("");
 
   const [errors, setErros] = useState([]);
 
@@ -45,75 +39,6 @@ export default function Akademik() {
   const handleshowhideProgam = (event) => {
     const getType = event.target.value;
     setProgam(getType);
-  };
-
-  // handle onchange file ktm
-  const handleFileKtm = (e) => {
-    const imageData = e.target.files[0];
-
-    if (!imageData.type.match("pdf.*")) {
-      setUploadktm("");
-
-      toast.error("Format File KTM Tidak Cocok Harus PDF", {
-        duration: 5000,
-        position: "top-center",
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
-      });
-      return;
-    }
-    setUploadktm(imageData);
-  };
-
-  // handel onchange surat aktif kampus
-  const handleFileSuratAktifKampus = (e) => {
-    const imageData = e.target.files[0];
-
-    if (!imageData.type.match("pdf.*")) {
-      setSuratKeteranganKampus("");
-
-      toast.error(
-        "Format File Surat Keterangan Aktif Kampus Tidak Cocok Harus PDF",
-        {
-          duration: 5000,
-          position: "top-center",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        }
-      );
-      return;
-    }
-    setSuratKeteranganKampus(imageData);
-  };
-
-  // handle onchange surat pernyataan
-  const handleFileSuratPernyataan = (e) => {
-    const imageData = e.target.files[0];
-
-    if (!imageData.type.match("pdf.*")) {
-      setSuratPernyataan("");
-
-      toast.error(
-        "Format File Surat Pernyataan Bermaterai Tidak Cocok Harus PDF",
-        {
-          duration: 5000,
-          position: "top-center",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        }
-      );
-      return;
-    }
-    setSuratPernyataan(imageData);
   };
 
   // handle onchange transkrip nilai
@@ -163,16 +88,10 @@ export default function Akademik() {
     setLoading(true);
     const formData = new FormData();
     formData.append("ipk", ipk);
-    formData.append("universitas", universitas);
-    formData.append("jurusan", jurusan);
     formData.append("semester", semester);
-    formData.append("nim", nim);
-    formData.append("imagektm", uploadktm);
     formData.append("akredetasi_kampus", akreKampus);
     formData.append("akredetasi_jurusan", akreJurusan);
     formData.append("progam_pendidikan", progam);
-    formData.append("imageaktifkampus", suratKeteranganKampus);
-    formData.append("imagesuratpernyataan", suratPernyataan);
     formData.append("imagetranskrip", transkripNilai);
     formData.append("imageketerangan", hasilAkhir);
 
@@ -214,6 +133,7 @@ export default function Akademik() {
     }).then((response) => {
       //set data
       setUsers(response.data.data.status_pendaftar);
+      setStep(response.data.data.step);
     });
   }, []);
 
@@ -233,6 +153,10 @@ export default function Akademik() {
           {users === 1 ? (
             <div className="alert alert-danger" role="alert">
               Anda Sudah Terdaftar di Beasiswa
+            </div>
+          ) : step === 1 ? (
+            <div className="alert alert-danger" role="alert">
+              Anda Belum Menyelesaikan step 2 di Data Perguruan Tinggi Anda
             </div>
           ) : (
             <div className="row">
@@ -266,46 +190,6 @@ export default function Akademik() {
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Nama Universitas
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={universitas}
-                              onChange={(e) => setUniversitas(e.target.value)}
-                              placeholder="Enter Nama Perguruan Tinggi"
-                            />
-                          </div>
-                          {errors.universitas && (
-                            <div className="alert alert-danger">
-                              {errors.universitas[0]}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Jurusan
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={jurusan}
-                              onChange={(e) => setJurusan(e.target.value)}
-                              placeholder="Jurusan Prodi"
-                            />
-                          </div>
-                          {errors.jurusan && (
-                            <div className="alert alert-danger">
-                              {errors.jurusan[0]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
                               Semester
                             </label>
                             <select
@@ -331,42 +215,7 @@ export default function Akademik() {
                           )}
                         </div>
                       </div>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">NIM</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={nim}
-                              onChange={(e) => setNim(e.target.value)}
-                              placeholder="Nomor Induk Mahasiswa (NIM)"
-                            />
-                          </div>
-                          {errors.jurusan && (
-                            <div className="alert alert-danger">
-                              {errors.jurusan[0]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Upload KTM PDF dan Maksimal 2MB
-                            </label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              onChange={handleFileKtm}
-                            />
-                          </div>
-                          {errors.imagektm && (
-                            <div className="alert alert-danger">
-                              {errors.imagektm[0]}
-                            </div>
-                          )}
-                        </div>
-                      </div>
+                      <div className="row"></div>
                       <div className="row">
                         <div className="col-md-6">
                           <div className="mb-3">
@@ -431,44 +280,6 @@ export default function Akademik() {
                           {errors.progam_pendidikan && (
                             <div className="alert alert-danger">
                               {errors.progam_pendidikan[0]}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Surat Keterangan Aktif Dari Kampus PDF dan
-                              Maksimal 2MB
-                            </label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              onChange={handleFileSuratAktifKampus}
-                            />
-                          </div>
-                          {errors.imageaktifkampus && (
-                            <div className="alert alert-danger">
-                              {errors.imageaktifkampus[0]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Upload Surat Pernyataan Bermaterai PDF dan
-                              Maksimal 2MB
-                            </label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              onChange={handleFileSuratPernyataan}
-                            />
-                          </div>
-                          {errors.imagesuratpernyataan && (
-                            <div className="alert alert-danger">
-                              {errors.imagesuratpernyataan[0]}
                             </div>
                           )}
                         </div>

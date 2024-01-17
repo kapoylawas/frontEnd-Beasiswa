@@ -9,7 +9,7 @@ export default function MahasiswaIndex() {
   document.title = "Dashboard - Beasiswa";
 
   const [users, setUsers] = useState("");
-  console.log("status =>", users);
+  const [step, setStep] = useState("");
 
   //token from cookies
   const token = Cookies.get("token");
@@ -26,6 +26,7 @@ export default function MahasiswaIndex() {
     }).then((response) => {
       //set data
       setUsers(response.data.data.status_pendaftar);
+      setStep(response.data.data.step);
     });
   }, []);
 
@@ -41,6 +42,10 @@ export default function MahasiswaIndex() {
           {users === 1 ? (
             <div className="alert alert-danger" role="alert">
               Anda Sudah Terdaftar di Beasiswa
+            </div>
+          ) : step === 1 ? (
+            <div className="alert alert-danger" role="alert">
+              Anda Belum Menyelesaikan step 2 di Data Perguruan Tinggi Anda
             </div>
           ) : (
             <div className="row">
