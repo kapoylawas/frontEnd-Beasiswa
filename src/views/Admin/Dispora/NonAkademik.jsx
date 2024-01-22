@@ -1,10 +1,18 @@
 import { useState } from "react";
 import LayoutAdmin from "../../../layouts/Admin";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import Api from "../../../services/Api";
 
 export default function NonAkademik() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
+
+  //token from cookies
+  const token = Cookies.get("token");
+
+  //navigata
+  const navigate = useNavigate();
 
   const [semester, setSemester] = useState("");
   const [akreKampus, setAkreKampus] = useState("");
@@ -49,26 +57,61 @@ export default function NonAkademik() {
     setSertifikat(imageData);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const storeNonAkademik = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     const currentYear = new Date().getFullYear();
     const inputYear = parseInt(tahun, 10);
 
     if (isNaN(inputYear) || inputYear < currentYear - 4) {
       // Display toast message
-      toast.error("Masa Sertifikat Anda Telah Expired Dalam kurun waktu 4 Tahun Terakhir ", {
-        position: "top-center",
-        autoClose: 3000, // 3 seconds
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(
+        "Masa Sertifikat Anda Telah Expired Dalam kurun waktu 4 Tahun Terakhir ",
+        {
+          position: "top-center",
+          autoClose: 3000, // 3 seconds
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
       setLoading(false);
       return;
-    }
+    };
+    const formData = new FormData();
+    formData.append("semester", semester);
+    formData.append("akredetasi_kampus", akreKampus);
+    formData.append("akredetasi_jurusan", akreJurusan);
+    formData.append("jenis_sertifikat", selectedSertifikat);
+    formData.append("imagesertifikat", sertifikat);
+    formData.append("tahun", tahun);
+
+    await Api.post("/api/admin/nonakademiks", formData, {
+      //header
+      headers: {
+        //header
+        "content-type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        setLoading(false);
+        //show toast
+        toast.success(response.data.message, {
+          position: "top-right",
+          duration: 4000,
+        });
+
+        //redirect
+        navigate("/admin/mahasiswa");
+      })
+      .catch((error) => {
+        //set error message to state "errors"
+        setLoading(false);
+        setErros(error.response.data);
+      });
   };
 
   return (
@@ -93,7 +136,7 @@ export default function NonAkademik() {
                     Akademik
                   </h6>
                   <hr />
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={storeNonAkademik}>
                     <div className="row">
                       <div className="col-md-12">
                         <div className="mb-3">
@@ -135,9 +178,9 @@ export default function NonAkademik() {
                             placeholder="Akreditasi Universitas"
                           />
                         </div>
-                        {errors.akreKampus && (
+                        {errors.akredetasi_kampus && (
                           <div className="alert alert-danger">
-                            {errors.akreKampus[0]}
+                            {errors.akredetasi_kampus[0]}
                           </div>
                         )}
                       </div>
@@ -154,9 +197,9 @@ export default function NonAkademik() {
                             placeholder="Akreditasi Jurusan"
                           />
                         </div>
-                        {errors.akreJurusan && (
+                        {errors.akredetasi_jurusan && (
                           <div className="alert alert-danger">
-                            {errors.akreJurusan[0]}
+                            {errors.akredetasi_jurusan[0]}
                           </div>
                         )}
                       </div>
@@ -187,9 +230,9 @@ export default function NonAkademik() {
                             <option value="9">Bela Negara</option>
                           </select>
                         </div>
-                        {errors.sertifikat && (
+                        {errors.jenis_sertifikat && (
                           <div className="alert alert-danger">
-                            {errors.sertifikat[0]}
+                            {errors.jenis_sertifikat[0]}
                           </div>
                         )}
                       </div>
@@ -219,7 +262,8 @@ export default function NonAkademik() {
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Sertifikat yang pernah diperoleh dalam kurun waktu 4 tahun terakhir (YANG TERBARU)
+                              Sertifikat yang pernah diperoleh dalam kurun waktu
+                              4 tahun terakhir (YANG TERBARU)
                             </label>
                             <input
                               type="number"
