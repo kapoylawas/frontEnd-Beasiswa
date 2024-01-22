@@ -6,17 +6,13 @@ import { Link } from "react-router-dom";
 export default function NonAkademik() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
 
-  const [name, setName] = useState("");
-  const [universitas, setUniversitas] = useState("");
-  const [jurusan, setJurusan] = useState("");
   const [semester, setSemester] = useState("");
-  const [nim, setNim] = useState("");
-  const [uploadktm, setUploadktm] = useState("");
   const [akreKampus, setAkreKampus] = useState("");
   const [akreJurusan, setAkreJurusan] = useState("");
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
+  const [sertifikat, setSertifikat] = useState("");
+  const [tahun, setTahun] = useState("");
   const [isLoading, setLoading] = useState(false);
-
 
   const handleSelectChange = (event) => {
     setSelectedSertifikat(event.target.value);
@@ -29,13 +25,17 @@ export default function NonAkademik() {
     setSemester(getType);
   };
 
-  const handleFileKtm = (e) => {
+  const handleYearChange = (event) => {
+    setTahun(event.target.value);
+  };
+
+  const handleFileSertifikat = (e) => {
     const imageData = e.target.files[0];
 
     if (!imageData.type.match("pdf.*")) {
-      setUploadktm("");
+      setSertifikat("");
 
-      toast.error("Format File KTM Tidak Cocok Harus PDF", {
+      toast.error("Format File Berkas Sertifikat Tidak Cocok Harus PDF", {
         duration: 5000,
         position: "top-center",
         style: {
@@ -46,7 +46,29 @@ export default function NonAkademik() {
       });
       return;
     }
-    setUploadktm(imageData);
+    setSertifikat(imageData);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const currentYear = new Date().getFullYear();
+    const inputYear = parseInt(tahun, 10);
+
+    if (isNaN(inputYear) || inputYear < currentYear - 4) {
+      // Display toast message
+      toast.error("Masa Sertifikat Anda Telah Expired Dalam kurun waktu 4 Tahun Terakhir ", {
+        position: "top-center",
+        autoClose: 3000, // 3 seconds
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setLoading(false);
+      return;
+    }
   };
 
   return (
@@ -71,64 +93,9 @@ export default function NonAkademik() {
                     Akademik
                   </h6>
                   <hr />
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="row">
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">IPK</label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="Input IPK Anda"
-                          />
-                        </div>
-                        {errors.name && (
-                          <div className="alert alert-danger">
-                            {errors.name[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Nama Universitas
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={universitas}
-                            onChange={(e) => setUniversitas(e.target.value)}
-                            placeholder="Enter Nama Perguruan Tinggi"
-                          />
-                        </div>
-                        {errors.universitas && (
-                          <div className="alert alert-danger">
-                            {errors.universitas[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">Jurusan</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={jurusan}
-                            onChange={(e) => setJurusan(e.target.value)}
-                            placeholder="Jurusan Prodi"
-                          />
-                        </div>
-                        {errors.jurusan && (
-                          <div className="alert alert-danger">
-                            {errors.jurusan[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6">
+                      <div className="col-md-12">
                         <div className="mb-3">
                           <label className="form-label fw-bold">Semester</label>
                           <select
@@ -150,42 +117,6 @@ export default function NonAkademik() {
                         {errors.semester && (
                           <div className="alert alert-danger">
                             {errors.semester[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">NIM</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={nim}
-                            onChange={(e) => setNim(e.target.value)}
-                            placeholder="Nomor Induk Mahasiswa (NIM)"
-                          />
-                        </div>
-                        {errors.jurusan && (
-                          <div className="alert alert-danger">
-                            {errors.jurusan[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Upload KTM PDF dan Maksimal 2MB
-                          </label>
-                          <input
-                            type="file"
-                            className="form-control"
-                            onChange={handleFileKtm}
-                          />
-                        </div>
-                        {errors.imagektm && (
-                          <div className="alert alert-danger">
-                            {errors.imagektm[0]}
                           </div>
                         )}
                       </div>
@@ -231,44 +162,6 @@ export default function NonAkademik() {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Surat Keterangan Aktif Dari Kampus PDF dan Maksimal
-                            2MB
-                          </label>
-                          <input
-                            type="file"
-                            className="form-control"
-                            onChange={handleFileKtm}
-                          />
-                        </div>
-                        {errors.imagektm && (
-                          <div className="alert alert-danger">
-                            {errors.imagektm[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Upload Surat Pernyataan Bermaterai PDF dan Maksimal
-                            2MB
-                          </label>
-                          <input
-                            type="file"
-                            className="form-control"
-                            onChange={handleFileKtm}
-                          />
-                        </div>
-                        {errors.imagektm && (
-                          <div className="alert alert-danger">
-                            {errors.imagektm[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="row">
                       <div className="col-md-12">
                         <div className="mb-3">
                           <label className="form-label fw-bold">
@@ -301,22 +194,44 @@ export default function NonAkademik() {
                         )}
                       </div>
                     </div>
-                    {["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(selectedSertifikat) && (
+                    {["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(
+                      selectedSertifikat
+                    ) && (
                       <div className="row">
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Upload Berkas Sertifikat Sesuai yang dipilih PDF dan Maksimal 2MB
+                              Upload Berkas Sertifikat Sesuai yang dipilih PDF
+                              dan Maksimal 2MB
                             </label>
                             <input
                               type="file"
                               className="form-control"
-                              onChange={handleFileKtm}
+                              onChange={handleFileSertifikat}
                             />
                           </div>
-                          {errors.imagektm && (
+                          {errors.imagesertifikat && (
                             <div className="alert alert-danger">
-                              {errors.imagektm[0]}
+                              {errors.imagesertifikat[0]}
+                            </div>
+                          )}
+                        </div>
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              Sertifikat yang pernah diperoleh dalam kurun waktu 4 tahun terakhir (YANG TERBARU)
+                            </label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              value={tahun}
+                              onChange={handleYearChange}
+                              placeholder="tahun"
+                            />
+                          </div>
+                          {errors.tahun && (
+                            <div className="alert alert-danger">
+                              {errors.tahun[0]}
                             </div>
                           )}
                         </div>

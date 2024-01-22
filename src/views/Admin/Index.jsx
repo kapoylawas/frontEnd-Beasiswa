@@ -31,6 +31,7 @@ export default function Dashboard() {
 
   const [usersbyid, setUsersByid] = useState("");
   const [step, setStep] = useState("");
+  // console.log('data',usersbyid);
 
   //token from cookies
   const token = Cookies.get("token");
@@ -61,7 +62,7 @@ export default function Dashboard() {
       },
     }).then((response) => {
       //set data
-      setUsersByid(response.data.data.id);
+      setUsersByid(response.data.data);
       setStep(response.data.data.step);
     });
   }, []);
