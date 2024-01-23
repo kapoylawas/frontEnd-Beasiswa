@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LayoutAdmin from "../../../layouts/Admin";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
-import { Modal } from "react-bootstrap";
 import ModalKesra from "../../../components/general/ModalKesra";
 
 export default function KesraIndex() {
@@ -189,7 +188,7 @@ export default function KesraIndex() {
                         )}
                       </div>
                     </div>
-                    {["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(
+                    {["1", "2", "3", "4", "5", "6", "7"].includes(
                       selectedSertifikat
                     ) && (
                       <div className="row">

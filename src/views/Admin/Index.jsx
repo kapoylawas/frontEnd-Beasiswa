@@ -62,7 +62,7 @@ export default function Dashboard() {
       },
     }).then((response) => {
       //set data
-      setUsersByid(response.data.data);
+      setUsersByid(response.data.data.id);
       setStep(response.data.data.step);
     });
   }, []);
