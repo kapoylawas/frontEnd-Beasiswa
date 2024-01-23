@@ -109,7 +109,7 @@ export default function MahasiswaIndex() {
                     </h6>
                     <div className="d-grid">
                       <Link
-                        to="/admin/dispora/nonakademik"
+                        to="/admin/kesra"
                         className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
                       >
                         Daftar

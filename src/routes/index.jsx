@@ -21,6 +21,7 @@ import MahasiswaIndex from "../views/Admin/Mahasiswa/Index";
 import Akademik from "../views/Admin/Dispora/Akademik";
 import NonAkademik from "../views/Admin/Dispora/NonAkademik";
 import RiwayatIndex from "../views/Admin/Riwayat/Index";
+import KesraIndex from "../views/Admin/Kesra/Index";
 
 export default function RoutesIndex() {
   return (
@@ -106,6 +107,16 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <NonAkademik />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/kesra" */}
+      <Route
+        path="/admin/kesra"
+        element={
+          <PrivateRoutes>
+            <KesraIndex />
           </PrivateRoutes>
         }
       />
