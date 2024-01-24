@@ -73,6 +73,24 @@ export default function Dashboard() {
   const handleFileKtm = (e) => {
     const imageData = e.target.files[0];
 
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setKtm(imageData);
+      }
+    }
+
     if (!imageData.type.match("pdf.*")) {
       setKtm("");
 
@@ -92,6 +110,24 @@ export default function Dashboard() {
 
   const handleFileAktifKuliah = (e) => {
     const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setImageaktifkampus(imageData);
+      }
+    }
 
     if (!imageData.type.match("pdf.*")) {
       setImageaktifkampus("");
@@ -113,6 +149,24 @@ export default function Dashboard() {
   const handleFileSuratPernyataan = (e) => {
     const imageData = e.target.files[0];
 
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setImagesuratpernyataan(imageData);
+      }
+    }
+
     if (!imageData.type.match("pdf.*")) {
       setImagesuratpernyataan("");
 
@@ -132,6 +186,24 @@ export default function Dashboard() {
 
   const handleFileAkre = (e) => {
     const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setImageakrekampus(imageData);
+      }
+    }
 
     if (!imageData.type.match("pdf.*")) {
       setImageakrekampus("");
@@ -166,6 +238,7 @@ export default function Dashboard() {
   const updateUsers = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     const formData = new FormData();
     formData.append("nim", nim);
     formData.append("ktm", ktm);
@@ -437,7 +510,9 @@ export default function Dashboard() {
                 </div>
               ) : (
                 <div className="alert alert-danger" role="alert">
-                  Anda Sudah Menyelesaikan step 2 di Beasiswa Silahkan Ke Menu Mahasiswa Untuk Memilih SALAH SATU DARI BEBERAPA BEASISWA Kab.Sidoarjo
+                  Anda Sudah Menyelesaikan step 2 di Beasiswa Silahkan Ke Menu
+                  Mahasiswa Untuk Memilih SALAH SATU DARI BEBERAPA BEASISWA
+                  Kab.Sidoarjo
                 </div>
               )}
             </>
