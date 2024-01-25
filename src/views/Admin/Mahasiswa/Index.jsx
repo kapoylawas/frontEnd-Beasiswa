@@ -4,6 +4,8 @@ import LayoutAdmin from "../../../layouts/Admin";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
+//import component loading
+import Loading from "../../../components/general/Loading";
 
 export default function MahasiswaIndex() {
   document.title = "Dashboard - Beasiswa";
@@ -11,13 +13,14 @@ export default function MahasiswaIndex() {
   const [users, setUsers] = useState("");
   const [step, setStep] = useState("");
   const [tipeUniversitas, setTipeUniversitas] = useState("");
-  console.log(tipeUniversitas);
+  const [isLoading, setLoading] = useState(false);
 
   //token from cookies
   const token = Cookies.get("token");
 
   //hook useEffect
   useEffect(() => {
+    setLoading(true);
     //fetch api
     Api.get("/api/admin/users/byid", {
       //header
@@ -30,6 +33,7 @@ export default function MahasiswaIndex() {
       setUsers(response.data.data.status_pendaftar);
       setStep(response.data.data.step);
       setTipeUniversitas(response.data.data.pilih_universitas);
+      setLoading(false);
     });
   }, []);
 
@@ -52,7 +56,9 @@ export default function MahasiswaIndex() {
             </div>
           ) : (
             <div className="row">
-              {tipeUniversitas === "Luar" ? (
+              {isLoading ? (
+                <Loading />
+              ) : tipeUniversitas === "Luar" ? (
                 <div className="col-md-6 mb-4">
                   <div className="card border-0 rounded shadow-sm">
                     <div className="card-body text-center">
@@ -63,11 +69,11 @@ export default function MahasiswaIndex() {
                       />
                       <hr />
                       <h6 className="text-center mb-3 font-weight-bold text-dark">
-                        Beasiswa Disporapar Akademik.
+                        Beasiswa Disporapar Akademik Luar Negeri.
                       </h6>
                       <div className="d-grid">
                         <Link
-                          to="/admin/dispora/akademik"
+                          to="/admin/dispora/luarnegeri"
                           className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
                         >
                           Daftar

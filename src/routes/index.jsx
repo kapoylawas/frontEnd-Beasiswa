@@ -23,6 +23,7 @@ import NonAkademik from "../views/Admin/Dispora/NonAkademik";
 import RiwayatIndex from "../views/Admin/Riwayat/Index";
 import KesraIndex from "../views/Admin/Kesra/Index";
 import DinsosIndex from "../views/Admin/Dinsos/Index";
+import LuarNegeri from "../views/Admin/Dispora/LuarNegeri";
 
 export default function RoutesIndex() {
   return (
@@ -108,6 +109,15 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <NonAkademik />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/dispora/luarnegeri"
+        element={
+          <PrivateRoutes>
+            <LuarNegeri />
           </PrivateRoutes>
         }
       />
