@@ -17,6 +17,7 @@ export default function Dashboard() {
   const [nim, setNim] = useState("");
   const [ktm, setKtm] = useState("");
   const [universitas, setUniversitas] = useState("");
+  const [alamatuniv, setAlamatuniv] = useState("");
   const [jurusan, setJurusan] = useState("");
   const [imageaktifkampus, setImageaktifkampus] = useState("");
   const [imagesuratpernyataan, setImagesuratpernyataan] = useState("");
@@ -243,6 +244,7 @@ export default function Dashboard() {
     formData.append("nim", nim);
     formData.append("ktm", ktm);
     formData.append("universitas", universitas);
+    formData.append("alamat_univ", alamatuniv);
     formData.append("jurusan", jurusan);
     formData.append("imageaktifkampus", imageaktifkampus);
     formData.append("imagesuratpernyataan", imagesuratpernyataan);
@@ -376,6 +378,31 @@ export default function Dashboard() {
                               {errors.jurusan && (
                                 <div className="alert alert-danger">
                                   {errors.jurusan[0]}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Alamat Universitas
+                                </label>
+                                <textarea
+                                  type="text"
+                                  className="form-control"
+                                  value={alamatuniv}
+                                  onChange={(e) =>
+                                    setAlamatuniv(e.target.value)
+                                  }
+                                  placeholder="Enter Alamat Universitas"
+                                  rows="4" // Set the number of visible text lines
+                                  cols="50"
+                                />
+                              </div>
+                              {errors.alamat_univ && (
+                                <div className="alert alert-danger">
+                                  {errors.alamat_univ[0]}
                                 </div>
                               )}
                             </div>

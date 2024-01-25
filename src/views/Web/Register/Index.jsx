@@ -48,6 +48,24 @@ export default function Register() {
   const handleFileKtp = (e) => {
     const imageData = e.target.files[0];
 
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setKtp(imageData);
+      }
+    }
+
     if (!imageData.type.match("pdf.*")) {
       setKtp("");
 
@@ -67,6 +85,24 @@ export default function Register() {
 
   const handleFileKk = (e) => {
     const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setKk(imageData);
+      }
+    }
 
     if (!imageData.type.match("pdf.*")) {
       setKk("");
@@ -167,7 +203,7 @@ export default function Register() {
                     </div>
                     <div className="col-md-6">
                       <div className="mb-3">
-                        <label className="form-label fw-bold">NIK</label>
+                        <label className="form-label fw-bold">NIK/KTP-el</label>
                         <input
                           type="text"
                           className="form-control"
@@ -245,7 +281,7 @@ export default function Register() {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="mb-3">
-                        <label className="form-label fw-bold">Gender</label>
+                        <label className="form-label fw-bold">Jenis Kelamin</label>
                         <select
                           className="form-select"
                           value={gender}

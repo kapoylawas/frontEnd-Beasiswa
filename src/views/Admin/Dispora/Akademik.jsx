@@ -17,7 +17,6 @@ export default function Akademik() {
   const [ipk, setIpk] = useState("");
   const [semester, setSemester] = useState("");
   const [akreKampus, setAkreKampus] = useState("");
-  const [akreJurusan, setAkreJurusan] = useState("");
   const [progam, setProgam] = useState("");
   const [transkripNilai, setTranskripNilai] = useState("");
   const [hasilAkhir, setHasilAkhir] = useState("");
@@ -41,6 +40,11 @@ export default function Akademik() {
     setProgam(getType);
   };
 
+  const handleshowhideAkreditasi = (event) => {
+    const getType = event.target.value;
+    setAkreKampus(getType);
+  };
+
   const handleGPAChange = (event) => {
     setIpk(event.target.value);
   };
@@ -48,6 +52,24 @@ export default function Akademik() {
   // handle onchange transkrip nilai
   const handleFileTranskripNilai = (e) => {
     const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setTranskripNilai(imageData);
+      }
+    }
 
     if (!imageData.type.match("pdf.*")) {
       setTranskripNilai("");
@@ -69,6 +91,24 @@ export default function Akademik() {
   // handel onchange keterangan hasil akhir
   const handleHasilAkhir = (e) => {
     const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setHasilAkhir(imageData);
+      }
+    }
 
     if (!imageData.type.match("pdf.*")) {
       setHasilAkhir("");
@@ -109,7 +149,6 @@ export default function Akademik() {
     formData.append("ipk", ipk);
     formData.append("semester", semester);
     formData.append("akredetasi_kampus", akreKampus);
-    formData.append("akredetasi_jurusan", akreJurusan);
     formData.append("progam_pendidikan", progam);
     formData.append("imagetranskrip", transkripNilai);
     formData.append("imageketerangan", hasilAkhir);
@@ -191,7 +230,9 @@ export default function Akademik() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="mb-3">
-                            <label className="form-label fw-bold">IPK Minimum 3.4</label>
+                            <label className="form-label fw-bold">
+                              IPK Minimum 3.4 Harus Menggunakan titik (.)
+                            </label>
                             <input
                               type="number"
                               step="0.01"
@@ -220,14 +261,16 @@ export default function Akademik() {
                               onChange={handleshowhideSemester}
                             >
                               <option value="">-- Select Semester --</option>
-                              <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
                               <option value="4">4</option>
                               <option value="5">5</option>
                               <option value="6">6</option>
                               <option value="7">7</option>
-                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
                             </select>
                           </div>
                           {errors.semester && (
@@ -239,41 +282,27 @@ export default function Akademik() {
                       </div>
                       <div className="row"></div>
                       <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Akreditasi Kampus
+                              Akreditasi Universitas
                             </label>
-                            <input
-                              type="text"
-                              className="form-control"
+                            <select
+                              className="form-select"
                               value={akreKampus}
-                              onChange={(e) => setAkreKampus(e.target.value)}
-                              placeholder="Akreditasi Universitas"
-                            />
+                              onChange={handleshowhideAkreditasi}
+                            >
+                              <option value="">
+                                -- Select Akreditasi Universitas --
+                              </option>
+                              <option value="A">A</option>
+                              <option value="B">B</option>
+                              <option value="C">C</option>
+                            </select>
                           </div>
                           {errors.akredetasi_kampus && (
                             <div className="alert alert-danger">
                               {errors.akredetasi_kampus[0]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Akreditasi Jurusan
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={akreJurusan}
-                              onChange={(e) => setAkreJurusan(e.target.value)}
-                              placeholder="Akreditasi Jurusan"
-                            />
-                          </div>
-                          {errors.akredetasi_jurusan && (
-                            <div className="alert alert-danger">
-                              {errors.akredetasi_jurusan[0]}
                             </div>
                           )}
                         </div>

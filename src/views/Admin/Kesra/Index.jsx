@@ -33,6 +33,24 @@ export default function KesraIndex() {
   const handleFileSertifikat = (e) => {
     const imageData = e.target.files[0];
 
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setSertifikat(imageData);
+      }
+    }
+
     if (!imageData.type.match("pdf.*")) {
       setSertifikat("");
 
@@ -163,21 +181,17 @@ export default function KesraIndex() {
                             </option>
                             <option value="5">
                               Ustadz/ustadzah sebagai guru ngaji di TPA/TPQ/
-                              Madin : Surat Rekomendasi Kepala TPQ atau Madrasah
-                              Diniyah (Upload) dan nama ponpes, alamat ponpes
+                              Madin: Surat Rekomendasi Kepala TPQ atau Madrasah
                             </option>
                             <option value="6">
                               ajaran pengurus harian (Ketua, Wakil Ketua,
                               Sekretaris, Bendahara) aktifis organisasi
-                              keagamaan tingkat Kabupaten/ Kecamatan dan/ atau
-                              perguruan tinggi: 1. Nama Organisasi Keagamaan, 2.
-                              Alamat Organisasi Keagamaan, 3. SK dariPimpinan
+                              keagamaan tingkat Kabupaten/perguruan tinggi
                             </option>
                             <option value="7">
                               Khusus Non Muslim) tercatat sebagai
                               pengurus/aktifis atau mempunyai piagam kejuaraan
-                              bidang keagamaan: melampirkan rekomendasi dari
-                              pimpinan agama masing - masing
+                              bidang keagamaan
                             </option>
                           </select>
                         </div>

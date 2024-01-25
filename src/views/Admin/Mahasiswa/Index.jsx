@@ -10,6 +10,8 @@ export default function MahasiswaIndex() {
 
   const [users, setUsers] = useState("");
   const [step, setStep] = useState("");
+  const [tipeUniversitas, setTipeUniversitas] = useState("");
+  console.log(tipeUniversitas);
 
   //token from cookies
   const token = Cookies.get("token");
@@ -27,6 +29,7 @@ export default function MahasiswaIndex() {
       //set data
       setUsers(response.data.data.status_pendaftar);
       setStep(response.data.data.step);
+      setTipeUniversitas(response.data.data.pilih_universitas);
     });
   }, []);
 
@@ -49,98 +52,126 @@ export default function MahasiswaIndex() {
             </div>
           ) : (
             <div className="row">
-              <div className="col-md-6 mb-4">
-                <div className="card border-0 rounded shadow-sm">
-                  <div className="card-body text-center">
-                    <img
-                      src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
-                      className="rounded"
-                      style={{ width: "60px" }}
-                    />
-                    <hr />
-                    <h6 className="text-center mb-3 font-weight-bold text-dark">
-                      Beasiswa Disporapar Akademik.
-                    </h6>
-                    <div className="d-grid">
-                      <Link
-                        to="/admin/dispora/akademik"
-                        className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
-                      >
-                        Daftar
-                      </Link>
+              {tipeUniversitas === "Luar" ? (
+                <div className="col-md-6 mb-4">
+                  <div className="card border-0 rounded shadow-sm">
+                    <div className="card-body text-center">
+                      <img
+                        src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
+                        className="rounded"
+                        style={{ width: "60px" }}
+                      />
+                      <hr />
+                      <h6 className="text-center mb-3 font-weight-bold text-dark">
+                        Beasiswa Disporapar Akademik.
+                      </h6>
+                      <div className="d-grid">
+                        <Link
+                          to="/admin/dispora/akademik"
+                          className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
+                        >
+                          Daftar
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-md-6 mb-4">
-                <div className="card border-0 rounded shadow-sm">
-                  <div className="card-body text-center">
-                    <img
-                      src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
-                      className="rounded"
-                      style={{ width: "60px" }}
-                    />
-                    <hr />
-                    <h6 className="text-center mb-3 font-weight-bold text-dark">
-                      Beasiswa Disporapar Non Akademik.
-                    </h6>
-                    <div className="d-grid">
-                      <Link
-                        to="/admin/dispora/nonakademik"
-                        className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
-                      >
-                        Daftar
-                      </Link>
+              ) : (
+                <>
+                  <div className="col-md-6 mb-4">
+                    <div className="card border-0 rounded shadow-sm">
+                      <div className="card-body text-center">
+                        <img
+                          src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
+                          className="rounded"
+                          style={{ width: "60px" }}
+                        />
+                        <hr />
+                        <h6 className="text-center mb-3 font-weight-bold text-dark">
+                          Beasiswa Disporapar Akademik.
+                        </h6>
+                        <div className="d-grid">
+                          <Link
+                            to="/admin/dispora/akademik"
+                            className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
+                          >
+                            Daftar
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="col-md-6 mb-4">
-                <div className="card border-0 rounded shadow-sm">
-                  <div className="card-body text-center">
-                    <img
-                      src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
-                      className="rounded"
-                      style={{ width: "60px" }}
-                    />
-                    <hr />
-                    <h6 className="text-center mb-3 font-weight-bold text-dark">
-                      Beasiswa Kesra.
-                    </h6>
-                    <div className="d-grid">
-                      <Link
-                        to="/admin/kesra"
-                        className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
-                      >
-                        Daftar
-                      </Link>
+                  <div className="col-md-6 mb-4">
+                    <div className="card border-0 rounded shadow-sm">
+                      <div className="card-body text-center">
+                        <img
+                          src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
+                          className="rounded"
+                          style={{ width: "60px" }}
+                        />
+                        <hr />
+                        <h6 className="text-center mb-3 font-weight-bold text-dark">
+                          Beasiswa Disporapar Non Akademik.
+                        </h6>
+                        <div className="d-grid">
+                          <Link
+                            to="/admin/dispora/nonakademik"
+                            className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
+                          >
+                            Daftar
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="col-md-6 mb-4">
-                <div className="card border-0 rounded shadow-sm">
-                  <div className="card-body text-center">
-                    <img
-                      src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
-                      className="rounded"
-                      style={{ width: "60px" }}
-                    />
-                    <hr />
-                    <h6 className="text-center mb-3 font-weight-bold text-dark">
-                      Beasiswa Dinsos.
-                    </h6>
-                    <div className="d-grid">
-                      <Link
-                        to="/admin/dinsos"
-                        className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
-                      >
-                        Daftar
-                      </Link>
+                  <div className="col-md-6 mb-4">
+                    <div className="card border-0 rounded shadow-sm">
+                      <div className="card-body text-center">
+                        <img
+                          src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
+                          className="rounded"
+                          style={{ width: "60px" }}
+                        />
+                        <hr />
+                        <h6 className="text-center mb-3 font-weight-bold text-dark">
+                          Beasiswa Kesra.
+                        </h6>
+                        <div className="d-grid">
+                          <Link
+                            to="/admin/kesra"
+                            className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
+                          >
+                            Daftar
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                  <div className="col-md-6 mb-4">
+                    <div className="card border-0 rounded shadow-sm">
+                      <div className="card-body text-center">
+                        <img
+                          src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
+                          className="rounded"
+                          style={{ width: "60px" }}
+                        />
+                        <hr />
+                        <h6 className="text-center mb-3 font-weight-bold text-dark">
+                          Beasiswa Dinsos.
+                        </h6>
+                        <div className="d-grid">
+                          <Link
+                            to="/admin/dinsos"
+                            className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
+                          >
+                            Daftar
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           )}
         </div>

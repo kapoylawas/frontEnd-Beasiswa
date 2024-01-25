@@ -28,6 +28,24 @@ export default function DinsosIndex() {
   const handleFileSertifikat = (e) => {
     const imageData = e.target.files[0];
 
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setSertifikat(imageData);
+      }
+    }
+
     if (!imageData.type.match("pdf.*")) {
       setSertifikat("");
 
@@ -137,7 +155,7 @@ export default function DinsosIndex() {
                         )}
                       </div>
                     </div>
-                    {["1"].includes(selectedSertifikat) && (
+                    {["2"].includes(selectedSertifikat) && (
                       <div className="row">
                         <div className="col-md-12">
                           <div className="mb-3">

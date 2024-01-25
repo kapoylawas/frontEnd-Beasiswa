@@ -16,7 +16,6 @@ export default function NonAkademik() {
 
   const [semester, setSemester] = useState("");
   const [akreKampus, setAkreKampus] = useState("");
-  const [akreJurusan, setAkreJurusan] = useState("");
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
   const [sertifikat, setSertifikat] = useState("");
   const [tahun, setTahun] = useState("");
@@ -37,8 +36,31 @@ export default function NonAkademik() {
     setTahun(event.target.value);
   };
 
+  const handleshowhideAkreditasi = (event) => {
+    const getType = event.target.value;
+    setAkreKampus(getType);
+  };
+
   const handleFileSertifikat = (e) => {
     const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setSertifikat(imageData);
+      }
+    }
 
     if (!imageData.type.match("pdf.*")) {
       setSertifikat("");
@@ -79,11 +101,10 @@ export default function NonAkademik() {
       );
       setLoading(false);
       return;
-    };
+    }
     const formData = new FormData();
     formData.append("semester", semester);
     formData.append("akredetasi_kampus", akreKampus);
-    formData.append("akredetasi_jurusan", akreJurusan);
     formData.append("jenis_sertifikat", selectedSertifikat);
     formData.append("imagesertifikat", sertifikat);
     formData.append("tahun", tahun);
@@ -165,41 +186,27 @@ export default function NonAkademik() {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-6">
+                      <div className="col-md-12">
                         <div className="mb-3">
                           <label className="form-label fw-bold">
                             Akreditasi Kampus
                           </label>
-                          <input
-                            type="text"
-                            className="form-control"
+                          <select
+                            className="form-select"
                             value={akreKampus}
-                            onChange={(e) => setAkreKampus(e.target.value)}
-                            placeholder="Akreditasi Universitas"
-                          />
+                            onChange={handleshowhideAkreditasi}
+                          >
+                            <option value="">
+                              -- Select Akreditasi Universitas --
+                            </option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                          </select>
                         </div>
                         {errors.akredetasi_kampus && (
                           <div className="alert alert-danger">
                             {errors.akredetasi_kampus[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Akreditasi Jurusan
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={akreJurusan}
-                            onChange={(e) => setAkreJurusan(e.target.value)}
-                            placeholder="Akreditasi Jurusan"
-                          />
-                        </div>
-                        {errors.akredetasi_jurusan && (
-                          <div className="alert alert-danger">
-                            {errors.akredetasi_jurusan[0]}
                           </div>
                         )}
                       </div>
