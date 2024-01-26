@@ -20,6 +20,7 @@ export default function Akademik() {
   const [progam, setProgam] = useState("");
   const [transkripNilai, setTranskripNilai] = useState("");
   const [hasilAkhir, setHasilAkhir] = useState("");
+  const [banpt, setBanpt] = useState("");
   const [isLoading, setLoading] = useState(false);
 
   const [users, setUsers] = useState("");
@@ -127,6 +128,44 @@ export default function Akademik() {
     setHasilAkhir(imageData);
   };
 
+  const handleFileBanpt = (e) => {
+    const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setBanpt(imageData);
+      }
+    }
+
+    if (!imageData.type.match("pdf.*")) {
+      setBanpt("");
+
+      toast.error("Format File Bukti BANPT Tidak Cocok Harus PDF", {
+        duration: 5000,
+        position: "top-center",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+      return;
+    }
+    setBanpt(imageData);
+  };
+
   const storeAkademik = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -152,6 +191,7 @@ export default function Akademik() {
     formData.append("progam_pendidikan", progam);
     formData.append("imagetranskrip", transkripNilai);
     formData.append("imageketerangan", hasilAkhir);
+    formData.append("imagebanpt", banpt);
 
     await Api.post("/api/admin/akademiks", formData, {
       //header
@@ -267,6 +307,7 @@ export default function Akademik() {
                               <option value="5">5</option>
                               <option value="6">6</option>
                               <option value="7">7</option>
+                              <option value="8">8</option>
                               <option value="9">9</option>
                               <option value="10">10</option>
                               <option value="11">11</option>
@@ -303,6 +344,26 @@ export default function Akademik() {
                           {errors.akredetasi_kampus && (
                             <div className="alert alert-danger">
                               {errors.akredetasi_kampus[0]}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              Bukti Akredetasi Dari BANPT
+                              PDF dan Maksimal 2MB
+                            </label>
+                            <input
+                              type="file"
+                              className="form-control"
+                              onChange={handleFileBanpt}
+                            />
+                          </div>
+                          {errors.imagebanpt && (
+                            <div className="alert alert-danger">
+                              {errors.imagebanpt[0]}
                             </div>
                           )}
                         </div>

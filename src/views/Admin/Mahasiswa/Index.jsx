@@ -94,7 +94,7 @@ export default function MahasiswaIndex() {
                         />
                         <hr />
                         <h6 className="text-center mb-3 font-weight-bold text-dark">
-                          Beasiswa Disporapar Akademik.
+                        Beasiswa prestasi bidang akademik.
                         </h6>
                         <div className="d-grid">
                           <Link
@@ -117,7 +117,7 @@ export default function MahasiswaIndex() {
                         />
                         <hr />
                         <h6 className="text-center mb-3 font-weight-bold text-dark">
-                          Beasiswa Disporapar Non Akademik.
+                          Beasiswa prestasi bidang non akademik.
                         </h6>
                         <div className="d-grid">
                           <Link
@@ -140,7 +140,7 @@ export default function MahasiswaIndex() {
                         />
                         <hr />
                         <h6 className="text-center mb-3 font-weight-bold text-dark">
-                          Beasiswa Kesra.
+                          Beasiswa bidang keagaaman.
                         </h6>
                         <div className="d-grid">
                           <Link
@@ -163,7 +163,7 @@ export default function MahasiswaIndex() {
                         />
                         <hr />
                         <h6 className="text-center mb-3 font-weight-bold text-dark">
-                          Beasiswa Dinsos.
+                          Beasiswa mahasiwa kurang mampu.
                         </h6>
                         <div className="d-grid">
                           <Link

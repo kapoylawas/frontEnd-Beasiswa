@@ -168,7 +168,6 @@ export default function NonAkademik() {
                             onChange={handleshowhideSemester}
                           >
                             <option value="">-- Select Semester --</option>
-                            <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
@@ -176,6 +175,10 @@ export default function NonAkademik() {
                             <option value="6">6</option>
                             <option value="7">7</option>
                             <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
                           </select>
                         </div>
                         {errors.semester && (
@@ -215,8 +218,13 @@ export default function NonAkademik() {
                       <div className="col-md-12">
                         <div className="mb-3">
                           <label className="form-label fw-bold">
-                            Sertifikat /Piagam/Surat Keterangan sesuai Prestasi
-                            Bidang yang di isi pendaftar{" "}
+                            Sertifikat /Piagam/Surat Keterangan prestasi bidang
+                            ilmu pengetahuan, teknologi, kebudayaan, olahraga,
+                            sosial, kemanusiaan, lingkungan, dan nasionalisme
+                            tingkat Internasional, Nasional, Provinsi, dan
+                            Kabupaten yang dibuktikan dengan sertifikat, piagam,
+                            surat keterangan dan/atau bentuk lain yang
+                            dipersamakan
                           </label>
                           <select
                             className="form-select"
