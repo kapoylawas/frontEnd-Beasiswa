@@ -11,7 +11,9 @@ export default function RiwayatIndex() {
   return (
     <LayoutAdmin>
       <main>
-        <div className="container-fluid mb-5 mt-5"></div>
+        <div className="container-fluid mb-5 mt-5">
+          
+        </div>
       </main>
     </LayoutAdmin>
   );

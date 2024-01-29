@@ -140,7 +140,7 @@ export default function MahasiswaIndex() {
                         />
                         <hr />
                         <h6 className="text-center mb-3 font-weight-bold text-dark">
-                          Beasiswa bidang keagaaman.
+                        Beasiswa Prestasi Bidang Keagamaan.
                         </h6>
                         <div className="d-grid">
                           <Link

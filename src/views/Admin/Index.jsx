@@ -24,6 +24,7 @@ export default function Dashboard() {
   const [imageakrekampus, setImageakrekampus] = useState("");
   const [pilihuniversitas, setPilihuniversitas] = useState("");
   const [jenisuniversitas, setJenisuniversitas] = useState("");
+  const [jeniskota, setJeniskota] = useState("");
 
   const [isLoading, setLoading] = useState(false);
 
@@ -234,6 +235,11 @@ export default function Dashboard() {
   const handleshowhideJenis = (event) => {
     const getType = event.target.value;
     setJenisuniversitas(getType);
+  };
+
+  const handleshowKota = (event) => {
+    const getType = event.target.value;
+    setJeniskota(getType);
   };
 
   const updateUsers = async (e) => {
@@ -487,33 +493,62 @@ export default function Dashboard() {
                             )}
                           </div>
                           {pilihuniversitas === "Dalam" && (
-                            <div className="col-md-12">
-                              <div className="mb-3">
-                                <label className="form-label fw-bold">
-                                  Pilih Universitas Negeri / Swasta
-                                </label>
-                                <select
-                                  className="form-select"
-                                  value={jenisuniversitas}
-                                  onChange={handleshowhideJenis}
-                                >
-                                  <option value="">
-                                    -- Pilih Universitas PTN / PTS --
-                                  </option>
-                                  <option value="Negeri">
-                                    PTN (Perguruan Tinggi Negeri)
-                                  </option>
-                                  <option value="Swasta">
-                                    PTS (Perguruan Tinggi Swasta)
-                                  </option>
-                                </select>
-                              </div>
-                              {errors.jenis_universitas && (
-                                <div className="alert alert-danger">
-                                  {errors.jenis_universitas[0]}
+                            <>
+                              <div className="col-md-12">
+                                <div className="mb-3">
+                                  <label className="form-label fw-bold">
+                                    Pilih Sidoarjo atau Luar Sidoarjo
+                                  </label>
+                                  <select
+                                    className="form-select"
+                                    value={jenisuniversitas}
+                                    onChange={handleshowKota}
+                                  >
+                                    <option value="">
+                                      -- Pilih Sidoarjo atau Luar Sidoarjo --
+                                    </option>
+                                    <option value="sidoarjo">
+                                      Sidoarjo
+                                    </option>
+                                    <option value="luar">
+                                      Luar Sidoarjo
+                                    </option>
+                                  </select>
                                 </div>
-                              )}
-                            </div>
+                                {errors.jenis_universitas && (
+                                  <div className="alert alert-danger">
+                                    {errors.jenis_universitas[0]}
+                                  </div>
+                                )}
+                              </div>
+                              <div className="col-md-12">
+                                <div className="mb-3">
+                                  <label className="form-label fw-bold">
+                                    Pilih Universitas Negeri / Swasta
+                                  </label>
+                                  <select
+                                    className="form-select"
+                                    value={jenisuniversitas}
+                                    onChange={handleshowhideJenis}
+                                  >
+                                    <option value="">
+                                      -- Pilih Universitas PTN / PTS --
+                                    </option>
+                                    <option value="Negeri">
+                                      PTN (Perguruan Tinggi Negeri)
+                                    </option>
+                                    <option value="Swasta">
+                                      PTS (Perguruan Tinggi Swasta)
+                                    </option>
+                                  </select>
+                                </div>
+                                {errors.jenis_universitas && (
+                                  <div className="alert alert-danger">
+                                    {errors.jenis_universitas[0]}
+                                  </div>
+                                )}
+                              </div>
+                            </>
                           )}
                           <div className="d-flex justify-content-center">
                             <button

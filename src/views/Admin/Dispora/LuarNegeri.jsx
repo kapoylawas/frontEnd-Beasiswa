@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Api from "../../../services/Api";
 //import js cookie
 import Cookies from "js-cookie";
+import ModalLuarNegeri from "../../../components/general/ModalLuarNegeri";
 
 export default function LuarNegeri() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
@@ -16,8 +17,8 @@ export default function LuarNegeri() {
 
   const [ipk, setIpk] = useState("");
   const [transkrip, setTranskrip] = useState("");
+  const [imageipk, setImageipk] = useState("");
   const [isLoading, setLoading] = useState(false);
-
 
   //token from cookies
   const token = Cookies.get("token");
@@ -26,6 +27,88 @@ export default function LuarNegeri() {
   const [step, setStep] = useState("");
 
   const [errors, setErros] = useState([]);
+
+  const handleFileTranskip = (e) => {
+    const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setTranskrip(imageData);
+      }
+    }
+
+    if (!imageData.type.match("pdf.*")) {
+      setTranskrip("");
+
+      toast.error(
+        "Format File Bukti Perguruan Tinggi yang diakui oleh Kementerian Pendidikan Tidak Cocok Harus PDF",
+        {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        }
+      );
+      return;
+    }
+    setTranskrip(imageData);
+  };
+
+  const handleFileIpk = (e) => {
+    const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setImageipk(imageData);
+      }
+    }
+
+    if (!imageData.type.match("pdf.*")) {
+      setImageipk("");
+
+      toast.error(
+        "Format File Transkip Nilai IPK Tidak Cocok Harus PDF",
+        {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        }
+      );
+      return;
+    }
+    setImageipk(imageData);
+  };
 
   //hook useEffect
   useEffect(() => {
@@ -43,9 +126,45 @@ export default function LuarNegeri() {
     });
   }, []);
 
+  const storeLuarNegeri = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("ipk", ipk);
+    formData.append("imagetranskrip", transkrip);
+    formData.append("imageipk", imageipk);
+    
+    await Api.post("/api/admin/luarnegeri", formData, {
+      //header
+      headers: {
+        //header
+        "content-type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        setLoading(false);
+        //show toast
+        toast.success(response.data.message, {
+          position: "top-right",
+          duration: 4000,
+        });
+
+        //redirect
+        navigate("/admin/mahasiswa");
+      })
+      .catch((error) => {
+        //set error message to state "errors"
+        setLoading(false);
+        setErros(error.response.data);
+      });
+  };
+
   return (
     <LayoutAdmin>
       <main>
+        <ModalLuarNegeri />
         <div className="container-fluid mb-5 mt-5">
           <div className="col-md-3 col-12 mb-2">
             <Link
@@ -74,16 +193,16 @@ export default function LuarNegeri() {
                       Akademik
                     </h6>
                     <hr />
-                    <form>
+                    <form onSubmit={storeLuarNegeri}>
                       <div className="row">
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Indeks Prestasi Kumulatif (IPK) / Grade Point
+                              Indeks Prestasi Kumulatif (IPK Menggunakan TITIK .) / Grade Point
                               Average (GPA) / Yang dipersamakan
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               className="form-control"
                               value={ipk}
                               onChange={(e) => setIpk(e.target.value)}
@@ -107,13 +226,12 @@ export default function LuarNegeri() {
                             <input
                               type="file"
                               className="form-control"
-                              value={transkrip}
-                              onChange={(e) => setTranskrip(e.target.value)}
+                              onChange={handleFileIpk}
                             />
                           </div>
-                          {errors.ipk && (
+                          {errors.imageipk && (
                             <div className="alert alert-danger">
-                              {errors.ipk[0]}
+                              {errors.imageipk[0]}
                             </div>
                           )}
                         </div>
@@ -123,20 +241,25 @@ export default function LuarNegeri() {
                           <div className="mb-3">
                             <label className="form-label fw-bold">
                               Perguruan Tinggi yang diakui oleh Kementerian
-                              Pendidikan, Kebudayaan, Riset dan Teknologi Pada link berikut ini : (Upload Screenshoot)
+                              Pendidikan, Kebudayaan, Riset dan Teknologi Pada
+                              link berikut ini : (Upload Screenshoot)
                               <br />
-                              <a target="_blank" href="https://ijazahln.kemdikbud.go.id/ijazahln/pencarian/pencarian-pt.html">https://ijazahln.kemdikbud.go.id/ijazahln/pencarian/pencarian-pt.html</a>
+                              <a
+                                target="_blank"
+                                href="https://ijazahln.kemdikbud.go.id/ijazahln/pencarian/pencarian-pt.html"
+                              >
+                                https://ijazahln.kemdikbud.go.id/ijazahln/pencarian/pencarian-pt.html
+                              </a>
                             </label>
                             <input
                               type="file"
                               className="form-control"
-                              value={transkrip}
-                              onChange={(e) => setTranskrip(e.target.value)}
+                              onChange={handleFileTranskip}
                             />
                           </div>
-                          {errors.ipk && (
+                          {errors.imagetranskrip && (
                             <div className="alert alert-danger">
-                              {errors.ipk[0]}
+                              {errors.imagetranskrip[0]}
                             </div>
                           )}
                         </div>

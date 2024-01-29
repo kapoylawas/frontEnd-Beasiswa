@@ -24,6 +24,10 @@ import RiwayatIndex from "../views/Admin/Riwayat/Index";
 import KesraIndex from "../views/Admin/Kesra/Index";
 import DinsosIndex from "../views/Admin/Dinsos/Index";
 import LuarNegeri from "../views/Admin/Dispora/LuarNegeri";
+import KeagamanA from "../views/Admin/Kesra/KeagamaanA";
+import KeagamanB from "../views/Admin/Kesra/KeagamaanB";
+import KeagamanC from "../views/Admin/Kesra/KeagamaanC";
+import KeagamanD from "../views/Admin/Kesra/KeagamaanD";
 
 export default function RoutesIndex() {
   return (
@@ -128,6 +132,42 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <KesraIndex />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/kesra/a"
+        element={
+          <PrivateRoutes>
+            <KeagamanA />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/kesra/b"
+        element={
+          <PrivateRoutes>
+            <KeagamanB />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/kesra/c"
+        element={
+          <PrivateRoutes>
+            <KeagamanC />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/kesra/d"
+        element={
+          <PrivateRoutes>
+            <KeagamanD />
           </PrivateRoutes>
         }
       />
