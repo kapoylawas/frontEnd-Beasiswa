@@ -336,6 +336,9 @@ export default function Akademik() {
                               <option value="">
                                 -- Select Akreditasi Universitas --
                               </option>
+                              <option value="1">Unggul</option>
+                              <option value="2">Baik Sekali</option>
+                              <option value="3">Baik</option>
                               <option value="A">A</option>
                               <option value="B">B</option>
                               <option value="C">C</option>

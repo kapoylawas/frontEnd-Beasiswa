@@ -86,15 +86,16 @@ export default function KeagamanA() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        }
+        },
       );
       setLoading(false);
       return;
-    };
+    }
     const formData = new FormData();
     formData.append("tipe_sertifikat", selectedSertifikat);
     formData.append("imagesertifikat", sertifikat);
     formData.append("tahun", tahun);
+    formData.append("tipe_kesra", 1);
 
     await Api.post("/api/admin/kesra", formData, {
       //header
@@ -129,8 +130,8 @@ export default function KeagamanA() {
         <div className="container-fluid mb-5 mt-5">
           <div className="col-md-3 col-12 mb-2">
             <Link
-              to="/admin/mahasiswa"
-              className="btn btn-md btn-primary border-0 shadow w-100"
+              to="/admin/kesra"
+              className="btn btn-md btn-primary w-100 border-0 shadow"
               type="button"
             >
               <i className="fa-solid fa-backward"></i> Kembali
@@ -138,7 +139,7 @@ export default function KeagamanA() {
           </div>
           <div className="row">
             <div className="col-md-12">
-              <div className="card border-0 rounded shadow-sm border-top-success">
+              <div className="card border-top-success rounded border-0 shadow-sm">
                 <div className="card-body">
                   <h6>
                     <i className="fa fa-shield-alt"></i> Beasiswa Kesra
@@ -168,31 +169,6 @@ export default function KeagamanA() {
                               Pernah mengikuti kejuaraan MTQ : Sertifikat / SK
                               (Uload)
                             </option>
-                            <option value="3">
-                              {" "}
-                              Prestasi lain di bidang keagamaan : sertifikat
-                              atau surat keterangan dan/atau bentuk lain yang
-                              dipersamakan (Upload)
-                            </option>
-                            <option value="4">
-                              Santriwan dan Santriwati yang berkuliah dan
-                              menetap di Pondok Pesantren : Surat Ket Ponpes
-                              (Upload)
-                            </option>
-                            <option value="5">
-                              Ustadz/ustadzah sebagai guru ngaji di TPA/TPQ/
-                              Madin: Surat Rekomendasi Kepala TPQ atau Madrasah
-                            </option>
-                            <option value="6">
-                              ajaran pengurus harian (Ketua, Wakil Ketua,
-                              Sekretaris, Bendahara) aktifis organisasi
-                              keagamaan tingkat Kabupaten/perguruan tinggi
-                            </option>
-                            <option value="7">
-                              Khusus Non Muslim) tercatat sebagai
-                              pengurus/aktifis atau mempunyai piagam kejuaraan
-                              bidang keagamaan
-                            </option>
                           </select>
                         </div>
                         {errors.tipe_sertifikat && (
@@ -202,14 +178,14 @@ export default function KeagamanA() {
                         )}
                       </div>
                     </div>
-                    {["1", "2", "3", "4", "5", "6", "7"].includes(
-                      selectedSertifikat
+                    {["1", "2"].includes(
+                      selectedSertifikat,
                     ) && (
                       <div className="row">
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Upload Berkas Sertifikat Sesuai yang dipilih PDF
+                              Upload sertifikat atau surat keterangan dan/atau bentuk lain yang dipersamakan PDF
                               dan Maksimal 2MB
                             </label>
                             <input
