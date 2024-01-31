@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Api from "../../../services/Api";
 //import js cookie
 import Cookies from "js-cookie";
+import ModalAkredetasi from "../../../components/general/ModalAkredetasi";
 
 export default function Akademik() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
@@ -19,7 +20,7 @@ export default function Akademik() {
   const [akreKampus, setAkreKampus] = useState("");
   const [progam, setProgam] = useState("");
   const [transkripNilai, setTranskripNilai] = useState("");
-  const [hasilAkhir, setHasilAkhir] = useState("");
+  // const [hasilAkhir, setHasilAkhir] = useState("");
   const [banpt, setBanpt] = useState("");
   const [isLoading, setLoading] = useState(false);
 
@@ -90,43 +91,43 @@ export default function Akademik() {
   };
 
   // handel onchange keterangan hasil akhir
-  const handleHasilAkhir = (e) => {
-    const imageData = e.target.files[0];
+  // const handleHasilAkhir = (e) => {
+  //   const imageData = e.target.files[0];
 
-    if (imageData) {
-      const maxSize = 2 * 1024 * 1024; // 2MB
+  //   if (imageData) {
+  //     const maxSize = 2 * 1024 * 1024; // 2MB
 
-      if (imageData.size > maxSize) {
-        toast.error("Ukuran file melebihi batas (2MB)", {
-          duration: 5000,
-          position: "top-center",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      } else {
-        setHasilAkhir(imageData);
-      }
-    }
+  //     if (imageData.size > maxSize) {
+  //       toast.error("Ukuran file melebihi batas (2MB)", {
+  //         duration: 5000,
+  //         position: "top-center",
+  //         style: {
+  //           borderRadius: "10px",
+  //           background: "#333",
+  //           color: "#fff",
+  //         },
+  //       });
+  //     } else {
+  //       setHasilAkhir(imageData);
+  //     }
+  //   }
 
-    if (!imageData.type.match("pdf.*")) {
-      setHasilAkhir("");
+  //   if (!imageData.type.match("pdf.*")) {
+  //     setHasilAkhir("");
 
-      toast.error("Format File Keterangan/Hasil Akhir Tidak Cocok Harus PDF", {
-        duration: 5000,
-        position: "top-center",
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
-      });
-      return;
-    }
-    setHasilAkhir(imageData);
-  };
+  //     toast.error("Format File Keterangan/Hasil Akhir Tidak Cocok Harus PDF", {
+  //       duration: 5000,
+  //       position: "top-center",
+  //       style: {
+  //         borderRadius: "10px",
+  //         background: "#333",
+  //         color: "#fff",
+  //       },
+  //     });
+  //     return;
+  //   }
+  //   setHasilAkhir(imageData);
+  // };
 
   const handleFileBanpt = (e) => {
     const imageData = e.target.files[0];
@@ -190,7 +191,7 @@ export default function Akademik() {
     formData.append("akredetasi_kampus", akreKampus);
     formData.append("progam_pendidikan", progam);
     formData.append("imagetranskrip", transkripNilai);
-    formData.append("imageketerangan", hasilAkhir);
+    // formData.append("imageketerangan", hasilAkhir);
     formData.append("imagebanpt", banpt);
 
     await Api.post("/api/admin/akademiks", formData, {
@@ -238,6 +239,7 @@ export default function Akademik() {
   return (
     <LayoutAdmin>
       <main>
+        <ModalAkredetasi />
         <div className="container-fluid mb-5 mt-5">
           <div className="col-md-3 col-12 mb-2">
             <Link
@@ -356,7 +358,21 @@ export default function Akademik() {
                           <div className="mb-3">
                             <label className="form-label fw-bold">
                               Bukti Akredetasi Dari BANPT
-                              PDF dan Maksimal 2MB
+                              PDF dan Maksimal 2MB (Upload Screenshoot) Link DIBAWAH :
+                              <br />
+                              <a
+                                target="_blank"
+                                href="https://www.banpt.or.id/bianglala/bianglala.php"
+                              >
+                                https://www.banpt.or.id/bianglala/bianglala.php
+                              </a>
+                              <br />
+                              <a
+                                target="_blank"
+                                href="https://www.banpt.or.id/direktori/institusi/pencarian_institusi.php"
+                              >
+                                https://www.banpt.or.id/direktori/institusi/pencarian_institusi.php
+                              </a>
                             </label>
                             <input
                               type="file"
@@ -419,7 +435,7 @@ export default function Akademik() {
                           )}
                         </div>
                       </div>
-                      <div className="row">
+                      {/* <div className="row">
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
@@ -437,7 +453,7 @@ export default function Akademik() {
                             </div>
                           )}
                         </div>
-                      </div>
+                      </div> */}
                       <div className="d-flex justify-content-center">
                         <button
                           type="submit"

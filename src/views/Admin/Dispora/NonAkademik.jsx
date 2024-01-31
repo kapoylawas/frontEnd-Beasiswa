@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
+import ModalAkredetasi from "../../../components/general/ModalAkredetasi";
 
 export default function NonAkademik() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
@@ -20,6 +21,7 @@ export default function NonAkademik() {
   const [sertifikat, setSertifikat] = useState("");
   const [tahun, setTahun] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const [transkripNilai, setTranskripNilai] = useState("");
 
   const handleSelectChange = (event) => {
     setSelectedSertifikat(event.target.value);
@@ -79,6 +81,44 @@ export default function NonAkademik() {
     setSertifikat(imageData);
   };
 
+  const handleFileTranskripNilai = (e) => {
+    const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setTranskripNilai(imageData);
+      }
+    }
+
+    if (!imageData.type.match("pdf.*")) {
+      setTranskripNilai("");
+
+      toast.error("Format File Transkrip Nilai Tidak Cocok Harus PDF", {
+        duration: 5000,
+        position: "top-center",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+      return;
+    }
+    setTranskripNilai(imageData);
+  };
+
   const storeNonAkademik = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -107,6 +147,7 @@ export default function NonAkademik() {
     formData.append("akredetasi_kampus", akreKampus);
     formData.append("jenis_sertifikat", selectedSertifikat);
     formData.append("imagesertifikat", sertifikat);
+    formData.append("imageakredetasi", transkripNilai);
     formData.append("tahun", tahun);
 
     await Api.post("/api/admin/nonakademiks", formData, {
@@ -138,6 +179,7 @@ export default function NonAkademik() {
   return (
     <LayoutAdmin>
       <main>
+        <ModalAkredetasi />
         <div className="container-fluid mb-5 mt-5">
           <div className="col-md-3 col-12 mb-2">
             <Link
@@ -202,6 +244,9 @@ export default function NonAkademik() {
                             <option value="">
                               -- Select Akreditasi Universitas --
                             </option>
+                            <option value="1">Unggul</option>
+                            <option value="2">Baik Sekali</option>
+                            <option value="3">Baik</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>
@@ -210,6 +255,40 @@ export default function NonAkademik() {
                         {errors.akredetasi_kampus && (
                           <div className="alert alert-danger">
                             {errors.akredetasi_kampus[0]}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            Bukti Akredetasi Dari BANPT PDF dan Maksimal 2MB
+                            (Upload Screenshoot) Link DIBAWAH :
+                            <br />
+                            <a
+                              target="_blank"
+                              href="https://www.banpt.or.id/bianglala/bianglala.php"
+                            >
+                              https://www.banpt.or.id/bianglala/bianglala.php
+                            </a>
+                            <br />
+                            <a
+                              target="_blank"
+                              href="https://www.banpt.or.id/direktori/institusi/pencarian_institusi.php"
+                            >
+                              https://www.banpt.or.id/direktori/institusi/pencarian_institusi.php
+                            </a>
+                          </label>
+                          <input
+                            type="file"
+                            className="form-control"
+                            onChange={handleFileTranskripNilai}
+                          />
+                        </div>
+                        {errors.imageakredetasi && (
+                          <div className="alert alert-danger">
+                            {errors.imageakredetasi[0]}
                           </div>
                         )}
                       </div>
