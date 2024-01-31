@@ -19,7 +19,7 @@ export default function ModalAkredetasi() {
         <Modal.Body>
           <p>
             <img
-              src={"/public/images/dalam_negeri.png"}
+              src={"/images/dalam_negeri.png"}
               width={"475"}
               height={"320"}
             />

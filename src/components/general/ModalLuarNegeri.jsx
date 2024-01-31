@@ -19,7 +19,7 @@ export default function ModalLuarNegeri() {
         <Modal.Body>
           <p>
             <img
-              src={"/public/images/luar_negeri.png"}
+              src={"/images/luar_negeri.png"}
               width={"475"}
               height={"320"}
             />
