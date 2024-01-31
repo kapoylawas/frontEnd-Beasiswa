@@ -342,7 +342,7 @@ export default function RiwayatIndex() {
                               <iframe
                                 src={dataNonAkademik.imageakrekampus}
                                 title="Embedded Content"
-                                width="480"
+                                className="embed-responsive-item"
                                 height="400"
                                 allowFullScreen
                               />
@@ -356,7 +356,7 @@ export default function RiwayatIndex() {
                               <iframe
                                 src={dataNonAkademik.imageaktifkampus}
                                 title="Embedded Content"
-                                width="480"
+                                className="embed-responsive-item"
                                 height="400"
                                 allowFullScreen
                               />
@@ -372,7 +372,7 @@ export default function RiwayatIndex() {
                               <iframe
                                 src={dataNonAkademik.imagekk}
                                 title="Embedded Content"
-                                width="480"
+                                className="embed-responsive-item"
                                 height="400"
                                 allowFullScreen
                               />
@@ -386,7 +386,7 @@ export default function RiwayatIndex() {
                               <iframe
                                 src={dataNonAkademik.imagektp}
                                 title="Embedded Content"
-                                width="480"
+                                className="embed-responsive-item"
                                 height="400"
                                 allowFullScreen
                               />
@@ -414,7 +414,7 @@ export default function RiwayatIndex() {
                                   dataNonAkademik.nonakademik.imagesertifikat
                                 }
                                 title="Embedded Content"
-                                width="100%"
+                                className="embed-responsive-item"
                                 height="400"
                                 allowFullScreen
                               />
@@ -789,7 +789,7 @@ export default function RiwayatIndex() {
                             <iframe
                               src={dataLuarNegeri.imageakrekampus}
                               title="Embedded Content"
-                              width="480"
+                              className="embed-responsive-item"
                               height="400"
                               allowFullScreen
                             />
@@ -803,7 +803,7 @@ export default function RiwayatIndex() {
                             <iframe
                               src={dataLuarNegeri.imageaktifkampus}
                               title="Embedded Content"
-                              width="480"
+                              className="embed-responsive-item"
                               height="400"
                               allowFullScreen
                             />
@@ -819,7 +819,7 @@ export default function RiwayatIndex() {
                             <iframe
                               src={dataLuarNegeri.imagekk}
                               title="Embedded Content"
-                              width="480"
+                              className="embed-responsive-item"
                               height="400"
                               allowFullScreen
                             />
@@ -833,7 +833,7 @@ export default function RiwayatIndex() {
                             <iframe
                               src={dataLuarNegeri.imagektp}
                               title="Embedded Content"
-                              width="480"
+                              className="embed-responsive-item"
                               height="400"
                               allowFullScreen
                             />
@@ -862,7 +862,7 @@ export default function RiwayatIndex() {
                             <iframe
                               src={dataLuarNegeri.luar_negeri.imageipk}
                               title="Embedded Content"
-                              width="480"
+                              className="embed-responsive-item"
                               height="400"
                               allowFullScreen
                             />
@@ -877,7 +877,7 @@ export default function RiwayatIndex() {
                             <iframe
                               src={dataLuarNegeri.luar_negeri.imagetranskrip}
                               title="Embedded Content"
-                              width="480"
+                              className="embed-responsive-item"
                               height="400"
                               allowFullScreen
                             />
