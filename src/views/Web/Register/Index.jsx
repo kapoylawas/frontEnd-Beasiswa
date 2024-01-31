@@ -1,5 +1,5 @@
 //import layout
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LayoutWeb from "../../../layouts/Web";
 import { Link, useNavigate } from "react-router-dom";
 //import react Quill
@@ -22,7 +22,6 @@ export default function Register() {
   const [nohp, setNohp] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
-  const [kecamatan, setKecamatan] = useState("");
   const [codepos, setCodepos] = useState("");
   const [rt, setRt] = useState("");
   const [rw, setRw] = useState("");
@@ -35,14 +34,46 @@ export default function Register() {
   const [errors, setErros] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
+  const [kecamatanList, setKecamatanList] = useState([]);
+  const [kelurahanList, setKelurahanList] = useState([]);
+  const [selectedKecamatan, setSelectedKecamatan] = useState("");
+  const [selectedKelurahan, setSelectedKelurahan] = useState("");
+
+  console.log(selectedKelurahan);
+
+  //hook useEffect
+  useEffect(() => {
+    //fetch api
+    Api.get("/api/kecamatan/all", {}).then((response) => {
+      //set data
+      setKecamatanList(response.data.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    //   //fetch api
+    Api.get(`/api/kelurahan/byid?kecamatan_id=${selectedKecamatan}`).then(
+      (response) => {
+        //set data
+        setKelurahanList(response.data.data);
+      }
+    );
+  }, [selectedKecamatan]);
+
+  // console.log(getKelurahan)
+
+  const handleKecamatanChange = (e) => {
+    setSelectedKecamatan(e.target.value);
+    setSelectedKelurahan(""); // Reset selected kelurahan when kecamatan changes
+  };
+
+  const handleKelurahanChange = (e) => {
+    setSelectedKelurahan(e.target.value);
+  };
+
   const handleshowhideGender = (event) => {
     const getType = event.target.value;
     setGender(getType);
-  };
-
-  const handleshowhideKecamatan = (event) => {
-    const getType = event.target.value;
-    setKecamatan(getType);
   };
 
   const handleFileKtp = (e) => {
@@ -135,7 +166,8 @@ export default function Register() {
     formData.append("nohp", nohp);
     formData.append("email", email);
     formData.append("gender", gender);
-    formData.append("kecamatan", kecamatan);
+    formData.append("id_kecamatan", selectedKecamatan);
+    formData.append("id_kelurahan", selectedKelurahan);
     formData.append("codepos", codepos);
     formData.append("rt", rt);
     formData.append("rw", rw);
@@ -186,7 +218,9 @@ export default function Register() {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="mb-3">
-                        <label className="form-label fw-bold">Nama Lengkap Sesuai KTP</label>
+                        <label className="form-label fw-bold">
+                          Nama Lengkap Sesuai KTP
+                        </label>
                         <input
                           type="text"
                           className="form-control"
@@ -221,9 +255,11 @@ export default function Register() {
                     </div>
                   </div>
                   <div className="row">
-                  <div className="col-md-12">
+                    <div className="col-md-12">
                       <div className="mb-3">
-                        <label className="form-label fw-bold">No Kartu Keluarga (KK)</label>
+                        <label className="form-label fw-bold">
+                          No Kartu Keluarga (KK)
+                        </label>
                         <input
                           type="text"
                           className="form-control"
@@ -281,7 +317,9 @@ export default function Register() {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="mb-3">
-                        <label className="form-label fw-bold">Jenis Kelamin</label>
+                        <label className="form-label fw-bold">
+                          Jenis Kelamin
+                        </label>
                         <select
                           className="form-select"
                           value={gender}
@@ -303,16 +341,44 @@ export default function Register() {
                         <label className="form-label fw-bold">Kecamatan</label>
                         <select
                           className="form-select"
-                          value={kecamatan}
-                          onChange={handleshowhideKecamatan}
+                          value={selectedKecamatan}
+                          onChange={handleKecamatanChange}
                         >
                           <option value="">-- Select Kecamatan --</option>
-                          <option value="Sidoarjo">Sidoarjo</option>
+                          {kecamatanList.map((kecamatan, index) => (
+                            <option value={kecamatan.id} key={index}>
+                              {kecamatan.name}
+                            </option>
+                          ))}
                         </select>
                       </div>
-                      {errors.kecamatan && (
+                      {errors.id_kecamatan && (
                         <div className="alert alert-danger">
-                          {errors.kecamatan[0]}
+                          {errors.id_kecamatan[0]}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="mb-3">
+                        <label className="form-label fw-bold">Kelurahan</label>
+                        <select
+                          className="form-select"
+                          value={selectedKelurahan}
+                          onChange={handleKelurahanChange}
+                        >
+                          <option value="">-- Select Kelurahan --</option>
+                          {kelurahanList.map((kelurahan, index) => (
+                            <option value={kelurahan.id} key={index}>
+                              {kelurahan.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      {errors.id_kelurahan && (
+                        <div className="alert alert-danger">
+                          {errors.id_kelurahan[0]}
                         </div>
                       )}
                     </div>
@@ -459,11 +525,7 @@ export default function Register() {
                       className="btn btn-md btn-primary me-2"
                       disabled={isLoading}
                     >
-                      {isLoading ? (
-                        "LOADING..."
-                      ) : (
-                        "SIMPAN"
-                      )}{" "}
+                      {isLoading ? "LOADING..." : "SIMPAN"}{" "}
                     </button>
                     <button type="reset" className="btn btn-md btn-warning">
                       <i className="fa fa-redo"></i> Reset
