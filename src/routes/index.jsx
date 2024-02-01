@@ -28,6 +28,9 @@ import KeagamanA from "../views/Admin/Kesra/KeagamaanA";
 import KeagamanB from "../views/Admin/Kesra/KeagamaanB";
 import KeagamanC from "../views/Admin/Kesra/KeagamaanC";
 import KeagamanD from "../views/Admin/Kesra/KeagamaanD";
+import AdminAkademik from "../views/Admin/Verifikasi/adminAkademik";
+import AdminNonAkademik from "../views/Admin/Verifikasi/AdminNonAkademik";
+import AdminLuarNegeri from "../views/Admin/Verifikasi/AdminLuarNegeri";
 
 export default function RoutesIndex() {
   return (
@@ -200,6 +203,36 @@ export default function RoutesIndex() {
 
       {/* route "/Info" */}
       <Route path="/info" element={<Info />} />
+
+      {/* MENU TIM ADMIN VERIFIKASI */}
+
+      {/* private route "/admin/adminAkademik" */}
+      <Route
+        path="/admin/adminAkademik"
+        element={
+          <PrivateRoutes>
+            <AdminAkademik />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/adminNonAkademik"
+        element={
+          <PrivateRoutes>
+            <AdminNonAkademik />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/adminLuarNegeri"
+        element={
+          <PrivateRoutes>
+            <AdminLuarNegeri />
+          </PrivateRoutes>
+        }
+      />
     </Routes>
   );
 }

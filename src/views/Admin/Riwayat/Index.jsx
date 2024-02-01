@@ -162,11 +162,174 @@ export default function RiwayatIndex() {
                                 Terdaftar
                               </td>
                               <td className="fw-bold text-center">
-                                Beasiswa {dataAkademik.nonakademik.name}
+                                Beasiswa {dataAkademik.akademik.name}
+                                <div className="d-flex justify-content-center">
+                                  <Link
+                                    to="/admin/dispora/nonakademik"
+                                    className="btn btn-md btn-primary me-2"
+                                  >
+                                    Edit Data
+                                  </Link>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="fw-bold text-center">Edit Data</td>
+                              <td className="fw-bold text-center">
+                                <div className="d-flex justify-content-center">
+                                  <Link
+                                    to="/admin/dispora/nonakademik"
+                                    className="btn btn-md btn-primary me-2"
+                                  >
+                                    Edit Data
+                                  </Link>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                Verifikasi User
+                              </td>
+
+                              <td className="fw-bold text-center">
+                                <form>
+                                  <label>
+                                    <input
+                                      type="checkbox"
+                                      checked={isChecked}
+                                      onChange={handleCheckboxChange}
+                                    />
+                                    {""} Saya Yakin Bahwa Data Yang Saya isi
+                                    Sudah Benar
+                                  </label>
+                                  <br />
+                                  <div className="d-flex justify-content-center">
+                                    <button
+                                      type="submit"
+                                      className="btn btn-md btn-primary me-2"
+                                      disabled={!isChecked}
+                                    >
+                                      {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                                    </button>
+                                  </div>
+                                </form>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div className="row mt-1">
+                <div className="col-md-12">
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-header text-dark">
+                      Document Terupload
+                    </div>
+                    <div className="card-body">
+                      <div className="row justify-content-center">
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">File Akredetasi</div>
+                            <iframe
+                              src={dataAkademik.imageakrekampus}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Surat Aktif Kampus
+                            </div>
+                            <iframe
+                              src={dataAkademik.imageaktifkampus}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row justify-content-center mt-3">
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Kartu Keluarga
+                            </div>
+                            <iframe
+                              src={dataAkademik.imagekk}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Kartu Tanda Penduduk
+                            </div>
+                            <iframe
+                              src={dataAkademik.imagektp}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div className="row mt-1">
+                <div className="col-md-12">
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-header text-dark">
+                      Document Terupload
+                    </div>
+                    <div className="card-body">
+                      <div className="row justify-content-center">
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Scren Shot Akredetasi Dari Web BANPT
+                            </div>
+                            <iframe
+                              src={dataAkademik.akademik.imagebanpt}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">File Transkip</div>
+                            <iframe
+                              src={dataAkademik.akademik.imagetranskrip}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
