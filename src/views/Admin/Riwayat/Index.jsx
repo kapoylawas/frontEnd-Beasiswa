@@ -174,11 +174,13 @@ export default function RiwayatIndex() {
                               </td>
                             </tr>
                             <tr>
-                              <td className="fw-bold text-center">Edit Data</td>
+                              <td className="fw-bold text-center">
+                                Edit Bioadata
+                              </td>
                               <td className="fw-bold text-center">
                                 <div className="d-flex justify-content-center">
                                   <Link
-                                    to="/admin/dispora/nonakademik"
+                                    to="/admin/biodata"
                                     className="btn btn-md btn-primary me-2"
                                   >
                                     Edit Data
@@ -438,12 +440,12 @@ export default function RiwayatIndex() {
                               </tr>
                               <tr>
                                 <td className="fw-bold text-center">
-                                  Edit Data
+                                  Edit Bioadata
                                 </td>
                                 <td className="fw-bold text-center">
                                   <div className="d-flex justify-content-center">
                                     <Link
-                                      to="/admin/dispora/nonakademik"
+                                      to="/admin/biodata"
                                       className="btn btn-md btn-primary me-2"
                                     >
                                       Edit Data
@@ -885,19 +887,19 @@ export default function RiwayatIndex() {
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td className="fw-bold text-center">Edit Data</td>
-                              <td className="fw-bold text-center">
-                                <div className="d-flex justify-content-center">
-                                  <Link
-                                    to="/admin/dispora/nonakademik"
-                                    className="btn btn-md btn-primary me-2"
-                                  >
-                                    Edit Data
-                                  </Link>
-                                </div>
-                              </td>
-                            </tr>
+                            <td className="fw-bold text-center">
+                              Edit Bioadata
+                            </td>
+                            <td className="fw-bold text-center">
+                              <div className="d-flex justify-content-center">
+                                <Link
+                                  to="/admin/biodata"
+                                  className="btn btn-md btn-primary me-2"
+                                >
+                                  Edit Data
+                                </Link>
+                              </div>
+                            </td>
                             <tr>
                               <td
                                 style={{ width: "15%" }}

@@ -31,6 +31,7 @@ import KeagamanD from "../views/Admin/Kesra/KeagamaanD";
 import AdminAkademik from "../views/Admin/Verifikasi/adminAkademik";
 import AdminNonAkademik from "../views/Admin/Verifikasi/AdminNonAkademik";
 import AdminLuarNegeri from "../views/Admin/Verifikasi/AdminLuarNegeri";
+import UserIndex from "../views/Admin/User/Index";
 
 export default function RoutesIndex() {
   return (
@@ -191,6 +192,16 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <RiwayatIndex />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/biodata" */}
+      <Route
+        path="/admin/biodata"
+        element={
+          <PrivateRoutes>
+            <UserIndex />
           </PrivateRoutes>
         }
       />

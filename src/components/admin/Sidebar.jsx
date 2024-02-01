@@ -207,7 +207,7 @@ export default function sidebar() {
                 <div className="sb-nav-link-icon">
                   <i className="fas fa-user"></i>
                 </div>
-                Kategori Mahasiswa
+                Kategori Beasiswa
               </Link>
               <Link
                 className={
