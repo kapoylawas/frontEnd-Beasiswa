@@ -138,7 +138,7 @@ export default function AdminAkademik() {
                                     </p>
                                   )}
                                   {akademik.user.status_verif === 1 && (
-                                    <button className="btn btn-md btn-danger me-2">
+                                    <button className="btn btn-md btn-success me-2">
                                       Sudah diverifikasi
                                     </button>
                                   )}
