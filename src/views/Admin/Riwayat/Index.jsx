@@ -124,6 +124,7 @@ export default function RiwayatIndex() {
           <p>Tipe Beasiswa: {jenisBeasiswa}</p>
           {tipebeasiswa === 1 ? (
             <>
+              <ModalFinish />
               <div className="row mt-1">
                 <div className="col-md-12">
                   <div className="card border-0 rounded shadow-sm border-top-success">
@@ -714,6 +715,7 @@ export default function RiwayatIndex() {
           ) : null}
           {tipebeasiswa === 3 ? (
             <>
+            <ModalFinish />
               <div className="row mt-1">
                 <div className="col-md-12">
                   <div className="card border-0 rounded shadow-sm border-top-success">
@@ -812,6 +814,7 @@ export default function RiwayatIndex() {
           ) : null}
           {tipebeasiswa === 4 ? (
             <>
+            <ModalFinish />
               <div className="row mt-1">
                 <div className="col-md-12">
                   <div className="card border-0 rounded shadow-sm border-top-success">
@@ -910,6 +913,7 @@ export default function RiwayatIndex() {
           ) : null}
           {tipebeasiswa === 5 ? (
             <>
+            <ModalFinish />
               <div className="row mt-1">
                 <div className="col-md-12">
                   <div className="card border-0 rounded shadow-sm border-top-success">

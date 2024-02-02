@@ -572,8 +572,8 @@ export default function Dashboard() {
                 </div>
               ) : (
                 <div className="alert alert-danger" role="alert">
-                  Anda Sudah Menyelesaikan tahap 2 di Beasiswa Silahkan Ke Menu
-                  Mahasiswa Untuk Memilih SALAH SATU DARI BEBERAPA BEASISWA
+                  Anda Sudah Menyelesaikan tahap Input Data Mahasiswa di Beasiswa Silahkan Ke Menu
+                  Kategori Beasiswa Untuk Memilih SALAH SATU DARI BEBERAPA BEASISWA
                   Kab.Sidoarjo
                 </div>
               )}
