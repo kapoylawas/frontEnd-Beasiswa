@@ -159,7 +159,7 @@ export default function AdminAkademik() {
                           ) : (
                             //tampilkan pesan data belum tersedia
                             <tr>
-                              <td colSpan={5}>
+                              <td colSpan={8}>
                                 <div
                                   className="alert alert-danger border-0 rounded shadow-sm w-100 text-center"
                                   role="alert"
