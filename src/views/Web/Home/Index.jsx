@@ -33,14 +33,14 @@ export default function Home() {
                           Kartu Tanda Penduduk (KTP) Sidoarjo
                         </span>
                       </li>
-                      <li className="list-group-item">
+                      {/* <li className="list-group-item">
                         <span
                           style={{ fontSize: "1.2rem" }}
                           className="text-dark mt-2"
                         >
                           Mahasiswa Perguruan Tinggi Negeri (PTN)
                         </span>
-                      </li>
+                      </li> */}
                       <li className="list-group-item">
                         <span
                           style={{ fontSize: "1.2rem" }}
