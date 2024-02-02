@@ -556,7 +556,7 @@ export default function RiwayatIndex() {
                                       disabled
                                     >
                                       Anda Sudah Terdaftar Di Beasiswa{" "}
-                                      {dataNonAkademik.akademik.name}
+                                      {dataNonAkademik.nonakademik.name}
                                     </button>
                                   )}
                                 </td>
