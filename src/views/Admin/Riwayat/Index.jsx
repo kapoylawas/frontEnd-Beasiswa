@@ -17,8 +17,6 @@ export default function RiwayatIndex() {
   const [idUser, setIdUser] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
 
-  console.log(statusFinish);
-
   //navigata
   const navigate = useNavigate();
 
@@ -26,7 +24,6 @@ export default function RiwayatIndex() {
   const token = Cookies.get("token");
 
   const [isChecked, setIsChecked] = useState(false);
-  console.log(isChecked);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -424,298 +421,293 @@ export default function RiwayatIndex() {
           ) : null}
           {tipebeasiswa === 2 ? (
             <>
-              <>
-                <ModalFinish />
-                <div className="row mt-1">
-                  <div className="col-md-12">
-                    <div className="card border-0 rounded shadow-sm border-top-success">
-                      <div className="card-header text-dark">
-                        Bioadata Mahasiswa Regis
-                      </div>
-                      <div className="card-body">
-                        <div className="table-responsive">
-                          <table className="table table-bordered table-striped text-dark">
-                            <tbody>
-                              <tr>
-                                <td
-                                  style={{ width: "15%" }}
-                                  className="fw-bold text-center"
-                                >
-                                  Nama Lengkap
-                                </td>
-                                <td className="fw-bold text-center">
-                                  {dataNonAkademik.name}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style={{ width: "15%" }}
-                                  className="fw-bold text-center"
-                                >
-                                  NIK
-                                </td>
-                                <td className="fw-bold text-center">
-                                  {dataNonAkademik.nik}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style={{ width: "15%" }}
-                                  className="fw-bold text-center"
-                                >
-                                  No KK
-                                </td>
-                                <td className="fw-bold text-center">
-                                  {dataNonAkademik.nokk}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style={{ width: "15%" }}
-                                  className="fw-bold text-center"
-                                >
-                                  Email
-                                </td>
-                                <td className="fw-bold text-center">
-                                  {dataNonAkademik.email}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style={{ width: "15%" }}
-                                  className="fw-bold text-center"
-                                >
-                                  Nim
-                                </td>
-                                <td className="fw-bold text-center">
-                                  {dataNonAkademik.nim}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style={{ width: "15%" }}
-                                  className="fw-bold text-center"
-                                >
-                                  Universitas
-                                </td>
-                                <td className="fw-bold text-center">
-                                  {dataNonAkademik.universitas}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style={{ width: "15%" }}
-                                  className="fw-bold text-center"
-                                >
-                                  Terdaftar
-                                </td>
-                                <td className="fw-bold text-center">
-                                  {statusFinish === 0 ? (
-                                    <>
-                                      Beasiswa{" "}
-                                      {dataNonAkademik.nonakademik.name}
-                                      <br />
-                                      <div className="d-flex justify-content-center">
-                                        <Link
-                                          to="/admin/editBeasiswaNonkademik"
-                                          className="btn btn-md btn-primary me-2"
-                                        >
-                                          Edit Data
-                                        </Link>
-                                      </div>
-                                    </>
-                                  ) : (
-                                    <button
-                                      className="btn btn-md btn-danger me-2"
-                                      disabled
-                                    >
-                                      Anda Sudah Terdaftar Di Beasiswa{" "}
-                                      {dataNonAkademik.nonakademik.name}
-                                    </button>
-                                  )}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td className="fw-bold text-center">
-                                  Edit Bioadata
-                                </td>
-                                <td className="fw-bold text-center">
-                                  {statusFinish === 0 ? (
-                                    <>
-                                      <div className="d-flex justify-content-center">
-                                        <Link
-                                          to="/admin/biodata"
-                                          className="btn btn-md btn-primary me-2"
-                                        >
-                                          Edit Data
-                                        </Link>
-                                      </div>
-                                    </>
-                                  ) : (
-                                    <button
-                                      className="btn btn-md btn-danger me-2"
-                                      disabled
-                                    >
-                                      Anda Sudah Terdaftar Di Beasiswa{" "}
-                                      {dataNonAkademik.nonakademik.name}
-                                    </button>
-                                  )}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style={{ width: "15%" }}
-                                  className="fw-bold text-center"
-                                >
-                                  Verifikasi User
-                                </td>
+            <ModalFinish />
+              <div className="row mt-1">
+                <div className="col-md-12">
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-header text-dark">
+                      Bioadata Mahasiswa Regis
+                    </div>
+                    <div className="card-body">
+                      <div className="table-responsive">
+                        <table className="table table-bordered table-striped text-dark">
+                          <tbody>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                Nama Lengkap
+                              </td>
+                              <td className="fw-bold text-center">
+                                {dataNonAkademik.name}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                NIK
+                              </td>
+                              <td className="fw-bold text-center">
+                                {dataNonAkademik.nik}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                No KK
+                              </td>
+                              <td className="fw-bold text-center">
+                                {dataNonAkademik.nokk}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                Email
+                              </td>
+                              <td className="fw-bold text-center">
+                                {dataNonAkademik.email}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                Nim
+                              </td>
+                              <td className="fw-bold text-center">
+                                {dataNonAkademik.nim}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                Universitas
+                              </td>
+                              <td className="fw-bold text-center">
+                                {dataNonAkademik.universitas}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                Terdaftar
+                              </td>
+                              <td className="fw-bold text-center">
+                                {statusFinish === 0 ? (
+                                  <>
+                                    Beasiswa {dataNonAkademik.nonakademik.name}
+                                    <br />
+                                    <div className="d-flex justify-content-center">
+                                      <Link
+                                        to="/admin/editBeasiswaNonkademik"
+                                        className="btn btn-md btn-primary me-2"
+                                      >
+                                        Edit Data
+                                      </Link>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataNonAkademik.nonakademik.name}
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="fw-bold text-center">
+                                Edit Bioadata
+                              </td>
+                              <td className="fw-bold text-center">
+                                {statusFinish === 0 ? (
+                                  <>
+                                    <div className="d-flex justify-content-center">
+                                      <Link
+                                        to="/admin/biodata"
+                                        className="btn btn-md btn-primary me-2"
+                                      >
+                                        Edit Data
+                                      </Link>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataNonAkademik.nonakademik.name}
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                Verifikasi User
+                              </td>
 
-                                <td className="fw-bold text-center">
-                                  {statusFinish === 0 ? (
-                                    <>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          checked={isChecked}
-                                          onChange={handleCheckboxChange}
-                                        />
-                                        {""} Saya Yakin Bahwa Data Yang Saya isi
-                                        Sudah Benar
-                                      </label>
-                                      <br />
-                                      <div className="d-flex justify-content-center">
-                                        <button
-                                          type="submit"
-                                          className="btn btn-md btn-primary me-2"
-                                          disabled={!isChecked}
-                                          onClick={handleClick}
-                                        >
-                                          {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                                        </button>
-                                      </div>
-                                    </>
-                                  ) : (
-                                    <button
-                                      className="btn btn-md btn-danger me-2"
-                                      disabled
-                                    >
-                                      Anda Sudah Terdaftar Di Beasiswa{" "}
-                                      {dataNonAkademik.nonakademik.name}
-                                    </button>
-                                  )}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                              <td className="fw-bold text-center">
+                                {statusFinish === 0 ? (
+                                  <>
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        checked={isChecked}
+                                        onChange={handleCheckboxChange}
+                                      />
+                                      {""} Saya Yakin Bahwa Data Yang Saya isi
+                                      Sudah Benar
+                                    </label>
+                                    <br />
+                                    <div className="d-flex justify-content-center">
+                                      <button
+                                        type="submit"
+                                        className="btn btn-md btn-primary me-2"
+                                        disabled={!isChecked}
+                                        onClick={handleClick}
+                                      >
+                                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataNonAkademik.nonakademik.name}
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
                 </div>
-                <hr />
-                <div className="row mt-1">
-                  <div className="col-md-12">
-                    <div className="card border-0 rounded shadow-sm border-top-success">
-                      <div className="card-header text-dark">
-                        Document Terupload
-                      </div>
-                      <div className="card-body">
-                        <div className="row justify-content-center">
-                          <div className="col-md-6">
-                            <div className="card rounded">
-                              <div className="text-center">File Akredetasi</div>
-                              <iframe
-                                src={dataNonAkademik.imageakrekampus}
-                                title="Embedded Content"
-                                className="embed-responsive-item"
-                                height="400"
-                                allowFullScreen
-                              />
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <div className="card rounded">
-                              <div className="text-center">
-                                File Surat Aktif Kampus
-                              </div>
-                              <iframe
-                                src={dataNonAkademik.imageaktifkampus}
-                                title="Embedded Content"
-                                className="embed-responsive-item"
-                                height="400"
-                                allowFullScreen
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row justify-content-center mt-3">
-                          <div className="col-md-6">
-                            <div className="card rounded">
-                              <div className="text-center">
-                                File Kartu Keluarga
-                              </div>
-                              <iframe
-                                src={dataNonAkademik.imagekk}
-                                title="Embedded Content"
-                                className="embed-responsive-item"
-                                height="400"
-                                allowFullScreen
-                              />
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <div className="card rounded">
-                              <div className="text-center">
-                                File Kartu Tanda Penduduk
-                              </div>
-                              <iframe
-                                src={dataNonAkademik.imagektp}
-                                title="Embedded Content"
-                                className="embed-responsive-item"
-                                height="400"
-                                allowFullScreen
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+              </div>
+              <hr />
+              <div className="row mt-1">
+                <div className="col-md-12">
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-header text-dark">
+                      Document Terupload
                     </div>
-                  </div>
-                </div>
-                <hr />
-                <div className="row mt-1">
-                  <div className="col-md-12">
-                    <div className="card border-0 rounded shadow-sm border-top-success">
-                      <div className="card-header text-dark">
-                        Document Terupload
-                      </div>
-                      <div className="card-body">
-                        <div className="row justify-content-center">
-                          <div className="col-md-12">
-                            <div className="card rounded">
-                              <div className="text-center">File Akredetasi</div>
-                              <iframe
-                                src={
-                                  dataNonAkademik.nonakademik.imagesertifikat
-                                }
-                                title="Embedded Content"
-                                className="embed-responsive-item"
-                                height="400"
-                                allowFullScreen
-                              />
+                    <div className="card-body">
+                      <div className="row justify-content-center">
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">File Akredetasi</div>
+                            <iframe
+                              src={dataNonAkademik.imageakrekampus}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Surat Aktif Kampus
                             </div>
+                            <iframe
+                              src={dataNonAkademik.imageaktifkampus}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row justify-content-center mt-3">
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Kartu Keluarga
+                            </div>
+                            <iframe
+                              src={dataNonAkademik.imagekk}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Kartu Tanda Penduduk
+                            </div>
+                            <iframe
+                              src={dataNonAkademik.imagektp}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
+              <hr />
+              <div className="row mt-1">
+                <div className="col-md-12">
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-header text-dark">
+                      Document Terupload
+                    </div>
+                    <div className="card-body">
+                      <div className="row justify-content-center">
+                        <div className="col-md-12">
+                          <div className="card rounded">
+                            <div className="text-center">File Akredetasi</div>
+                            <iframe
+                              src={dataNonAkademik.nonakademik.imagesertifikat}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </>
           ) : null}
           {tipebeasiswa === 3 ? (
             <>
-            <ModalFinish />
+              <ModalFinish />
               <div className="row mt-1">
                 <div className="col-md-12">
                   <div className="card border-0 rounded shadow-sm border-top-success">
@@ -814,7 +806,7 @@ export default function RiwayatIndex() {
           ) : null}
           {tipebeasiswa === 4 ? (
             <>
-            <ModalFinish />
+              <ModalFinish />
               <div className="row mt-1">
                 <div className="col-md-12">
                   <div className="card border-0 rounded shadow-sm border-top-success">
@@ -913,7 +905,7 @@ export default function RiwayatIndex() {
           ) : null}
           {tipebeasiswa === 5 ? (
             <>
-            <ModalFinish />
+              <ModalFinish />
               <div className="row mt-1">
                 <div className="col-md-12">
                   <div className="card border-0 rounded shadow-sm border-top-success">
