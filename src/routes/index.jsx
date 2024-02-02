@@ -32,6 +32,11 @@ import AdminAkademik from "../views/Admin/Verifikasi/adminAkademik";
 import AdminNonAkademik from "../views/Admin/Verifikasi/AdminNonAkademik";
 import AdminLuarNegeri from "../views/Admin/Verifikasi/AdminLuarNegeri";
 import UserIndex from "../views/Admin/User/Index";
+import AdminKesra from "../views/Admin/Verifikasi/AdminKesra";
+import AdminDinsos from "../views/Admin/Verifikasi/AdminDinsos";
+import EditBeasiswa from "../views/Admin/User/EditBeasiswaAkademik";
+import EditBeasiswaNonakademik from "../views/Admin/User/EditBeasiswaNonakademik";
+import EditBeasiswaLuarNegeri from "../views/Admin/User/EditBeasiswaLuarNegeri";
 
 export default function RoutesIndex() {
   return (
@@ -206,6 +211,36 @@ export default function RoutesIndex() {
         }
       />
 
+      {/* edit akademik */}
+      <Route
+        path="/admin/editBeasiswaAkademik"
+        element={
+          <PrivateRoutes>
+            <EditBeasiswa />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* edit non akademik */}
+      <Route
+        path="/admin/editBeasiswaNonkademik"
+        element={
+          <PrivateRoutes>
+            <EditBeasiswaNonakademik />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* edit luar negeri */}
+      <Route
+        path="/admin/EditBeasiswaLuarNegeri"
+        element={
+          <PrivateRoutes>
+            <EditBeasiswaLuarNegeri />
+          </PrivateRoutes>
+        }
+      />
+
       {/* route "/" */}
       <Route path="/" element={<Home />} />
 
@@ -241,6 +276,24 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <AdminLuarNegeri />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/adminKesra"
+        element={
+          <PrivateRoutes>
+            <AdminKesra />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/adminDinsos"
+        element={
+          <PrivateRoutes>
+            <AdminDinsos />
           </PrivateRoutes>
         }
       />

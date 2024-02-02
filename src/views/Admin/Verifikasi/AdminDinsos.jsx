@@ -1,12 +1,15 @@
-import { useState } from "react";
+//import layout
+import { useEffect, useState } from "react";
+//import react router dom
 import LayoutAdmin from "../../../layouts/Admin";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import Api from "../../../services/Api";
+//import js cookie
+import Cookies from "js-cookie";
 
-export default function UserIndex() {
-  document.title = "Bioadata - Beasiswa";
+export default function AdminDinsos() {
+  document.title = "Dinsos - Beasiswa Sidoarjo";
 
   //navigata
   const navigate = useNavigate();
@@ -14,8 +17,8 @@ export default function UserIndex() {
   return (
     <LayoutAdmin>
       <main>
-        <div className="container-fluid mb-5 mt-5">
-          <p>edit biodata</p>
+        <div className="container-fluid px-4 mb-4 mt-3">
+        <p>dinsos</p>
         </div>
       </main>
     </LayoutAdmin>

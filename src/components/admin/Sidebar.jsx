@@ -253,7 +253,7 @@ export default function sidebar() {
                 <div className="sb-nav-link-icon">
                   <i className="fas fa-user"></i>
                 </div>
-                 Non Akademik
+                Non Akademik
               </Link>
               <Link
                 className={
@@ -267,6 +267,44 @@ export default function sidebar() {
                   <i className="fas fa-user"></i>
                 </div>
                 Beasiswa Luar Negeri
+              </Link>
+            </>
+          )}
+
+          {hasAnyPermission(["adminkesra.index"]) && (
+            <>
+              <div className="sb-sidenav-menu-heading">Admin Kesra</div>
+              <Link
+                className={
+                  activeRoute[2] === "adminKesra"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminKesra"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Beasiswa Keagamaan
+              </Link>
+            </>
+          )}
+
+          {hasAnyPermission(["admindinsos.index"]) && (
+            <>
+              <div className="sb-sidenav-menu-heading">Admin Dinsos</div>
+              <Link
+                className={
+                  activeRoute[2] === "adminDinsos"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminDinsos"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Beasiswa Dinsos
               </Link>
             </>
           )}

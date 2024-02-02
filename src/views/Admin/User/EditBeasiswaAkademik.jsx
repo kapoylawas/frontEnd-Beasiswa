@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
 
-export default function UserIndex() {
+export default function EditBeasiswaAkademik() {
   document.title = "Bioadata - Beasiswa";
 
   //navigata
@@ -15,7 +15,7 @@ export default function UserIndex() {
     <LayoutAdmin>
       <main>
         <div className="container-fluid mb-5 mt-5">
-          <p>edit biodata</p>
+          <p>edit Beasiswa Akademik</p>
         </div>
       </main>
     </LayoutAdmin>

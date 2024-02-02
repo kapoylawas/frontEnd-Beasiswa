@@ -1,10 +1,11 @@
 //import layout
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LayoutAdmin from "../../../layouts/Admin";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
 import ModalFinish from "../../../components/general/ModalFinish";
+import toast from "react-hot-toast";
 
 export default function RiwayatIndex() {
   document.title = "Dashboard - Riwayat Pendaftar Beasiswa";
@@ -13,9 +14,19 @@ export default function RiwayatIndex() {
   const [dataAkademik, setDataAkademik] = useState("");
   const [dataNonAkademik, setDataNonAkademik] = useState("");
   const [dataLuarNegeri, setDataLuarNegeri] = useState("");
-  console.log(dataLuarNegeri);
+  const [idUser, setIdUser] = useState("");
+  const [statusFinish, setStatusFinish] = useState("");
+
+  console.log(statusFinish);
+
+  //navigata
+  const navigate = useNavigate();
+
+  //token from cookies
+  const token = Cookies.get("token");
 
   const [isChecked, setIsChecked] = useState(false);
+  console.log(isChecked);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -45,9 +56,6 @@ export default function RiwayatIndex() {
       jenisBeasiswa = "Tipe Beasiswa Tidak Diketahui";
   }
 
-  //token from cookies
-  const token = Cookies.get("token");
-
   //hook useEffect
   useEffect(() => {
     //fetch api
@@ -63,12 +71,50 @@ export default function RiwayatIndex() {
       setDataAkademik(response.data.data);
       setDataNonAkademik(response.data.data);
       setDataLuarNegeri(response.data.data);
+      setIdUser(response.data.data.id);
+      setStatusFinish(response.data.data.status_finish);
     });
   }, []);
 
-  const handleSave = () => {
-    // Logika untuk menyimpan data
-    console.log("Data disimpan!");
+  useEffect(() => {
+    if (statusFinish === 1) {
+      setLoading(true);
+
+      const formData = new FormData();
+      formData.append("status_finish", 1);
+      formData.append("_method", "PUT");
+
+      Api.post(`/api/admin/users/verif/${idUser}`, formData, {
+        //header
+        headers: {
+          //header
+          "content-type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          if (response) {
+            setLoading(false);
+            toast.success(response.data.message, {
+              position: "top-right",
+              duration: 4000,
+            });
+          } else {
+            toast.error(response.data.message, {
+              position: "top-right",
+              duration: 4000,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Terjadi kesalahan:", error);
+        });
+    }
+  }, [statusFinish]);
+
+  const handleClick = () => {
+    // Mengubah status dan merubahnya menjadi 1 saat tombol diklik
+    setStatusFinish(1);
   };
 
   return (
@@ -162,15 +208,28 @@ export default function RiwayatIndex() {
                                 Terdaftar
                               </td>
                               <td className="fw-bold text-center">
-                                Beasiswa {dataAkademik.akademik.name}
-                                <div className="d-flex justify-content-center">
-                                  <Link
-                                    to="/admin/dispora/nonakademik"
-                                    className="btn btn-md btn-primary me-2"
+                                {statusFinish === 0 ? (
+                                  <>
+                                    Beasiswa {dataAkademik.akademik.name}
+                                    <br />
+                                    <div className="d-flex justify-content-center">
+                                      <Link
+                                        to="/admin/editBeasiswaAkademik"
+                                        className="btn btn-md btn-primary me-2"
+                                      >
+                                        Edit Data
+                                      </Link>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
                                   >
-                                    Edit Data
-                                  </Link>
-                                </div>
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataAkademik.akademik.name}
+                                  </button>
+                                )}
                               </td>
                             </tr>
                             <tr>
@@ -178,14 +237,26 @@ export default function RiwayatIndex() {
                                 Edit Bioadata
                               </td>
                               <td className="fw-bold text-center">
-                                <div className="d-flex justify-content-center">
-                                  <Link
-                                    to="/admin/biodata"
-                                    className="btn btn-md btn-primary me-2"
+                                {statusFinish === 0 ? (
+                                  <>
+                                    <div className="d-flex justify-content-center">
+                                      <Link
+                                        to="/admin/biodata"
+                                        className="btn btn-md btn-primary me-2"
+                                      >
+                                        Edit Data
+                                      </Link>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
                                   >
-                                    Edit Data
-                                  </Link>
-                                </div>
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataAkademik.akademik.name}
+                                  </button>
+                                )}
                               </td>
                             </tr>
                             <tr>
@@ -197,27 +268,38 @@ export default function RiwayatIndex() {
                               </td>
 
                               <td className="fw-bold text-center">
-                                <form>
-                                  <label>
-                                    <input
-                                      type="checkbox"
-                                      checked={isChecked}
-                                      onChange={handleCheckboxChange}
-                                    />
-                                    {""} Saya Yakin Bahwa Data Yang Saya isi
-                                    Sudah Benar
-                                  </label>
-                                  <br />
-                                  <div className="d-flex justify-content-center">
-                                    <button
-                                      type="submit"
-                                      className="btn btn-md btn-primary me-2"
-                                      disabled={!isChecked}
-                                    >
-                                      {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                                    </button>
-                                  </div>
-                                </form>
+                                {statusFinish === 0 ? (
+                                  <>
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        checked={isChecked}
+                                        onChange={handleCheckboxChange}
+                                      />
+                                      {""} Saya Yakin Bahwa Data Yang Saya isi
+                                      Sudah Benar
+                                    </label>
+                                    <br />
+                                    <div className="d-flex justify-content-center">
+                                      <button
+                                        type="submit"
+                                        className="btn btn-md btn-primary me-2"
+                                        disabled={!isChecked}
+                                        onClick={handleClick}
+                                      >
+                                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataAkademik.akademik.name}
+                                  </button>
+                                )}
                               </td>
                             </tr>
                           </tbody>
@@ -427,15 +509,29 @@ export default function RiwayatIndex() {
                                   Terdaftar
                                 </td>
                                 <td className="fw-bold text-center">
-                                  Beasiswa {dataNonAkademik.nonakademik.name}
-                                  <div className="d-flex justify-content-center">
-                                    <Link
-                                      to="/admin/dispora/nonakademik"
-                                      className="btn btn-md btn-primary me-2"
+                                  {statusFinish === 0 ? (
+                                    <>
+                                      Beasiswa{" "}
+                                      {dataNonAkademik.nonakademik.name}
+                                      <br />
+                                      <div className="d-flex justify-content-center">
+                                        <Link
+                                          to="/admin/editBeasiswaNonkademik"
+                                          className="btn btn-md btn-primary me-2"
+                                        >
+                                          Edit Data
+                                        </Link>
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <button
+                                      className="btn btn-md btn-danger me-2"
+                                      disabled
                                     >
-                                      Edit Data
-                                    </Link>
-                                  </div>
+                                      Anda Sudah Terdaftar Di Beasiswa{" "}
+                                      {dataNonAkademik.nonakademik.name}
+                                    </button>
+                                  )}
                                 </td>
                               </tr>
                               <tr>
@@ -443,14 +539,26 @@ export default function RiwayatIndex() {
                                   Edit Bioadata
                                 </td>
                                 <td className="fw-bold text-center">
-                                  <div className="d-flex justify-content-center">
-                                    <Link
-                                      to="/admin/biodata"
-                                      className="btn btn-md btn-primary me-2"
+                                  {statusFinish === 0 ? (
+                                    <>
+                                      <div className="d-flex justify-content-center">
+                                        <Link
+                                          to="/admin/biodata"
+                                          className="btn btn-md btn-primary me-2"
+                                        >
+                                          Edit Data
+                                        </Link>
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <button
+                                      className="btn btn-md btn-danger me-2"
+                                      disabled
                                     >
-                                      Edit Data
-                                    </Link>
-                                  </div>
+                                      Anda Sudah Terdaftar Di Beasiswa{" "}
+                                      {dataNonAkademik.akademik.name}
+                                    </button>
+                                  )}
                                 </td>
                               </tr>
                               <tr>
@@ -462,27 +570,38 @@ export default function RiwayatIndex() {
                                 </td>
 
                                 <td className="fw-bold text-center">
-                                  <form>
-                                    <label>
-                                      <input
-                                        type="checkbox"
-                                        checked={isChecked}
-                                        onChange={handleCheckboxChange}
-                                      />
-                                      {""} Saya Yakin Bahwa Data Yang Saya isi
-                                      Sudah Benar
-                                    </label>
-                                    <br />
-                                    <div className="d-flex justify-content-center">
-                                      <button
-                                        type="submit"
-                                        className="btn btn-md btn-primary me-2"
-                                        disabled={!isChecked}
-                                      >
-                                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                                      </button>
-                                    </div>
-                                  </form>
+                                  {statusFinish === 0 ? (
+                                    <>
+                                      <label>
+                                        <input
+                                          type="checkbox"
+                                          checked={isChecked}
+                                          onChange={handleCheckboxChange}
+                                        />
+                                        {""} Saya Yakin Bahwa Data Yang Saya isi
+                                        Sudah Benar
+                                      </label>
+                                      <br />
+                                      <div className="d-flex justify-content-center">
+                                        <button
+                                          type="submit"
+                                          className="btn btn-md btn-primary me-2"
+                                          disabled={!isChecked}
+                                          onClick={handleClick}
+                                        >
+                                          {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                                        </button>
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <button
+                                      className="btn btn-md btn-danger me-2"
+                                      disabled
+                                    >
+                                      Anda Sudah Terdaftar Di Beasiswa{" "}
+                                      {dataNonAkademik.nonakademik.name}
+                                    </button>
+                                  )}
                                 </td>
                               </tr>
                             </tbody>
@@ -875,30 +994,55 @@ export default function RiwayatIndex() {
                                 Terdaftar
                               </td>
                               <td className="fw-bold text-center">
-                                Beasiswa {dataLuarNegeri.luar_negeri.name}{" "}
-                                negeri
-                                <div className="d-flex justify-content-center">
-                                  <Link
-                                    to="/admin/dispora/nonakademik"
-                                    className="btn btn-md btn-primary me-2"
+                                {statusFinish === 0 ? (
+                                  <>
+                                    Beasiswa {dataLuarNegeri.luar_negeri.name}{" "}
+                                    negeri
+                                    <br />
+                                    <div className="d-flex justify-content-center">
+                                      <Link
+                                        to="/admin/EditBeasiswaLuarNegeri"
+                                        className="btn btn-md btn-primary me-2"
+                                      >
+                                        Edit Data
+                                      </Link>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
                                   >
-                                    Edit Data
-                                  </Link>
-                                </div>
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataLuarNegeri.luar_negeri.name}
+                                  </button>
+                                )}
                               </td>
                             </tr>
                             <td className="fw-bold text-center">
                               Edit Bioadata
                             </td>
                             <td className="fw-bold text-center">
-                              <div className="d-flex justify-content-center">
-                                <Link
-                                  to="/admin/biodata"
-                                  className="btn btn-md btn-primary me-2"
+                              {statusFinish === 0 ? (
+                                <>
+                                  <div className="d-flex justify-content-center">
+                                    <Link
+                                      to="/admin/biodata"
+                                      className="btn btn-md btn-primary me-2"
+                                    >
+                                      Edit Data
+                                    </Link>
+                                  </div>
+                                </>
+                              ) : (
+                                <button
+                                  className="btn btn-md btn-danger me-2"
+                                  disabled
                                 >
-                                  Edit Data
-                                </Link>
-                              </div>
+                                  Anda Sudah Terdaftar Di Beasiswa{" "}
+                                  {dataLuarNegeri.luar_negeri.name}
+                                </button>
+                              )}
                             </td>
                             <tr>
                               <td
@@ -909,27 +1053,38 @@ export default function RiwayatIndex() {
                               </td>
 
                               <td className="fw-bold text-center">
-                                <form>
-                                  <label>
-                                    <input
-                                      type="checkbox"
-                                      checked={isChecked}
-                                      onChange={handleCheckboxChange}
-                                    />
-                                    {""} Saya Yakin Bahwa Data Yang Saya isi
-                                    Sudah Benar
-                                  </label>
-                                  <br />
-                                  <div className="d-flex justify-content-center">
-                                    <button
-                                      type="submit"
-                                      className="btn btn-md btn-primary me-2"
-                                      disabled={!isChecked}
-                                    >
-                                      {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                                    </button>
-                                  </div>
-                                </form>
+                                {statusFinish === 0 ? (
+                                  <>
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        checked={isChecked}
+                                        onChange={handleCheckboxChange}
+                                      />
+                                      {""} Saya Yakin Bahwa Data Yang Saya isi
+                                      Sudah Benar
+                                    </label>
+                                    <br />
+                                    <div className="d-flex justify-content-center">
+                                      <button
+                                        type="submit"
+                                        className="btn btn-md btn-primary me-2"
+                                        disabled={!isChecked}
+                                        onClick={handleClick}
+                                      >
+                                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataLuarNegeri.luar_negeri.name}
+                                  </button>
+                                )}
                               </td>
                             </tr>
                           </tbody>
