@@ -19,3 +19,5 @@ REVISI
 17. tambah kolom di table user untuk notif WA dan email
 18. beasiswa kurang mampu tebalik file upload DTKS
 19. label Pilih Salah Satu Terdaftar DTKS atau Tidak Terdaftar DTKS ditambah —> Pilih Salah Satu : terdaftar dalam Data Terpadu Kesejahteraan Sosial (DTKS) atau Non DTKS / SKTM
+akredetasi hilang sama upload
+bela negara di ganti nasionallisme

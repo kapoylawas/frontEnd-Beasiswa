@@ -16,12 +16,12 @@ export default function NonAkademik() {
   const navigate = useNavigate();
 
   const [semester, setSemester] = useState("");
-  const [akreKampus, setAkreKampus] = useState("");
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
   const [sertifikat, setSertifikat] = useState("");
   const [tahun, setTahun] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [transkripNilai, setTranskripNilai] = useState("");
+  // const [transkripNilai, setTranskripNilai] = useState("");
+  // const [akreKampus, setAkreKampus] = useState("");
 
   const handleSelectChange = (event) => {
     setSelectedSertifikat(event.target.value);
@@ -81,43 +81,43 @@ export default function NonAkademik() {
     setSertifikat(imageData);
   };
 
-  const handleFileTranskripNilai = (e) => {
-    const imageData = e.target.files[0];
+  // const handleFileTranskripNilai = (e) => {
+  //   const imageData = e.target.files[0];
 
-    if (imageData) {
-      const maxSize = 2 * 1024 * 1024; // 2MB
+  //   if (imageData) {
+  //     const maxSize = 2 * 1024 * 1024; // 2MB
 
-      if (imageData.size > maxSize) {
-        toast.error("Ukuran file melebihi batas (2MB)", {
-          duration: 5000,
-          position: "top-center",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      } else {
-        setTranskripNilai(imageData);
-      }
-    }
+  //     if (imageData.size > maxSize) {
+  //       toast.error("Ukuran file melebihi batas (2MB)", {
+  //         duration: 5000,
+  //         position: "top-center",
+  //         style: {
+  //           borderRadius: "10px",
+  //           background: "#333",
+  //           color: "#fff",
+  //         },
+  //       });
+  //     } else {
+  //       setTranskripNilai(imageData);
+  //     }
+  //   }
 
-    if (!imageData.type.match("pdf.*")) {
-      setTranskripNilai("");
+  //   if (!imageData.type.match("pdf.*")) {
+  //     setTranskripNilai("");
 
-      toast.error("Format File Transkrip Nilai Tidak Cocok Harus PDF", {
-        duration: 5000,
-        position: "top-center",
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
-      });
-      return;
-    }
-    setTranskripNilai(imageData);
-  };
+  //     toast.error("Format File Transkrip Nilai Tidak Cocok Harus PDF", {
+  //       duration: 5000,
+  //       position: "top-center",
+  //       style: {
+  //         borderRadius: "10px",
+  //         background: "#333",
+  //         color: "#fff",
+  //       },
+  //     });
+  //     return;
+  //   }
+  //   setTranskripNilai(imageData);
+  // };
 
   const storeNonAkademik = async (e) => {
     e.preventDefault();
@@ -144,10 +144,10 @@ export default function NonAkademik() {
     }
     const formData = new FormData();
     formData.append("semester", semester);
-    formData.append("akredetasi_kampus", akreKampus);
+    // formData.append("akredetasi_kampus", akreKampus);
+    // formData.append("imageakredetasi", transkripNilai);
     formData.append("jenis_sertifikat", selectedSertifikat);
     formData.append("imagesertifikat", sertifikat);
-    formData.append("imageakredetasi", transkripNilai);
     formData.append("tahun", tahun);
 
     await Api.post("/api/admin/nonakademiks", formData, {
@@ -230,7 +230,7 @@ export default function NonAkademik() {
                         )}
                       </div>
                     </div>
-                    <div className="row">
+                    {/* <div className="row">
                       <div className="col-md-12">
                         <div className="mb-3">
                           <label className="form-label fw-bold">
@@ -258,8 +258,8 @@ export default function NonAkademik() {
                           </div>
                         )}
                       </div>
-                    </div>
-                    <div className="row">
+                    </div> */}
+                    {/* <div className="row">
                       <div className="col-md-12">
                         <div className="mb-3">
                           <label className="form-label fw-bold">
@@ -292,7 +292,7 @@ export default function NonAkademik() {
                           </div>
                         )}
                       </div>
-                    </div>
+                    </div> */}
                     <div className="row">
                       <div className="col-md-12">
                         <div className="mb-3">
