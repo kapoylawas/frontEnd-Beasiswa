@@ -12,6 +12,7 @@ export default function RiwayatIndex() {
 
   const [tipebeasiswa, setTipebeasiswa] = useState("");
   const [dataAkademik, setDataAkademik] = useState("");
+  console.log(dataAkademik);
   const [dataNonAkademik, setDataNonAkademik] = useState("");
   const [dataLuarNegeri, setDataLuarNegeri] = useState("");
   const [idUser, setIdUser] = useState("");
@@ -231,7 +232,10 @@ export default function RiwayatIndex() {
                               </td>
                             </tr>
                             <tr>
-                              <td className="fw-bold text-center">
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
                                 Edit Bioadata
                               </td>
                               <td className="fw-bold text-center">
@@ -421,7 +425,7 @@ export default function RiwayatIndex() {
           ) : null}
           {tipebeasiswa === 2 ? (
             <>
-            <ModalFinish />
+              <ModalFinish />
               <div className="row mt-1">
                 <div className="col-md-12">
                   <div className="card border-0 rounded shadow-sm border-top-success">

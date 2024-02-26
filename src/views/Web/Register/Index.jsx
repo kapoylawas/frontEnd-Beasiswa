@@ -2,10 +2,6 @@
 import { useEffect, useState } from "react";
 import LayoutWeb from "../../../layouts/Web";
 import { Link, useNavigate } from "react-router-dom";
-//import react Quill
-import ReactQuill from "react-quill";
-// quill CSS
-import "react-quill/dist/quill.snow.css";
 //import toast
 import toast from "react-hot-toast";
 import Api from "../../../services/Api";
@@ -437,11 +433,12 @@ export default function Register() {
                       <label className="form-label fw-bold">
                         Alamat Lengkap Sesuai KTP
                       </label>
-                      <ReactQuill
-                        theme="snow"
+                      <textarea
                         rows="5"
+                        cols="50"
                         value={alamat}
                         onChange={(content) => setAlamat(content)}
+                        className="form-control"
                       />
                     </div>
                     {errors.alamat && (
