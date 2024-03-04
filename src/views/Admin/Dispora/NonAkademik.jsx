@@ -195,7 +195,7 @@ export default function NonAkademik() {
               <div className="card border-0 rounded shadow-sm border-top-success">
                 <div className="card-body">
                   <h6>
-                    <i className="fa fa-shield-alt"></i> Beasiswa Disporapar
+                    <i className="fa fa-shield-alt"></i> Beasiswa Disporapar Non
                     Akademik
                   </h6>
                   <hr />

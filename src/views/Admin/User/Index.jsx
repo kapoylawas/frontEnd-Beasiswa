@@ -108,7 +108,7 @@ export default function UserIndex() {
               <div className="card border-0 rounded shadow-sm border-top-success">
                 <div className="card-body">
                   <h6>
-                    <i className="fa fa-pencil-alt"></i> Edit Biodata
+                    <i className="fa fa-pencil-alt"></i> Edit Biodata User
                   </h6>
                   <hr />
                   <form onSubmit={updateBiodata}>
