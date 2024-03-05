@@ -17,6 +17,7 @@ export default function RiwayatIndex() {
   const [dataLuarNegeri, setDataLuarNegeri] = useState("");
   const [idUser, setIdUser] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
+  console.log(dataAkademik);
 
   //navigata
   const navigate = useNavigate();
@@ -270,7 +271,6 @@ export default function RiwayatIndex() {
                               >
                                 Verifikasi User
                               </td>
-
                               <td className="fw-bold text-center">
                                 {statusFinish === 0 ? (
                                   <>
@@ -321,6 +321,34 @@ export default function RiwayatIndex() {
                       Document Terupload
                     </div>
                     <div className="card-body">
+                      <div className="row justify-content-center">
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">File KTP</div>
+                            <iframe
+                              src={dataAkademik.imagektp}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Kartu Keluarga
+                            </div>
+                            <iframe
+                              src={dataAkademik.imagekk}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                      </div>
                       <div className="row justify-content-center">
                         <div className="col-md-6">
                           <div className="card rounded">

@@ -22,7 +22,8 @@ export default function UserIndex() {
   const [nohp, setNohp] = useState("");
   const [nim, setNim] = useState("");
   const [alamat, setAlamat] = useState("");
-  const [ktm, setKtm] = useState("");
+  const [ktp, setKtp] = useState("");
+  const [kartuKeluarga, setKartuKeluarga] = useState("");
   const [isLoading, setLoading] = useState(false);
 
 
@@ -63,7 +64,8 @@ export default function UserIndex() {
     formData.append("nohp", nohp);
     formData.append("nim", nim);
     formData.append("alamat", alamat);
-    formData.append("ktm", ktm);
+    formData.append("imagektp", ktp);
+    formData.append("imagekk", kartuKeluarga);
     formData.append("_method", "PUT");
 
     //sending data
@@ -192,12 +194,21 @@ export default function UserIndex() {
                         />
                       </div>
                       <div className="mb-3">
-                        <label className="form-label fw-bold">File KTM</label>
+                        <label className="form-label fw-bold">File KTP</label>
                         <input
                           type="file"
                           className="form-control"
                           accept="file/*"
-                          onChange={(e) => setKtm(e.target.files[0])}
+                          onChange={(e) => setKtp(e.target.files[0])}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label fw-bold">File Kartu Keluarga</label>
+                        <input
+                          type="file"
+                          className="form-control"
+                          accept="file/*"
+                          onChange={(e) => setKartuKeluarga(e.target.files[0])}
                         />
                       </div>
                     </div>
