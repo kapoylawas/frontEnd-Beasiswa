@@ -47,7 +47,9 @@ export default function UserIndex() {
       setNohp(response.data.data.nohp);
       setNim(response.data.data.nim);
       setAlamat(response.data.data.alamat);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     });
   }, []);
 
