@@ -377,36 +377,6 @@ export default function RiwayatIndex() {
                           </div>
                         </div>
                       </div>
-                      <div className="row justify-content-center mt-3">
-                        <div className="col-md-6">
-                          <div className="card rounded">
-                            <div className="text-center">
-                              File Kartu Keluarga
-                            </div>
-                            <iframe
-                              src={dataAkademik.imagekk}
-                              title="Embedded Content"
-                              className="embed-responsive-item"
-                              height="400"
-                              allowFullScreen
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="card rounded">
-                            <div className="text-center">
-                              File Kartu Tanda Penduduk
-                            </div>
-                            <iframe
-                              src={dataAkademik.imagektp}
-                              title="Embedded Content"
-                              className="embed-responsive-item"
-                              height="400"
-                              allowFullScreen
-                            />
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
