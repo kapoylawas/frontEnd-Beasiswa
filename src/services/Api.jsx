@@ -1,55 +1,49 @@
 //import axios
-import axios from 'axios'
+import axios from "axios";
 
 //import js cookie
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const Api = axios.create({
-    
-    //set endpoint API
-   // baseURL: 'http://127.0.0.1:8000',
-     baseURL: 'https://cdkbeasiswa2.sidoarjokab.go.id',
+  //set endpoint API
+  baseURL: 'http://127.0.0.1:8000',
+//   baseURL: "https://cdkbeasiswa2.sidoarjokab.go.id",
 
-    //set header axios
-    headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-    }
+  //set header axios
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
 });
 
 //handle unathenticated
-Api.interceptors.response.use(function (response) {
-
+Api.interceptors.response.use(
+  function (response) {
     //return response
     return response;
-}, ((error) => {
-
+  },
+  (error) => {
     //check if response unauthenticated
     if (401 === error.response.status) {
+      //remove token
+      Cookies.remove("token");
 
-        //remove token
-        Cookies.remove('token');
+      //remove user
+      Cookies.remove("user");
 
-        //remove user
-        Cookies.remove('user');
+      //remove permissions
+      Cookies.remove("permissions");
 
-        //remove permissions
-        Cookies.remove('permissions');
-
-        //redirect "/"
-        window.location = '/';
-        
-    } else if(403 === error.response.status) {
-    
-        //redirect "/forbidden"
-        window.location = '/forbidden';
-
-    }else {
-
-        //reject promise error
-        return Promise.reject(error);
+      //redirect "/"
+      window.location = "/";
+    } else if (403 === error.response.status) {
+      //redirect "/forbidden"
+      window.location = "/forbidden";
+    } else {
+      //reject promise error
+      return Promise.reject(error);
     }
-}));
+  }
+);
 
-
-export default Api
+export default Api;

@@ -213,7 +213,7 @@ export default function Register() {
                     <div className="col-md-6">
                       <div className="mb-3">
                         <label className="form-label fw-bold">
-                          Nama Lengkap Sesuai KTP
+                          Nama Lengkap Sesuai KTP-EL
                         </label>
                         <input
                           type="text"
@@ -231,7 +231,7 @@ export default function Register() {
                     </div>
                     <div className="col-md-6">
                       <div className="mb-3">
-                        <label className="form-label fw-bold">NIK/KTP-el</label>
+                        <label className="form-label fw-bold">NIK Sesuai KTP-EL</label>
                         <input
                           type="text"
                           className="form-control"
@@ -319,7 +319,7 @@ export default function Register() {
                           value={gender}
                           onChange={handleshowhideGender}
                         >
-                          <option value="">-- Select Gender --</option>
+                          <option value="">-- Pilih Jenis Kelamin --</option>
                           <option value="L">Laki-Laki</option>
                           <option value="P">Perempuan</option>
                         </select>
@@ -338,7 +338,7 @@ export default function Register() {
                           value={selectedKecamatan}
                           onChange={handleKecamatanChange}
                         >
-                          <option value="">-- Select Kecamatan --</option>
+                          <option value="">-- Pilih Kecamatan --</option>
                           {kecamatanList.map((kecamatan, index) => (
                             <option value={kecamatan.id} key={index}>
                               {kecamatan.name}
@@ -362,7 +362,7 @@ export default function Register() {
                           value={selectedKelurahan}
                           onChange={handleKelurahanChange}
                         >
-                          <option value="">-- Select Kelurahan --</option>
+                          <option value="">-- Pilih Kelurahan --</option>
                           {kelurahanList.map((kelurahan, index) => (
                             <option value={kelurahan.id} key={index}>
                               {kelurahan.name}
@@ -403,7 +403,7 @@ export default function Register() {
                           className="form-control"
                           value={rt}
                           onChange={(e) => setRt(e.target.value)}
-                          placeholder="Enter RT"
+                          placeholder="Kalau RT Belum Ada Isi Dengan (0)"
                         />
                       </div>
                       {errors.rt && (
@@ -418,7 +418,7 @@ export default function Register() {
                           className="form-control"
                           value={rw}
                           onChange={(e) => setRw(e.target.value)}
-                          placeholder="Enter RW"
+                          placeholder="Kalau RW Belum Ada Isi Dengan (0)"
                         />
                       </div>
                       {errors.rw && (
@@ -435,7 +435,7 @@ export default function Register() {
                         rows="5"
                         cols="50"
                         value={alamat}
-                        onChange={(content) => setAlamat(content)}
+                        onChange={(e) => setAlamat(e.target.value)}
                         className="form-control"
                       />
                     </div>

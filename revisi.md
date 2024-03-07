@@ -22,3 +22,22 @@ REVISI 1
 akredetasi hilang sama upload
 bela negara di ganti nasionallisme
 ```
+
+Revisi 2
+```json
+1.	Menu Register -> NIK / KTP-EL diganti NIK sesuai KTP-EL dan Nama lengkap sesuai ktp di tambahi KTP-EL
+2.	Menu Register -> Title Kelurahan di ganti dengan Desa / Kelurahan
+3.	Menu Register -> Field Kodepos dibuat Optioan bisa di isi bisa tidak
+4.	Menu Register -> Field RT/RT di default 0 dan Ketika di isi 0 ada popup apakah RT/RW sudah benar?
+5.	Menu Register -> File No KK bisa libih dari 1
+6.	Semua placeholder dan title harus Bahasa Indonesia
+7.	Penambahan upload file surat keterangan tidak sedang menerima beasiswa lain untuk beasiswa dalam negeri
+8.	Pilihan Sidoarjo dan luar sidoarjo tidak bisa
+9.	IPK dibuat 2 angka dibelakang koma (,) atau titik (.)
+10.	Title Masing-masing beasiswa tidak sesuai
+11.	Kategori non akademik -> upload setifikat, ada penambahan field tingkatan (Internasional, Nasional, Provinsi, Kabupaten)
+12.	Upload sertifikat kata-kata Terbaru dihilangkan
+13.	Beasiswa Kesra -> non muslim -> ada title ponpes
+14.	Tambahan form survey lapangan dinsos -> menunggu kiriman form dari dinsos
+15.	Tambah menu login untuk akun DISPENDUKCAPIL
+```
