@@ -22,6 +22,7 @@ export default function EditBeasiswaAkademik() {
   const [ipk, setIpk] = useState("");
   const [imagetranskrip, setImagetranskrip] = useState("");
   const [imagebanpt, setImagebanpt] = useState("");
+  const [statusFinish, setStatusFinish] = useState("");
 
   const [isLoading, setLoading] = useState(false);
 
@@ -55,6 +56,7 @@ export default function EditBeasiswaAkademik() {
       setAkredetasi(response.data.data.akademik.akredetasi_kampus);
       setDataUser(response.data.data.akademik);
       setIpk(response.data.data.akademik.ipk);
+      setStatusFinish(response.data.data.status_finish);
       setTimeout(() => {
         setLoading(false);
       }, 500);
@@ -78,139 +80,148 @@ export default function EditBeasiswaAkademik() {
                 <div className="mt-5">
                   <Loading />
                 </div>
-              ) : (
-                <div className="card border-0 rounded shadow-sm border-top-success">
-                  <div className="card-body">
-                    <h6>
-                      <i className="fa fa-pencil-alt"></i> Edit Data Beasiswa
-                      Akademik
-                    </h6>
-                    <hr />
-                    <form>
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">Semester</label>
-                          <select
-                            className="form-select"
-                            value={semester}
-                            onChange={handleshowhideSemester}
-                          >
-                            <option value="">-- Pilih Semester --</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Akreditasi Universitas
-                          </label>
-                          <select
-                            className="form-select"
-                            value={akredetasi}
-                            onChange={handleshowhideAkreditasi}
-                          >
-                            <option value="">
-                              -- Select Akreditasi Universitas --
-                            </option>
-                            <option value="1">Unggul</option>
-                            <option value="2">Baik Sekali</option>
-                            <option value="3">Baik</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            IPK Minimum 3.4 Harus Menggunakan titik (.)
-                          </label>
-                          <input
-                            type="number"
-                            step="0.01"
-                            min="0"
-                            max="4"
-                            className="form-control"
-                            value={ipk}
-                            onChange={handleGPAChange}
-                            placeholder="Enter IPK(Indeks Prestasi Kumulatif) Minimum 3.4"
-                          />
-                        </div>
-                      </div>
-                      <div className="row">
+              ) : statusFinish === 0 ? (
+                <>
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-body">
+                      <h6>
+                        <i className="fa fa-pencil-alt"></i> Edit Data Beasiswa
+                        Akademik
+                      </h6>
+                      <hr />
+                      <form>
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Transkrip Nilai Pada Semester Akhir Yang Ditempuh
-                              PDF dan Maksimal 2MB
+                              Semester
+                            </label>
+                            <select
+                              className="form-select"
+                              value={semester}
+                              onChange={handleshowhideSemester}
+                            >
+                              <option value="">-- Pilih Semester --</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              Akreditasi Universitas
+                            </label>
+                            <select
+                              className="form-select"
+                              value={akredetasi}
+                              onChange={handleshowhideAkreditasi}
+                            >
+                              <option value="">
+                                -- Select Akreditasi Universitas --
+                              </option>
+                              <option value="1">Unggul</option>
+                              <option value="2">Baik Sekali</option>
+                              <option value="3">Baik</option>
+                              <option value="A">A</option>
+                              <option value="B">B</option>
+                              <option value="C">C</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              IPK Minimum 3.4 Harus Menggunakan titik (.)
+                            </label>
+                            <input
+                              type="number"
+                              step="0.01"
+                              min="0"
+                              max="4"
+                              className="form-control"
+                              value={ipk}
+                              onChange={handleGPAChange}
+                              placeholder="Enter IPK(Indeks Prestasi Kumulatif) Minimum 3.4"
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Transkrip Nilai Pada Semester Akhir Yang
+                                Ditempuh PDF dan Maksimal 2MB
+                              </label>
+                              <input
+                                type="file"
+                                className="form-control"
+                                accept="file/*"
+                                onChange={(e) =>
+                                  setImagetranskrip(e.target.files[0])
+                                }
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              Bukti Akredetasi Dari BANPT PDF dan Maksimal 2MB
+                              (Upload Screenshoot) Link DIBAWAH :
+                              <br />
+                              <a
+                                target="_blank"
+                                href="https://www.banpt.or.id/bianglala/bianglala.php"
+                              >
+                                https://www.banpt.or.id/bianglala/bianglala.php
+                              </a>
+                              <br />
+                              <a
+                                target="_blank"
+                                href="https://www.banpt.or.id/direktori/institusi/pencarian_institusi.php"
+                              >
+                                https://www.banpt.or.id/direktori/institusi/pencarian_institusi.php
+                              </a>
                             </label>
                             <input
                               type="file"
                               className="form-control"
                               accept="file/*"
-                              onChange={(e) =>
-                                setImagetranskrip(e.target.files[0])
-                              }
+                              onChange={(e) => setImagebanpt(e.target.files[0])}
                             />
                           </div>
                         </div>
-                      </div>
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Bukti Akredetasi Dari BANPT PDF dan Maksimal 2MB
-                            (Upload Screenshoot) Link DIBAWAH :
-                            <br />
-                            <a
-                              target="_blank"
-                              href="https://www.banpt.or.id/bianglala/bianglala.php"
-                            >
-                              https://www.banpt.or.id/bianglala/bianglala.php
-                            </a>
-                            <br />
-                            <a
-                              target="_blank"
-                              href="https://www.banpt.or.id/direktori/institusi/pencarian_institusi.php"
-                            >
-                              https://www.banpt.or.id/direktori/institusi/pencarian_institusi.php
-                            </a>
-                          </label>
-                          <input
-                            type="file"
-                            className="form-control"
-                            accept="file/*"
-                            onChange={(e) =>
-                              setImagebanpt(e.target.files[0])
-                            }
-                          />
+                        <div>
+                          <button
+                            type="submit"
+                            className="btn btn-md btn-primary me-2"
+                            disabled={isLoading}
+                          >
+                            {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                          </button>
+                          <button
+                            type="reset"
+                            className="btn btn-md btn-warning"
+                          >
+                            <i className="fa fa-redo"></i> Reset
+                          </button>
                         </div>
-                      </div>
-                      <div>
-                        <button
-                          type="submit"
-                          className="btn btn-md btn-primary me-2"
-                          disabled={isLoading}
-                        >
-                          {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                        </button>
-                        <button type="reset" className="btn btn-md btn-warning">
-                          <i className="fa fa-redo"></i> Reset
-                        </button>
-                      </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
+                </>
+              ) : (
+                <div className="alert alert-danger" role="alert">
+                  Anda Sudah Menyelesaikan Pendaftaran Beasiswa Sidoarjo
                 </div>
               )}
             </div>

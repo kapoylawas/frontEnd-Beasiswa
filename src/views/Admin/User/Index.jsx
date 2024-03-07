@@ -25,6 +25,8 @@ export default function UserIndex() {
   const [alamat, setAlamat] = useState("");
   const [ktp, setKtp] = useState("");
   const [kartuKeluarga, setKartuKeluarga] = useState("");
+  const [statusFinish, setStatusFinish] = useState("");
+
   const [isLoading, setLoading] = useState(false);
 
   //hook useEffect get bioadata
@@ -47,6 +49,7 @@ export default function UserIndex() {
       setNohp(response.data.data.nohp);
       setNim(response.data.data.nim);
       setAlamat(response.data.data.alamat);
+      setStatusFinish(response.data.data.status_finish);
       setTimeout(() => {
         setLoading(false);
       }, 500);
@@ -113,132 +116,145 @@ export default function UserIndex() {
               </Link>
               {isLoading ? (
                 <Loading />
-              ) : (
-                <div className="card border-0 rounded shadow-sm border-top-success">
-                  <div className="card-body">
-                    <h6>
-                      <i className="fa fa-pencil-alt"></i> Edit Biodata User
-                    </h6>
-                    <hr />
-                    <form onSubmit={updateBiodata}>
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">Nama</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">Email</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </div>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">NIK</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={nik}
-                              onChange={(e) => setNik(e.target.value)}
-                            />
-                          </div>
+              ) : statusFinish === 0 ? (
+                <>
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-body">
+                      <h6>
+                        <i className="fa fa-pencil-alt"></i> Edit Biodata User
+                      </h6>
+                      <hr />
+                      <form onSubmit={updateBiodata}>
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">Nama</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                          />
                         </div>
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              No Kartu Keluarga
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={kk}
-                              onChange={(e) => setKk(e.target.value)}
-                            />
-                          </div>
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">Email</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
                         </div>
                         <div className="row">
                           <div className="col-md-6">
                             <div className="mb-3">
-                              <label className="form-label fw-bold">Nim</label>
+                              <label className="form-label fw-bold">NIK</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                value={nim}
-                                onChange={(e) => setNim(e.target.value)}
+                                value={nik}
+                                onChange={(e) => setNik(e.target.value)}
                               />
                             </div>
                           </div>
                           <div className="col-md-6">
                             <div className="mb-3">
                               <label className="form-label fw-bold">
-                                No Hp
+                                No Kartu Keluarga
                               </label>
                               <input
                                 type="text"
                                 className="form-control"
-                                value={nohp}
-                                onChange={(e) => setNohp(e.target.value)}
+                                value={kk}
+                                onChange={(e) => setKk(e.target.value)}
                               />
                             </div>
                           </div>
+                          <div className="row">
+                            <div className="col-md-6">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Nim
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  value={nim}
+                                  onChange={(e) => setNim(e.target.value)}
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-6">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  No Hp
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  value={nohp}
+                                  onChange={(e) => setNohp(e.target.value)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">Alamat</label>
+                            <textarea
+                              type="text"
+                              className="form-control"
+                              value={alamat}
+                              onChange={(e) => setAlamat(e.target.value)}
+                              placeholder="Enter Alamat Universitas"
+                              rows="4" // Set the number of visible text lines
+                              cols="50"
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              File KTP
+                            </label>
+                            <input
+                              type="file"
+                              className="form-control"
+                              accept="file/*"
+                              onChange={(e) => setKtp(e.target.files[0])}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              File Kartu Keluarga
+                            </label>
+                            <input
+                              type="file"
+                              className="form-control"
+                              accept="file/*"
+                              onChange={(e) =>
+                                setKartuKeluarga(e.target.files[0])
+                              }
+                            />
+                          </div>
                         </div>
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">Alamat</label>
-                          <textarea
-                            type="text"
-                            className="form-control"
-                            value={alamat}
-                            onChange={(e) => setAlamat(e.target.value)}
-                            placeholder="Enter Alamat Universitas"
-                            rows="4" // Set the number of visible text lines
-                            cols="50"
-                          />
+                        <div>
+                          <button
+                            type="submit"
+                            className="btn btn-md btn-primary me-2"
+                            disabled={isLoading}
+                          >
+                            {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                          </button>
+                          <button
+                            type="reset"
+                            className="btn btn-md btn-warning"
+                          >
+                            <i className="fa fa-redo"></i> Reset
+                          </button>
                         </div>
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">File KTP</label>
-                          <input
-                            type="file"
-                            className="form-control"
-                            accept="file/*"
-                            onChange={(e) => setKtp(e.target.files[0])}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            File Kartu Keluarga
-                          </label>
-                          <input
-                            type="file"
-                            className="form-control"
-                            accept="file/*"
-                            onChange={(e) =>
-                              setKartuKeluarga(e.target.files[0])
-                            }
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <button
-                          type="submit"
-                          className="btn btn-md btn-primary me-2"
-                          disabled={isLoading}
-                        >
-                          {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                        </button>
-                        <button type="reset" className="btn btn-md btn-warning">
-                          <i className="fa fa-redo"></i> Reset
-                        </button>
-                      </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
+                </>
+              ) : (
+                <div className="alert alert-danger" role="alert">
+                  Anda Sudah Menyelesaikan Pendaftaran Beasiswa Sidoarjo
                 </div>
               )}
             </div>

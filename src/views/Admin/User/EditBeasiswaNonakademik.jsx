@@ -17,6 +17,7 @@ export default function EditBeasiswaNonakademik() {
 
   const [dataUser, setDataUser] = useState("");
   const [semester, setSemester] = useState("");
+  const [statusFinish, setStatusFinish] = useState("");
 
   const [isLoading, setLoading] = useState(false);
 
@@ -33,6 +34,7 @@ export default function EditBeasiswaNonakademik() {
     }).then((response) => {
       //set data
       setSemester(response.data.data.nonakademik.semester);
+      setStatusFinish(response.data.data.status_finish);
       setDataUser(response.data.data);
       setTimeout(() => {
         setLoading(false);
@@ -57,16 +59,22 @@ export default function EditBeasiswaNonakademik() {
                 <div className="mt-5">
                   <Loading />
                 </div>
-              ) : (
-                <div className="card border-0 rounded shadow-sm border-top-success">
-                  <div className="card-body">
-                    <h6>
-                      <i className="fa fa-pencil-alt"></i> Edit Data Beasiswa
-                      Non Akademik
-                    </h6>
-                    <hr />
-                    <form></form>
+              ) : statusFinish === 0 ? (
+                <>
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-body">
+                      <h6>
+                        <i className="fa fa-pencil-alt"></i> Edit Data Beasiswa
+                        Non Akademik
+                      </h6>
+                      <hr />
+                      <form></form>
+                    </div>
                   </div>
+                </>
+              ) : (
+                <div className="alert alert-danger" role="alert">
+                  Anda Sudah Menyelesaikan Pendaftaran Beasiswa Sidoarjo
                 </div>
               )}
             </div>
