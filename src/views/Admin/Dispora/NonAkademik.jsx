@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
-import ModalAkredetasi from "../../../components/general/ModalAkredetasi";
 
 export default function NonAkademik() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
@@ -19,12 +18,17 @@ export default function NonAkademik() {
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
   const [sertifikat, setSertifikat] = useState("");
   const [tahun, setTahun] = useState("");
+  const [tingkatanSertifikat, setTingkatanSertifikat] = useState("");
   const [isLoading, setLoading] = useState(false);
-  // const [transkripNilai, setTranskripNilai] = useState("");
-  // const [akreKampus, setAkreKampus] = useState("");
 
+  // handel jenis prestasi
   const handleSelectChange = (event) => {
     setSelectedSertifikat(event.target.value);
+  };
+
+  // handel tingkat prestasi
+  const handleSelectTingkatPrestasi = (event) => {
+    setTingkatanSertifikat(event.target.value);
   };
 
   const [errors, setErros] = useState([]);
@@ -80,7 +84,6 @@ export default function NonAkademik() {
     }
     setSertifikat(imageData);
   };
-
 
   const storeNonAkademik = async (e) => {
     e.preventDefault();
@@ -192,69 +195,6 @@ export default function NonAkademik() {
                         )}
                       </div>
                     </div>
-                    {/* <div className="row">
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Akreditasi Kampus
-                          </label>
-                          <select
-                            className="form-select"
-                            value={akreKampus}
-                            onChange={handleshowhideAkreditasi}
-                          >
-                            <option value="">
-                              -- Select Akreditasi Universitas --
-                            </option>
-                            <option value="1">Unggul</option>
-                            <option value="2">Baik Sekali</option>
-                            <option value="3">Baik</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                          </select>
-                        </div>
-                        {errors.akredetasi_kampus && (
-                          <div className="alert alert-danger">
-                            {errors.akredetasi_kampus[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div> */}
-                    {/* <div className="row">
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Bukti Akredetasi Dari BANPT PDF dan Maksimal 2MB
-                            (Upload Screenshoot) Link DIBAWAH :
-                            <br />
-                            <a
-                              target="_blank"
-                              href="https://www.banpt.or.id/bianglala/bianglala.php"
-                            >
-                              https://www.banpt.or.id/bianglala/bianglala.php
-                            </a>
-                            <br />
-                            <a
-                              target="_blank"
-                              href="https://www.banpt.or.id/direktori/institusi/pencarian_institusi.php"
-                            >
-                              https://www.banpt.or.id/direktori/institusi/pencarian_institusi.php
-                            </a>
-                          </label>
-                          <input
-                            type="file"
-                            className="form-control"
-                            onChange={handleFileTranskripNilai}
-                          />
-                        </div>
-                        {errors.imageakredetasi && (
-                          <div className="alert alert-danger">
-                            {errors.imageakredetasi[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div> */}
                     <div className="row">
                       <div className="col-md-12">
                         <div className="mb-3">
@@ -300,7 +240,7 @@ export default function NonAkademik() {
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Upload Berkas Sertifikat Sesuai yang dipilih PDF
+                              Upload Berkas Sesuai yang dipilih PDF
                               dan Maksimal 2MB
                             </label>
                             <input
@@ -314,6 +254,33 @@ export default function NonAkademik() {
                               {errors.imagesertifikat[0]}
                             </div>
                           )}
+                        </div>
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Tingkat Prestasi
+                              </label>
+                              <select
+                                className="form-select"
+                                value={tingkatanSertifikat}
+                                onChange={handleSelectTingkatPrestasi}
+                              >
+                                <option value="">
+                                  -- Pilih Salah Satu Sertifikat --
+                                </option>
+                                <option value="1">Internasional</option>
+                                <option value="2">Nasional</option>
+                                <option value="3">Provinsi</option>
+                                <option value="4">Kabupaten</option>
+                              </select>
+                            </div>
+                            {errors.jenis_sertifikat && (
+                              <div className="alert alert-danger">
+                                {errors.jenis_sertifikat[0]}
+                              </div>
+                            )}
+                          </div>
                         </div>
                         <div className="col-md-12">
                           <div className="mb-3">

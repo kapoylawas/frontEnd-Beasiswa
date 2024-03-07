@@ -37,6 +37,7 @@ Revisi 2
 10.	Title Masing-masing beasiswa tidak sesuai
 11.	Kategori non akademik -> upload setifikat, ada penambahan field tingkatan (Internasional, Nasional, Provinsi, Kabupaten)
 12.	Upload sertifikat kata-kata Terbaru dihilangkan
+==========
 13.	Beasiswa Kesra -> non muslim -> ada title ponpes
 14.	Tambahan form survey lapangan dinsos -> menunggu kiriman form dari dinsos
 15.	Tambah menu login untuk akun DISPENDUKCAPIL

@@ -22,6 +22,7 @@ export default function Dashboard() {
   const [imageaktifkampus, setImageaktifkampus] = useState("");
   const [imagesuratpernyataan, setImagesuratpernyataan] = useState("");
   const [imageakrekampus, setImageakrekampus] = useState("");
+  const [imagesuratbeasiswa, setImagesuratbeasiswa] = useState("");
   const [pilihuniversitas, setPilihuniversitas] = useState("");
   const [jenisuniversitas, setJenisuniversitas] = useState("");
   const [jeniskota, setJeniskota] = useState("");
@@ -226,6 +227,47 @@ export default function Dashboard() {
     setImageakrekampus(imageData);
   };
 
+  const handleFileSuratBeasiswa = (e) => {
+    const imageData = e.target.files[0];
+
+    if (imageData) {
+      const maxSize = 2 * 1024 * 1024; // 2MB
+
+      if (imageData.size > maxSize) {
+        toast.error("Ukuran file melebihi batas (2MB)", {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else {
+        setImagesuratbeasiswa(imageData);
+      }
+    }
+
+    if (!imageData.type.match("pdf.*")) {
+      setImagesuratbeasiswa("");
+
+      toast.error(
+        "Format File Surat Pernyataan Tidak Menerima Beasiwa Lain Tidak Cocok Harus PDF",
+        {
+          duration: 5000,
+          position: "top-center",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        }
+      );
+      return;
+    }
+    setImagesuratbeasiswa(imageData);
+  };
+
   const handleshowhidePilih = (event) => {
     const getType = event.target.value;
     setPilihuniversitas(getType);
@@ -254,6 +296,7 @@ export default function Dashboard() {
     formData.append("imageaktifkampus", imageaktifkampus);
     formData.append("imagesuratpernyataan", imagesuratpernyataan);
     formData.append("imageakrekampus", imageakrekampus);
+    formData.append("imagesuratbeasiswa", imagesuratbeasiswa);
     formData.append("pilih_universitas", pilihuniversitas);
     formData.append("jenis_universitas", jenisuniversitas);
     formData.append("_method", "PUT");
@@ -496,22 +539,37 @@ export default function Dashboard() {
                               <div className="col-md-12">
                                 <div className="mb-3">
                                   <label className="form-label fw-bold">
+                                    Upload Surat Tidak Menerima Beasiswa Lain dan
+                                    maksimal 2MB
+                                  </label>
+                                  <input
+                                    type="file"
+                                    className="form-control"
+                                    onChange={handleFileSuratBeasiswa}
+                                  />
+                                </div>
+                                {errors.imagesuratbeasiswa && (
+                                  <div className="alert alert-danger">
+                                    {errors.imagesuratbeasiswa[0]}
+                                  </div>
+                                )}
+                              </div>
+
+                              <div className="col-md-12">
+                                <div className="mb-3">
+                                  <label className="form-label fw-bold">
                                     Pilih Sidoarjo atau Luar Sidoarjo
                                   </label>
                                   <select
                                     className="form-select"
-                                    value={jenisuniversitas}
+                                    value={jeniskota}
                                     onChange={handleshowKota}
                                   >
                                     <option value="">
                                       -- Pilih Sidoarjo atau Luar Sidoarjo --
                                     </option>
-                                    <option value="sidoarjo">
-                                      Sidoarjo
-                                    </option>
-                                    <option value="luar">
-                                      Luar Sidoarjo
-                                    </option>
+                                    <option value="sidoarjo">Sidoarjo</option>
+                                    <option value="luar">Luar Sidoarjo</option>
                                   </select>
                                 </div>
                                 {errors.jenis_universitas && (
@@ -571,9 +629,9 @@ export default function Dashboard() {
                 </div>
               ) : (
                 <div className="alert alert-danger" role="alert">
-                  Anda Sudah Menyelesaikan tahap Input Data Mahasiswa di Beasiswa Silahkan Ke Menu
-                  Kategori Beasiswa Untuk Memilih SALAH SATU DARI BEBERAPA BEASISWA
-                  Kab.Sidoarjo
+                  Anda Sudah Menyelesaikan tahap Input Data Mahasiswa di
+                  Beasiswa Silahkan Ke Menu Kategori Beasiswa Untuk Memilih
+                  SALAH SATU DARI BEBERAPA BEASISWA Kab.Sidoarjo
                 </div>
               )}
             </>
