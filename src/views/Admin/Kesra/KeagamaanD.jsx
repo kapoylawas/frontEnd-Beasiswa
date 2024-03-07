@@ -25,7 +25,6 @@ export default function KeagamanD() {
 
   const [errors, setErros] = useState([]);
 
-  console.log(selectedSertifikat);
 
   const handleSelectChange = (event) => {
     setSelectedSertifikat(event.target.value);

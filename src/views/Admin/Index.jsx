@@ -33,7 +33,6 @@ export default function Dashboard() {
 
   const [usersbyid, setUsersByid] = useState("");
   const [step, setStep] = useState("");
-  // console.log('data',usersbyid);
 
   //token from cookies
   const token = Cookies.get("token");

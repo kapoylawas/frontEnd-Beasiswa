@@ -38,8 +38,6 @@ export default function EditBeasiswaAkademik() {
     setIpk(event.target.value);
   };
 
-  console.log("data user => ", dataUser);
-
   // GET DATA AKADEMIK
   useEffect(() => {
     setLoading(true);

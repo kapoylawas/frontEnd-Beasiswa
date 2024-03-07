@@ -6,7 +6,6 @@ import Api from "../../../src/services/Api";
 
 export default function NonAkademik() {
   const [dataNonAkademik, setDataNonAkademik] = useState("");
-  console.log(dataNonAkademik);
 
   //token from cookies
   const token = Cookies.get("token");

@@ -30,7 +30,6 @@ export default function RolesCreate() {
 
   //define state "permissions"
   const [permissions, setPermissions] = useState([]);
-  console.log(permissions);
 
   //token from cookies
   const token = Cookies.get("token");

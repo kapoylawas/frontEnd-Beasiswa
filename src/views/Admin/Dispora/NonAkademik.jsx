@@ -81,43 +81,6 @@ export default function NonAkademik() {
     setSertifikat(imageData);
   };
 
-  // const handleFileTranskripNilai = (e) => {
-  //   const imageData = e.target.files[0];
-
-  //   if (imageData) {
-  //     const maxSize = 2 * 1024 * 1024; // 2MB
-
-  //     if (imageData.size > maxSize) {
-  //       toast.error("Ukuran file melebihi batas (2MB)", {
-  //         duration: 5000,
-  //         position: "top-center",
-  //         style: {
-  //           borderRadius: "10px",
-  //           background: "#333",
-  //           color: "#fff",
-  //         },
-  //       });
-  //     } else {
-  //       setTranskripNilai(imageData);
-  //     }
-  //   }
-
-  //   if (!imageData.type.match("pdf.*")) {
-  //     setTranskripNilai("");
-
-  //     toast.error("Format File Transkrip Nilai Tidak Cocok Harus PDF", {
-  //       duration: 5000,
-  //       position: "top-center",
-  //       style: {
-  //         borderRadius: "10px",
-  //         background: "#333",
-  //         color: "#fff",
-  //       },
-  //     });
-  //     return;
-  //   }
-  //   setTranskripNilai(imageData);
-  // };
 
   const storeNonAkademik = async (e) => {
     e.preventDefault();
@@ -179,7 +142,6 @@ export default function NonAkademik() {
   return (
     <LayoutAdmin>
       <main>
-        <ModalAkredetasi />
         <div className="container-fluid mb-5 mt-5">
           <div className="col-md-3 col-12 mb-2">
             <Link

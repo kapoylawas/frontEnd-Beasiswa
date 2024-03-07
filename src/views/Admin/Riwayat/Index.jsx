@@ -17,7 +17,6 @@ export default function RiwayatIndex() {
   const [dataLuarNegeri, setDataLuarNegeri] = useState("");
   const [idUser, setIdUser] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
-  console.log(dataAkademik);
 
   //navigata
   const navigate = useNavigate();

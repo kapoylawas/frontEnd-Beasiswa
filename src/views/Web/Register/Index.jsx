@@ -35,7 +35,6 @@ export default function Register() {
   const [selectedKecamatan, setSelectedKecamatan] = useState("");
   const [selectedKelurahan, setSelectedKelurahan] = useState("");
 
-  console.log(selectedKelurahan);
 
   //hook useEffect
   useEffect(() => {
@@ -56,7 +55,6 @@ export default function Register() {
     );
   }, [selectedKecamatan]);
 
-  // console.log(getKelurahan)
 
   const handleKecamatanChange = (e) => {
     setSelectedKecamatan(e.target.value);
