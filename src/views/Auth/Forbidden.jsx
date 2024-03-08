@@ -16,6 +16,7 @@ export default function Forbidden() {
                   src="/images/no-touch.png"
                   className="mt-5 mb-3"
                   width="200"
+                  alt="Logo Pendaftaran Beasiswa"
                 />
                 <h2>Access Denied!</h2>
                 <Link to="/dashboard" className="btn btn-md btn-tertiary mt-3">

@@ -78,7 +78,11 @@ export default function Login() {
       >
         <div className="col-md-7">
           <div className="text-center mt-2 mb-3">
-            <img src={"/images/sidoarjo-logo.png"} width={"100"} />
+            <img
+              src={"/images/sidoarjo-logo.png"}
+              width={"100"}
+              alt="Logo Pendaftaran Beasiswa"
+            />
             <h4>
               <strong className="text-white mt-3">Beasiswa, SIDOARJO</strong>
             </h4>

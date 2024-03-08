@@ -12,7 +12,7 @@ export default function footer() {
             </h5>
             <hr />
             <div className="text-center">
-              <img src="/images/sidoarjo-logo.png" width="70" />
+              <img src="/images/sidoarjo-logo.png" width="70" alt="Logo Pendaftaran Beasiswa" />
             </div>
             <p className="text-justify mt-3">
               Beasiswa Sidoarjo Meliputi Dispora, Kesra, Dinsos 2024

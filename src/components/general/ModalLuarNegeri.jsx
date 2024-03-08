@@ -22,6 +22,7 @@ export default function ModalLuarNegeri() {
               src={"/images/luar_negeri.png"}
               width={"475"}
               height={"320"}
+              alt="Logo Pendaftaran Beasiswa"
             />
           </p>
         </Modal.Body>

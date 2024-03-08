@@ -51,6 +51,7 @@ export default function Navbar() {
                     src="/images/sidoarjo-logo.png"
                     width="110"
                     className="img-responsive"
+                    alt="Logo Pendaftaran Beasiswa"
                   />
                 </a>
               </div>

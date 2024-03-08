@@ -66,6 +66,7 @@ export default function MahasiswaIndex() {
                         src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
                         className="rounded"
                         style={{ width: "60px" }}
+                        alt="Logo Pendaftaran Beasiswa"
                       />
                       <hr />
                       <h6 className="text-center mb-3 font-weight-bold text-dark">
@@ -91,6 +92,7 @@ export default function MahasiswaIndex() {
                           src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
                           className="rounded"
                           style={{ width: "60px" }}
+                          alt="Logo Pendaftaran Beasiswa"
                         />
                         <hr />
                         <h6 className="text-center mb-3 font-weight-bold text-dark">
@@ -114,6 +116,7 @@ export default function MahasiswaIndex() {
                           src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
                           className="rounded"
                           style={{ width: "60px" }}
+                          alt="Logo Pendaftaran Beasiswa"
                         />
                         <hr />
                         <h6 className="text-center mb-3 font-weight-bold text-dark">
@@ -137,6 +140,7 @@ export default function MahasiswaIndex() {
                           src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
                           className="rounded"
                           style={{ width: "60px" }}
+                          alt="Logo Pendaftaran Beasiswa"
                         />
                         <hr />
                         <h6 className="text-center mb-3 font-weight-bold text-dark">
@@ -160,6 +164,7 @@ export default function MahasiswaIndex() {
                           src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
                           className="rounded"
                           style={{ width: "60px" }}
+                          alt="Logo Pendaftaran Beasiswa"
                         />
                         <hr />
                         <h6 className="text-center mb-3 font-weight-bold text-dark">
