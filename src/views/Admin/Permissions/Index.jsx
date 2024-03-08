@@ -15,7 +15,7 @@ import Pagination from "../../../components/general/Pagination";
 
 export default function index() {
   //title page
-  document.title = "Permissions - Desa Digital";
+  document.title = "Permissions - Beasiswa Sidoarjo";
 
   //define state "permissions"
   const [permissions, setPermissions] = useState([]);

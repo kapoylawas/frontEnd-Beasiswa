@@ -30,7 +30,7 @@ import toast from "react-hot-toast";
 
 export default function RolesIndex() {
   //title page
-  document.title = "Roles - Desa Digital";
+  document.title = "Roles - Beasiswa Sidoarjo";
 
   //define state "roles"
   const [roles, setRoles] = useState([]);

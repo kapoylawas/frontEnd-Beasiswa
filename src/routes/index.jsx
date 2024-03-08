@@ -28,7 +28,6 @@ import KeagamanA from "../views/Admin/Kesra/KeagamaanA";
 import KeagamanB from "../views/Admin/Kesra/KeagamaanB";
 import KeagamanC from "../views/Admin/Kesra/KeagamaanC";
 import KeagamanD from "../views/Admin/Kesra/KeagamaanD";
-import AdminAkademik from "../views/Admin/Verifikasi/adminAkademik";
 import AdminNonAkademik from "../views/Admin/Verifikasi/AdminNonAkademik";
 import AdminLuarNegeri from "../views/Admin/Verifikasi/AdminLuarNegeri";
 import UserIndex from "../views/Admin/User/Index";
@@ -37,6 +36,8 @@ import AdminDinsos from "../views/Admin/Verifikasi/AdminDinsos";
 import EditBeasiswa from "../views/Admin/User/EditBeasiswaAkademik";
 import EditBeasiswaNonakademik from "../views/Admin/User/EditBeasiswaNonakademik";
 import EditBeasiswaLuarNegeri from "../views/Admin/User/EditBeasiswaLuarNegeri";
+import AdminDispenduk from "../views/Admin/Verifikasi/AdminDispenduk";
+import AdminAkademik from "../views/Admin/Verifikasi/AdminAkademik";
 
 export default function RoutesIndex() {
   return (
@@ -294,6 +295,15 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <AdminDinsos />
+          </PrivateRoutes>
+        }
+      />
+      
+      <Route
+        path="/admin/adminDispenduk"
+        element={
+          <PrivateRoutes>
+            <AdminDispenduk />
           </PrivateRoutes>
         }
       />
