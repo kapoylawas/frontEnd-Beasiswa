@@ -50,8 +50,8 @@ export default function sidebar() {
                   (activeRoute[2] === "photos"
                     ? " active-sidebar"
                     : activeRoute[2] === "sliders"
-                      ? " active-sidebar"
-                      : "")
+                    ? " active-sidebar"
+                    : "")
                 }
                 href="#"
                 data-bs-toggle="collapse"
@@ -78,8 +78,8 @@ export default function sidebar() {
               (activeRoute[2] === "photos"
                 ? " show"
                 : activeRoute[2] === "sliders"
-                  ? " show"
-                  : "")
+                ? " show"
+                : "")
             }
             id="collapseMedias"
             aria-labelledby="headingOne"
@@ -112,10 +112,10 @@ export default function sidebar() {
                   (activeRoute[2] === "roles"
                     ? " active-sidebar"
                     : activeRoute[2] === "permissions"
-                      ? " active-sidebar"
-                      : activeRoute[2] === "users"
-                        ? " active-sidebar"
-                        : "")
+                    ? " active-sidebar"
+                    : activeRoute[2] === "users"
+                    ? " active-sidebar"
+                    : "")
                 }
                 href="#"
                 data-bs-toggle="collapse"
@@ -142,10 +142,10 @@ export default function sidebar() {
               (activeRoute[2] === "roles"
                 ? " show"
                 : activeRoute[2] === "permissions"
-                  ? " show"
-                  : activeRoute[2] === "users"
-                    ? " show"
-                    : "")
+                ? " show"
+                : activeRoute[2] === "users"
+                ? " show"
+                : "")
             }
             id="collapseUsers"
             aria-labelledby="headingOne"
@@ -286,6 +286,25 @@ export default function sidebar() {
                   <i className="fas fa-user"></i>
                 </div>
                 Beasiswa Keagamaan
+              </Link>
+            </>
+          )}
+
+          {hasAnyPermission(["dispenduk.index"]) && (
+            <>
+              <div className="sb-sidenav-menu-heading">Admin Dispenduk</div>
+              <Link
+                className={
+                  activeRoute[2] === "adminDispenduk"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminDispenduk"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Data Pendaftar
               </Link>
             </>
           )}

@@ -106,6 +106,7 @@ export default function Login() {
                         value={nik}
                         onChange={(e) => setNik(e.target.value)}
                         placeholder="Nik User"
+                        max={16}
                       />
                     </div>
                     {errors.nik && (
