@@ -501,7 +501,7 @@ export default function Register() {
                     <div className="col-md-6 mt-2">
                       <div className="mb-3">
                         <label className="form-label fw-bold">
-                          Password Confirmation
+                          Password Konfirmasi
                         </label>
                         <input
                           type="password"
