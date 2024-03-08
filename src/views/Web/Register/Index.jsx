@@ -446,7 +446,7 @@ export default function Register() {
                     )}
                   </div>
                   <div className="row">
-                    <div className="col-md-6 mt-2">
+                    <div className="col-md-12 mt-2">
                       <div className="mb-3">
                         <label className="form-label fw-bold">
                           Upload KTP pdf dan maksimal 2MB
@@ -463,10 +463,10 @@ export default function Register() {
                         </div>
                       )}
                     </div>
-                    <div className="col-md-6 mt-2">
+                    <div className="col-md-12 mt-2">
                       <div className="mb-3">
                         <label className="form-label fw-bold">
-                          Upload KK (Kartu Keluarga) pdf dan maksimal 2MB
+                        Upload Kartu Keluarga pdf dan maksimal 2MB
                         </label>
                         <input
                           type="file"
