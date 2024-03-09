@@ -38,6 +38,7 @@ import EditBeasiswaNonakademik from "../views/Admin/User/EditBeasiswaNonakademik
 import EditBeasiswaLuarNegeri from "../views/Admin/User/EditBeasiswaLuarNegeri";
 import AdminDispenduk from "../views/Admin/Verifikasi/AdminDispenduk";
 import AdminAkademik from "../views/Admin/Verifikasi/AdminAkademik";
+import EditBeasiswaDinsos from "../views/Admin/User/EditBeasiswaDinsos";
 
 export default function RoutesIndex() {
   return (
@@ -238,6 +239,16 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <EditBeasiswaLuarNegeri />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* edit dinsos */}
+      <Route
+        path="/admin/EditBeasiswaDinsos"
+        element={
+          <PrivateRoutes>
+            <EditBeasiswaDinsos />
           </PrivateRoutes>
         }
       />

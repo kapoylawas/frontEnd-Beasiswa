@@ -15,8 +15,12 @@ export default function RiwayatIndex() {
   const [dataAkademik, setDataAkademik] = useState("");
   const [dataNonAkademik, setDataNonAkademik] = useState("");
   const [dataLuarNegeri, setDataLuarNegeri] = useState("");
+  const [dataDinsos, setDataDinsos] = useState("");
   const [idUser, setIdUser] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
+
+  const [tipePendaftarDinsos, setTipePendaftarDinsos] = useState("");
+  console.log(tipePendaftarDinsos);
 
   //navigata
   const navigate = useNavigate();
@@ -70,6 +74,8 @@ export default function RiwayatIndex() {
       setDataAkademik(response.data.data);
       setDataNonAkademik(response.data.data);
       setDataLuarNegeri(response.data.data);
+      setDataDinsos(response.data.data);
+      setTipePendaftarDinsos(response.data.data.dinsos.tipe_daftar);
       setIdUser(response.data.data.id);
       setStatusFinish(response.data.data.status_finish);
       setLoading(false);
@@ -828,7 +834,7 @@ export default function RiwayatIndex() {
                                 Nama Lengkap
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.name}
+                                {dataDinsos.name}
                               </td>
                             </tr>
                             <tr>
@@ -839,7 +845,7 @@ export default function RiwayatIndex() {
                                 NIK
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.nik}
+                                {dataDinsos.nik}
                               </td>
                             </tr>
                             <tr>
@@ -850,7 +856,7 @@ export default function RiwayatIndex() {
                                 No KK
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.nokk}
+                                {dataDinsos.nokk}
                               </td>
                             </tr>
                             <tr>
@@ -861,7 +867,7 @@ export default function RiwayatIndex() {
                                 Email
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.email}
+                                {dataDinsos.email}
                               </td>
                             </tr>
                             <tr>
@@ -872,7 +878,7 @@ export default function RiwayatIndex() {
                                 Nim
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.nim}
+                                {dataDinsos.nim}
                               </td>
                             </tr>
                             <tr>
@@ -883,7 +889,7 @@ export default function RiwayatIndex() {
                                 Universitas
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.universitas}
+                                {dataDinsos.universitas}
                               </td>
                             </tr>
                             <tr>
@@ -894,12 +900,203 @@ export default function RiwayatIndex() {
                                 Terdaftar
                               </td>
                               <td className="fw-bold text-center">
-                                Beasiswa {dataAkademik.nonakademik.name}
+                                {statusFinish === 0 ? (
+                                  <>
+                                    Beasiswa {dataDinsos.dinsos.name}
+                                    <br />
+                                    <div className="d-flex justify-content-center">
+                                      <Link
+                                        to="/admin/EditBeasiswaDinsos"
+                                        className="btn btn-md btn-primary me-2"
+                                      >
+                                        Edit Data
+                                      </Link>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataDinsos.dinsos.name}
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="fw-bold text-center">
+                                Edit Bioadata
+                              </td>
+                              <td className="fw-bold text-center">
+                                {statusFinish === 0 ? (
+                                  <>
+                                    <div className="d-flex justify-content-center">
+                                      <Link
+                                        to="/admin/biodata"
+                                        className="btn btn-md btn-primary me-2"
+                                      >
+                                        Edit Data
+                                      </Link>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataDinsos.dinsos.name}
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                Verifikasi User
+                              </td>
+
+                              <td className="fw-bold text-center">
+                                {statusFinish === 0 ? (
+                                  <>
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        checked={isChecked}
+                                        onChange={handleCheckboxChange}
+                                      />
+                                      {""} Saya Yakin Bahwa Data Yang Saya isi
+                                      Sudah Benar
+                                    </label>
+                                    <br />
+                                    <div className="d-flex justify-content-center">
+                                      <button
+                                        type="submit"
+                                        className="btn btn-md btn-primary me-2"
+                                        disabled={!isChecked}
+                                        onClick={handleClick}
+                                      >
+                                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataDinsos.dinsos.name}
+                                  </button>
+                                )}
                               </td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div className="row mt-1">
+                <div className="col-md-12">
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-header text-dark">
+                      Document Terupload
+                    </div>
+                    <div className="card-body">
+                      <div className="row justify-content-center">
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">File Akredetasi</div>
+                            <iframe
+                              src={dataDinsos.imageakrekampus}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Surat Aktif Kampus
+                            </div>
+                            <iframe
+                              src={dataDinsos.imageaktifkampus}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row justify-content-center mt-3">
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Kartu Keluarga
+                            </div>
+                            <iframe
+                              src={dataDinsos.imagekk}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Kartu Tanda Penduduk
+                            </div>
+                            <iframe
+                              src={dataDinsos.imagektp}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
+                      {tipePendaftarDinsos === 1 ? null : (
+                        <div className="row mt-1">
+                          <div className="col-md-12">
+                            <div className="card border-0 rounded shadow-sm border-top-success">
+                              <div className="card-header text-dark">
+                                Document Terupload
+                              </div>
+                              <div className="card-body">
+                                <div className="row justify-content-center">
+                                  <div className="col-md-12">
+                                    <div className="card rounded">
+                                      <div className="text-center">
+                                        File SKTM
+                                      </div>
+                                      <iframe
+                                        src={dataDinsos.dinsos.imagesktm}
+                                        title="Embedded Content"
+                                        className="embed-responsive-item"
+                                        height="400"
+                                        allowFullScreen
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
