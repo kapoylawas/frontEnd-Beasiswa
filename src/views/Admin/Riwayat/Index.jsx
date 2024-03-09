@@ -20,7 +20,7 @@ export default function RiwayatIndex() {
   const [statusFinish, setStatusFinish] = useState("");
 
   const [tipePendaftarDinsos, setTipePendaftarDinsos] = useState("");
-  console.log(tipePendaftarDinsos);
+  console.log("tipe dinsos =>",tipePendaftarDinsos);
 
   //navigata
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ export default function RiwayatIndex() {
       setDataNonAkademik(response.data.data);
       setDataLuarNegeri(response.data.data);
       setDataDinsos(response.data.data);
-      setTipePendaftarDinsos(response.data.data.dinsos.tipe_daftar);
+      setTipePendaftarDinsos(response.data.data);
       setIdUser(response.data.data.id);
       setStatusFinish(response.data.data.status_finish);
       setLoading(false);
@@ -1068,7 +1068,7 @@ export default function RiwayatIndex() {
                         </div>
                       </div>
                       <hr />
-                      {tipePendaftarDinsos === 1 ? null : (
+                      {tipePendaftarDinsos.dinsos.tipe_daftar === 1 ? null : (
                         <div className="row mt-1">
                           <div className="col-md-12">
                             <div className="card border-0 rounded shadow-sm border-top-success">
