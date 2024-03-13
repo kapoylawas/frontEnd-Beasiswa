@@ -220,7 +220,7 @@ export default function Register() {
                           className="form-control"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="Enter Nama Lengkap"
+                          placeholder="Masukkan Nama Lengkap"
                         />
                       </div>
                       {errors.name && (
@@ -237,7 +237,7 @@ export default function Register() {
                           className="form-control"
                           value={nik}
                           onChange={(e) => setNik(e.target.value)}
-                          placeholder="Enter No Induk Kependudukan"
+                          placeholder="Masukkan No Induk Kependudukan"
                           maxLength={16}
                         />
                       </div>
@@ -259,7 +259,7 @@ export default function Register() {
                           className="form-control"
                           value={nokk}
                           onChange={(e) => setNokk(e.target.value)}
-                          placeholder="Enter No Kartu Keluarga"
+                          placeholder="Masukkan No Kartu Keluarga"
                           maxLength={16}
                         />
                       </div>
@@ -281,7 +281,7 @@ export default function Register() {
                           className="form-control"
                           value={nohp}
                           onChange={(e) => setNohp(e.target.value)}
-                          placeholder="Enter No Hp atau Whatsapp"
+                          placeholder="Masukkan No Hp atau Whatsapp"
                         />
                       </div>
                       {errors.nohp && (
@@ -298,7 +298,7 @@ export default function Register() {
                           className="form-control"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Enter Email"
+                          placeholder="Masukkan Email"
                         />
                       </div>
                       {errors.email && (
@@ -356,7 +356,7 @@ export default function Register() {
                   <div className="row">
                     <div className="col-md-12">
                       <div className="mb-3">
-                        <label className="form-label fw-bold">Kelurahan</label>
+                        <label className="form-label fw-bold">Kelurahan/Desa</label>
                         <select
                           className="form-select"
                           value={selectedKelurahan}
@@ -386,7 +386,7 @@ export default function Register() {
                           className="form-control"
                           value={codepos}
                           onChange={(e) => setCodepos(e.target.value)}
-                          placeholder="Enter Kode POS"
+                          placeholder="Masukkan Kode POS"
                         />
                       </div>
                       {errors.codepos && (
