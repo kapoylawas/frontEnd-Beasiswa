@@ -215,7 +215,7 @@ export default function UserIndex() {
                             <input
                               type="file"
                               className="form-control"
-                              accept="file/*"
+                              accept="application/pdf"
                               onChange={(e) => setKtp(e.target.files[0])}
                             />
                           </div>
@@ -226,7 +226,7 @@ export default function UserIndex() {
                             <input
                               type="file"
                               className="form-control"
-                              accept="file/*"
+                              accept="application/pdf"
                               onChange={(e) =>
                                 setKartuKeluarga(e.target.files[0])
                               }

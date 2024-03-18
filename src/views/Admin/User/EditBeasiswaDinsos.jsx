@@ -21,8 +21,6 @@ export default function EditBeasiswaDinsos() {
   const [tipeDinsos, setTipeDinsos] = useState("");
   const [file, setFile] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
-  console.log("id dinsos =>", idDinsos);
-  console.log("tipe dinsos =>", tipeDinsos);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -43,7 +41,6 @@ export default function EditBeasiswaDinsos() {
       },
     }).then((response) => {
       //set data
-      console.log("data =>", response.data.data.dinsos);
       setIdDinsos(response.data.data.dinsos.id);
       setTipeDinsos(response.data.data.dinsos.tipe_daftar);
       setStatusFinish(response.data.data.status_finish);

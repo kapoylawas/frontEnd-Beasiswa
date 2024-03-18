@@ -20,7 +20,6 @@ export default function RiwayatIndex() {
   const [statusFinish, setStatusFinish] = useState("");
 
   const [tipePendaftarDinsos, setTipePendaftarDinsos] = useState("");
-  console.log("tipe dinsos =>",tipePendaftarDinsos);
 
   //navigata
   const navigate = useNavigate();

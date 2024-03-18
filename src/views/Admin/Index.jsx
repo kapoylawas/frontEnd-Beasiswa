@@ -27,8 +27,6 @@ export default function Dashboard() {
   const [jenisuniversitas, setJenisuniversitas] = useState("");
   const [jeniskota, setJeniskota] = useState("");
 
-  console.log(imagesuratbeasiswa);
-
   const [isLoading, setLoading] = useState(false);
 
   const [errors, setErros] = useState([]);
