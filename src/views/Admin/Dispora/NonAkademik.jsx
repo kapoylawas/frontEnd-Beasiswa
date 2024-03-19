@@ -110,9 +110,8 @@ export default function NonAkademik() {
     }
     const formData = new FormData();
     formData.append("semester", semester);
-    // formData.append("akredetasi_kampus", akreKampus);
-    // formData.append("imageakredetasi", transkripNilai);
     formData.append("jenis_sertifikat", selectedSertifikat);
+    formData.append("tingkat_sertifikat", tingkatanSertifikat);
     formData.append("imagesertifikat", sertifikat);
     formData.append("tahun", tahun);
 

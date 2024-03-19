@@ -16,10 +16,10 @@ export default function EditBeasiswaAkademik() {
 
   const [dataUser, setDataUser] = useState("");
   const [idAkademiks, setIdAkademiks] = useState("");
-
   const [semester, setSemester] = useState("");
   const [akredetasi, setAkredetasi] = useState("");
   const [ipk, setIpk] = useState("");
+  const [progamPendidikan, setProgamPendidikan] = useState("");
   const [imagetranskrip, setImagetranskrip] = useState("");
   const [imagebanpt, setImagebanpt] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
@@ -33,6 +33,10 @@ export default function EditBeasiswaAkademik() {
   const handleshowhideAkreditasi = (event) => {
     const getType = event.target.value;
     setAkredetasi(getType);
+  };
+  const handleshowhideProgamPendidikan = (event) => {
+    const getType = event.target.value;
+    setProgamPendidikan(getType);
   };
 
   const handleGPAChange = (event) => {
@@ -56,12 +60,55 @@ export default function EditBeasiswaAkademik() {
       setAkredetasi(response.data.data.akademik.akredetasi_kampus);
       setDataUser(response.data.data.akademik);
       setIpk(response.data.data.akademik.ipk);
+      setProgamPendidikan(response.data.data.akademik.progam_pendidikan);
       setStatusFinish(response.data.data.status_finish);
       setTimeout(() => {
         setLoading(false);
       }, 500);
     });
   }, []);
+
+  // update bidang akademiks
+  const updateBidangAkademiks = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    //define formData
+    const formData = new FormData();
+
+    //append data to "formData"
+    formData.append("ipk", ipk);
+    formData.append("semester", semester);
+    formData.append("akredetasi_kampus", akredetasi);
+    formData.append("progam_pendidikan", progamPendidikan);
+    formData.append("imagetranskrip", imagetranskrip);
+    formData.append("imagebanpt", imagebanpt);
+    formData.append("_method", "PUT");
+
+    //sending data
+    await Api.post(`/api/admin/users/akademiks/${idAkademiks}}`, formData, {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+        "content-type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        //show toast
+        toast.success(response.data.message, {
+          position: "top-right",
+          duration: 4000,
+        });
+
+        //redirect
+        navigate("/admin/riwayat");
+      })
+      .catch((error) => {
+        setLoading(false);
+        //set error message to state "errors"
+        setErros(error.response.data);
+      });
+  };
 
   return (
     <LayoutAdmin>
@@ -89,7 +136,7 @@ export default function EditBeasiswaAkademik() {
                         Akademik
                       </h6>
                       <hr />
-                      <form>
+                      <form onSubmit={updateBidangAkademiks}>
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
@@ -126,7 +173,7 @@ export default function EditBeasiswaAkademik() {
                               onChange={handleshowhideAkreditasi}
                             >
                               <option value="">
-                                -- Select Akreditasi Universitas --
+                                -- Pilih Akreditasi Universitas --
                               </option>
                               <option value="1">Unggul</option>
                               <option value="2">Baik Sekali</option>
@@ -134,6 +181,26 @@ export default function EditBeasiswaAkademik() {
                               <option value="A">A</option>
                               <option value="B">B</option>
                               <option value="C">C</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              Jenis Progam Pendidikan
+                            </label>
+                            <select
+                              className="form-select"
+                              value={progamPendidikan}
+                              onChange={handleshowhideProgamPendidikan}
+                            >
+                              <option value="">
+                                -- Pilih Progam Pendidikan --
+                              </option>
+                              <option value="non">Jurusan Non Eksakta</option>
+                              <option value="eksakta">
+                                Sosial Dan Jurusan Eksakta/Sains
+                              </option>
                             </select>
                           </div>
                         </div>
@@ -164,7 +231,7 @@ export default function EditBeasiswaAkademik() {
                               <input
                                 type="file"
                                 className="form-control"
-                                accept="file/*"
+                                accept="application/pdf"
                                 onChange={(e) =>
                                   setImagetranskrip(e.target.files[0])
                                 }
@@ -195,7 +262,7 @@ export default function EditBeasiswaAkademik() {
                             <input
                               type="file"
                               className="form-control"
-                              accept="file/*"
+                              accept="application/pdf"
                               onChange={(e) => setImagebanpt(e.target.files[0])}
                             />
                           </div>
