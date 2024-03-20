@@ -16,6 +16,8 @@ export default function EditBeasiswaLuarNegeri() {
 
   const [isLoading, setLoading] = useState(false);
 
+  const [idLuarNegeri, setIdLuarNegeri] = useState("");
+  console.log(idLuarNegeri);
   const [ipk, setIpk] = useState("");
   const [imagetranskrip, setImagetranskrip] = useState("");
   const [imageijazah, setImageijazah] = useState("");
@@ -36,7 +38,7 @@ export default function EditBeasiswaLuarNegeri() {
       },
     }).then((response) => {
       //set data
-      console.log("data =>", response.data.data);
+      setIdLuarNegeri(response.data.data.luar_negeri.id);
       setIpk(response.data.data.luar_negeri.ipk);
       setStatusFinish(response.data.data.status_finish);
       setTimeout(() => {
@@ -44,6 +46,45 @@ export default function EditBeasiswaLuarNegeri() {
       }, 500);
     });
   }, []);
+
+  // update bidang akademiks
+  const updateLuarNegeri = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    //define formData
+    const formData = new FormData();
+
+    //append data to "formData"
+    formData.append("ipk", ipk);
+    formData.append("imageipk", imagetranskrip);
+    formData.append("imagetranskrip", imageijazah);
+    formData.append("_method", "PUT");
+
+    //sending data
+    await Api.post(`/api/admin/users/luarNegeris/${idLuarNegeri}}`, formData, {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+        "content-type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        //show toast
+        toast.success(response.data.message, {
+          position: "top-right",
+          duration: 4000,
+        });
+
+        //redirect
+        navigate("/admin/riwayat");
+      })
+      .catch((error) => {
+        setLoading(false);
+        //set error message to state "errors"
+        setErros(error.response.data);
+      });
+  };
 
   return (
     <LayoutAdmin>
@@ -71,7 +112,7 @@ export default function EditBeasiswaLuarNegeri() {
                         Luar Negeri
                       </h6>
                       <hr />
-                      <form>
+                      <form onSubmit={updateLuarNegeri}>
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
@@ -100,35 +141,54 @@ export default function EditBeasiswaLuarNegeri() {
                                 type="file"
                                 className="form-control"
                                 accept="application/pdf"
-                                onChange={(e) => setImagetranskrip(e.target.files[0])}
+                                onChange={(e) =>
+                                  setImagetranskrip(e.target.files[0])
+                                }
                               />
                             </div>
                           </div>
                         </div>
                         <div className="row">
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Perguruan Tinggi yang diakui oleh Kementerian
-                              Pendidikan, Kebudayaan, Riset dan Teknologi Pada
-                              link berikut ini : (Upload Screenshoot)
-                              <br />
-                              <a
-                                target="_blank"
-                                href="https://ijazahln.kemdikbud.go.id/ijazahln/pencarian/pencarian-pt.html"
-                              >
-                                https://ijazahln.kemdikbud.go.id/ijazahln/pencarian/pencarian-pt.html
-                              </a>
-                            </label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              accept="application/pdf"
-                              onChange={(e) => setImageijazah(e.target.files[0])}
-                            />
+                          <div className="col-md-12">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Perguruan Tinggi yang diakui oleh Kementerian
+                                Pendidikan, Kebudayaan, Riset dan Teknologi Pada
+                                link berikut ini : (Upload Screenshoot)
+                                <br />
+                                <a
+                                  target="_blank"
+                                  href="https://ijazahln.kemdikbud.go.id/ijazahln/pencarian/pencarian-pt.html"
+                                >
+                                  https://ijazahln.kemdikbud.go.id/ijazahln/pencarian/pencarian-pt.html
+                                </a>
+                              </label>
+                              <input
+                                type="file"
+                                className="form-control"
+                                accept="application/pdf"
+                                onChange={(e) =>
+                                  setImageijazah(e.target.files[0])
+                                }
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
+                        <div className="d-flex justify-content-center">
+                          <button
+                            type="submit"
+                            className="btn btn-md btn-primary me-2"
+                            disabled={isLoading}
+                          >
+                            {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                          </button>
+                          <button
+                            type="reset"
+                            className="btn btn-md btn-warning"
+                          >
+                            <i className="fa fa-redo"></i> Reset
+                          </button>
+                        </div>
                       </form>
                     </div>
                   </div>
