@@ -17,7 +17,6 @@ export default function EditBeasiswaLuarNegeri() {
   const [isLoading, setLoading] = useState(false);
 
   const [idLuarNegeri, setIdLuarNegeri] = useState("");
-  console.log(idLuarNegeri);
   const [ipk, setIpk] = useState("");
   const [imagetranskrip, setImagetranskrip] = useState("");
   const [imageijazah, setImageijazah] = useState("");

@@ -50,6 +50,43 @@ export default function EditBeasiswaDinsos() {
     });
   }, []);
 
+  const updateDinsos = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    //define formData
+    const formData = new FormData();
+
+    //append data to "formData"
+    formData.append("tipe_daftar", tipeDinsos);
+    formData.append("imagesktm", file);
+    formData.append("_method", "PUT");
+
+    //sending data
+    await Api.post(`/api/admin/users/dinsoses/${idDinsos}}`, formData, {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+        "content-type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        //show toast
+        toast.success(response.data.message, {
+          position: "top-right",
+          duration: 4000,
+        });
+
+        //redirect
+        navigate("/admin/riwayat");
+      })
+      .catch((error) => {
+        setLoading(false);
+        //set error message to state "errors"
+        setErros(error.response.data);
+      });
+  };
+
   return (
     <LayoutAdmin>
       <main>
@@ -76,7 +113,7 @@ export default function EditBeasiswaDinsos() {
                         Kurang Mampu
                       </h6>
                       <hr />
-                      <form>
+                      <form onSubmit={updateDinsos}>
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
@@ -123,6 +160,21 @@ export default function EditBeasiswaDinsos() {
                             </div>
                           </div>
                         )}
+                        <div className="d-flex justify-content-center">
+                          <button
+                            type="submit"
+                            className="btn btn-md btn-primary me-2"
+                            disabled={isLoading}
+                          >
+                            {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                          </button>
+                          <button
+                            type="reset"
+                            className="btn btn-md btn-warning"
+                          >
+                            <i className="fa fa-redo"></i> Reset
+                          </button>
+                        </div>
                       </form>
                     </div>
                   </div>
