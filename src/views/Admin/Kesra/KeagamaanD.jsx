@@ -277,7 +277,7 @@ export default function KeagamanD() {
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Nama Ponpes
+                              Nama Tempat
                             </label>
                             <input
                               type="text"
@@ -286,14 +286,14 @@ export default function KeagamanD() {
                               onChange={(e) =>
                                 setNamaorganisasi(e.target.value)
                               }
-                              placeholder="Nama Ponpes"
+                              placeholder="Nama "
                             />
                           </div>
                         </div>
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Alamat Ponpes
+                              Alamat
                             </label>
                             <textarea
                               type="text"
