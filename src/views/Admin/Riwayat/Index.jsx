@@ -7,6 +7,7 @@ import Api from "../../../services/Api";
 import ModalFinish from "../../../components/general/ModalFinish";
 import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
+import Kesra from "../../../components/admin/KesraA";
 
 export default function RiwayatIndex() {
   document.title = "Dashboard - Riwayat Pendaftar Beasiswa";
@@ -16,8 +17,12 @@ export default function RiwayatIndex() {
   const [dataNonAkademik, setDataNonAkademik] = useState("");
   const [dataLuarNegeri, setDataLuarNegeri] = useState("");
   const [dataDinsos, setDataDinsos] = useState("");
+  const [dataKesra, setDataKesra] = useState({ imagesertifikat: "" });
   const [idUser, setIdUser] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
+
+  // variabel untuk mengambil data di kesra
+  const dataTipeKesra = dataKesra.kesra;
 
   const [tipePendaftarDinsos, setTipePendaftarDinsos] = useState("");
 
@@ -74,6 +79,7 @@ export default function RiwayatIndex() {
       setDataNonAkademik(response.data.data);
       setDataLuarNegeri(response.data.data);
       setDataDinsos(response.data.data);
+      setDataKesra(response.data.data);
       setTipePendaftarDinsos(response.data.data);
       setIdUser(response.data.data.id);
       setStatusFinish(response.data.data.status_finish);
@@ -734,7 +740,7 @@ export default function RiwayatIndex() {
                                 Nama Lengkap
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.name}
+                                {dataKesra.name}
                               </td>
                             </tr>
                             <tr>
@@ -745,7 +751,7 @@ export default function RiwayatIndex() {
                                 NIK
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.nik}
+                                {dataKesra.nik}
                               </td>
                             </tr>
                             <tr>
@@ -756,7 +762,7 @@ export default function RiwayatIndex() {
                                 No KK
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.nokk}
+                                {dataKesra.nokk}
                               </td>
                             </tr>
                             <tr>
@@ -767,7 +773,7 @@ export default function RiwayatIndex() {
                                 Email
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.email}
+                                {dataKesra.email}
                               </td>
                             </tr>
                             <tr>
@@ -778,7 +784,7 @@ export default function RiwayatIndex() {
                                 Nim
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.nim}
+                                {dataKesra.nim}
                               </td>
                             </tr>
                             <tr>
@@ -789,7 +795,7 @@ export default function RiwayatIndex() {
                                 Universitas
                               </td>
                               <td className="fw-bold text-center">
-                                {dataAkademik.universitas}
+                                {dataKesra.universitas}
                               </td>
                             </tr>
                             <tr>
@@ -800,7 +806,7 @@ export default function RiwayatIndex() {
                                 Terdaftar
                               </td>
                               <td className="fw-bold text-center">
-                                Beasiswa {dataAkademik.nonakademik.name}
+                                Beasiswa {dataKesra.kesra.name}
                               </td>
                             </tr>
                           </tbody>
@@ -810,6 +816,98 @@ export default function RiwayatIndex() {
                   </div>
                 </div>
               </div>
+              <hr />
+              <div className="row mt-1">
+                <div className="col-md-12">
+                  <div className="card border-0 rounded shadow-sm border-top-success">
+                    <div className="card-header text-dark">
+                      Document Terupload
+                    </div>
+                    <div className="card-body">
+                      <div className="row justify-content-center">
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">File Akredetasi</div>
+                            <iframe
+                              src={dataKesra.imageakrekampus}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Surat Aktif Kampus
+                            </div>
+                            <iframe
+                              src={dataKesra.imageaktifkampus}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row justify-content-center mt-3">
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Kartu Keluarga
+                            </div>
+                            <iframe
+                              src={dataKesra.imagekk}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card rounded">
+                            <div className="text-center">
+                              File Kartu Tanda Penduduk
+                            </div>
+                            <iframe
+                              src={dataKesra.imagektp}
+                              title="Embedded Content"
+                              className="embed-responsive-item"
+                              height="400"
+                              allowFullScreen
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              {dataTipeKesra.tipe_kesra === 1 ? (
+                <>
+                  <p>tipe form A</p>
+                  <Kesra imagesertifikat={dataKesra.kesra.imagesertifikat} />
+                </>
+              ) : null}
+              {dataTipeKesra.tipe_kesra === 2 ? (
+                <>
+                  <p>tipe form B</p>
+                </>
+              ) : null}
+              {dataTipeKesra.tipe_kesra === 3 ? (
+                <>
+                  <p>tipe form C</p>
+                </>
+              ) : null}
+              {dataTipeKesra.tipe_kesra === 4 ? (
+                <>
+                  <p>tipe form D</p>
+                </>
+              ) : null}
             </>
           ) : null}
           {tipebeasiswa === 4 ? (

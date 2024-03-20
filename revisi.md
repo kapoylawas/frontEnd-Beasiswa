@@ -42,3 +42,11 @@ Revisi 2
 14.	Tambahan form survey lapangan dinsos -> menunggu kiriman form dari dinsos
 15.	Tambah menu login untuk akun DISPENDUKCAPIL
 ```
+
+## user opd
+```json
+2222222222222222 dispora
+3333333333333333 kesra
+4444444444444444 dinsos
+1111111111111111 dispenduk
+```
