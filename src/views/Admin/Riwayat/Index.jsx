@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
 import Kesra from "../../../components/admin/KesraA";
 import KesraB from "../../../components/admin/KesraB";
+import KesraC from "../../../components/admin/KesraC";
 
 export default function RiwayatIndex() {
   document.title = "Dashboard - Riwayat Pendaftar Beasiswa";
@@ -18,7 +19,11 @@ export default function RiwayatIndex() {
   const [dataNonAkademik, setDataNonAkademik] = useState("");
   const [dataLuarNegeri, setDataLuarNegeri] = useState("");
   const [dataDinsos, setDataDinsos] = useState("");
-  const [dataKesra, setDataKesra] = useState({ imagesertifikat: "" });
+  const [dataKesra, setDataKesra] = useState({
+    imagesertifikat: "",
+    nama_organisasi: "",
+    alamat_organisasi: "",
+  });
   const [idUser, setIdUser] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
 
@@ -903,6 +908,11 @@ export default function RiwayatIndex() {
               {dataTipeKesra.tipe_kesra === 3 ? (
                 <>
                   <p>tipe form C</p>
+                  <KesraC
+                    imagesertifikat={dataKesra.kesra.imagesertifikat}
+                    nama_organisasi={dataKesra.kesra.nama_organisasi}
+                    alamat_organisasi={dataKesra.kesra.alamat_organisasi}
+                  />
                 </>
               ) : null}
               {dataTipeKesra.tipe_kesra === 4 ? (
