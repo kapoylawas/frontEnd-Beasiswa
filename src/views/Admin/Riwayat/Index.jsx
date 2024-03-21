@@ -10,6 +10,7 @@ import Loading from "../../../components/general/Loading";
 import Kesra from "../../../components/admin/KesraA";
 import KesraB from "../../../components/admin/KesraB";
 import KesraC from "../../../components/admin/KesraC";
+import KesraD from "../../../components/admin/KesraD";
 
 export default function RiwayatIndex() {
   document.title = "Dashboard - Riwayat Pendaftar Beasiswa";
@@ -23,6 +24,8 @@ export default function RiwayatIndex() {
     imagesertifikat: "",
     nama_organisasi: "",
     alamat_organisasi: "",
+    nama_ponpes: "",
+    alamat_ponpes: "",
   });
   const [idUser, setIdUser] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
@@ -918,6 +921,11 @@ export default function RiwayatIndex() {
               {dataTipeKesra.tipe_kesra === 4 ? (
                 <>
                   <p>tipe form D</p>
+                  <KesraD
+                    imagesertifikat={dataKesra.kesra.imagesertifikat}
+                    nama_ponpes={dataKesra.kesra.nama_ponpes}
+                    alamat_ponpes={dataKesra.kesra.alamat_ponpes}
+                  />
                 </>
               ) : null}
             </>
