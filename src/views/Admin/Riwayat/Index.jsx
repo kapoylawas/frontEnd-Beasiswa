@@ -8,6 +8,7 @@ import ModalFinish from "../../../components/general/ModalFinish";
 import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
 import Kesra from "../../../components/admin/KesraA";
+import KesraB from "../../../components/admin/KesraB";
 
 export default function RiwayatIndex() {
   document.title = "Dashboard - Riwayat Pendaftar Beasiswa";
@@ -896,6 +897,7 @@ export default function RiwayatIndex() {
               {dataTipeKesra.tipe_kesra === 2 ? (
                 <>
                   <p>tipe form B</p>
+                  <KesraB imagesertifikat={dataKesra.kesra.imagesertifikat} />
                 </>
               ) : null}
               {dataTipeKesra.tipe_kesra === 3 ? (
