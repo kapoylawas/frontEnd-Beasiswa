@@ -302,7 +302,7 @@ export default function KeagamanD() {
                               onChange={(e) =>
                                 setAlamatorganisasi(e.target.value)
                               }
-                              placeholder="Enter Alamat Ponpes"
+                              placeholder="Enter Alamat Tempat"
                               rows="4" // Set the number of visible text lines
                               cols="50"
                             />
