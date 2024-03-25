@@ -815,7 +815,98 @@ export default function RiwayatIndex() {
                                 Terdaftar
                               </td>
                               <td className="fw-bold text-center">
-                                Beasiswa {dataKesra.kesra.name}
+                                {statusFinish === 0 ? (
+                                  <>
+                                    Beasiswa {dataKesra.kesra.name}
+                                    <br />
+                                    <div className="d-flex justify-content-center">
+                                      <Link
+                                        to="/admin/kesra"
+                                        className="btn btn-md btn-primary me-2"
+                                      >
+                                        Edit Data
+                                      </Link>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataKesra.kesra.name}
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="fw-bold text-center">
+                                Edit Bioadata
+                              </td>
+                              <td className="fw-bold text-center">
+                                {statusFinish === 0 ? (
+                                  <>
+                                    <div className="d-flex justify-content-center">
+                                      <Link
+                                        to="/admin/biodata"
+                                        className="btn btn-md btn-primary me-2"
+                                      >
+                                        Edit Data
+                                      </Link>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataKesra.kesra.name}
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style={{ width: "15%" }}
+                                className="fw-bold text-center"
+                              >
+                                Verifikasi User
+                              </td>
+
+                              <td className="fw-bold text-center">
+                                {statusFinish === 0 ? (
+                                  <>
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        checked={isChecked}
+                                        onChange={handleCheckboxChange}
+                                      />
+                                      {""} Saya Yakin Bahwa Data Yang Saya isi
+                                      Sudah Benar
+                                    </label>
+                                    <br />
+                                    <div className="d-flex justify-content-center">
+                                      <button
+                                        type="submit"
+                                        className="btn btn-md btn-primary me-2"
+                                        disabled={!isChecked}
+                                        onClick={handleClick}
+                                      >
+                                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    className="btn btn-md btn-danger me-2"
+                                    disabled
+                                  >
+                                    Anda Sudah Terdaftar Di Beasiswa{" "}
+                                    {dataKesra.kesra.name}
+                                  </button>
+                                )}
                               </td>
                             </tr>
                           </tbody>
