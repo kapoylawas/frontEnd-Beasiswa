@@ -821,7 +821,7 @@ export default function RiwayatIndex() {
                                     <br />
                                     <div className="d-flex justify-content-center">
                                       <Link
-                                        to="/admin/kesra"
+                                        to="/admin/EditBeasiswaKesra"
                                         className="btn btn-md btn-primary me-2"
                                       >
                                         Edit Data

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LayoutAdmin from "../../../layouts/Admin";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ export default function KeagamanA() {
   //navigate
   const navigate = useNavigate();
 
+  const [users, setUsers] = useState("");
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
   const [sertifikat, setSertifikat] = useState("");
   const [tahun, setTahun] = useState("");
@@ -68,6 +69,22 @@ export default function KeagamanA() {
     setSertifikat(imageData);
   };
 
+  useEffect(() => {
+    setLoading(true);
+    //fetch api
+    Api.get("/api/admin/users/byid", {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      //set data
+      setUsers(response.data.data.status_pendaftar);
+      setLoading(false);
+    });
+  }, []);
+
   const storeKesra = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -86,7 +103,7 @@ export default function KeagamanA() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        },
+        }
       );
       setLoading(false);
       return;
@@ -126,120 +143,132 @@ export default function KeagamanA() {
   return (
     <LayoutAdmin>
       <main>
-        <ModalKesra />
-        <div className="container-fluid mb-5 mt-5">
-          <div className="col-md-3 col-12 mb-2">
-            <Link
-              to="/admin/kesra"
-              className="btn btn-md btn-primary w-100 border-0 shadow"
-              type="button"
-            >
-              <i className="fa-solid fa-backward"></i> Kembali
-            </Link>
+        {users === 1 ? (
+          <div className="container-fluid mb-5 mt-5">
+            <div className="alert alert-danger" role="alert">
+              Anda Sudah Terdaftar di Beasiswa
+            </div>
           </div>
-          <div className="row">
-            <div className="col-md-12">
-              <div className="card border-top-success rounded border-0 shadow-sm">
-                <div className="card-body">
-                  <h6>
-                    <i className="fa fa-shield-alt"></i> Beasiswa Kesra
-                  </h6>
-                  <hr />
-                  <form onSubmit={storeKesra}>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Sertifikat /Piagam/Surat Keterangan sesuai Prestasi
-                            Bidang yang di isi pendaftar{" "}
-                          </label>
-                          <select
-                            className="form-select"
-                            value={selectedSertifikat}
-                            onChange={handleSelectChange}
-                          >
-                            <option value="">
-                              -- Pilih Salah Satu Sertifikat --
-                            </option>
-                            <option value="1">
-                              Hafal minimal 10 (sepuluh) juz A1-Qur'an :
-                              Sertifikat / SK (Upload)
-                            </option>
-                            <option value="2">
-                              Pernah mengikuti kejuaraan MTQ : Sertifikat / SK
-                              (Uload)
-                            </option>
-                          </select>
+        ) : (
+          <>
+            <ModalKesra />
+            <div className="container-fluid mb-5 mt-5">
+              <div className="col-md-3 col-12 mb-2">
+                <Link
+                  to="/admin/kesra"
+                  className="btn btn-md btn-primary w-100 border-0 shadow"
+                  type="button"
+                >
+                  <i className="fa-solid fa-backward"></i> Kembali
+                </Link>
+              </div>
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="card border-top-success rounded border-0 shadow-sm">
+                    <div className="card-body">
+                      <h6>
+                        <i className="fa fa-shield-alt"></i> Beasiswa Kesra
+                      </h6>
+                      <hr />
+                      <form onSubmit={storeKesra}>
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Sertifikat /Piagam/Surat Keterangan sesuai
+                                Prestasi Bidang yang di isi pendaftar{" "}
+                              </label>
+                              <select
+                                className="form-select"
+                                value={selectedSertifikat}
+                                onChange={handleSelectChange}
+                              >
+                                <option value="">
+                                  -- Pilih Salah Satu Sertifikat --
+                                </option>
+                                <option value="1">
+                                  Hafal minimal 10 (sepuluh) juz A1-Qur'an :
+                                  Sertifikat / SK (Upload)
+                                </option>
+                                <option value="2">
+                                  Pernah mengikuti kejuaraan MTQ : Sertifikat /
+                                  SK (Uload)
+                                </option>
+                              </select>
+                            </div>
+                            {errors.tipe_sertifikat && (
+                              <div className="alert alert-danger">
+                                {errors.tipe_sertifikat[0]}
+                              </div>
+                            )}
+                          </div>
                         </div>
-                        {errors.tipe_sertifikat && (
-                          <div className="alert alert-danger">
-                            {errors.tipe_sertifikat[0]}
+                        {["1", "2"].includes(selectedSertifikat) && (
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Upload sertifikat atau surat keterangan
+                                  dan/atau bentuk lain yang dipersamakan PDF dan
+                                  Maksimal 2MB
+                                </label>
+                                <input
+                                  type="file"
+                                  className="form-control"
+                                  onChange={handleFileSertifikat}
+                                />
+                              </div>
+                              {errors.imagesertifikat && (
+                                <div className="alert alert-danger">
+                                  {errors.imagesertifikat[0]}
+                                </div>
+                              )}
+                            </div>
+                            <div className="col-md-12">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Sertifikat yang pernah diperoleh dalam kurun
+                                  waktu 4 tahun terakhir (YANG TERBARU)
+                                </label>
+                                <input
+                                  type="number"
+                                  className="form-control"
+                                  value={tahun}
+                                  onChange={handleYearChange}
+                                  placeholder="tahun"
+                                />
+                              </div>
+                              {errors.tahun && (
+                                <div className="alert alert-danger">
+                                  {errors.tahun[0]}
+                                </div>
+                              )}
+                            </div>
                           </div>
                         )}
-                      </div>
-                    </div>
-                    {["1", "2"].includes(
-                      selectedSertifikat,
-                    ) && (
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Upload sertifikat atau surat keterangan dan/atau bentuk lain yang dipersamakan PDF
-                              dan Maksimal 2MB
-                            </label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              onChange={handleFileSertifikat}
-                            />
-                          </div>
-                          {errors.imagesertifikat && (
-                            <div className="alert alert-danger">
-                              {errors.imagesertifikat[0]}
-                            </div>
-                          )}
+                        <div className="d-flex justify-content-center">
+                          <button
+                            type="submit"
+                            className="btn btn-md btn-primary me-2"
+                            disabled={isLoading}
+                          >
+                            {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                          </button>
+                          <button
+                            type="reset"
+                            className="btn btn-md btn-warning"
+                          >
+                            <i className="fa fa-redo"></i> Reset
+                          </button>
                         </div>
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Sertifikat yang pernah diperoleh dalam kurun waktu
-                              4 tahun terakhir (YANG TERBARU)
-                            </label>
-                            <input
-                              type="number"
-                              className="form-control"
-                              value={tahun}
-                              onChange={handleYearChange}
-                              placeholder="tahun"
-                            />
-                          </div>
-                          {errors.tahun && (
-                            <div className="alert alert-danger">
-                              {errors.tahun[0]}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                    <div className="d-flex justify-content-center">
-                      <button
-                        type="submit"
-                        className="btn btn-md btn-primary me-2"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                      </button>
-                      <button type="reset" className="btn btn-md btn-warning">
-                        <i className="fa fa-redo"></i> Reset
-                      </button>
+                      </form>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </>
+        )}
       </main>
     </LayoutAdmin>
   );

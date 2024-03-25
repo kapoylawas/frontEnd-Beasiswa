@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LayoutAdmin from "../../../layouts/Admin";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ export default function KeagamanC() {
   //navigate
   const navigate = useNavigate();
 
+  const [users, setUsers] = useState("");
   const [namaorganisasi, setNamaorganisasi] = useState("");
   const [alamatorganisasi, setAlamatorganisasi] = useState("");
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
@@ -69,6 +70,22 @@ export default function KeagamanC() {
     }
     setSertifikat(imageData);
   };
+
+  useEffect(() => {
+    setLoading(true);
+    //fetch api
+    Api.get("/api/admin/users/byid", {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      //set data
+      setUsers(response.data.data.status_pendaftar);
+      setLoading(false);
+    });
+  }, []);
 
   const storeKesra = async (e) => {
     e.preventDefault();
@@ -130,125 +147,141 @@ export default function KeagamanC() {
   return (
     <LayoutAdmin>
       <main>
-        <ModalKesra />
-        <div className="container-fluid mb-5 mt-4">
-          <div className="col-md-3 col-12 mb-2">
-            <Link
-              to="/admin/kesra"
-              className="btn btn-md btn-primary w-100 border-0 shadow"
-              type="button"
-            >
-              <i className="fa-solid fa-backward"></i> Kembali
-            </Link>
+        {users === 1 ? (
+          <div className="container-fluid mb-5 mt-5">
+            <div className="alert alert-danger" role="alert">
+              Anda Sudah Terdaftar di Beasiswa
+            </div>
           </div>
-          <div className="row">
-            <div className="col-md-12">
-              <div className="card border-top-success rounded border-0 shadow-sm">
-                <div className="card-body">
-                  <h6>
-                    <i className="fa fa-shield-alt"></i> Beasiswa Kesra
-                  </h6>
-                  <hr />
-                  <form onSubmit={storeKesra}>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Sertifikat /Piagam/Surat Keterangan sesuai Prestasi
-                            Bidang yang di isi pendaftar{" "}
-                          </label>
-                          <select
-                            className="form-select"
-                            value={selectedSertifikat}
-                            onChange={handleSelectChange}
-                          >
-                            <option value="">
-                              -- Pilih Salah Satu Sertifikat --
-                            </option>
-                            <option value="1">
-                              Santriwan dan Santriwati yang berkuliah dan
-                              menetap di Pondok Pesantren : Surat Ket Ponpes
-                              (Upload)
-                            </option>
-                          </select>
+        ) : (
+          <>
+            <ModalKesra />
+            <div className="container-fluid mb-5 mt-4">
+              <div className="col-md-3 col-12 mb-2">
+                <Link
+                  to="/admin/kesra"
+                  className="btn btn-md btn-primary w-100 border-0 shadow"
+                  type="button"
+                >
+                  <i className="fa-solid fa-backward"></i> Kembali
+                </Link>
+              </div>
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="card border-top-success rounded border-0 shadow-sm">
+                    <div className="card-body">
+                      <h6>
+                        <i className="fa fa-shield-alt"></i> Beasiswa Kesra
+                      </h6>
+                      <hr />
+                      <form onSubmit={storeKesra}>
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Sertifikat /Piagam/Surat Keterangan sesuai
+                                Prestasi Bidang yang di isi pendaftar{" "}
+                              </label>
+                              <select
+                                className="form-select"
+                                value={selectedSertifikat}
+                                onChange={handleSelectChange}
+                              >
+                                <option value="">
+                                  -- Pilih Salah Satu Sertifikat --
+                                </option>
+                                <option value="1">
+                                  Santriwan dan Santriwati yang berkuliah dan
+                                  menetap di Pondok Pesantren : Surat Ket Ponpes
+                                  (Upload)
+                                </option>
+                              </select>
+                            </div>
+                            {errors.tipe_sertifikat && (
+                              <div className="alert alert-danger">
+                                {errors.tipe_sertifikat[0]}
+                              </div>
+                            )}
+                          </div>
                         </div>
-                        {errors.tipe_sertifikat && (
-                          <div className="alert alert-danger">
-                            {errors.tipe_sertifikat[0]}
+                        {["1"].includes(selectedSertifikat) && (
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Nama Organisasi
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  value={namaorganisasi}
+                                  onChange={(e) =>
+                                    setNamaorganisasi(e.target.value)
+                                  }
+                                  placeholder="Nama Organisasi"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-12">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Alamat Organisasi
+                                </label>
+                                <textarea
+                                  type="text"
+                                  className="form-control"
+                                  value={alamatorganisasi}
+                                  onChange={(e) =>
+                                    setAlamatorganisasi(e.target.value)
+                                  }
+                                  placeholder="Enter Alamat Organisasi"
+                                  rows="4" // Set the number of visible text lines
+                                  cols="50"
+                                />
+                              </div>
+                            </div>
+                            <div className="col-md-12">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Upload SK dari Pimpinan PDF dan Maksimal 2MB
+                                </label>
+                                <input
+                                  type="file"
+                                  className="form-control"
+                                  onChange={handleFileSertifikat}
+                                />
+                              </div>
+                              {errors.imagesertifikat && (
+                                <div className="alert alert-danger">
+                                  {errors.imagesertifikat[0]}
+                                </div>
+                              )}
+                            </div>
                           </div>
                         )}
-                      </div>
+                        <div className="d-flex justify-content-center">
+                          <button
+                            type="submit"
+                            className="btn btn-md btn-primary me-2"
+                            disabled={isLoading}
+                          >
+                            {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                          </button>
+                          <button
+                            type="reset"
+                            className="btn btn-md btn-warning"
+                          >
+                            <i className="fa fa-redo"></i> Reset
+                          </button>
+                        </div>
+                      </form>
                     </div>
-                    {["1"].includes(selectedSertifikat) && (
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Nama Organisasi
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={namaorganisasi}
-                              onChange={(e) => setNamaorganisasi(e.target.value)}
-                              placeholder="Nama Organisasi"
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Alamat Organisasi
-                            </label>
-                            <textarea
-                              type="text"
-                              className="form-control"
-                              value={alamatorganisasi}
-                              onChange={(e) => setAlamatorganisasi(e.target.value)}
-                              placeholder="Enter Alamat Organisasi"
-                              rows="4" // Set the number of visible text lines
-                              cols="50"
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Upload SK dari Pimpinan PDF
-                              dan Maksimal 2MB
-                            </label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              onChange={handleFileSertifikat}
-                            />
-                          </div>
-                          {errors.imagesertifikat && (
-                            <div className="alert alert-danger">
-                              {errors.imagesertifikat[0]}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                    <div className="d-flex justify-content-center">
-                      <button
-                        type="submit"
-                        className="btn btn-md btn-primary me-2"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                      </button>
-                      <button type="reset" className="btn btn-md btn-warning">
-                        <i className="fa fa-redo"></i> Reset
-                      </button>
-                    </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </>
+        )}
       </main>
     </LayoutAdmin>
   );
