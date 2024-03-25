@@ -246,9 +246,9 @@ export default function LuarNegeri() {
                               <br />
                               <a
                                 target="_blank"
-                                href="https://ijazahln.kemdikbud.go.id/ijazahln/pencarian/pencarian-pt.html"
+                                href="https://piln.kemdikbud.go.id/search-institution"
                               >
-                                https://ijazahln.kemdikbud.go.id/ijazahln/pencarian/pencarian-pt.html
+                                https://piln.kemdikbud.go.id/search-institution
                               </a>
                             </label>
                             <input
