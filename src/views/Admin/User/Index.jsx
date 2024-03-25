@@ -152,6 +152,7 @@ export default function UserIndex() {
                                 className="form-control"
                                 value={nik}
                                 onChange={(e) => setNik(e.target.value)}
+                                disabled
                               />
                             </div>
                           </div>
@@ -165,6 +166,7 @@ export default function UserIndex() {
                                 className="form-control"
                                 value={kk}
                                 onChange={(e) => setKk(e.target.value)}
+                                disabled
                               />
                             </div>
                           </div>
