@@ -152,9 +152,8 @@ export default function EditBeasiswaDinsos() {
                                 <input
                                   type="file"
                                   className="form-control"
-                                  onChange={(e) =>
-                                    setFile(e.target.files[0])
-                                  }
+                                  accept="application/pdf"
+                                  onChange={(e) => setFile(e.target.files[0])}
                                 />
                               </div>
                             </div>
