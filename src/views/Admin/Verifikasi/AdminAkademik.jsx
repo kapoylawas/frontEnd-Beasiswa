@@ -83,7 +83,7 @@ export default function AdminAkademik() {
                       type="text"
                       className="form-control border-0 shadow-sm"
                       onChange={(e) => searchData(e)}
-                      placeholder="search here..."
+                      placeholder="Masukkan NIK Peserta"
                     />
                     <span className="input-group-text border-0 shadow-sm">
                       <i className="fa fa-search"></i>
