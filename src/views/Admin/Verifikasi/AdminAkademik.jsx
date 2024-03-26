@@ -29,12 +29,6 @@ export default function AdminAkademik() {
     total: 0,
   });
 
-  //function "searchData"
-  const searchData = async (e) => {
-    //set value to state "keywords"
-    setKeywords(e.target.value);
-  };
-
   const fetchData = async (pageNumber = 1, keywords = "") => {
     //define variable "page"
     const page = pageNumber ? pageNumber : pagination.currentPage;
@@ -66,6 +60,15 @@ export default function AdminAkademik() {
     //call function "fetchData"
     fetchData();
   }, []);
+
+  //function "searchData"
+  const searchData = async (e) => {
+    //set value to state "keywords"
+    setKeywords(e.target.value);
+
+    //call function "fetchData"
+    fetchData(1, e.target.value);
+  };
 
   return (
     <LayoutAdmin>
