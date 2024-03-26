@@ -147,7 +147,7 @@ export default function AdminAkademik() {
                                 </td>
                                 <td className="text-center">
                                   <Link
-                                    to={`/admin/adminAkademik/edit/${akademik.id}`}
+                                    to={`/admin/editAkademik/${akademik.id}`}
                                     className="btn btn-primary btn-sm me-2"
                                   >
                                     <i className="fa fa-pencil-alt"></i>

@@ -40,6 +40,7 @@ import AdminDispenduk from "../views/Admin/Verifikasi/AdminDispenduk";
 import AdminAkademik from "../views/Admin/Verifikasi/AdminAkademik";
 import EditBeasiswaDinsos from "../views/Admin/User/EditBeasiswaDinsos";
 import EditBeasiswaKesra from "../views/Admin/User/EditBeasiswaKesra";
+import EditAkademik from "../views/Admin/Verifikasi/EditAkademik";
 
 export default function RoutesIndex() {
   return (
@@ -281,6 +282,16 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <AdminAkademik />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/editAkademik" */}
+      <Route
+        path="/admin/editAkademik/:id"
+        element={
+          <PrivateRoutes>
+            <EditAkademik />
           </PrivateRoutes>
         }
       />
