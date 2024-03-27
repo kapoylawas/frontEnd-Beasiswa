@@ -29,6 +29,10 @@ body {
     background-color: #188a55 !important;
 }
 
+.bg-verif {
+    background-color: #93f1be !important;
+}
+
 .sb-sidenav-dark {
     background-color: #ffffff!important;
     color: rgb(141 139 139);

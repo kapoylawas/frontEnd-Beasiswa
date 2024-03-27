@@ -9,6 +9,7 @@ import Api from "../../../services/Api";
 import Cookies from "js-cookie";
 //import pagination component
 import Pagination from "../../../components/general/Pagination";
+import LoadingTable from "../../../components/general/LoadingTable";
 
 export default function AdminAkademik() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
@@ -29,10 +30,12 @@ export default function AdminAkademik() {
     total: 0,
   });
 
+  const [isLoading, setLoading] = useState(false);
+
   const fetchData = async (pageNumber = 1, keywords = "") => {
+    setLoading(true);
     //define variable "page"
     const page = pageNumber ? pageNumber : pagination.currentPage;
-
     await Api.get(
       `/api/admin/beasiswa/akademiks?search=${keywords}&page=${page}`,
       {
@@ -52,6 +55,10 @@ export default function AdminAkademik() {
         perPage: response.data.data.per_page,
         total: response.data.data.total,
       }));
+      //loading
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     });
   };
 
@@ -115,64 +122,78 @@ export default function AdminAkademik() {
                           </th>
                         </tr>
                       </thead>
-                      <tbody>
-                        {
-                          //cek apakah data ada
-                          akademiks.length > 0 ? (
-                            akademiks.map((akademik, index) => (
-                              <tr key={index}>
-                                <td className="fw-bold text-center">
-                                  {++index +
-                                    (pagination.currentPage - 1) *
-                                      pagination.perPage}
-                                </td>
-                                <td>{akademik.user.name}</td>
-                                <td>{akademik.user.nik}</td>
-                                <td>{akademik.user.nokk}</td>
-                                <td>{akademik.user.nohp}</td>
-                                <td>{akademik.user.email}</td>
-                                <td>
-                                  {akademik.user.status_verif === null && (
-                                    <p>
-                                      <button className="btn btn-md btn-danger me-2">
-                                        Belum diverifikasi
-                                      </button>
-                                    </p>
-                                  )}
-                                  {akademik.user.status_verif === 1 && (
-                                    <button className="btn btn-md btn-success me-2">
-                                      Sudah diverifikasi
-                                    </button>
-                                  )}
-                                </td>
-                                <td className="text-center">
-                                  <Link
-                                    to={`/admin/editAkademik/${akademik.id}`}
-                                    className="btn btn-primary btn-sm me-2"
+                      {isLoading ? (
+                        <div class="position-center">
+                          <div className="mt-5 position-absolute top-20 start-50 translate-middle mt-1 bi bi-caret-down-fill">
+                            <LoadingTable />
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <tbody>
+                            {
+                              //cek apakah data ada
+                              akademiks.length > 0 ? (
+                                akademiks.map((akademik, index) => (
+                                  <tr
+                                    className={
+                                      akademik.user.status_verif === 1
+                                        ? "bg-verif"
+                                        : ""
+                                    }
+                                    key={index}
                                   >
-                                    <i className="fa fa-pencil-alt"></i>
-                                  </Link>
-                                  <button className="btn btn-danger btn-sm">
-                                    <i className="fa fa-trash"></i>
-                                  </button>
-                                </td>
-                              </tr>
-                            ))
-                          ) : (
-                            //tampilkan pesan data belum tersedia
-                            <tr>
-                              <td colSpan={8}>
-                                <div
-                                  className="alert alert-danger border-0 rounded shadow-sm w-100 text-center"
-                                  role="alert"
-                                >
-                                  Data Belum Tersedia!.
-                                </div>
-                              </td>
-                            </tr>
-                          )
-                        }
-                      </tbody>
+                                    <td className="fw-bold text-center">
+                                      {++index +
+                                        (pagination.currentPage - 1) *
+                                          pagination.perPage}
+                                    </td>
+                                    <td>{akademik.user.name}</td>
+                                    <td>{akademik.user.nik}</td>
+                                    <td>{akademik.user.nokk}</td>
+                                    <td>{akademik.user.nohp}</td>
+                                    <td>{akademik.user.email}</td>
+                                    <td>
+                                      {akademik.user.status_verif === null && (
+                                        <p>
+                                          <button className="btn btn-md btn-danger me-2">
+                                            Belum diverifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {akademik.user.status_verif === 1 && (
+                                        <button className="btn btn-md btn-success me-2">
+                                          Sudah diverifikasi
+                                        </button>
+                                      )}
+                                    </td>
+                                    <td className="text-center">
+                                      <Link
+                                        to={`/admin/editAkademik/${akademik.id}`}
+                                        className="btn btn-primary btn-sm me-2"
+                                      >
+                                        <a>DETAIL</a>
+                                      </Link>
+                                    </td>
+                                  </tr>
+                                ))
+                              ) : (
+                                //tampilkan pesan data belum tersedia
+                                <tr>
+                                  <td colSpan={8}>
+                                    <div
+                                      className="alert alert-danger border-0 rounded shadow-sm w-100 text-center"
+                                      role="alert"
+                                    >
+                                      Data Belum Tersedia!.
+                                    </div>
+                                  </td>
+                                </tr>
+                              )
+                            }
+                          </tbody>
+                        </>
+                      )}
                     </table>
                   </div>
                   <Pagination
