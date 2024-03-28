@@ -48,7 +48,57 @@ export default function EditAkademik() {
     imageSuratBeasiswa: "",
   });
 
+  const [idUser, setIdUser] = useState("");
+  const [alasan, setAlasan] = useState("");
+  const [jenisVerif, setJenisVerif] = useState("");
+
+  const [errors, setErros] = useState([]);
+
   const [isLoading, setLoading] = useState(false);
+
+  //action handel jenis verif
+  const handleShowHideJenisVerif = (event) => {
+    const getType = event.target.value;
+    setJenisVerif(getType);
+  };
+
+  // verifikasi akademik
+  const verifAkademik = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    //define formData
+    const formData = new FormData();
+
+    //append data to "formData"
+    formData.append("alasan", alasan);
+    formData.append("jenis_verif", jenisVerif);
+    formData.append("_method", "PUT");
+
+    //sending data
+    await Api.post(`/api/admin/verif/akademik/${idUser}}`, formData, {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+        "content-type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        //show toast
+        toast.success(response.data.message, {
+          position: "top-right",
+          duration: 4000,
+        });
+
+        //redirect
+        navigate("/admin/adminAkademik");
+      })
+      .catch((error) => {
+        setLoading(false);
+        //set error message to state "errors"
+        setErros(error.response.data);
+      });
+  };
 
   const fetchDataAkademiks = async () => {
     setLoading(true);
@@ -60,7 +110,9 @@ export default function EditAkademik() {
     }).then((response) => {
       //set response data to state
       setDataAkademik(response.data.data.user);
-      console.log(response.data.data.user);
+      setAlasan(response.data.data.user.alasan);
+      setIdUser(response.data.data.user.id);
+      setJenisVerif(response.data.data.user.jenis_verif);
       setTimeout(() => {
         setLoading(false);
       }, 500);
@@ -72,6 +124,8 @@ export default function EditAkademik() {
     //call function "fetchDataPost"
     fetchDataAkademiks();
   }, []);
+
+  
 
   return (
     <LayoutAdmin>
@@ -92,6 +146,96 @@ export default function EditAkademik() {
                 </div>
               ) : (
                 <>
+                  <div className="row mt-1 mb-2">
+                    <div className="col-md-12">
+                      <div className="card border-0 rounded shadow-sm border-top-success">
+                        <div className="card-header text-dark">
+                          Verifikasi Data Beasiswa Akademik
+                        </div>
+                        <div className="card-body">
+                          <div className="table-responsive">
+                            <table className="table table-bordered table-striped text-dark">
+                              <tbody>
+                                <tr>
+                                  <td
+                                    style={{ width: "25%" }}
+                                    className="fw-bold text-center"
+                                  >
+                                    Isi Alasan dan Verifikasi
+                                  </td>
+                                  <td className="fw-bold text-center">
+                                    <form onSubmit={verifAkademik}>
+                                      <div className="row">
+                                        <div className="col-md-12">
+                                          <label className="form-label fw-bold">
+                                            Isi Alasan
+                                          </label>
+                                          <textarea
+                                            rows="5"
+                                            cols="50"
+                                            value={alasan}
+                                            onChange={(e) =>
+                                              setAlasan(e.target.value)
+                                            }
+                                            className="form-control"
+                                          />
+                                        </div>
+                                        {errors.alasan && (
+                                          <div className="alert alert-danger">
+                                            {errors.alasan[0]}
+                                          </div>
+                                        )}
+                                      </div>
+                                      <div className="row mt-2">
+                                        <div className="col-md-12">
+                                          <div className="mb-3">
+                                            <label className="form-label fw-bold">
+                                              Pilih Verifikasi
+                                            </label>
+                                            <select
+                                              className="form-select"
+                                              value={jenisVerif}
+                                              onChange={
+                                                handleShowHideJenisVerif
+                                              }
+                                            >
+                                              <option value="">
+                                                -- Pilih Jenis Verifikasi --
+                                              </option>
+                                              <option value="lolos">
+                                                Lolos Verifikasi
+                                              </option>
+                                              <option value="tidak">
+                                                Tidak Lolos
+                                              </option>
+                                            </select>
+                                          </div>
+                                          {errors.jenis_verif && (
+                                            <div className="alert alert-danger">
+                                              {errors.jenis_verif[0]}
+                                            </div>
+                                          )}
+                                        </div>
+                                      </div>
+                                      <div className="d-flex justify-content-center">
+                                        <button
+                                          type="submit"
+                                          className="btn btn-md btn-primary me-2"
+                                          disabled={isLoading}
+                                        >
+                                          {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                                        </button>
+                                      </div>
+                                    </form>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <Akademik
                     name={dataAkademik.name}
                     nik={dataAkademik.nik}
@@ -101,6 +245,12 @@ export default function EditAkademik() {
                     alamat={dataAkademik.alamat}
                     rt={dataAkademik.rt}
                     rw={dataAkademik.rw}
+                    imageKtp={dataAkademik.imagektp}
+                    imageKartuKeluarga={dataAkademik.imagekk}
+                    imageAktifkampus={dataAkademik.imageaktifkampus}
+                    imageSuratpernyataan={dataAkademik.imagesuratpernyataan}
+                    imageAkrekampus={dataAkademik.imageakrekampus}
+                    imageSuratBeasiswa={dataAkademik.imagesuratbeasiswa}
                   />
                 </>
               )}

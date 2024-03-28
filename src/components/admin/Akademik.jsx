@@ -87,6 +87,94 @@ export default function Akademik({
               </div>
             </div>
           </div>
+          <hr />
+          <div className="card border-0 rounded shadow-sm border-top-success">
+            <div className="card-header text-dark">File Beasiswa Akademik</div>
+            <div className="card-body">
+              <div className="row justify-content-center">
+                <div className="col-md-6">
+                  <div className="card rounded">
+                    <div className="text-center">File KTP</div>
+                    <iframe
+                      src={imageKtp}
+                      title="Embedded Content"
+                      className="embed-responsive-item"
+                      height="400"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="card rounded">
+                    <div className="text-center">File Kartu Keluarga</div>
+                    <iframe
+                      src={imageKartuKeluarga}
+                      title="Embedded Content"
+                      className="embed-responsive-item"
+                      height="400"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="row justify-content-center mt-3">
+                <div className="col-md-6">
+                  <div className="card rounded">
+                    <div className="text-center">
+                      File Surat Keterangan Aktif Kampus
+                    </div>
+                    <iframe
+                      src={imageAktifkampus}
+                      title="Embedded Content"
+                      className="embed-responsive-item"
+                      height="400"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="card rounded">
+                    <div className="text-center">File Surat Pernyataan</div>
+                    <iframe
+                      src={imageSuratpernyataan}
+                      title="Embedded Content"
+                      className="embed-responsive-item"
+                      height="400"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="row justify-content-center mt-3">
+                <div className="col-md-6">
+                  <div className="card rounded">
+                    <div className="text-center">File Akredetasi Kampus</div>
+                    <iframe
+                      src={imageAkrekampus}
+                      title="Embedded Content"
+                      className="embed-responsive-item"
+                      height="400"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="card rounded">
+                    <div className="text-center">
+                      File Surat Tidak Menerima Beasiswa Lain
+                    </div>
+                    <iframe
+                      src={imageSuratBeasiswa}
+                      title="Embedded Content"
+                      className="embed-responsive-item"
+                      height="400"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -32,6 +32,16 @@ export default function AdminAkademik() {
 
   const [isLoading, setLoading] = useState(false);
 
+  const getRowColor = (jenisVerif) => {
+    if (jenisVerif === 'lolos') {
+      return 'green'; // Warna hijau
+    } else if (jenisVerif === 'tidak') {
+      return 'red'; // Warna merah
+    } else {
+      return 'yellow'; // Warna kuning
+    }
+  };
+
   const fetchData = async (pageNumber = 1, keywords = "") => {
     setLoading(true);
     //define variable "page"
@@ -76,6 +86,7 @@ export default function AdminAkademik() {
     //call function "fetchData"
     fetchData(1, e.target.value);
   };
+
 
   return (
     <LayoutAdmin>
@@ -136,10 +147,12 @@ export default function AdminAkademik() {
                               akademiks.length > 0 ? (
                                 akademiks.map((akademik, index) => (
                                   <tr
+                                  
                                     className={
-                                      akademik.user.status_verif === 1
+                                      akademik.user.jenis_verif === "lolos"
                                         ? "bg-verif"
-                                        : ""
+                                        : "bg-tolak"
+                                      
                                     }
                                     key={index}
                                   >
@@ -154,16 +167,25 @@ export default function AdminAkademik() {
                                     <td>{akademik.user.nohp}</td>
                                     <td>{akademik.user.email}</td>
                                     <td>
-                                      {akademik.user.status_verif === null && (
+                                      {akademik.user.jenis_verif ===
+                                        "tidak" && (
                                         <p>
                                           <button className="btn btn-md btn-danger me-2">
-                                            Belum diverifikasi
+                                            Tidak Lolos verifikasi
                                           </button>
                                         </p>
                                       )}
-                                      {akademik.user.status_verif === 1 && (
+                                      {akademik.user.jenis_verif === null && (
+                                        <p>
+                                          <button className="btn btn-md btn-warning me-2">
+                                            Belum verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {akademik.user.jenis_verif ===
+                                        "lolos" && (
                                         <button className="btn btn-md btn-success me-2">
-                                          Sudah diverifikasi
+                                          Lolos verifikasi
                                         </button>
                                       )}
                                     </td>

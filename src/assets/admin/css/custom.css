@@ -33,6 +33,10 @@ body {
     background-color: #93f1be !important;
 }
 
+.bg-tolak {
+    background-color: #f88080 !important;
+}
+
 .sb-sidenav-dark {
     background-color: #ffffff!important;
     color: rgb(141 139 139);
