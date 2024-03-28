@@ -191,9 +191,10 @@ export default function KeagamanC() {
                                   -- Pilih Salah Satu Sertifikat --
                                 </option>
                                 <option value="1">
-                                  Santriwan dan Santriwati yang berkuliah dan
-                                  menetap di Pondok Pesantren : Surat Ket Ponpes
-                                  (Upload)
+                                  Jajaran pengurus (Ketua, Wakil Ketua,
+                                  Sekretaris, Bendahara) aktifis organisasi
+                                  keagamaan tingkat Kabupaten/Kecamatan dan/
+                                  atau perguruan tinggi.
                                 </option>
                               </select>
                             </div>
