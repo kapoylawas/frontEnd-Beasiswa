@@ -1,5 +1,5 @@
 //import react router dom
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 //======================================================
 // view admin
@@ -49,6 +49,8 @@ export default function RoutesIndex() {
       <Route path="/login" element={<Login />} />
       {/* route "/forbidden" */}
       <Route path="/forbidden" element={<Forbidden />} />
+
+      <Route path="*" element={<Navigate to="/" />} />
 
       {/* private route "/admin/dashboard" */}
       <Route

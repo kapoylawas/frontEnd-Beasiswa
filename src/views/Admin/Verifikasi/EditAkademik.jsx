@@ -16,6 +16,7 @@ import Cookies from "js-cookie";
 //import toast
 import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
+import Akademik from "../../../components/admin/Akademik";
 
 export default function EditAkademik() {
   //title page
@@ -30,20 +31,22 @@ export default function EditAkademik() {
   //token from cookies
   const token = Cookies.get("token");
 
-  const [name, setName] = useState("");
-  const [nik, setNik] = useState("");
-  const [kartuKeluarga, setKartuKeluarga] = useState("");
-  const [noHp, setNoHp] = useState("");
-  const [email, setEmail] = useState("");
-  const [alamat, setAlamat] = useState("");
-  const [rt, setRt] = useState("");
-  const [rw, setRw] = useState("");
-  const [imageKtp, setImageKtp] = useState("");
-  const [imageKartuKeluarga, setImageKartuKeluarga] = useState("");
-  const [imageAktifkampus, setImageAktifkampus] = useState("");
-  const [imageSuratpernyataan, setImageSuratpernyataan] = useState("");
-  const [imageAkrekampus, setImageAkrekampus] = useState("");
-  const [imageSuratBeasiswa, setImageSuratBeasiswa] = useState("");
+  const [dataAkademik, setDataAkademik] = useState({
+    name: "",
+    nik: "",
+    kartuKeluarga: "",
+    noHp: "",
+    email: "",
+    alamat: "",
+    rt: "",
+    rw: "",
+    imageKtp: "",
+    imageKartuKeluarga: "",
+    imageAktifkampus: "",
+    imageSuratpernyataan: "",
+    imageAkrekampus: "",
+    imageSuratBeasiswa: "",
+  });
 
   const [isLoading, setLoading] = useState(false);
 
@@ -56,21 +59,8 @@ export default function EditAkademik() {
       },
     }).then((response) => {
       //set response data to state
-      setName(response.data.data.user.name);
-      setNik(response.data.data.user.nik);
-      setKartuKeluarga(response.data.data.user.nokk);
-      setNoHp(response.data.data.user.nohp);
-      setEmail(response.data.data.user.email);
-      setAlamat(response.data.data.user.alamat);
-      setRt(response.data.data.user.rt);
-      setRw(response.data.data.user.rw);
-      setImageKtp(response.data.data.user.imagektp);
-      setImageKartuKeluarga(response.data.data.user.imagekk);
-      setImageAktifkampus(response.data.data.user.imageaktifkampus);
-      setImageSuratpernyataan(response.data.data.user.imagesuratpernyataan);
-      setImageAkrekampus(response.data.data.user.imageakrekampus);
-      setImageSuratBeasiswa(response.data.data.user.imagesuratbeasiswa);
-      console.log(response.data.data);
+      setDataAkademik(response.data.data.user);
+      console.log(response.data.data.user);
       setTimeout(() => {
         setLoading(false);
       }, 500);
@@ -102,7 +92,16 @@ export default function EditAkademik() {
                 </div>
               ) : (
                 <>
-                  
+                  <Akademik
+                    name={dataAkademik.name}
+                    nik={dataAkademik.nik}
+                    kartuKeluarga={dataAkademik.nokk}
+                    noHp={dataAkademik.nohp}
+                    email={dataAkademik.email}
+                    alamat={dataAkademik.alamat}
+                    rt={dataAkademik.rt}
+                    rw={dataAkademik.rw}
+                  />
                 </>
               )}
             </div>
