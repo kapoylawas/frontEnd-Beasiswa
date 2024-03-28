@@ -410,7 +410,7 @@ export default function EditBeasiswaKesra() {
                             <div className="col-md-12">
                               <div className="mb-3">
                                 <label className="form-label fw-bold">
-                                  Khusus Non Muslim) tercatat sebagai
+                                  Khusus Non Muslim tercatat sebagai
                                   pengurus/aktifis atau mempunyai piagam
                                   kejuaraan bidang keagamaan{" "}
                                 </label>
