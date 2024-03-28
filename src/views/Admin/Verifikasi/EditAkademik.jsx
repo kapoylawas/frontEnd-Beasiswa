@@ -102,7 +102,7 @@ export default function EditAkademik() {
                 </div>
               ) : (
                 <>
-                  <h1>Halaman Edit Akademik</h1>
+                  
                 </>
               )}
             </div>

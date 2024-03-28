@@ -19,6 +19,8 @@ export default function EditBeasiswaKesra() {
   const [tipeKesra, setTipeKesra] = useState("");
   const [namaponpes, setNamaponpes] = useState("");
   const [alamatponpes, setAlamatponpes] = useState("");
+  const [namaOrganisasi, setNamaOrganisasi] = useState("");
+  const [alamatOrganisasi, setAlamatOrganisasi] = useState("");
   const [tahun, setTahun] = useState("");
   const [imagesertifikat, setImagesertifikat] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
@@ -49,6 +51,8 @@ export default function EditBeasiswaKesra() {
       setIdKesra(response.data.data.kesra.id);
       setDataKesra(response.data.data.kesra);
       setNamaponpes(response.data.data.kesra.nama_ponpes);
+      setNamaOrganisasi(response.data.data.kesra.nama_organisasi);
+      setAlamatOrganisasi(response.data.data.kesra.alamat_organisasi);
       setAlamatponpes(response.data.data.kesra.alamat_ponpes);
       setTipeKesra(response.data.data.kesra.tipe_sertifikat);
       setTahun(response.data.data.kesra.tahun);
@@ -89,6 +93,8 @@ export default function EditBeasiswaKesra() {
     //append data to "formData"
     formData.append("nama_ponpes", namaponpes);
     formData.append("alamat_ponpes", alamatponpes);
+    formData.append("nama_organisasi", namaOrganisasi);
+    formData.append("alamat_organisasi", alamatOrganisasi);
     formData.append("tahun", tahun);
     formData.append("imagesertifikat", imagesertifikat);
     formData.append("_method", "PUT");
@@ -360,9 +366,9 @@ export default function EditBeasiswaKesra() {
                                 <input
                                   type="text"
                                   className="form-control"
-                                  value={namaponpes}
+                                  value={namaOrganisasi}
                                   onChange={(e) =>
-                                    setNamaponpes(e.target.value)
+                                    setNamaOrganisasi(e.target.value)
                                   }
                                   placeholder="Nama Ponpes"
                                 />
@@ -376,9 +382,9 @@ export default function EditBeasiswaKesra() {
                                 <textarea
                                   type="text"
                                   className="form-control"
-                                  value={alamatponpes}
+                                  value={alamatOrganisasi}
                                   onChange={(e) =>
-                                    setAlamatponpes(e.target.value)
+                                    setAlamatOrganisasi(e.target.value)
                                   }
                                   placeholder="Enter Alamat Ponpes"
                                   rows="4" // Set the number of visible text lines
