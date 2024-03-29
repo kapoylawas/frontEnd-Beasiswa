@@ -29,46 +29,50 @@ body {
     background-color: #188a55 !important;
 }
 
-.bg-verif {
-    background-color: #93f1be !important;
+.verif-lolos {
+    background-color: #98d8b5 !important;
 }
 
-.bg-tolak {
-    background-color: #f88080 !important;
+.verif-tidak {
+    background-color: #e7b7b7 !important;
+}
+
+.verif-null {
+    background-color: #e2d8b5 !important;
 }
 
 .sb-sidenav-dark {
-    background-color: #ffffff!important;
+    background-color: #ffffff !important;
     color: rgb(141 139 139);
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
-    color: rgb(65 60 60)!important;
+    color: rgb(65 60 60) !important;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-    color: rgb(65 60 60)!important;
+    color: rgb(65 60 60) !important;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-    color: rgb(65 60 60)!important;
+    color: rgb(65 60 60) !important;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
-    color: rgb(65 60 60)!important;
+    color: rgb(65 60 60) !important;
 }
 
 .active-sidebar {
-    background-image: linear-gradient(to right, #99d5b9, #fffefe00)!important;
-    border-top-left-radius: 25px!important;
-    border-bottom-right-radius: 25px!important;
-    margin-left: 5px!important;
-    margin-right: 5px!important;
-    margin-top: 5px!important;
+    background-image: linear-gradient(to right, #99d5b9, #fffefe00) !important;
+    border-top-left-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    margin-top: 5px !important;
 }
 
 .sb-sidenav-dark .sb-sidenav-footer {
-    background-color: #fff!important;
+    background-color: #fff !important;
 }
 
 .input-group-text {
