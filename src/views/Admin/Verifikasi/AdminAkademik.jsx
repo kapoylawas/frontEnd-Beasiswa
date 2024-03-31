@@ -32,16 +32,6 @@ export default function AdminAkademik() {
 
   const [isLoading, setLoading] = useState(false);
 
-  const getRowColor = (jenisVerif) => {
-    if (jenisVerif === "lolos") {
-      return "green"; // Warna hijau
-    } else if (jenisVerif === "tidak") {
-      return "red"; // Warna merah
-    } else {
-      return "yellow"; // Warna kuning
-    }
-  };
-
   const fetchData = async (pageNumber = 1, keywords = "") => {
     setLoading(true);
     //define variable "page"
@@ -147,12 +137,6 @@ export default function AdminAkademik() {
                                 akademiks.map((akademik, index) => (
                                   <tr
                                     className={`verif-${akademik.user.jenis_verif === null ? "null" : akademik.user.jenis_verif}`}
-                                    // className={
-                                    //   akademik.user.jenis_verif === "lolos"
-                                    //     ? "bg-verif"
-                                    //     : "bg-tolak"
-
-                                    // }
                                     key={index}
                                   >
                                     <td className="fw-bold text-center">

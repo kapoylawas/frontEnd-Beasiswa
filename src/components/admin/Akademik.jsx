@@ -15,6 +15,9 @@ export default function Akademik({
   imageSuratpernyataan,
   imageAkrekampus,
   imageSuratBeasiswa,
+  ipk,
+  semester,
+  akredetasi_kampus
 }) {
   return (
     <>
@@ -80,6 +83,39 @@ export default function Akademik({
                       </td>
                       <td className="fw-bold text-center">
                         {alamat}, RT: {rt}, RW: {rw}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{ width: "25%" }}
+                        className="fw-bold text-center"
+                      >
+                        IPK
+                      </td>
+                      <td className="fw-bold text-center">
+                        {ipk}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{ width: "25%" }}
+                        className="fw-bold text-center"
+                      >
+                        Semester
+                      </td>
+                      <td className="fw-bold text-center">
+                        {semester}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{ width: "25%" }}
+                        className="fw-bold text-center"
+                      >
+                        Akredetasi
+                      </td>
+                      <td className="fw-bold text-center">
+                        {akredetasi_kampus}
                       </td>
                     </tr>
                   </tbody>

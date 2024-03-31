@@ -31,6 +31,11 @@ export default function EditAkademik() {
   //token from cookies
   const token = Cookies.get("token");
 
+  const [datas, setDatas] = useState({
+    ipk: "",
+    semester: "",
+    akredetasi_kampus: "",
+  });
   const [dataAkademik, setDataAkademik] = useState({
     name: "",
     nik: "",
@@ -109,6 +114,7 @@ export default function EditAkademik() {
       },
     }).then((response) => {
       //set response data to state
+      setDatas(response.data.data);
       setDataAkademik(response.data.data.user);
       setAlasan(response.data.data.user.alasan);
       setIdUser(response.data.data.user.id);
@@ -124,8 +130,6 @@ export default function EditAkademik() {
     //call function "fetchDataPost"
     fetchDataAkademiks();
   }, []);
-
-  
 
   return (
     <LayoutAdmin>
@@ -251,6 +255,9 @@ export default function EditAkademik() {
                     imageSuratpernyataan={dataAkademik.imagesuratpernyataan}
                     imageAkrekampus={dataAkademik.imageakrekampus}
                     imageSuratBeasiswa={dataAkademik.imagesuratbeasiswa}
+                    ipk={datas.ipk}
+                    semester={datas.semester}
+                    akredetasi_kampus={datas.akredetasi_kampus}
                   />
                 </>
               )}
