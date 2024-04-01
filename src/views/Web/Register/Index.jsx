@@ -35,7 +35,6 @@ export default function Register() {
   const [selectedKecamatan, setSelectedKecamatan] = useState("");
   const [selectedKelurahan, setSelectedKelurahan] = useState("");
 
-
   //hook useEffect
   useEffect(() => {
     //fetch api
@@ -54,7 +53,6 @@ export default function Register() {
       }
     );
   }, [selectedKecamatan]);
-
 
   const handleKecamatanChange = (e) => {
     setSelectedKecamatan(e.target.value);
@@ -150,7 +148,7 @@ export default function Register() {
     const inputValue = event.target.value;
 
     // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, '');
+    const numericValue = inputValue.replace(/\D/g, "");
 
     // Limit the length to 16 digits
     const truncatedValue = numericValue.slice(0, 16);
@@ -162,7 +160,7 @@ export default function Register() {
     const inputValue = event.target.value;
 
     // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, '');
+    const numericValue = inputValue.replace(/\D/g, "");
 
     // Limit the length to 16 digits
     const truncatedValue = numericValue.slice(0, 16);
@@ -174,7 +172,7 @@ export default function Register() {
     const inputValue = event.target.value;
 
     // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, '');
+    const numericValue = inputValue.replace(/\D/g, "");
 
     setNohp(numericValue);
   };
@@ -183,7 +181,7 @@ export default function Register() {
     const inputValue = event.target.value;
 
     // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, '');
+    const numericValue = inputValue.replace(/\D/g, "");
 
     setCodepos(numericValue);
   };
@@ -192,7 +190,7 @@ export default function Register() {
     const inputValue = event.target.value;
 
     // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, '');
+    const numericValue = inputValue.replace(/\D/g, "");
 
     setRt(numericValue);
   };
@@ -201,11 +199,10 @@ export default function Register() {
     const inputValue = event.target.value;
 
     // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, '');
+    const numericValue = inputValue.replace(/\D/g, "");
 
     setRw(numericValue);
   };
-
 
   //function "storeRegister"
   const storeRegister = async (e) => {
@@ -292,7 +289,9 @@ export default function Register() {
                     </div>
                     <div className="col-md-6">
                       <div className="mb-3">
-                        <label className="form-label fw-bold">NIK Sesuai KTP-EL</label>
+                        <label className="form-label fw-bold">
+                          NIK Sesuai KTP-EL
+                        </label>
                         <input
                           type="text"
                           className="form-control"
@@ -417,7 +416,9 @@ export default function Register() {
                   <div className="row">
                     <div className="col-md-12">
                       <div className="mb-3">
-                        <label className="form-label fw-bold">Kelurahan/Desa</label>
+                        <label className="form-label fw-bold">
+                          Kelurahan/Desa
+                        </label>
                         <select
                           className="form-select"
                           value={selectedKelurahan}
@@ -527,7 +528,7 @@ export default function Register() {
                     <div className="col-md-12 mt-2">
                       <div className="mb-3">
                         <label className="form-label fw-bold">
-                        Upload Kartu Keluarga pdf dan maksimal 2MB
+                          Upload Kartu Keluarga pdf dan maksimal 2MB
                         </label>
                         <input
                           type="file"

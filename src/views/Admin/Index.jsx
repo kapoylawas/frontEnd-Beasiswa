@@ -283,6 +283,15 @@ export default function Dashboard() {
     setJeniskota(getType);
   };
 
+  const handleChangeNIM = (event) => {
+    const inputValue = event.target.value;
+
+    // Remove non-numeric characters
+    const numericValue = inputValue.replace(/\D/g, "");
+
+    setNim(numericValue);
+  };
+
   const updateUsers = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -359,7 +368,7 @@ export default function Dashboard() {
                                   type="text"
                                   className="form-control"
                                   value={nim}
-                                  onChange={(e) => setNim(e.target.value)}
+                                  onChange={handleChangeNIM}
                                   placeholder="Enter NIM"
                                 />
                               </div>
