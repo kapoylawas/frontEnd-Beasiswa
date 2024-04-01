@@ -435,25 +435,6 @@ export default function Akademik() {
                           )}
                         </div>
                       </div>
-                      {/* <div className="row">
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Keterangan /Hasil Akhir PDF dan Maksimal 2MB
-                            </label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              onChange={handleHasilAkhir}
-                            />
-                          </div>
-                          {errors.imageketerangan && (
-                            <div className="alert alert-danger">
-                              {errors.imageketerangan[0]}
-                            </div>
-                          )}
-                        </div>
-                      </div> */}
                       <div className="d-flex justify-content-center">
                         <button
                           type="submit"

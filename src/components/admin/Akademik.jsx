@@ -17,7 +17,9 @@ export default function Akademik({
   imageSuratBeasiswa,
   ipk,
   semester,
-  akredetasi_kampus
+  akredetasi_kampus,
+  imagebanpt,
+  imagetranskrip,
 }) {
   return (
     <>
@@ -92,9 +94,7 @@ export default function Akademik({
                       >
                         IPK
                       </td>
-                      <td className="fw-bold text-center">
-                        {ipk}
-                      </td>
+                      <td className="fw-bold text-center">{ipk}</td>
                     </tr>
                     <tr>
                       <td
@@ -103,9 +103,7 @@ export default function Akademik({
                       >
                         Semester
                       </td>
-                      <td className="fw-bold text-center">
-                        {semester}
-                      </td>
+                      <td className="fw-bold text-center">{semester}</td>
                     </tr>
                     <tr>
                       <td
@@ -201,6 +199,38 @@ export default function Akademik({
                     </div>
                     <iframe
                       src={imageSuratBeasiswa}
+                      title="Embedded Content"
+                      className="embed-responsive-item"
+                      height="400"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div className="card border-0 rounded shadow-sm border-top-success">
+            <div className="card-header text-dark">File Beasiswa Akademik</div>
+            <div className="card-body">
+              <div className="row justify-content-center">
+                <div className="col-md-6">
+                  <div className="card rounded">
+                    <div className="text-center">Bukti Akredetasi Dari BANPT</div>
+                    <iframe
+                      src={imagebanpt}
+                      title="Embedded Content"
+                      className="embed-responsive-item"
+                      height="400"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="card rounded">
+                    <div className="text-center">Transkrip Nilai Pada Semester Akhir</div>
+                    <iframe
+                      src={imagetranskrip}
                       title="Embedded Content"
                       className="embed-responsive-item"
                       height="400"

@@ -35,6 +35,8 @@ export default function EditAkademik() {
     ipk: "",
     semester: "",
     akredetasi_kampus: "",
+    imagebanpt: "",
+    imagetranskrip: "",
   });
   const [dataAkademik, setDataAkademik] = useState({
     name: "",
@@ -258,6 +260,8 @@ export default function EditAkademik() {
                     ipk={datas.ipk}
                     semester={datas.semester}
                     akredetasi_kampus={datas.akredetasi_kampus}
+                    imagebanpt={datas.imagebanpt}
+                    imagetranskrip={datas.imagetranskrip}
                   />
                 </>
               )}
