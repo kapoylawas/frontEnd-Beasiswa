@@ -48,6 +48,11 @@ export default function EditBeasiswaDinsos() {
       //set data
       setIdDinsos(response.data.data.dinsos.id);
       setTipeDinsos(response.data.data.dinsos.tipe_daftar);
+      setPenghasilanOrangtua(response.data.data.dinsos.penghasilan_orangtua);
+      setPekerjaanOrangtua(response.data.data.dinsos.pekerjaan_orangtua);
+      setStatusRumah(response.data.data.dinsos.status_rumah);
+      setStatusKendaraan(response.data.data.dinsos.status_kendaraan);
+      setJumlahKendaraan(response.data.data.dinsos.jumlah_kendaraan);
       setStatusFinish(response.data.data.status_finish);
       setTimeout(() => {
         setLoading(false);
@@ -161,6 +166,7 @@ export default function EditBeasiswaDinsos() {
                                 <input
                                   type="text"
                                   className="form-control"
+                                  value={penghasilanOrangtua}
                                   onChange={(e) =>
                                     setPenghasilanOrangtua(e.target.value)
                                   }
@@ -176,6 +182,7 @@ export default function EditBeasiswaDinsos() {
                                 <input
                                   type="text"
                                   className="form-control"
+                                  value={pekerjaanOrangtua}
                                   onChange={(e) =>
                                     setPekerjaanOrangtua(e.target.value)
                                   }
@@ -190,6 +197,7 @@ export default function EditBeasiswaDinsos() {
                                 <input
                                   type="text"
                                   className="form-control"
+                                  value={statusRumah}
                                   onChange={(e) =>
                                     setStatusRumah(e.target.value)
                                   }
@@ -204,6 +212,7 @@ export default function EditBeasiswaDinsos() {
                                 <input
                                   type="text"
                                   className="form-control"
+                                  value={statusKendaraan}
                                   onChange={(e) =>
                                     setStatusKendaraan(e.target.value)
                                   }
@@ -218,6 +227,7 @@ export default function EditBeasiswaDinsos() {
                                 <input
                                   type="number"
                                   className="form-control"
+                                  value={jumlahKendaraan}
                                   onChange={(e) =>
                                     setJumlahKendaraan(e.target.value)
                                   }
