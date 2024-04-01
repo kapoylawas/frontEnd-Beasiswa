@@ -146,6 +146,67 @@ export default function Register() {
     setKk(imageData);
   };
 
+  const handleChangeNik = (event) => {
+    const inputValue = event.target.value;
+
+    // Remove non-numeric characters
+    const numericValue = inputValue.replace(/\D/g, '');
+
+    // Limit the length to 16 digits
+    const truncatedValue = numericValue.slice(0, 16);
+
+    setNik(truncatedValue);
+  };
+
+  const handleChangeKartuKeluarga = (event) => {
+    const inputValue = event.target.value;
+
+    // Remove non-numeric characters
+    const numericValue = inputValue.replace(/\D/g, '');
+
+    // Limit the length to 16 digits
+    const truncatedValue = numericValue.slice(0, 16);
+
+    setNokk(truncatedValue);
+  };
+
+  const handleChangeNoHp = (event) => {
+    const inputValue = event.target.value;
+
+    // Remove non-numeric characters
+    const numericValue = inputValue.replace(/\D/g, '');
+
+    setNohp(numericValue);
+  };
+
+  const handleChangeKodePos = (event) => {
+    const inputValue = event.target.value;
+
+    // Remove non-numeric characters
+    const numericValue = inputValue.replace(/\D/g, '');
+
+    setCodepos(numericValue);
+  };
+
+  const handleChangeRT = (event) => {
+    const inputValue = event.target.value;
+
+    // Remove non-numeric characters
+    const numericValue = inputValue.replace(/\D/g, '');
+
+    setRt(numericValue);
+  };
+
+  const handleChangeRW = (event) => {
+    const inputValue = event.target.value;
+
+    // Remove non-numeric characters
+    const numericValue = inputValue.replace(/\D/g, '');
+
+    setRw(numericValue);
+  };
+
+
   //function "storeRegister"
   const storeRegister = async (e) => {
     e.preventDefault();
@@ -236,7 +297,7 @@ export default function Register() {
                           type="text"
                           className="form-control"
                           value={nik}
-                          onChange={(e) => setNik(e.target.value)}
+                          onChange={handleChangeNik}
                           placeholder="Masukkan No Induk Kependudukan"
                           maxLength={16}
                         />
@@ -258,7 +319,7 @@ export default function Register() {
                           type="text"
                           className="form-control"
                           value={nokk}
-                          onChange={(e) => setNokk(e.target.value)}
+                          onChange={handleChangeKartuKeluarga}
                           placeholder="Masukkan No Kartu Keluarga"
                           maxLength={16}
                         />
@@ -280,7 +341,7 @@ export default function Register() {
                           type="text"
                           className="form-control"
                           value={nohp}
-                          onChange={(e) => setNohp(e.target.value)}
+                          onChange={handleChangeNoHp}
                           placeholder="Masukkan No Hp atau Whatsapp"
                         />
                       </div>
@@ -385,7 +446,7 @@ export default function Register() {
                           type="text"
                           className="form-control"
                           value={codepos}
-                          onChange={(e) => setCodepos(e.target.value)}
+                          onChange={handleChangeKodePos}
                           placeholder="Masukkan Kode POS"
                         />
                       </div>
@@ -402,7 +463,7 @@ export default function Register() {
                           type="text"
                           className="form-control"
                           value={rt}
-                          onChange={(e) => setRt(e.target.value)}
+                          onChange={handleChangeRT}
                           placeholder="Kalau RT Belum Ada Isi Dengan (0)"
                         />
                       </div>
@@ -417,7 +478,7 @@ export default function Register() {
                           type="text"
                           className="form-control"
                           value={rw}
-                          onChange={(e) => setRw(e.target.value)}
+                          onChange={handleChangeRW}
                           placeholder="Kalau RW Belum Ada Isi Dengan (0)"
                         />
                       </div>
