@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react";
 //import react router dom
 import LayoutAdmin from "../../../layouts/Admin";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Api from "../../../services/Api";
 //import js cookie
 import Cookies from "js-cookie";
@@ -66,6 +65,19 @@ export default function AdminAkademik() {
   useEffect(() => {
     //call function "fetchData"
     fetchData();
+    const handleBeforeUnload = (event) => {
+      // Perform any necessary cleanup or actions here
+      // This code should not explicitly disable caching
+
+      // Optionally, you can provide a confirmation message
+      event.returnValue = 'Are you sure you want to leave this page?';
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, []);
 
   //function "searchData"

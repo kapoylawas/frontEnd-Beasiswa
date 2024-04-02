@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react";
 //import react router dom
 import LayoutAdmin from "../../../layouts/Admin";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Api from "../../../services/Api";
 //import js cookie
 import Cookies from "js-cookie";
@@ -12,9 +11,6 @@ import Pagination from "../../../components/general/Pagination";
 
 export default function AdminNonAkademik() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
-
-  //navigata
-  const navigate = useNavigate();
 
   //token from cookies
   const token = Cookies.get("token");
@@ -68,6 +64,19 @@ export default function AdminNonAkademik() {
   useEffect(() => {
     //call function "fetchData"
     fetchData();
+    const handleBeforeUnload = (event) => {
+      // Perform any necessary cleanup or actions here
+      // This code should not explicitly disable caching
+
+      // Optionally, you can provide a confirmation message
+      event.returnValue = 'Are you sure you want to leave this page?';
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, []);
 
   //function "searchData"
@@ -133,75 +142,76 @@ export default function AdminNonAkademik() {
                       ) : (
                         <>
                           <tbody>
-                              {
-                                //cek apakah data ada
-                                nonAkademiks.length > 0 ? (
-                                  nonAkademiks.map((nonAkademik, index) => (
-                                    <tr
-                                      className={`verif-${
-                                        nonAkademik.user.jenis_verif === null
-                                          ? "null"
-                                          : nonAkademik.user.jenis_verif
-                                      }`}
-                                      key={index}
-                                    >
-                                      <td className="fw-bold text-center">
-                                        {++index +
-                                          (pagination.currentPage - 1) *
-                                            pagination.perPage}
-                                      </td>
-                                      <td>{nonAkademik.user.name}</td>
-                                      <td>{nonAkademik.user.nik}</td>
-                                      <td>{nonAkademik.user.nokk}</td>
-                                      <td>{nonAkademik.user.nohp}</td>
-                                      <td>{nonAkademik.user.email}</td>
-                                      <td>
-                                        {nonAkademik.user.jenis_verif ===
-                                          "tidak" && (
-                                          <p>
-                                            <button className="btn btn-md btn-danger me-2">
-                                              Tidak Lolos verifikasi
-                                            </button>
-                                          </p>
-                                        )}
-                                        {nonAkademik.user.jenis_verif === null && (
-                                          <p>
-                                            <button className="btn btn-md btn-warning me-2">
-                                              Belum verifikasi
-                                            </button>
-                                          </p>
-                                        )}
-                                        {nonAkademik.user.jenis_verif ===
-                                          "lolos" && (
-                                          <button className="btn btn-md btn-success me-2">
-                                            Lolos verifikasi
+                            {
+                              //cek apakah data ada
+                              nonAkademiks.length > 0 ? (
+                                nonAkademiks.map((nonAkademik, index) => (
+                                  <tr
+                                    className={`verif-${
+                                      nonAkademik.user.jenis_verif === null
+                                        ? "null"
+                                        : nonAkademik.user.jenis_verif
+                                    }`}
+                                    key={index}
+                                  >
+                                    <td className="fw-bold text-center">
+                                      {++index +
+                                        (pagination.currentPage - 1) *
+                                          pagination.perPage}
+                                    </td>
+                                    <td>{nonAkademik.user.name}</td>
+                                    <td>{nonAkademik.user.nik}</td>
+                                    <td>{nonAkademik.user.nokk}</td>
+                                    <td>{nonAkademik.user.nohp}</td>
+                                    <td>{nonAkademik.user.email}</td>
+                                    <td>
+                                      {nonAkademik.user.jenis_verif ===
+                                        "tidak" && (
+                                        <p>
+                                          <button className="btn btn-md btn-danger me-2">
+                                            Tidak Lolos verifikasi
                                           </button>
-                                        )}
-                                      </td>
-                                      <td className="text-center">
-                                        <Link
-                                          to={`/admin/editNonAkademik/${nonAkademik.id}`}
-                                          className="btn btn-primary btn-sm me-2"
-                                        >
-                                          <a>DETAIL</a>
-                                        </Link>
-                                      </td>
-                                    </tr>
-                                  ))
-                                ) : (
-                                  //tampilkan pesan data belum tersedia
-                                  <tr>
-                                    <td colSpan={8}>
-                                      <div
-                                        className="alert alert-danger border-0 rounded shadow-sm w-100 text-center"
-                                        role="alert"
+                                        </p>
+                                      )}
+                                      {nonAkademik.user.jenis_verif ===
+                                        null && (
+                                        <p>
+                                          <button className="btn btn-md btn-warning me-2">
+                                            Belum verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {nonAkademik.user.jenis_verif ===
+                                        "lolos" && (
+                                        <button className="btn btn-md btn-success me-2">
+                                          Lolos verifikasi
+                                        </button>
+                                      )}
+                                    </td>
+                                    <td className="text-center">
+                                      <Link
+                                        to={`/admin/editNonAkademik/${nonAkademik.id}`}
+                                        className="btn btn-primary btn-sm me-2"
                                       >
-                                        Data Belum Tersedia!.
-                                      </div>
+                                        <a>DETAIL</a>
+                                      </Link>
                                     </td>
                                   </tr>
-                                )
-                              }
+                                ))
+                              ) : (
+                                //tampilkan pesan data belum tersedia
+                                <tr>
+                                  <td colSpan={8}>
+                                    <div
+                                      className="alert alert-danger border-0 rounded shadow-sm w-100 text-center"
+                                      role="alert"
+                                    >
+                                      Data Belum Tersedia!.
+                                    </div>
+                                  </td>
+                                </tr>
+                              )
+                            }
                           </tbody>
                         </>
                       )}
