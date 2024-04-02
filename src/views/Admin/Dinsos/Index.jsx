@@ -17,11 +17,7 @@ export default function DinsosIndex() {
 
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
   const [sertifikat, setSertifikat] = useState("");
-  const [penghasilanOrangtua, setPenghasilanOrangtua] = useState("");
-  const [pekerjaanOrangtua, setPekerjaanOrangtua] = useState("");
-  const [statusRumah, setStatusRumah] = useState("");
-  const [statusKendaraan, setStatusKendaraan] = useState("");
-  const [jumlahKendaraan, setJumlahKendaraan] = useState("");
+
 
   const [isLoading, setLoading] = useState(false);
 
@@ -78,11 +74,6 @@ export default function DinsosIndex() {
 
     const formData = new FormData();
     formData.append("tipe_daftar", selectedSertifikat);
-    formData.append("penghasilan_orangtua", penghasilanOrangtua);
-    formData.append("pekerjaan_orangtua", pekerjaanOrangtua);
-    formData.append("status_rumah", statusRumah);
-    formData.append("status_kendaraan", statusKendaraan);
-    formData.append("jumlah_kendaraan", jumlahKendaraan);
     formData.append("imagesktm", sertifikat);
 
     await Api.post("/api/admin/dinsos", formData, {
@@ -168,66 +159,6 @@ export default function DinsosIndex() {
                     </div>
                     {["2"].includes(selectedSertifikat) && (
                       <>
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Penghasilan Orang Tua/Yang Menanggung Biaya Kuliah
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              onChange={(e) => setPenghasilanOrangtua(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Pekerjaan Orang Tua/Wali/Yang Menanggung Biaya Kuliah
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              onChange={(e) => setPekerjaanOrangtua(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Status Kepemilikan Rumah
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              onChange={(e) => setStatusRumah(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Status Kendaraan Yang Dimiliki
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              onChange={(e) => setStatusKendaraan(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Jumlah Kendaraan Yang Dimiliki
-                            </label>
-                            <input
-                              type="number"
-                              className="form-control"
-                              onChange={(e) => setJumlahKendaraan(e.target.value)}
-                            />
-                          </div>
-                        </div>
                         <div className="row">
                           <div className="col-md-12">
                             <div className="mb-3">
