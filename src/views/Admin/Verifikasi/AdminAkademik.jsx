@@ -136,7 +136,11 @@ export default function AdminAkademik() {
                               akademiks.length > 0 ? (
                                 akademiks.map((akademik, index) => (
                                   <tr
-                                    className={`verif-${akademik.user.jenis_verif === null ? "null" : akademik.user.jenis_verif}`}
+                                    className={`verif-${
+                                      akademik.user.jenis_verif === null
+                                        ? "null"
+                                        : akademik.user.jenis_verif
+                                    }`}
                                     key={index}
                                   >
                                     <td className="fw-bold text-center">
