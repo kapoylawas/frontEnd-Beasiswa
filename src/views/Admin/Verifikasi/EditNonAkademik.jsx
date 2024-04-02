@@ -57,8 +57,8 @@ export default function EditNonAkademik() {
     imageAkrekampus: "",
     imageSuratBeasiswa: "",
   });
-  console.log(dataUsers);
 
+  const [idUser, setIdUser] = useState("");
   const [alasan, setAlasan] = useState("");
   const [jenisVerif, setJenisVerif] = useState("");
 
@@ -79,6 +79,9 @@ export default function EditNonAkademik() {
       //set response data to state
       setDataNonAkademik(response.data.data);
       setDataUsers(response.data.data.user);
+      setIdUser(response.data.data.user.id);
+      setAlasan(response.data.data.user.alasan);
+      setJenisVerif(response.data.data.user.jenis_verif);
       setTimeout(() => {
         setLoading(false);
       }, 500);
@@ -90,6 +93,43 @@ export default function EditNonAkademik() {
     //call function "fetchDataPost"
     fetchDataNonAkademiks();
   }, []);
+
+  const verifNonAkademik = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    //define formData
+    const formData = new FormData();
+
+    //append data to "formData"
+    formData.append("alasan", alasan);
+    formData.append("jenis_verif", jenisVerif);
+    formData.append("_method", "PUT");
+
+    //sending data
+    await Api.post(`/api/admin/verif/nonAkademik/${idUser}}`, formData, {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+        "content-type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        //show toast
+        toast.success(response.data.message, {
+          position: "top-right",
+          duration: 4000,
+        });
+
+        //redirect
+        navigate("/admin/adminNonAkademik");
+      })
+      .catch((error) => {
+        setLoading(false);
+        //set error message to state "errors"
+        setErros(error.response.data);
+      });
+  };
 
   return (
     <LayoutAdmin>
@@ -128,7 +168,7 @@ export default function EditNonAkademik() {
                                     Isi Alasan dan Verifikasi
                                   </td>
                                   <td className="fw-bold text-center">
-                                    <form>
+                                    <form onSubmit={verifNonAkademik}>
                                       <div className="row">
                                         <div className="col-md-12">
                                           <label className="form-label fw-bold">
