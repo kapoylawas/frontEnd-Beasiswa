@@ -285,7 +285,46 @@ export default function sidebar() {
                 <div className="sb-nav-link-icon">
                   <i className="fas fa-user"></i>
                 </div>
-                Beasiswa Keagamaan
+                Kesra A
+              </Link>
+              <Link
+                className={
+                  activeRoute[2] === "adminKesraB"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminKesraB"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Kesra B
+              </Link>
+              <Link
+                className={
+                  activeRoute[2] === "adminKesraC"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminKesraC"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Kesra C
+              </Link>
+              <Link
+                className={
+                  activeRoute[2] === "adminKesraD"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminKesraD"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Kesra D
               </Link>
             </>
           )}

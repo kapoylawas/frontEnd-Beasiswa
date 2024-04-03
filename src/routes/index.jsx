@@ -45,6 +45,9 @@ import EditNonAkademik from "../views/Admin/Verifikasi/EditNonAkademik";
 import EditLuarnegeri from "../views/Admin/Verifikasi/EditLuarnegeri";
 import EditDinsosDtks from "../views/Admin/Verifikasi/EditDinsosDtks";
 import EditDinsosNoDtks from "../views/Admin/Verifikasi/EditDinsosNoDtks";
+import AdminKesraB from "../views/Admin/Verifikasi/AdminKesraB";
+import AdminKesraC from "../views/Admin/Verifikasi/AdminKesraC";
+import AdminKesraD from "../views/Admin/Verifikasi/AdminKesraD";
 
 export default function RoutesIndex() {
   return (
@@ -344,6 +347,33 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <AdminKesra />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/adminKesraB"
+        element={
+          <PrivateRoutes>
+            <AdminKesraB />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/adminKesraC"
+        element={
+          <PrivateRoutes>
+            <AdminKesraC />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/adminKesraD"
+        element={
+          <PrivateRoutes>
+            <AdminKesraD />
           </PrivateRoutes>
         }
       />

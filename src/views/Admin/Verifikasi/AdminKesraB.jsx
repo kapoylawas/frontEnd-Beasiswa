@@ -11,14 +11,11 @@ import Pagination from "../../../components/general/Pagination";
 import LoadingTable from "../../../components/general/LoadingTable";
 
 
-export default function AdminKesra() {
+export default function AdminKesraB() {
   document.title = "Kesra - Beasiswa Sidoarjo";
 
   //token from cookies
   const token = Cookies.get("token");
-
-  //define state "nonakademik"
-  const [nonAkademiks, setNonAkademiks] = useState([]);
 
   //define state "keywords"
   const [keywords, setKeywords] = useState("");
@@ -30,7 +27,7 @@ export default function AdminKesra() {
     total: 0,
   });
 
-  const [kesras, setKesra] = useState("");
+  const [kesraBs, setKesraBs] = useState("");
 
   const [isLoading, setLoading] = useState(false);
 
@@ -38,7 +35,7 @@ export default function AdminKesra() {
     setLoading(true);
     //define variable "page"
     const page = pageNumber ? pageNumber : pagination.currentPage;
-    await Api.get(`/api/admin/beasiswa/kesra?search=${keywords}&page=${page}`, {
+    await Api.get(`/api/admin/beasiswa/kesra2?search=${keywords}&page=${page}`, {
       //header
       headers: {
         //header Bearer + Token
@@ -46,7 +43,7 @@ export default function AdminKesra() {
       },
     }).then((response) => {
       //set data response to state "setProducts"
-      setKesra(response.data.data.data);
+      setKesraBs(response.data.data.data);
 
       //set data pagination to state "pagination"
       setPagination(() => ({
@@ -145,13 +142,13 @@ export default function AdminKesra() {
                           <tbody>
                             {
                               //cek apakah data ada
-                              kesras.length > 0 ? (
-                                kesras.map((kesra, index) => (
+                              kesraBs.length > 0 ? (
+                                kesraBs.map((kesraB, index) => (
                                   <tr
                                     className={`verif-${
-                                      kesra.user.jenis_verif === null
+                                      kesraB.user.jenis_verif === null
                                         ? "null"
-                                        : kesra.user.jenis_verif
+                                        : kesraB.user.jenis_verif
                                     }`}
                                     key={index}
                                   >
@@ -160,13 +157,13 @@ export default function AdminKesra() {
                                         (pagination.currentPage - 1) *
                                           pagination.perPage}
                                     </td>
-                                    <td>{kesra.user.name}</td>
-                                    <td>{kesra.user.nik}</td>
-                                    <td>{kesra.user.nokk}</td>
-                                    <td>{kesra.user.nohp}</td>
-                                    <td>{kesra.user.email}</td>
+                                    <td>{kesraB.user.name}</td>
+                                    <td>{kesraB.user.nik}</td>
+                                    <td>{kesraB.user.nokk}</td>
+                                    <td>{kesraB.user.nohp}</td>
+                                    <td>{kesraB.user.email}</td>
                                     <td>
-                                      {kesra.user.jenis_verif ===
+                                      {kesraB.user.jenis_verif ===
                                         "tidak" && (
                                         <p>
                                           <button className="btn btn-md btn-danger me-2">
@@ -174,7 +171,7 @@ export default function AdminKesra() {
                                           </button>
                                         </p>
                                       )}
-                                      {kesra.user.jenis_verif ===
+                                      {kesraB.user.jenis_verif ===
                                         null && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
@@ -182,7 +179,7 @@ export default function AdminKesra() {
                                           </button>
                                         </p>
                                       )}
-                                      {kesra.user.jenis_verif ===
+                                      {kesraB.user.jenis_verif ===
                                         "lolos" && (
                                         <button className="btn btn-md btn-success me-2">
                                           Lolos verifikasi
@@ -191,7 +188,7 @@ export default function AdminKesra() {
                                     </td>
                                     <td className="text-center">
                                       <Link
-                                        to={`/admin/editKesra/${kesra.id}`}
+                                        to={`/admin/editKesraB/${kesraB.id}`}
                                         className="btn btn-primary btn-sm me-2"
                                       >
                                         <a>DETAIL</a>
