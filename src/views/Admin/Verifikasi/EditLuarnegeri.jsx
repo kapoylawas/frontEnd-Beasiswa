@@ -16,7 +16,6 @@ import Cookies from "js-cookie";
 //import toast
 import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
-import NonAkademik from "../../../components/admin/NonAkademik";
 import LuarNegeri from "../../../components/admin/LuarNegeri";
 
 export default function EditLuarnegeri() {
