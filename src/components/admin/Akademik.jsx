@@ -63,7 +63,7 @@ export default function Akademik({
                         style={{ width: "25%" }}
                         className="fw-bold text-center"
                       >
-                        No Hanphone
+                        No Handphone
                       </td>
                       <td className="fw-bold text-center">{noHp}</td>
                     </tr>
