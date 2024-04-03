@@ -52,7 +52,7 @@ export default function RoutesIndex() {
       {/* route "/forbidden" */}
       <Route path="/forbidden" element={<Forbidden />} />
 
-      <Route path="*" element={<Navigate to="/" />} />
+      {<Route path="*" element={<Navigate to="/" />} />}
 
       {/* private route "/admin/dashboard" */}
       <Route
