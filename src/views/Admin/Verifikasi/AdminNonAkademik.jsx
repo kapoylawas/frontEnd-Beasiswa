@@ -15,7 +15,7 @@ export default function AdminNonAkademik() {
   //token from cookies
   const token = Cookies.get("token");
 
-  //define state "products"
+  //define state "nonakademik"
   const [nonAkademiks, setNonAkademiks] = useState([]);
 
   //define state "keywords"
