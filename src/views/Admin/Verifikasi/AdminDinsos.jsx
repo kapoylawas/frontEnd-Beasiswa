@@ -277,7 +277,7 @@ export default function AdminDinsos() {
             </div>
           </div>
         </div>
-        <div className="container-fluid px-4 mb-4 mt-3">
+        <div className="container-fluid px-4 mb-4 mt-5">
           <div className="row">
             <div className="col-md-8">
               <div className="row">
