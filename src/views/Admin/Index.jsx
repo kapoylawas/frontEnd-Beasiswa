@@ -31,6 +31,11 @@ export default function Dashboard() {
 
   const [errors, setErros] = useState([]);
   const [users, setUsers] = useState(0);
+  const [akademiks, setAkademiks] = useState(0);
+  const [dinsoses, setDinsoses] = useState(0);
+  const [kesras, setKesras] = useState(0);
+  const [luarNegeris, setLuarNegeris] = useState(0);
+  const [nonAkademiks, setNonAkademiks] = useState(0);
 
   const [usersbyid, setUsersByid] = useState("");
   const [step, setStep] = useState("");
@@ -49,7 +54,13 @@ export default function Dashboard() {
       },
     }).then((response) => {
       //set data
+      console.log(response.data.data);
       setUsers(response.data.data.users);
+      setAkademiks(response.data.data.akademiks);
+      setDinsoses(response.data.data.dinsoses);
+      setKesras(response.data.data.kesras);
+      setLuarNegeris(response.data.data.luarNegeris);
+      setNonAkademiks(response.data.data.nonAkademiks);
     });
   }, []);
 
@@ -653,6 +664,96 @@ export default function Dashboard() {
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
                   <div className="card-body">
                     <strong>{users}</strong> Users
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{akademiks}</strong> Akademik
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{dinsoses}</strong> Dinsos
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{kesras}</strong> Kesra
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{nonAkademiks}</strong> Non Akademik
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{luarNegeris}</strong> Luar Negeri
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
