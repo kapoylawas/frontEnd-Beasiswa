@@ -162,6 +162,7 @@ export default function AdminNonAkademik() {
                                     <td>{nonAkademik.user.name}</td>
                                     <td className="text-center">
                                       {nonAkademik.user.nik}
+                                      <br />
                                       {nonAkademik.user.jenis_verif_nik ===
                                         "tidak" && (
                                         <p>

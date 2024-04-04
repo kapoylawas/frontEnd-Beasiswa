@@ -211,6 +211,7 @@ export default function AdminDinsos() {
                                     <td>{dinsosDtks.user.name}</td>
                                     <td className="text-center">
                                       {dinsosDtks.user.nik}
+                                      <br />
                                       {dinsosDtks.user.jenis_verif_nik ===
                                         "tidak" && (
                                         <p>
@@ -372,6 +373,7 @@ export default function AdminDinsos() {
                                     <td>{dinsosNoDtks.user.name}</td>
                                     <td className="text-center">
                                       {dinsosNoDtks.user.nik}
+                                      <br />
                                       {dinsosNoDtks.user.jenis_verif_nik ===
                                         "tidak" && (
                                         <p>

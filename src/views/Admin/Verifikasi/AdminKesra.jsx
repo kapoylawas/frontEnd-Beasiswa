@@ -170,6 +170,7 @@ export default function AdminKesra() {
                                     <td>{kesra.user.name}</td>
                                     <td className="text-center">
                                       {kesra.user.nik}
+                                      <br />
                                       {kesra.user.jenis_verif_nik ===
                                         "tidak" && (
                                         <p>

@@ -166,6 +166,7 @@ export default function AdminLuarNegeri() {
                                     <td>{luarNegeri.user.name}</td>
                                     <td className="text-center">
                                       {luarNegeri.user.nik}
+                                      <br />
                                       {luarNegeri.user.jenis_verif_nik ===
                                         "tidak" && (
                                         <p>

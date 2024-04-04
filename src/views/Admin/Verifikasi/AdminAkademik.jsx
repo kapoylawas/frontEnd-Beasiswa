@@ -163,6 +163,7 @@ export default function AdminAkademik() {
                                     <td>{akademik.user.name}</td>
                                     <td className="text-center">
                                       {akademik.user.nik}
+                                      <br />
                                       {akademik.user.jenis_verif_nik ===
                                         "tidak" && (
                                         <p>

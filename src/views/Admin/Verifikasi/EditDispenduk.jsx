@@ -71,7 +71,7 @@ export default function EditDispenduk() {
       //set response data to state
       setDataUsers(response.data.data);
       setIdUser(response.data.data.id);
-      setAlasan(response.data.data.alasan);
+      setAlasan(response.data.data.alasan_nik);
       setJenisVerif(response.data.data.jenis_verif_nik);
       setTimeout(() => {
         setLoading(false);
@@ -93,7 +93,7 @@ export default function EditDispenduk() {
     const formData = new FormData();
 
     //append data to "formData"
-    formData.append("alasan", alasan);
+    formData.append("alasan_nik", alasan);
     formData.append("jenis_verif_nik", jenisVerif);
     formData.append("_method", "PUT");
 
