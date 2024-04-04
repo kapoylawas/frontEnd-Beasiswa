@@ -40,6 +40,8 @@ export default function EditKesraC() {
   const [dataKesra, setDataKesra] = useState({
     imagesertifikat: "",
     tipe_sertifikat: "",
+    nama_organisasi: "",
+    alamat_organisasi: "",
   });
   const [dataUsers, setDataUsers] = useState({
     name: "",
@@ -257,6 +259,8 @@ export default function EditKesraC() {
                     imageSuratBeasiswa={dataUsers.imagesuratbeasiswa}
                     imagesertifikat={dataKesra.imagesertifikat}
                     tipe_sertifikat={dataKesra.tipe_sertifikat}
+                    nama_organisasi={dataKesra.nama_organisasi}
+                    alamat_organisasi={dataKesra.alamat_organisasi}
                   />
                 </>
               )}

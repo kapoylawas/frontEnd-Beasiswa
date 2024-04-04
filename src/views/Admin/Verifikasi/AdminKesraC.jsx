@@ -9,7 +9,6 @@ import Cookies from "js-cookie";
 import Pagination from "../../../components/general/Pagination";
 import LoadingTable from "../../../components/general/LoadingTable";
 
-
 export default function AdminKesraC() {
   document.title = "Kesra - Beasiswa Sidoarjo";
 
@@ -34,13 +33,16 @@ export default function AdminKesraC() {
     setLoading(true);
     //define variable "page"
     const page = pageNumber ? pageNumber : pagination.currentPage;
-    await Api.get(`/api/admin/beasiswa/kesra3?search=${keywords}&page=${page}`, {
-      //header
-      headers: {
-        //header Bearer + Token
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
+    await Api.get(
+      `/api/admin/beasiswa/kesra3?search=${keywords}&page=${page}`,
+      {
+        //header
+        headers: {
+          //header Bearer + Token
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ).then((response) => {
       //set data response to state "setProducts"
       setKesraCs(response.data.data.data);
 
@@ -89,6 +91,15 @@ export default function AdminKesraC() {
     <LayoutAdmin>
       <main>
         <div className="container-fluid px-4 mb-4 mt-3">
+          <div className="alert alert-success" role="alert">
+            <ol>
+              <li>
+                Jajaran pengurus harian (Ketua, Wakil Ketua, Sekretaris,
+                Bendahara) aktifis organisasi keagamaan tingkat Kabupaten/
+                Kecamatan dan/ atau perguruan tinggi.
+              </li>
+            </ol>
+          </div>
           <div className="row">
             <div className="col-md-8">
               <div className="row">
@@ -162,24 +173,21 @@ export default function AdminKesraC() {
                                     <td>{kesraC.user.nohp}</td>
                                     <td>{kesraC.user.email}</td>
                                     <td>
-                                      {kesraC.user.jenis_verif ===
-                                        "tidak" && (
+                                      {kesraC.user.jenis_verif === "tidak" && (
                                         <p>
                                           <button className="btn btn-md btn-danger me-2">
                                             Tidak Lolos verifikasi
                                           </button>
                                         </p>
                                       )}
-                                      {kesraC.user.jenis_verif ===
-                                        null && (
+                                      {kesraC.user.jenis_verif === null && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
                                             Belum verifikasi
                                           </button>
                                         </p>
                                       )}
-                                      {kesraC.user.jenis_verif ===
-                                        "lolos" && (
+                                      {kesraC.user.jenis_verif === "lolos" && (
                                         <button className="btn btn-md btn-success me-2">
                                           Lolos verifikasi
                                         </button>

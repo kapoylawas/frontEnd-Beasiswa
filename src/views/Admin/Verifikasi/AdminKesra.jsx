@@ -9,7 +9,6 @@ import Cookies from "js-cookie";
 import Pagination from "../../../components/general/Pagination";
 import LoadingTable from "../../../components/general/LoadingTable";
 
-
 export default function AdminKesra() {
   document.title = "Kesra - Beasiswa Sidoarjo";
 
@@ -89,6 +88,18 @@ export default function AdminKesra() {
     <LayoutAdmin>
       <main>
         <div className="container-fluid px-4 mb-4 mt-3">
+          <div className="alert alert-success" role="alert">
+            <ol>
+              <li>
+                Hafal minimal 10 (sepuluh) juz A1-Qur'an : Sertifikat / SK .
+              </li>
+              <li>Pernah mengikuti kejuaraan MTQ : Sertifikat / SK .</li>
+              <li>
+                Prestasi lain di bidang keagamaan : sertifikat atau surat
+                keterangan dan/atau bentuk lain yang dipersamakan .
+              </li>
+            </ol>
+          </div>
           <div className="row">
             <div className="col-md-8">
               <div className="row">
@@ -162,24 +173,21 @@ export default function AdminKesra() {
                                     <td>{kesra.user.nohp}</td>
                                     <td>{kesra.user.email}</td>
                                     <td>
-                                      {kesra.user.jenis_verif ===
-                                        "tidak" && (
+                                      {kesra.user.jenis_verif === "tidak" && (
                                         <p>
                                           <button className="btn btn-md btn-danger me-2">
                                             Tidak Lolos verifikasi
                                           </button>
                                         </p>
                                       )}
-                                      {kesra.user.jenis_verif ===
-                                        null && (
+                                      {kesra.user.jenis_verif === null && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
                                             Belum verifikasi
                                           </button>
                                         </p>
                                       )}
-                                      {kesra.user.jenis_verif ===
-                                        "lolos" && (
+                                      {kesra.user.jenis_verif === "lolos" && (
                                         <button className="btn btn-md btn-success me-2">
                                           Lolos verifikasi
                                         </button>

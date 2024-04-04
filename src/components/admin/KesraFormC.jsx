@@ -16,7 +16,9 @@ export default function KesraFormC({
   imageAkrekampus,
   imageSuratBeasiswa,
   imagesertifikat,
-  tipe_sertifikat
+  tipe_sertifikat,
+  nama_organisasi,
+  alamat_organisasi
 }) {
   return (
     <>
@@ -82,6 +84,28 @@ export default function KesraFormC({
                       </td>
                       <td className="fw-bold text-center">
                         {alamat}, RT: {rt}, RW: {rw}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{ width: "25%" }}
+                        className="fw-bold text-center"
+                      >
+                        Nama Organiasi
+                      </td>
+                      <td className="fw-bold text-center">
+                        {nama_organisasi}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{ width: "25%" }}
+                        className="fw-bold text-center"
+                      >
+                        Alamat Organiasi
+                      </td>
+                      <td className="fw-bold text-center">
+                        {alamat_organisasi}
                       </td>
                     </tr>
                     <tr>

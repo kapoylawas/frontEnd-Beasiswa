@@ -9,7 +9,6 @@ import Cookies from "js-cookie";
 import Pagination from "../../../components/general/Pagination";
 import LoadingTable from "../../../components/general/LoadingTable";
 
-
 export default function AdminKesraB() {
   document.title = "Kesra - Beasiswa Sidoarjo";
 
@@ -34,13 +33,16 @@ export default function AdminKesraB() {
     setLoading(true);
     //define variable "page"
     const page = pageNumber ? pageNumber : pagination.currentPage;
-    await Api.get(`/api/admin/beasiswa/kesra2?search=${keywords}&page=${page}`, {
-      //header
-      headers: {
-        //header Bearer + Token
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
+    await Api.get(
+      `/api/admin/beasiswa/kesra2?search=${keywords}&page=${page}`,
+      {
+        //header
+        headers: {
+          //header Bearer + Token
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ).then((response) => {
       //set data response to state "setProducts"
       setKesraBs(response.data.data.data);
 
@@ -89,6 +91,18 @@ export default function AdminKesraB() {
     <LayoutAdmin>
       <main>
         <div className="container-fluid px-4 mb-4 mt-3">
+          <div className="alert alert-success" role="alert">
+            <ol>
+              <li>
+                Santriwan dan Santriwati yang berkuliah dan menetap di Pondok
+                Pesantren : Surat Ket Ponpes.
+              </li>
+              <li>
+                Ustadz/ustadzah sebagai guru ngaji di TPA/TPQ/ Madin : Surat
+                Rekomendasi Kepala TPQ atau Madrasah Diniyah .
+              </li>
+            </ol>
+          </div>
           <div className="row">
             <div className="col-md-8">
               <div className="row">
@@ -162,24 +176,21 @@ export default function AdminKesraB() {
                                     <td>{kesraB.user.nohp}</td>
                                     <td>{kesraB.user.email}</td>
                                     <td>
-                                      {kesraB.user.jenis_verif ===
-                                        "tidak" && (
+                                      {kesraB.user.jenis_verif === "tidak" && (
                                         <p>
                                           <button className="btn btn-md btn-danger me-2">
                                             Tidak Lolos verifikasi
                                           </button>
                                         </p>
                                       )}
-                                      {kesraB.user.jenis_verif ===
-                                        null && (
+                                      {kesraB.user.jenis_verif === null && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
                                             Belum verifikasi
                                           </button>
                                         </p>
                                       )}
-                                      {kesraB.user.jenis_verif ===
-                                        "lolos" && (
+                                      {kesraB.user.jenis_verif === "lolos" && (
                                         <button className="btn btn-md btn-success me-2">
                                           Lolos verifikasi
                                         </button>
