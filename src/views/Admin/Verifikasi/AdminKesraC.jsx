@@ -168,7 +168,31 @@ export default function AdminKesraC() {
                                           pagination.perPage}
                                     </td>
                                     <td>{kesraC.user.name}</td>
-                                    <td>{kesraC.user.nik}</td>
+                                    <td className="text-center">
+                                      {kesraC.user.nik}
+                                      {kesraC.user.jenis_verif_nik ===
+                                        "tidak" && (
+                                        <p>
+                                          <button className="btn btn-md btn-danger me-2">
+                                            NIK Tidak Lolos verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {kesraC.user.jenis_verif_nik ===
+                                        null && (
+                                        <p>
+                                          <button className="btn btn-md btn-warning me-2">
+                                            NIK Belum verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {kesraC.user.jenis_verif_nik ===
+                                        "lolos" && (
+                                        <button className="btn btn-md btn-success me-2">
+                                          NIK Lolos verifikasi
+                                        </button>
+                                      )}
+                                    </td>
                                     <td>{kesraC.user.nokk}</td>
                                     <td>{kesraC.user.nohp}</td>
                                     <td>{kesraC.user.email}</td>

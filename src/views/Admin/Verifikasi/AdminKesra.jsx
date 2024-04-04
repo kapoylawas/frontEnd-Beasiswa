@@ -168,7 +168,31 @@ export default function AdminKesra() {
                                           pagination.perPage}
                                     </td>
                                     <td>{kesra.user.name}</td>
-                                    <td>{kesra.user.nik}</td>
+                                    <td className="text-center">
+                                      {kesra.user.nik}
+                                      {kesra.user.jenis_verif_nik ===
+                                        "tidak" && (
+                                        <p>
+                                          <button className="btn btn-md btn-danger me-2">
+                                            NIK Tidak Lolos verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {kesra.user.jenis_verif_nik ===
+                                        null && (
+                                        <p>
+                                          <button className="btn btn-md btn-warning me-2">
+                                            NIK Belum verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {kesra.user.jenis_verif_nik ===
+                                        "lolos" && (
+                                        <button className="btn btn-md btn-success me-2">
+                                          NIK Lolos verifikasi
+                                        </button>
+                                      )}
+                                    </td>
                                     <td>{kesra.user.nokk}</td>
                                     <td>{kesra.user.nohp}</td>
                                     <td>{kesra.user.email}</td>

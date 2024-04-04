@@ -171,21 +171,21 @@ export default function AdminAkademik() {
                                         "tidak" && (
                                         <p>
                                           <button className="btn btn-md btn-danger me-2">
-                                            Tidak Lolos verifikasi
+                                           NIK Tidak Lolos verifikasi
                                           </button>
                                         </p>
                                       )}
                                       {user.jenis_verif_nik === null && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
-                                            Belum verifikasi
+                                           NIK Belum verifikasi
                                           </button>
                                         </p>
                                       )}
                                       {user.jenis_verif_nik ===
                                         "lolos" && (
                                         <button className="btn btn-md btn-success me-2">
-                                          Lolos verifikasi
+                                         NIK Lolos verifikasi
                                         </button>
                                       )}
                                     </td>

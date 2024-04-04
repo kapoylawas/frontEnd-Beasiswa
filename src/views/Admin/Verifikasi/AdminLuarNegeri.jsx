@@ -10,7 +10,6 @@ import Cookies from "js-cookie";
 import LoadingTable from "../../../components/general/LoadingTable";
 import Pagination from "../../../components/general/Pagination";
 
-
 export default function AdminLuarNegeri() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
 
@@ -165,7 +164,31 @@ export default function AdminLuarNegeri() {
                                           pagination.perPage}
                                     </td>
                                     <td>{luarNegeri.user.name}</td>
-                                    <td>{luarNegeri.user.nik}</td>
+                                    <td className="text-center">
+                                      {luarNegeri.user.nik}
+                                      {luarNegeri.user.jenis_verif_nik ===
+                                        "tidak" && (
+                                        <p>
+                                          <button className="btn btn-md btn-danger me-2">
+                                            NIK Tidak Lolos verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {luarNegeri.user.jenis_verif_nik ===
+                                        null && (
+                                        <p>
+                                          <button className="btn btn-md btn-warning me-2">
+                                            NIK Belum verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {luarNegeri.user.jenis_verif_nik ===
+                                        "lolos" && (
+                                        <button className="btn btn-md btn-success me-2">
+                                          NIK Lolos verifikasi
+                                        </button>
+                                      )}
+                                    </td>
                                     <td>{luarNegeri.user.nokk}</td>
                                     <td>{luarNegeri.user.nohp}</td>
                                     <td>{luarNegeri.user.email}</td>
@@ -178,8 +201,7 @@ export default function AdminLuarNegeri() {
                                           </button>
                                         </p>
                                       )}
-                                      {luarNegeri.user.jenis_verif ===
-                                        null && (
+                                      {luarNegeri.user.jenis_verif === null && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
                                             Belum verifikasi

@@ -209,7 +209,31 @@ export default function AdminDinsos() {
                                           pagination.perPage}
                                     </td>
                                     <td>{dinsosDtks.user.name}</td>
-                                    <td>{dinsosDtks.user.nik}</td>
+                                    <td className="text-center">
+                                      {dinsosDtks.user.nik}
+                                      {dinsosDtks.user.jenis_verif_nik ===
+                                        "tidak" && (
+                                        <p>
+                                          <button className="btn btn-md btn-danger me-2">
+                                            NIK Tidak Lolos verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {dinsosDtks.user.jenis_verif_nik ===
+                                        null && (
+                                        <p>
+                                          <button className="btn btn-md btn-warning me-2">
+                                            NIK Belum verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {dinsosDtks.user.jenis_verif_nik ===
+                                        "lolos" && (
+                                        <button className="btn btn-md btn-success me-2">
+                                          NIK Lolos verifikasi
+                                        </button>
+                                      )}
+                                    </td>
                                     <td>{dinsosDtks.user.nokk}</td>
                                     <td>{dinsosDtks.user.nohp}</td>
                                     <td>{dinsosDtks.user.email}</td>
@@ -346,7 +370,31 @@ export default function AdminDinsos() {
                                           paginationNo.perPage}
                                     </td>
                                     <td>{dinsosNoDtks.user.name}</td>
-                                    <td>{dinsosNoDtks.user.nik}</td>
+                                    <td className="text-center">
+                                      {dinsosNoDtks.user.nik}
+                                      {dinsosNoDtks.user.jenis_verif_nik ===
+                                        "tidak" && (
+                                        <p>
+                                          <button className="btn btn-md btn-danger me-2">
+                                            NIK Tidak Lolos verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {dinsosNoDtks.user.jenis_verif_nik ===
+                                        null && (
+                                        <p>
+                                          <button className="btn btn-md btn-warning me-2">
+                                            NIK Belum verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {dinsosNoDtks.user.jenis_verif_nik ===
+                                        "lolos" && (
+                                        <button className="btn btn-md btn-success me-2">
+                                          NIK Lolos verifikasi
+                                        </button>
+                                      )}
+                                    </td>
                                     <td>{dinsosNoDtks.user.nokk}</td>
                                     <td>{dinsosNoDtks.user.nohp}</td>
                                     <td>{dinsosNoDtks.user.email}</td>

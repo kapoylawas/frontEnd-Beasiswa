@@ -72,7 +72,7 @@ export default function EditDispenduk() {
       setDataUsers(response.data.data);
       setIdUser(response.data.data.id);
       setAlasan(response.data.data.alasan);
-      setJenisVerif(response.data.data.jenis_verif);
+      setJenisVerif(response.data.data.jenis_verif_nik);
       setTimeout(() => {
         setLoading(false);
       }, 500);
@@ -94,7 +94,7 @@ export default function EditDispenduk() {
 
     //append data to "formData"
     formData.append("alasan", alasan);
-    formData.append("jenis_verif", jenisVerif);
+    formData.append("jenis_verif_nik", jenisVerif);
     formData.append("_method", "PUT");
 
     //sending data
@@ -114,7 +114,7 @@ export default function EditDispenduk() {
         });
 
         //redirect
-        navigate("/admin/adminDinsos");
+        navigate("/admin/adminDispenduk");
       })
       .catch((error) => {
         setLoadingSave(false);

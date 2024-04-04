@@ -69,13 +69,13 @@ export default function AdminNonAkademik() {
       // This code should not explicitly disable caching
 
       // Optionally, you can provide a confirmation message
-      event.returnValue = 'Are you sure you want to leave this page?';
+      event.returnValue = "Are you sure you want to leave this page?";
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
@@ -160,7 +160,31 @@ export default function AdminNonAkademik() {
                                           pagination.perPage}
                                     </td>
                                     <td>{nonAkademik.user.name}</td>
-                                    <td>{nonAkademik.user.nik}</td>
+                                    <td className="text-center">
+                                      {nonAkademik.user.nik}
+                                      {nonAkademik.user.jenis_verif_nik ===
+                                        "tidak" && (
+                                        <p>
+                                          <button className="btn btn-md btn-danger me-2">
+                                            NIK Tidak Lolos verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {nonAkademik.user.jenis_verif_nik ===
+                                        null && (
+                                        <p>
+                                          <button className="btn btn-md btn-warning me-2">
+                                            NIK Belum verifikasi
+                                          </button>
+                                        </p>
+                                      )}
+                                      {nonAkademik.user.jenis_verif_nik ===
+                                        "lolos" && (
+                                        <button className="btn btn-md btn-success me-2">
+                                          NIK Lolos verifikasi
+                                        </button>
+                                      )}
+                                    </td>
                                     <td>{nonAkademik.user.nokk}</td>
                                     <td>{nonAkademik.user.nohp}</td>
                                     <td>{nonAkademik.user.email}</td>
