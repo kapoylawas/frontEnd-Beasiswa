@@ -48,6 +48,10 @@ import EditDinsosNoDtks from "../views/Admin/Verifikasi/EditDinsosNoDtks";
 import AdminKesraB from "../views/Admin/Verifikasi/AdminKesraB";
 import AdminKesraC from "../views/Admin/Verifikasi/AdminKesraC";
 import AdminKesraD from "../views/Admin/Verifikasi/AdminKesraD";
+import EditKesra from "../views/Admin/Verifikasi/EditKesra";
+import EditKesraB from "../views/Admin/Verifikasi/EditKesraB";
+import EditKesraC from "../views/Admin/Verifikasi/EditKesraC";
+import EditKesraD from "../views/Admin/Verifikasi/EditKesraD";
 
 export default function RoutesIndex() {
   return (
@@ -352,10 +356,28 @@ export default function RoutesIndex() {
       />
 
       <Route
+        path="/admin/editKesra/:id"
+        element={
+          <PrivateRoutes>
+            <EditKesra />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
         path="/admin/adminKesraB"
         element={
           <PrivateRoutes>
             <AdminKesraB />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/editKesraB/:id"
+        element={
+          <PrivateRoutes>
+            <EditKesraB />
           </PrivateRoutes>
         }
       />
@@ -370,10 +392,28 @@ export default function RoutesIndex() {
       />
 
       <Route
+        path="/admin/editKesraC/:id"
+        element={
+          <PrivateRoutes>
+            <EditKesraC />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
         path="/admin/adminKesraD"
         element={
           <PrivateRoutes>
             <AdminKesraD />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/editKesraD/:id"
+        element={
+          <PrivateRoutes>
+            <EditKesraD />
           </PrivateRoutes>
         }
       />

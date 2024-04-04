@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react";
 //import react router dom
 import LayoutAdmin from "../../../layouts/Admin";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Api from "../../../services/Api";
 //import js cookie
 import Cookies from "js-cookie";
@@ -16,9 +15,6 @@ export default function AdminKesra() {
 
   //token from cookies
   const token = Cookies.get("token");
-
-  //define state "nonakademik"
-  const [nonAkademiks, setNonAkademiks] = useState([]);
 
   //define state "keywords"
   const [keywords, setKeywords] = useState("");

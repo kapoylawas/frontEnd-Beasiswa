@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react";
 //import react router dom
 import LayoutAdmin from "../../../layouts/Admin";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Api from "../../../services/Api";
 //import js cookie
 import Cookies from "js-cookie";

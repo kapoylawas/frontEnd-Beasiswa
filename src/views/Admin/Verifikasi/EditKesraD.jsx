@@ -16,11 +16,12 @@ import Cookies from "js-cookie";
 //import toast
 import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
-import DinsosDtks from "../../../components/admin/DinsosDtks";
+import KesraFormD from "../../../components/admin/KesraFormD";
 
-export default function EditDinsosDtks() {
+
+export default function EditKesraD() {
   //title page
-  document.title = "Detail Akademik - Beasiswa";
+  document.title = "Detail Kesra - Beasiswa";
 
   //navigata
   const navigate = useNavigate();
@@ -36,6 +37,10 @@ export default function EditDinsosDtks() {
   const [isLoading, setLoading] = useState(false);
   const [isLoadingSave, setLoadingSave] = useState(false);
 
+  const [dataKesra, setDataKesra] = useState({
+    imagesertifikat: "",
+    tipe_sertifikat: ""
+  });
   const [dataUsers, setDataUsers] = useState({
     name: "",
     nik: "",
@@ -62,13 +67,14 @@ export default function EditDinsosDtks() {
 
   const fetchDataDinsos = async () => {
     setLoading(true);
-    await Api.get(`/api/admin/dinsos/${id}`, {
+    await Api.get(`/api/admin/kesra/${id}`, {
       headers: {
         //header Bearer + Token
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
       //set response data to state
+      setDataKesra(response.data.data);
       setDataUsers(response.data.data.user);
       setIdUser(response.data.data.user.id);
       setAlasan(response.data.data.user.alasan);
@@ -98,7 +104,7 @@ export default function EditDinsosDtks() {
     formData.append("_method", "PUT");
 
     //sending data
-    await Api.post(`/api/admin/verif/dinsos/${idUser}}`, formData, {
+    await Api.post(`/api/admin/verif/kesra/${idUser}}`, formData, {
       //header
       headers: {
         //header Bearer + Token
@@ -114,7 +120,7 @@ export default function EditDinsosDtks() {
         });
 
         //redirect
-        navigate("/admin/adminDinsos");
+        navigate("/admin/adminKesraC");
       })
       .catch((error) => {
         setLoadingSave(false);
@@ -130,7 +136,7 @@ export default function EditDinsosDtks() {
           <div className="row">
             <div className="col-md-12">
               <Link
-                to="/admin/adminDinsos"
+                to="/admin/adminKesraB"
                 className="btn btn-md btn-primary border-0 shadow-sm mb-3"
                 type="button"
               >
@@ -146,7 +152,7 @@ export default function EditDinsosDtks() {
                     <div className="col-md-12">
                       <div className="card border-0 rounded shadow-sm border-top-success">
                         <div className="card-header text-dark">
-                          Verifikasi Data Beasiswa Dinsos
+                          Verifikasi Data Beasiswa Kesra
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">
@@ -234,7 +240,7 @@ export default function EditDinsosDtks() {
                       </div>
                     </div>
                   </div>
-                  <DinsosDtks
+                  <KesraFormD
                     name={dataUsers.name}
                     nik={dataUsers.nik}
                     kartuKeluarga={dataUsers.nokk}
@@ -244,11 +250,13 @@ export default function EditDinsosDtks() {
                     rt={dataUsers.rt}
                     rw={dataUsers.rw}
                     imageKtp={dataUsers.imagektp}
-                    imagekk={dataUsers.imagekk}
+                    imageKartuKeluarga={dataUsers.imagekk}
                     imageAktifkampus={dataUsers.imageaktifkampus}
                     imageSuratpernyataan={dataUsers.imagesuratpernyataan}
                     imageAkrekampus={dataUsers.imageakrekampus}
                     imageSuratBeasiswa={dataUsers.imagesuratbeasiswa}
+                    imagesertifikat={dataKesra.imagesertifikat}
+                    tipe_sertifikat={dataKesra.tipe_sertifikat}
                   />
                 </>
               )}
