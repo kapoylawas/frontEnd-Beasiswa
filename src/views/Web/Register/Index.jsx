@@ -489,7 +489,7 @@ export default function Register() {
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-12 mb-3">
                       <label className="form-label fw-bold">
                         Alamat Lengkap Sesuai KTP
                       </label>
@@ -501,12 +501,12 @@ export default function Register() {
                         className="form-control"
                       />
                     </div>
-                    {errors.alamat && (
+                  </div>
+                  {errors.alamat && (
                       <div className="alert alert-danger">
                         {errors.alamat[0]}
                       </div>
                     )}
-                  </div>
                   <div className="row">
                     <div className="col-md-12 mt-2">
                       <div className="mb-3">
