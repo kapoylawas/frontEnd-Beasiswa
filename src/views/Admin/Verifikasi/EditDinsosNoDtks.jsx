@@ -34,6 +34,7 @@ export default function EditDinsosNoDtks() {
   const [errors, setErros] = useState([]);
 
   const [isLoading, setLoading] = useState(false);
+  const [isLoadingSave, setLoadingSave] = useState(false);
 
   const [dataDinsos, setDataDinsos] = useState({
     imagesktm: "",
@@ -93,6 +94,44 @@ export default function EditDinsosNoDtks() {
     fetchDataDinsos();
   }, []);
 
+  // verifikasi dinsos
+  const verifDinsos = async (e) => {
+    e.preventDefault();
+    setLoadingSave(true);
+    //define formData
+    const formData = new FormData();
+
+    //append data to "formData"
+    formData.append("alasan", alasan);
+    formData.append("jenis_verif", jenisVerif);
+    formData.append("_method", "PUT");
+
+    //sending data
+    await Api.post(`/api/admin/verif/dinsos/${idUser}}`, formData, {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+        "content-type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        //show toast
+        toast.success(response.data.message, {
+          position: "top-right",
+          duration: 4000,
+        });
+
+        //redirect
+        navigate("/admin/adminDinsos");
+      })
+      .catch((error) => {
+        setLoadingSave(false);
+        //set error message to state "errors"
+        setErros(error.response.data);
+      });
+  };
+
   return (
     <LayoutAdmin>
       <main>
@@ -130,7 +169,7 @@ export default function EditDinsosNoDtks() {
                                     Isi Alasan dan Verifikasi
                                   </td>
                                   <td className="fw-bold text-center">
-                                    <form>
+                                    <form onSubmit={verifDinsos}>
                                       <div className="row">
                                         <div className="col-md-12">
                                           <label className="form-label fw-bold">
@@ -187,9 +226,9 @@ export default function EditDinsosNoDtks() {
                                         <button
                                           type="submit"
                                           className="btn btn-md btn-primary me-2"
-                                          disabled={isLoading}
+                                          disabled={isLoadingSave}
                                         >
-                                          {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                                          {isLoadingSave ? "LOADING..." : "SIMPAN"}{" "}
                                         </button>
                                       </div>
                                     </form>

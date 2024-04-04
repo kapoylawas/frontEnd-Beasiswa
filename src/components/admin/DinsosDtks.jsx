@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DinsosNoDtks({
+export default function DinsosDtks({
   name,
   nik,
   kartuKeluarga,
@@ -10,12 +10,11 @@ export default function DinsosNoDtks({
   rt,
   rw,
   imageKtp,
-  imageKartuKeluarga,
+  imagekk,
   imageAktifkampus,
   imageSuratpernyataan,
   imageAkrekampus,
   imageSuratBeasiswa,
-  imagesktm,
 }) {
   return (
     <>
@@ -114,7 +113,7 @@ export default function DinsosNoDtks({
                   <div className="card rounded">
                     <div className="text-center">File Kartu Keluarga</div>
                     <iframe
-                      src={imageKartuKeluarga}
+                      src={imagekk}
                       title="Embedded Content"
                       className="embed-responsive-item"
                       height="400"
@@ -171,29 +170,6 @@ export default function DinsosNoDtks({
                     </div>
                     <iframe
                       src={imageSuratBeasiswa}
-                      title="Embedded Content"
-                      className="embed-responsive-item"
-                      height="400"
-                      allowFullScreen
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-12 mt-3">
-          <div className="card border-0 rounded shadow-sm border-top-success">
-            <div className="card-header text-dark">Data Beasiswa Dinsos</div>
-            <div className="card-body">
-              <div className="row justify-content-center">
-                <div className="col-md-12">
-                  <div className="card rounded">
-                    <div className="text-center">
-                      File Surat Keterangan TIdak Mampu
-                    </div>
-                    <iframe
-                      src={imagesktm}
                       title="Embedded Content"
                       className="embed-responsive-item"
                       height="400"
