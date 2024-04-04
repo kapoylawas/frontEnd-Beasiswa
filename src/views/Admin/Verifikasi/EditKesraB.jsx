@@ -18,7 +18,6 @@ import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
 import KesraFormB from "../../../components/admin/KesraFormB";
 
-
 export default function EditKesraB() {
   //title page
   document.title = "Detail Kesra - Beasiswa";
@@ -41,6 +40,7 @@ export default function EditKesraB() {
     imagesertifikat: "",
     tipe_sertifikat: "",
   });
+  console.log(dataKesra);
   const [dataUsers, setDataUsers] = useState({
     name: "",
     nik: "",
@@ -54,6 +54,7 @@ export default function EditKesraB() {
     imagekk: "",
     imageAktifkampus: "",
   });
+  const [tipeSertifikat, setTipeSertifikat] = useState("");
 
   const [idUser, setIdUser] = useState("");
   const [alasan, setAlasan] = useState("");
@@ -79,6 +80,7 @@ export default function EditKesraB() {
       setIdUser(response.data.data.user.id);
       setAlasan(response.data.data.user.alasan);
       setJenisVerif(response.data.data.user.jenis_verif);
+      setTipeSertifikat(response.data.data.tipe_sertifikat);
       setTimeout(() => {
         setLoading(false);
       }, 500);
@@ -240,6 +242,51 @@ export default function EditKesraB() {
                       </div>
                     </div>
                   </div>
+
+                  {tipeSertifikat === 1 ? (
+                    <div className="row mt-1 mb-2">
+                      <div className="col-md-12">
+                        <div className="card border-0 rounded shadow-sm border-top-success">
+                          <div className="card-header text-dark">
+                            Data Nama Ponpes dan Alamat Ponpes
+                          </div>
+                          <div className="card-body">
+                            <div className="table-responsive">
+                              <table className="table table-bordered table-striped text-dark">
+                                <tbody>
+                                  <tr>
+                                    <td
+                                      style={{ width: "25%" }}
+                                      className="fw-bold text-center"
+                                    >
+                                      Nama
+                                    </td>
+                                    <td className="fw-bold text-center">
+                                      {dataKesra.nama_ponpes}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td
+                                      style={{ width: "25%" }}
+                                      className="fw-bold text-center"
+                                    >
+                                      Alamat
+                                    </td>
+                                    <td className="fw-bold text-center">
+                                      {dataKesra.alamat_ponpes}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : tipeSertifikat === 2 ? (
+                    <></>
+                  ) : null}
+
                   <KesraFormB
                     name={dataUsers.name}
                     nik={dataUsers.nik}

@@ -18,7 +18,6 @@ import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
 import KesraFormD from "../../../components/admin/KesraFormD";
 
-
 export default function EditKesraD() {
   //title page
   document.title = "Detail Kesra - Beasiswa";
@@ -39,7 +38,7 @@ export default function EditKesraD() {
 
   const [dataKesra, setDataKesra] = useState({
     imagesertifikat: "",
-    tipe_sertifikat: ""
+    tipe_sertifikat: "",
   });
   const [dataUsers, setDataUsers] = useState({
     name: "",
@@ -55,6 +54,7 @@ export default function EditKesraD() {
     imageAktifkampus: "",
   });
 
+  const [tipeSertifikat, setTipeSertifikat] = useState("");
   const [idUser, setIdUser] = useState("");
   const [alasan, setAlasan] = useState("");
   const [jenisVerif, setJenisVerif] = useState("");
@@ -79,6 +79,7 @@ export default function EditKesraD() {
       setIdUser(response.data.data.user.id);
       setAlasan(response.data.data.user.alasan);
       setJenisVerif(response.data.data.user.jenis_verif);
+      setTipeSertifikat(response.data.data.tipe_sertifikat);
       setTimeout(() => {
         setLoading(false);
       }, 500);
@@ -152,7 +153,7 @@ export default function EditKesraD() {
                     <div className="col-md-12">
                       <div className="card border-0 rounded shadow-sm border-top-success">
                         <div className="card-header text-dark">
-                          Verifikasi Data Beasiswa Kesra
+                          Verifikasi Data Beasiswa Kesra Non Muslim
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">
@@ -240,6 +241,78 @@ export default function EditKesraD() {
                       </div>
                     </div>
                   </div>
+
+                  {tipeSertifikat === 1 ? (
+                    <div className="row mt-1 mb-2">
+                      <div className="col-md-12">
+                        <div className="card border-0 rounded shadow-sm border-top-success">
+                          <div className="card-header text-dark">
+                            Tahun Piagam/Sertifikat
+                          </div>
+                          <div className="card-body">
+                            <div className="table-responsive">
+                              <table className="table table-bordered table-striped text-dark">
+                                <tbody>
+                                  <tr>
+                                    <td
+                                      style={{ width: "25%" }}
+                                      className="fw-bold text-center"
+                                    >
+                                      Tahun Sertifikat
+                                    </td>
+                                    <td className="fw-bold text-center">
+                                      {dataKesra.tahun}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : tipeSertifikat === 2 ? (
+                    <div className="row mt-1 mb-2">
+                      <div className="col-md-12">
+                        <div className="card border-0 rounded shadow-sm border-top-success">
+                          <div className="card-header text-dark">
+                            Data Nama Tempat dan Alamat
+                          </div>
+                          <div className="card-body">
+                            <div className="table-responsive">
+                              <table className="table table-bordered table-striped text-dark">
+                                <tbody>
+                                  <tr>
+                                    <td
+                                      style={{ width: "25%" }}
+                                      className="fw-bold text-center"
+                                    >
+                                      Nama Tempat
+                                    </td>
+                                    <td className="fw-bold text-center">
+                                      {dataKesra.nama_ponpes}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td
+                                      style={{ width: "25%" }}
+                                      className="fw-bold text-center"
+                                    >
+                                      Alamat
+                                    </td>
+                                    <td className="fw-bold text-center">
+                                      {dataKesra.alamat_ponpes}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+
                   <KesraFormD
                     name={dataUsers.name}
                     nik={dataUsers.nik}
