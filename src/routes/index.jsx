@@ -52,6 +52,7 @@ import EditKesra from "../views/Admin/Verifikasi/EditKesra";
 import EditKesraB from "../views/Admin/Verifikasi/EditKesraB";
 import EditKesraC from "../views/Admin/Verifikasi/EditKesraC";
 import EditKesraD from "../views/Admin/Verifikasi/EditKesraD";
+import EditDispenduk from "../views/Admin/Verifikasi/EditDispenduk";
 
 export default function RoutesIndex() {
   return (
@@ -450,6 +451,15 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <AdminDispenduk />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/editDispenduk/:id"
+        element={
+          <PrivateRoutes>
+            <EditDispenduk />
           </PrivateRoutes>
         }
       />
