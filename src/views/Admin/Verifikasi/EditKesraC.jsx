@@ -138,7 +138,7 @@ export default function EditKesraC() {
           <div className="row">
             <div className="col-md-12">
               <Link
-                to="/admin/adminKesraB"
+                to="/admin/adminKesraC"
                 className="btn btn-md btn-primary border-0 shadow-sm mb-3"
                 type="button"
               >
