@@ -192,7 +192,12 @@ export default function KeagamanA() {
                                 </option>
                                 <option value="2">
                                   Pernah mengikuti kejuaraan MTQ : Sertifikat /
-                                  SK (Uload)
+                                  SK (Upload)
+                                </option>
+                                <option value="3">
+                                  Prestasi lain di bidang keagamaan : sertifikat
+                                  atau surat keterangan dan/atau bentuk lain
+                                  yang dipersamakan .
                                 </option>
                               </select>
                             </div>
@@ -203,7 +208,7 @@ export default function KeagamanA() {
                             )}
                           </div>
                         </div>
-                        {["1", "2"].includes(selectedSertifikat) && (
+                        {["1", "2", "3"].includes(selectedSertifikat) && (
                           <div className="row">
                             <div className="col-md-12">
                               <div className="mb-3">
