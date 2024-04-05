@@ -29,6 +29,7 @@ export default function EditAkademik() {
 
   //get ID from parameter URL
   const { id } = useParams();
+  console.log(id);
 
   //token from cookies
   const token = Cookies.get("token");
@@ -118,7 +119,7 @@ export default function EditAkademik() {
 
   const fetchDataAkademiks = async () => {
     setLoading(true);
-    await Api.get(`/api/admin/akademiks/${id}`, {
+    await Api.get(`/api/admin/beasiswa/akademiks/${id}`, {
       headers: {
         //header Bearer + Token
         Authorization: `Bearer ${token}`,

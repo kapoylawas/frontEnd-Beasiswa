@@ -18,8 +18,6 @@ export default function AdminAkademik() {
 
   //define state "products"
   const [akademiks, setAkademiks] = useState([]);
-  console.log(akademiks);
-
 
   //define state "keywords"
   const [keywords, setKeywords] = useState("");
@@ -217,7 +215,7 @@ export default function AdminAkademik() {
                                     </td>
                                     <td className="text-center">
                                       <Link
-                                        to={`/admin/editAkademik/${akademik.id}`}
+                                        to={`/admin/editAkademik/${akademik.uuid}`}
                                         className="btn btn-primary btn-sm me-2"
                                       >
                                         <a>DETAIL</a>

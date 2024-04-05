@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function NonAkademik() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
@@ -13,6 +14,8 @@ export default function NonAkademik() {
 
   //navigata
   const navigate = useNavigate();
+
+  const generatedUuid = uuidv4();
 
   const [semester, setSemester] = useState("");
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
@@ -110,6 +113,7 @@ export default function NonAkademik() {
     }
     const formData = new FormData();
     formData.append("semester", semester);
+    formData.append("uuid", generatedUuid);
     formData.append("jenis_sertifikat", selectedSertifikat);
     formData.append("tingkat_sertifikat", tingkatanSertifikat);
     formData.append("imagesertifikat", sertifikat);

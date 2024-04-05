@@ -8,6 +8,7 @@ import Api from "../../../services/Api";
 //import js cookie
 import Cookies from "js-cookie";
 import ModalAkredetasi from "../../../components/general/ModalAkredetasi";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Akademik() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
@@ -31,6 +32,8 @@ export default function Akademik() {
 
   //token from cookies
   const token = Cookies.get("token");
+
+  const generatedUuid = uuidv4();
 
   const handleshowhideSemester = (event) => {
     const getType = event.target.value;
@@ -149,6 +152,7 @@ export default function Akademik() {
     }
     const formData = new FormData();
     formData.append("ipk", ipk);
+    formData.append("uuid", generatedUuid);
     formData.append("semester", semester);
     formData.append("akredetasi_kampus", akreKampus);
     formData.append("progam_pendidikan", progam);

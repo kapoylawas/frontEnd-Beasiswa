@@ -70,7 +70,7 @@ export default function EditNonAkademik() {
 
   const fetchDataNonAkademiks = async () => {
     setLoading(true);
-    await Api.get(`/api/admin/nonakademiks/${id}`, {
+    await Api.get(`/api/admin/beasiswa/nonAkademiks/${id}`, {
       headers: {
         //header Bearer + Token
         Authorization: `Bearer ${token}`,

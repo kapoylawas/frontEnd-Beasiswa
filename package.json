@@ -25,6 +25,7 @@
     "react-player": "^2.15.1",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.4.5",
+    "uuid": "^9.0.1",
     "workbox-webpack-plugin": "^7.0.0"
   },
   "devDependencies": {
