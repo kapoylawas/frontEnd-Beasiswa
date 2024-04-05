@@ -12,11 +12,13 @@ import Api from "../../../services/Api";
 
 //import js cookie
 import Cookies from "js-cookie";
-
+import moment from 'moment';
+import 'moment-timezone';
 //import toast
 import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
 import Akademik from "../../../components/admin/Akademik";
+
 
 export default function EditAkademik() {
   //title page
@@ -53,8 +55,15 @@ export default function EditAkademik() {
     imageSuratpernyataan: "",
     imageAkrekampus: "",
     imageSuratBeasiswa: "",
+    created_at: "",
   });
 
+  const dateTimeString = dataAkademik.created_at;
+
+  //const minimalDate =   moment.utc(dateTimeString).toDate();
+  const dateTime = moment.utc(dateTimeString).toDate();
+ 
+  const jakartaDateTime = moment(dateTime).tz('Asia/Jakarta').format('YYYY-MM-DD HH:mm:ss');
   const [idUser, setIdUser] = useState("");
   const [alasan, setAlasan] = useState("");
   const [jenisVerif, setJenisVerif] = useState("");
@@ -251,6 +260,7 @@ export default function EditAkademik() {
                     alamat={dataAkademik.alamat}
                     rt={dataAkademik.rt}
                     rw={dataAkademik.rw}
+                    created_at={jakartaDateTime}
                     imageKtp={dataAkademik.imagektp}
                     imageKartuKeluarga={dataAkademik.imagekk}
                     imageAktifkampus={dataAkademik.imageaktifkampus}

@@ -90,44 +90,6 @@ export default function Akademik() {
     setTranskripNilai(imageData);
   };
 
-  // handel onchange keterangan hasil akhir
-  // const handleHasilAkhir = (e) => {
-  //   const imageData = e.target.files[0];
-
-  //   if (imageData) {
-  //     const maxSize = 2 * 1024 * 1024; // 2MB
-
-  //     if (imageData.size > maxSize) {
-  //       toast.error("Ukuran file melebihi batas (2MB)", {
-  //         duration: 5000,
-  //         position: "top-center",
-  //         style: {
-  //           borderRadius: "10px",
-  //           background: "#333",
-  //           color: "#fff",
-  //         },
-  //       });
-  //     } else {
-  //       setHasilAkhir(imageData);
-  //     }
-  //   }
-
-  //   if (!imageData.type.match("pdf.*")) {
-  //     setHasilAkhir("");
-
-  //     toast.error("Format File Keterangan/Hasil Akhir Tidak Cocok Harus PDF", {
-  //       duration: 5000,
-  //       position: "top-center",
-  //       style: {
-  //         borderRadius: "10px",
-  //         background: "#333",
-  //         color: "#fff",
-  //       },
-  //     });
-  //     return;
-  //   }
-  //   setHasilAkhir(imageData);
-  // };
 
   const handleFileBanpt = (e) => {
     const imageData = e.target.files[0];

@@ -20,6 +20,7 @@ export default function Akademik({
   akredetasi_kampus,
   imagebanpt,
   imagetranskrip,
+  created_at,
 }) {
   return (
     <>
@@ -114,6 +115,17 @@ export default function Akademik({
                       </td>
                       <td className="fw-bold text-center">
                         {akredetasi_kampus}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{ width: "25%" }}
+                        className="fw-bold text-center"
+                      >
+                        Tanggal dan waktu daftar
+                      </td>
+                      <td className="fw-bold text-center">
+                        {created_at}
                       </td>
                     </tr>
                   </tbody>
