@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
 import ModalKesra from "../../../components/general/ModalKesra";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function KeagamanC() {
   document.title = "Kesra - Beasiswa Sidoarjo";
@@ -14,6 +15,8 @@ export default function KeagamanC() {
 
   //navigate
   const navigate = useNavigate();
+
+  const generatedUuid = uuidv4();
 
   const [users, setUsers] = useState("");
   const [namaorganisasi, setNamaorganisasi] = useState("");
@@ -111,6 +114,8 @@ export default function KeagamanC() {
       return;
     }
     const formData = new FormData();
+
+    formData.append("uuid", generatedUuid);
     formData.append("nama_organisasi", namaorganisasi);
     formData.append("alamat_organisasi", alamatorganisasi);
     formData.append("tipe_kesra", 3);

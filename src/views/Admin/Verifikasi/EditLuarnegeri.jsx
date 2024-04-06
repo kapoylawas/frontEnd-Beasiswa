@@ -69,7 +69,7 @@ export default function EditLuarnegeri() {
 
   const fetchDataLuarNegeri = async () => {
     setLoading(true);
-    await Api.get(`/api/admin/luarnegeri/${id}`, {
+    await Api.get(`/api/admin/beasiswa/luarNegeris/${id}`, {
       headers: {
         //header Bearer + Token
         Authorization: `Bearer ${token}`,

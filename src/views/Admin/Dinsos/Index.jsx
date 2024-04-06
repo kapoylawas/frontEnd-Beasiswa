@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
 import ModalDinsos from "../../../components/general/ModalDinsos";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function DinsosIndex() {
   document.title = "Dinsos - Beasiswa Sidoarjo";
@@ -14,6 +15,8 @@ export default function DinsosIndex() {
 
   //navigate
   const navigate = useNavigate();
+
+  const generatedUuid = uuidv4();
 
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
   const [sertifikat, setSertifikat] = useState("");
@@ -73,6 +76,8 @@ export default function DinsosIndex() {
     setLoading(true);
 
     const formData = new FormData();
+
+    formData.append("uuid", generatedUuid);
     formData.append("tipe_daftar", selectedSertifikat);
     formData.append("imagesktm", sertifikat);
 

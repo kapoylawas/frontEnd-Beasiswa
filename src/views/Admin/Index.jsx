@@ -54,7 +54,6 @@ export default function Dashboard() {
       },
     }).then((response) => {
       //set data
-      console.log(response.data.data);
       setUsers(response.data.data.users);
       setAkademiks(response.data.data.akademiks);
       setDinsoses(response.data.data.dinsoses);

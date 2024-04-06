@@ -8,12 +8,15 @@ import Api from "../../../services/Api";
 //import js cookie
 import Cookies from "js-cookie";
 import ModalLuarNegeri from "../../../components/general/ModalLuarNegeri";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function LuarNegeri() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
 
   //navigata
   const navigate = useNavigate();
+
+  const generatedUuid = uuidv4();
 
   const [ipk, setIpk] = useState("");
   const [transkrip, setTranskrip] = useState("");
@@ -132,6 +135,7 @@ export default function LuarNegeri() {
 
     const formData = new FormData();
     formData.append("ipk", ipk);
+    formData.append("uuid", generatedUuid);
     formData.append("imagetranskrip", transkrip);
     formData.append("imageipk", imageipk);
     

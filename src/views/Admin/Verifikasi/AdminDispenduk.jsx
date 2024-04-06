@@ -18,7 +18,6 @@ export default function AdminAkademik() {
 
   //define state "products"
   const [users, setUsers] = useState([]);
-  console.log('data',users);
 
   //define state "keywords"
   const [keywords, setKeywords] = useState("");

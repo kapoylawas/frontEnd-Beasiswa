@@ -29,7 +29,6 @@ export default function EditAkademik() {
 
   //get ID from parameter URL
   const { id } = useParams();
-  console.log(id);
 
   //token from cookies
   const token = Cookies.get("token");

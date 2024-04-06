@@ -218,7 +218,7 @@ export default function AdminLuarNegeri() {
                                     </td>
                                     <td className="text-center">
                                       <Link
-                                        to={`/admin/editLuarNegeri/${luarNegeri.id}`}
+                                        to={`/admin/editLuarNegeri/${luarNegeri.uuid}`}
                                         className="btn btn-primary btn-sm me-2"
                                       >
                                         <a>DETAIL</a>

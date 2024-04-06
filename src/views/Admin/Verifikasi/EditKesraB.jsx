@@ -40,7 +40,6 @@ export default function EditKesraB() {
     imagesertifikat: "",
     tipe_sertifikat: "",
   });
-  console.log(dataKesra);
   const [dataUsers, setDataUsers] = useState({
     name: "",
     nik: "",
