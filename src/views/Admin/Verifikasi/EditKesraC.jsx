@@ -69,7 +69,7 @@ export default function EditKesraC() {
 
   const fetchDataDinsos = async () => {
     setLoading(true);
-    await Api.get(`/api/admin/kesra/${id}`, {
+    await Api.get(`/api/admin/beasiswa/kesras/${id}`, {
       headers: {
         //header Bearer + Token
         Authorization: `Bearer ${token}`,

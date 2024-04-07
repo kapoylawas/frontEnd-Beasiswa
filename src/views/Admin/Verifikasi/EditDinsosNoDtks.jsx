@@ -70,7 +70,7 @@ export default function EditDinsosNoDtks() {
 
   const fetchDataDinsos = async () => {
     setLoading(true);
-    await Api.get(`/api/admin/dinsos/${id}`, {
+    await Api.get(`/api/admin/beasiswa/dinsoses/${id}`, {
       headers: {
         //header Bearer + Token
         Authorization: `Bearer ${token}`,
