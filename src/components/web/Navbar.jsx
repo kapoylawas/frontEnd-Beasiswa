@@ -21,9 +21,6 @@ export default function Navbar() {
               <li className="nav-item me-4">
                 <i className="fa fa-envelope"></i> beasiswa@sidoarjo.go.id
               </li>
-              <li className="nav-item me-4">
-                <i className="fa fa-phone"></i> +62 857-8585-2224
-              </li>
             </ul>
             <div>
               IKUTI KAMI :

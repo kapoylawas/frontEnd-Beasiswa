@@ -121,7 +121,7 @@ export default function EditKesraD() {
         });
 
         //redirect
-        navigate("/admin/adminKesraC");
+        navigate("/admin/adminKesraD");
       })
       .catch((error) => {
         setLoadingSave(false);

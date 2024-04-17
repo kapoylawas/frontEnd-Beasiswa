@@ -30,8 +30,6 @@ export default function footer() {
               <br />
               <i className="fas fa-envelope"></i> info@beasiswa.sidoarjokab.go.id
               <br />
-              <br />
-              <i className="fas fa-phone"></i> +62 857-8585-2224
             </p>
           </div>
         </div>
