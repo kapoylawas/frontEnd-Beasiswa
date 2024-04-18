@@ -1,13 +1,16 @@
 //import layout
 import { useEffect, useState } from "react";
 import LayoutWeb from "../../../layouts/Web";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //import toast
 import toast from "react-hot-toast";
 import Api from "../../../services/Api";
+import Logo from '../../../../public/images/lock.svg';
 
 export default function Register() {
   document.title = "Register - Beasiswa Sidoarjo";
+
+  const maintenance = true;
 
   //navigata
   const navigate = useNavigate();
@@ -260,337 +263,363 @@ export default function Register() {
       <div className="container mt-4 mb-3">
         <div classname="row">
           <div className="col-md-12 mt-3 mb-4">
-            <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
-              <div className="card-body mt-2">
-                <h4 className="font-weight-bold text-dark">
-                  Register Beasiswa
-                </h4>
-                <hr />
-                <form onSubmit={storeRegister}>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="mb-3">
+            {maintenance ? (
+              <>
+                <div className="col-md-12 mt-5 mb-4">
+                  <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
+                    <div className="card-body mt-2">
+                      <h4 className="font-weight-bold text-dark">
+                        Pendaftaran Belum di Buka
+                      </h4>
+                      <hr />
+                      <h6>
+                        <div className="list-group my-3">
+                          <img src={Logo} alt="Logo" height={300} />
+                        </div>
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
+                <div className="card-body mt-2">
+                  <h4 className="font-weight-bold text-dark">
+                    Register Beasiswa
+                  </h4>
+                  <hr />
+                  <form onSubmit={storeRegister}>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            Nama Lengkap Sesuai KTP-EL
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Masukkan Nama Lengkap"
+                          />
+                        </div>
+                        {errors.name && (
+                          <div className="alert alert-danger">
+                            {errors.name[0]}
+                          </div>
+                        )}
+                      </div>
+                      <div className="col-md-6">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            NIK Sesuai KTP-EL
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={nik}
+                            onChange={handleChangeNik}
+                            placeholder="Masukkan No Induk Kependudukan"
+                            maxLength={16}
+                          />
+                        </div>
+                        {errors.nik && (
+                          <div className="alert alert-danger">
+                            {errors.nik[0]}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            No Kartu Keluarga (KK)
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={nokk}
+                            onChange={handleChangeKartuKeluarga}
+                            placeholder="Masukkan No Kartu Keluarga"
+                            maxLength={16}
+                          />
+                        </div>
+                        {errors.nokk && (
+                          <div className="alert alert-danger">
+                            {errors.nokk[0]}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            No HP/Whatsapp
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={nohp}
+                            onChange={handleChangeNoHp}
+                            placeholder="Masukkan No Hp atau Whatsapp"
+                          />
+                        </div>
+                        {errors.nohp && (
+                          <div className="alert alert-danger">
+                            {errors.nohp[0]}
+                          </div>
+                        )}
+                      </div>
+                      <div className="col-md-6">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">Email</label>
+                          <input
+                            type="email"
+                            className="form-control"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Masukkan Email"
+                          />
+                        </div>
+                        {errors.email && (
+                          <div className="alert alert-danger">
+                            {errors.email[0]}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            Jenis Kelamin
+                          </label>
+                          <select
+                            className="form-select"
+                            value={gender}
+                            onChange={handleshowhideGender}
+                          >
+                            <option value="">-- Pilih Jenis Kelamin --</option>
+                            <option value="L">Laki-Laki</option>
+                            <option value="P">Perempuan</option>
+                          </select>
+                        </div>
+                        {errors.gender && (
+                          <div className="alert alert-danger">
+                            {errors.gender[0]}
+                          </div>
+                        )}
+                      </div>
+                      <div className="col-md-6">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            Kecamatan
+                          </label>
+                          <select
+                            className="form-select"
+                            value={selectedKecamatan}
+                            onChange={handleKecamatanChange}
+                          >
+                            <option value="">-- Pilih Kecamatan --</option>
+                            {kecamatanList.map((kecamatan, index) => (
+                              <option value={kecamatan.id} key={index}>
+                                {kecamatan.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        {errors.id_kecamatan && (
+                          <div className="alert alert-danger">
+                            {errors.id_kecamatan[0]}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            Kelurahan/Desa
+                          </label>
+                          <select
+                            className="form-select"
+                            value={selectedKelurahan}
+                            onChange={handleKelurahanChange}
+                          >
+                            <option value="">-- Pilih Kelurahan --</option>
+                            {kelurahanList.map((kelurahan, index) => (
+                              <option value={kelurahan.id} key={index}>
+                                {kelurahan.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        {errors.id_kelurahan && (
+                          <div className="alert alert-danger">
+                            {errors.id_kelurahan[0]}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-4">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">Kode POS</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={codepos}
+                            onChange={handleChangeKodePos}
+                            placeholder="Masukkan Kode POS"
+                          />
+                        </div>
+                        {errors.codepos && (
+                          <div className="alert alert-danger">
+                            {errors.codepos[0]}
+                          </div>
+                        )}
+                      </div>
+                      <div className="col-md-4">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">RT</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={rt}
+                            onChange={handleChangeRT}
+                            placeholder="Kalau RT Belum Ada Isi Dengan (0)"
+                          />
+                        </div>
+                        {errors.rt && (
+                          <div className="alert alert-danger">
+                            {errors.rt[0]}
+                          </div>
+                        )}
+                      </div>
+                      <div className="col-md-4">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">RW</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={rw}
+                            onChange={handleChangeRW}
+                            placeholder="Kalau RW Belum Ada Isi Dengan (0)"
+                          />
+                        </div>
+                        {errors.rw && (
+                          <div className="alert alert-danger">
+                            {errors.rw[0]}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 mb-3">
                         <label className="form-label fw-bold">
-                          Nama Lengkap Sesuai KTP-EL
+                          Alamat Lengkap Sesuai KTP
                         </label>
-                        <input
-                          type="text"
+                        <textarea
+                          rows="5"
+                          cols="50"
+                          value={alamat}
+                          onChange={(e) => setAlamat(e.target.value)}
                           className="form-control"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Masukkan Nama Lengkap"
                         />
                       </div>
-                      {errors.name && (
-                        <div className="alert alert-danger">
-                          {errors.name[0]}
-                        </div>
-                      )}
                     </div>
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">
-                          NIK Sesuai KTP-EL
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={nik}
-                          onChange={handleChangeNik}
-                          placeholder="Masukkan No Induk Kependudukan"
-                          maxLength={16}
-                        />
-                      </div>
-                      {errors.nik && (
-                        <div className="alert alert-danger">
-                          {errors.nik[0]}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-12">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">
-                          No Kartu Keluarga (KK)
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={nokk}
-                          onChange={handleChangeKartuKeluarga}
-                          placeholder="Masukkan No Kartu Keluarga"
-                          maxLength={16}
-                        />
-                      </div>
-                      {errors.nokk && (
-                        <div className="alert alert-danger">
-                          {errors.nokk[0]}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">
-                          No HP/Whatsapp
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={nohp}
-                          onChange={handleChangeNoHp}
-                          placeholder="Masukkan No Hp atau Whatsapp"
-                        />
-                      </div>
-                      {errors.nohp && (
-                        <div className="alert alert-danger">
-                          {errors.nohp[0]}
-                        </div>
-                      )}
-                    </div>
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">Email</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Masukkan Email"
-                        />
-                      </div>
-                      {errors.email && (
-                        <div className="alert alert-danger">
-                          {errors.email[0]}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">
-                          Jenis Kelamin
-                        </label>
-                        <select
-                          className="form-select"
-                          value={gender}
-                          onChange={handleshowhideGender}
-                        >
-                          <option value="">-- Pilih Jenis Kelamin --</option>
-                          <option value="L">Laki-Laki</option>
-                          <option value="P">Perempuan</option>
-                        </select>
-                      </div>
-                      {errors.gender && (
-                        <div className="alert alert-danger">
-                          {errors.gender[0]}
-                        </div>
-                      )}
-                    </div>
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">Kecamatan</label>
-                        <select
-                          className="form-select"
-                          value={selectedKecamatan}
-                          onChange={handleKecamatanChange}
-                        >
-                          <option value="">-- Pilih Kecamatan --</option>
-                          {kecamatanList.map((kecamatan, index) => (
-                            <option value={kecamatan.id} key={index}>
-                              {kecamatan.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      {errors.id_kecamatan && (
-                        <div className="alert alert-danger">
-                          {errors.id_kecamatan[0]}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-12">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">
-                          Kelurahan/Desa
-                        </label>
-                        <select
-                          className="form-select"
-                          value={selectedKelurahan}
-                          onChange={handleKelurahanChange}
-                        >
-                          <option value="">-- Pilih Kelurahan --</option>
-                          {kelurahanList.map((kelurahan, index) => (
-                            <option value={kelurahan.id} key={index}>
-                              {kelurahan.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      {errors.id_kelurahan && (
-                        <div className="alert alert-danger">
-                          {errors.id_kelurahan[0]}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-4">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">Kode POS</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={codepos}
-                          onChange={handleChangeKodePos}
-                          placeholder="Masukkan Kode POS"
-                        />
-                      </div>
-                      {errors.codepos && (
-                        <div className="alert alert-danger">
-                          {errors.codepos[0]}
-                        </div>
-                      )}
-                    </div>
-                    <div className="col-md-4">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">RT</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={rt}
-                          onChange={handleChangeRT}
-                          placeholder="Kalau RT Belum Ada Isi Dengan (0)"
-                        />
-                      </div>
-                      {errors.rt && (
-                        <div className="alert alert-danger">{errors.rt[0]}</div>
-                      )}
-                    </div>
-                    <div className="col-md-4">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">RW</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={rw}
-                          onChange={handleChangeRW}
-                          placeholder="Kalau RW Belum Ada Isi Dengan (0)"
-                        />
-                      </div>
-                      {errors.rw && (
-                        <div className="alert alert-danger">{errors.rw[0]}</div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-12 mb-3">
-                      <label className="form-label fw-bold">
-                        Alamat Lengkap Sesuai KTP
-                      </label>
-                      <textarea
-                        rows="5"
-                        cols="50"
-                        value={alamat}
-                        onChange={(e) => setAlamat(e.target.value)}
-                        className="form-control"
-                      />
-                    </div>
-                  </div>
-                  {errors.alamat && (
+                    {errors.alamat && (
                       <div className="alert alert-danger">
                         {errors.alamat[0]}
                       </div>
                     )}
-                  <div className="row">
-                    <div className="col-md-12 mt-2">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">
-                          Upload KTP pdf dan maksimal 2MB
-                        </label>
-                        <input
-                          type="file"
-                          className="form-control"
-                          onChange={handleFileKtp}
-                        />
-                      </div>
-                      {errors.imagektp && (
-                        <div className="alert alert-danger">
-                          {errors.imagektp[0]}
+                    <div className="row">
+                      <div className="col-md-12 mt-2">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            Upload KTP pdf dan maksimal 2MB
+                          </label>
+                          <input
+                            type="file"
+                            className="form-control"
+                            onChange={handleFileKtp}
+                          />
                         </div>
-                      )}
-                    </div>
-                    <div className="col-md-12 mt-2">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">
-                          Upload Kartu Keluarga pdf dan maksimal 2MB
-                        </label>
-                        <input
-                          type="file"
-                          className="form-control"
-                          onChange={handleFileKk}
-                        />
+                        {errors.imagektp && (
+                          <div className="alert alert-danger">
+                            {errors.imagektp[0]}
+                          </div>
+                        )}
                       </div>
-                      {errors.imagekk && (
-                        <div className="alert alert-danger">
-                          {errors.imagekk[0]}
+                      <div className="col-md-12 mt-2">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            Upload Kartu Keluarga pdf dan maksimal 2MB
+                          </label>
+                          <input
+                            type="file"
+                            className="form-control"
+                            onChange={handleFileKk}
+                          />
                         </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6 mt-2">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
+                        {errors.imagekk && (
+                          <div className="alert alert-danger">
+                            {errors.imagekk[0]}
+                          </div>
+                        )}
                       </div>
-                      {errors.password && (
-                        <div className="alert alert-danger">
-                          {errors.password[0]}
+                    </div>
+                    <div className="row">
+                      <div className="col-md-6 mt-2">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">Password</label>
+                          <input
+                            type="password"
+                            className="form-control"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
                         </div>
-                      )}
-                    </div>
-                    <div className="col-md-6 mt-2">
-                      <div className="mb-3">
-                        <label className="form-label fw-bold">
-                          Password Konfirmasi
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          value={passwordConfirmation}
-                          onChange={(e) =>
-                            setPasswordConfirmation(e.target.value)
-                          }
-                        />
+                        {errors.password && (
+                          <div className="alert alert-danger">
+                            {errors.password[0]}
+                          </div>
+                        )}
+                      </div>
+                      <div className="col-md-6 mt-2">
+                        <div className="mb-3">
+                          <label className="form-label fw-bold">
+                            Password Konfirmasi
+                          </label>
+                          <input
+                            type="password"
+                            className="form-control"
+                            value={passwordConfirmation}
+                            onChange={(e) =>
+                              setPasswordConfirmation(e.target.value)
+                            }
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div>
-                    <button
-                      type="submit"
-                      className="btn btn-md btn-primary me-2"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                    </button>
-                    <button type="reset" className="btn btn-md btn-warning">
-                      <i className="fa fa-redo"></i> Reset
-                    </button>
-                  </div>
-                </form>
+                    <div>
+                      <button
+                        type="submit"
+                        className="btn btn-md btn-primary me-2"
+                        disabled={isLoading}
+                      >
+                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                      </button>
+                      <button type="reset" className="btn btn-md btn-warning">
+                        <i className="fa fa-redo"></i> Reset
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
