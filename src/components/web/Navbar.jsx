@@ -53,10 +53,12 @@ export default function Navbar() {
                 </a>
               </div>
               <div className="header-text">
-                <h2 className="header-school">BEASISWA</h2>
+                <h5 className="header-school">
+                  BEASISWA Pendidikan Bagi Masyarakat Sidoarjo
+                </h5>
                 <hr />
                 <div className="header-address">
-                  Jln. Diponegoro No. 58, Sidoarjo, Jawa Timur, 61473
+                  <h5>Tahun 2024</h5>
                 </div>
               </div>
             </div>
