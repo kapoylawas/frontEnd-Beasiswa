@@ -103,7 +103,7 @@ export default function sidebar() {
 
           {(hasAnyPermission(["roles.index"]) ||
             hasAnyPermission(["permissions.index"]) ||
-            hasAnyPermission(["users.index"])) && (
+            hasAnyPermission(["users.create"])) && (
             <>
               <div className="sb-sidenav-menu-heading">USERS MANAGEMENT</div>
               <a
