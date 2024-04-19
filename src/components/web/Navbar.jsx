@@ -24,13 +24,13 @@ export default function Navbar() {
             </ul>
             <div>
               IKUTI KAMI :
-              <a href="#" className="ms-2 me-2">
+              <a target="_blank" href="https://www.facebook.com/pemkabsidoarjo1" className="ms-2 me-2">
                 <i className="fab fa-facebook-square text-white fa-lg"></i>
               </a>
-              <a href="http://" className="ms-2 me-2">
+              <a target="_blank" href="https://www.instagram.com/pemkabsidoarjo" className="ms-2 me-2">
                 <i className="fab fa-instagram text-white fa-lg"></i>
               </a>
-              <a href="#" className="ms-2 me-2">
+              <a target="_blank" href="https://www.youtube.com/@pemerintahkabupatensidoarj380" className="ms-2 me-2">
                 <i className="fab fa-youtube text-white fa-lg"></i>
               </a>
             </div>

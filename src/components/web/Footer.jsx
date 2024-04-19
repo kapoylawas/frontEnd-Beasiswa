@@ -12,7 +12,11 @@ export default function footer() {
             </h5>
             <hr />
             <div className="text-center">
-              <img src="/images/sidoarjo-logo.png" width="70" alt="Logo Pendaftaran Beasiswa" />
+              <img
+                src="/images/sidoarjo-logo.png"
+                width="70"
+                alt="Logo Pendaftaran Beasiswa"
+              />
             </div>
             <p className="text-justify mt-3">
               Beasiswa Sidoarjo Meliputi Dispora, Kesra, Dinsos 2024
@@ -24,11 +28,12 @@ export default function footer() {
             </h5>
             <hr />
             <p>
-              <i className="fa fa-map-marker"></i> Jln. Diponegoro No. 58,
-              Sidoarjo, Jawa Timur, 61473
+              <i className="fa fa-map-marker"></i> Jl. Ahmad Yani,
+              Sidokumpul, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61219
               <br />
               <br />
-              <i className="fas fa-envelope"></i> info@beasiswa.sidoarjokab.go.id
+              <i className="fas fa-envelope"></i>{" "}
+              beasiswa@sidoarjo.go.id
               <br />
             </p>
           </div>
