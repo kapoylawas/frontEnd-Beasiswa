@@ -26,7 +26,7 @@ export default function Info() {
                           style={{ fontSize: "1.2rem" }}
                           className="text-dark mt-2"
                         >
-                          Heldesk Bagian Disporapar: Hp.0896-3032-4926, Hp.0812-3594-9497
+                          Heldesk Beasiswa Akademik, Non Akademik, Luar Negeri: Hp.0896-3032-4926, Hp.0812-3594-9497
                         </span>
                       </li>
                       <li className="list-group-item">
@@ -34,7 +34,7 @@ export default function Info() {
                           style={{ fontSize: "1.2rem" }}
                           className="text-dark mt-2"
                         >
-                          Heldesk Bagian Kesra: Munib Saiful, Hp.081234278662
+                          Heldesk Beasiswa Bidang Keagamaan: Munib Saiful, Hp.081234278662
                         </span>
                       </li>
                       <li className="list-group-item">
@@ -42,7 +42,7 @@ export default function Info() {
                           style={{ fontSize: "1.2rem" }}
                           className="text-dark mt-2"
                         >
-                          Helpdesk Dinsos, Hp.0857-1140-4090
+                          Helpdesk Beasiswa Kurang Mampu, Hp.0857-1140-4090
                         </span>
                       </li>
                       <li className="list-group-item">
