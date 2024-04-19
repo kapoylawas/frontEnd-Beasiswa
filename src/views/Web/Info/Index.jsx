@@ -3,7 +3,9 @@ import LayoutWeb from "../../../layouts/Web";
 
 export default function Info() {
   const fiqi = `https://wa.me/6289630324926`;
-  const petirc = `https://wa.me/081235949497`;
+  const petirc = `https://wa.me/6281235949497`;
+  const munip = `https://wa.me/6281234278662`;
+  const dinsos = `https://wa.me/6285711404090`;
   return (
     <LayoutWeb>
       <div className="container mt-4 mb-3">
@@ -30,9 +32,18 @@ export default function Info() {
                           style={{ fontSize: "1.2rem" }}
                           className="text-dark mt-2"
                         >
-                          Helpdesk Beasiswa Akademik, Non Akademik, Luar Negeri: {""}
-                          <i class="fa-brands fa-whatsapp"></i> 
-                          <a target="_blank" href={fiqi}> {""} Hp.089630324926</a>, Hp.0812-3594-9497
+                          Helpdesk Beasiswa Akademik, Non Akademik, Luar Negeri:{" "}
+                          {""}
+                          <i class="fa-brands fa-whatsapp"></i>
+                          <a target="_blank" href={fiqi}>
+                            {" "}
+                            {""} Hp.089630324926
+                          </a>
+                          , <i class="fa-brands fa-whatsapp"></i>{" "}
+                          <a target="_blank" href={petirc}>
+                            {" "}
+                            {""} Hp.081235949497
+                          </a>
                         </span>
                       </li>
                       <li className="list-group-item">
@@ -40,7 +51,12 @@ export default function Info() {
                           style={{ fontSize: "1.2rem" }}
                           className="text-dark mt-2"
                         >
-                          Heldesk Beasiswa Bidang Keagamaan: Hp.081234278662
+                          Heldesk Beasiswa Bidang Keagamaan:{" "}
+                          <i class="fa-brands fa-whatsapp"></i>
+                          <a target="_blank" href={munip}>
+                            {" "}
+                            {""} Hp.081234278662
+                          </a>
                         </span>
                       </li>
                       <li className="list-group-item">
@@ -48,7 +64,12 @@ export default function Info() {
                           style={{ fontSize: "1.2rem" }}
                           className="text-dark mt-2"
                         >
-                          Helpdesk Beasiswa Kurang Mampu, Hp.0857-1140-4090
+                          Helpdesk Beasiswa Kurang Mampu:{" "}
+                          <i class="fa-brands fa-whatsapp"></i>
+                          <a target="_blank" href={dinsos}>
+                            {" "}
+                            {""} Hp.085711404090
+                          </a>{" "}
                         </span>
                       </li>
                       <li className="list-group-item">

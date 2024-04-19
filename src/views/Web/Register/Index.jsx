@@ -269,7 +269,7 @@ export default function Register() {
                   <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
                     <div className="card-body mt-2">
                       <h4 className="font-weight-bold text-dark">
-                        Pendaftaran Belum di Buka
+                        Pendaftaran Sedang Dalam Perbaikan
                       </h4>
                       <hr />
                       <h6>
