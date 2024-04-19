@@ -10,7 +10,7 @@ import Logo from '../../../../public/images/lock.svg';
 export default function Register() {
   document.title = "Register - Beasiswa Sidoarjo";
 
-  const maintenance = true;
+  const maintenance = false;
 
   //navigata
   const navigate = useNavigate();
