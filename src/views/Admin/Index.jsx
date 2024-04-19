@@ -22,8 +22,13 @@ export default function Dashboard() {
   const [imageaktifkampus, setImageaktifkampus] = useState("");
   const [imagesuratpernyataan, setImagesuratpernyataan] = useState("");
   const [imageakrekampus, setImageakrekampus] = useState("");
-  const [imagesuratbeasiswa, setImagesuratbeasiswa] = useState("");
+
+  // file surat tidak menerima beasiswa lain
+  const [imagesuratbeasiswa, setImagesuratbeasiswa] = useState(null);
+
+  // pilih dalamnegeri/luarnegeri
   const [pilihuniversitas, setPilihuniversitas] = useState("");
+
   const [jenisuniversitas, setJenisuniversitas] = useState("");
   const [jeniskota, setJeniskota] = useState("");
 
@@ -278,6 +283,8 @@ export default function Dashboard() {
     setImagesuratbeasiswa(imageData);
   };
 
+
+  // pilih univ negeri/luarnegeri
   const handleshowhidePilih = (event) => {
     const getType = event.target.value;
     setPilihuniversitas(getType);
@@ -304,6 +311,13 @@ export default function Dashboard() {
 
   const updateUsers = async (e) => {
     e.preventDefault();
+
+    // Lakukan validasi di sini sebelum mengirim form
+    if (pilihuniversitas === 'Dalam' && !imagesuratbeasiswa) {
+      alert('Mohon Upload Surat Tidak Menerima Beasiswa Lain dan maksimal 2MB');
+      return;
+    }
+
     setLoading(true);
 
     const formData = new FormData();
