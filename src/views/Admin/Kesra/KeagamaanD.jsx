@@ -149,6 +149,10 @@ export default function KeagamanD() {
 
   const storeKesra = async (e) => {
     e.preventDefault();
+    if (selectedSertifikat === '2' && !namaorganisasi) {
+      alert('Mohon isi Nama Ponpes Dan Alamat Ponpes');
+      return;
+    }
     setLoading(true);
 
     const formData = new FormData();

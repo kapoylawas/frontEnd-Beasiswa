@@ -92,6 +92,10 @@ export default function KeagamanC() {
 
   const storeKesra = async (e) => {
     e.preventDefault();
+    if (selectedSertifikat === '1' && !namaorganisasi) {
+      alert('Mohon isi Nama Organisasi Dan Alamat Organisasi');
+      return;
+    }
     setLoading(true);
     const currentYear = new Date().getFullYear();
     const inputYear = parseInt(tahun, 10);
