@@ -512,7 +512,7 @@ export default function Dashboard() {
                                   Upload Surat Pernyataan Bermaterai pdf dan
                                   maksimal 2MB{" "}
                                   <a
-                                    href="../../../public/images/surat.docx"
+                                    href="../../../public/images/surat_pernyataan.docx"
                                     download
                                   >
                                     (Contoh Surat Pernyataan)
