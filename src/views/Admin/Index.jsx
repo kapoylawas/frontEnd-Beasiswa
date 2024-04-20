@@ -512,7 +512,7 @@ export default function Dashboard() {
                                   Upload Surat Pernyataan Bermaterai pdf dan
                                   maksimal 2MB{" "}
                                   <a
-                                    href="../../../public/images/surat_pernyataan.docx"
+                                    href="https://cdkbeasiswa.sidoarjokab.go.id/storage/imageakrekampus/Rji0wic3IBBCoTxrZo0OUYv2J8DMuac0hlrjNrJm.pdf"
                                     download
                                   >
                                     (Contoh Surat Pernyataan)
