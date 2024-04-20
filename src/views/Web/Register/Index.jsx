@@ -29,10 +29,9 @@ export default function Register() {
   const [kk, setKk] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [roles] = useState(["user"]);
+  // const [roles] = useState(["user"]);
   const [errors, setErros] = useState([]);
   const [isLoading, setLoading] = useState(false);
-
   const [kecamatanList, setKecamatanList] = useState([]);
   const [kelurahanList, setKelurahanList] = useState([]);
   const [selectedKecamatan, setSelectedKecamatan] = useState("");
@@ -231,7 +230,7 @@ export default function Register() {
     formData.append("imagekk", kk);
     formData.append("password", password);
     formData.append("password_confirmation", passwordConfirmation);
-    formData.append("roles", roles);
+    // formData.append("roles", roles);
 
     //sending data
     await Api.post("/api/users", formData, {
