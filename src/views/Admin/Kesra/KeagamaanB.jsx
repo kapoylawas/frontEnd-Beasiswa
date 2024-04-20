@@ -88,6 +88,11 @@ export default function KeagamanB() {
 
   const storeKesra = async (e) => {
     e.preventDefault();
+    if (selectedSertifikat === '1' && !namaponpes) {
+      alert('Mohon isi Nama Ponpes Dan Alamat Ponpes');
+      return;
+    }
+
     setLoading(true);
     const currentYear = new Date().getFullYear();
     const inputYear = parseInt(tahun, 10);

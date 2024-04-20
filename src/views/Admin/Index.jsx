@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 //import permissions
 import hasAnyPermission from "../../utils/Permissions";
 import toast from "react-hot-toast";
+//import Surat from "../../../public/images/surat.docx";
 
 export default function Dashboard() {
   document.title = "Dashboard - Beasiswa";
@@ -283,7 +284,6 @@ export default function Dashboard() {
     setImagesuratbeasiswa(imageData);
   };
 
-
   // pilih univ negeri/luarnegeri
   const handleshowhidePilih = (event) => {
     const getType = event.target.value;
@@ -313,8 +313,8 @@ export default function Dashboard() {
     e.preventDefault();
 
     // Lakukan validasi di sini sebelum mengirim form
-    if (pilihuniversitas === 'Dalam' && !imagesuratbeasiswa) {
-      alert('Mohon Upload Surat Tidak Menerima Beasiswa Lain dan maksimal 2MB');
+    if (pilihuniversitas === "Dalam" && !imagesuratbeasiswa) {
+      alert("Mohon Upload Surat Tidak Menerima Beasiswa Lain dan maksimal 2MB");
       return;
     }
 
@@ -510,7 +510,13 @@ export default function Dashboard() {
                               <div className="mb-3">
                                 <label className="form-label fw-bold">
                                   Upload Surat Pernyataan Bermaterai pdf dan
-                                  maksimal 2MB
+                                  maksimal 2MB{" "}
+                                  <a
+                                    href="../../../public/images/surat.docx"
+                                    download
+                                  >
+                                    (Contoh Surat Pernyataan)
+                                  </a>
                                 </label>
                                 <input
                                   type="file"
@@ -572,8 +578,8 @@ export default function Dashboard() {
                               <div className="col-md-12">
                                 <div className="mb-3">
                                   <label className="form-label fw-bold">
-                                    Upload Surat Tidak Menerima Beasiswa Lain dan
-                                    maksimal 2MB
+                                    Upload Surat Tidak Menerima Beasiswa Lain
+                                    dan maksimal 2MB
                                   </label>
                                   <input
                                     type="file"
