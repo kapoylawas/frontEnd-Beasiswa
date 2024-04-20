@@ -489,7 +489,7 @@ export default function Dashboard() {
                             </div>
                           </div>
                           <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-12">
                               <div className="mb-3">
                                 <label className="form-label fw-bold">
                                   Upload Surat Aktif Kuliah pdf dan maksimal 2MB
@@ -506,7 +506,7 @@ export default function Dashboard() {
                                 </div>
                               )}
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-12">
                               <div className="mb-3">
                                 <label className="form-label fw-bold">
                                   Upload Surat Pernyataan Bermaterai pdf dan

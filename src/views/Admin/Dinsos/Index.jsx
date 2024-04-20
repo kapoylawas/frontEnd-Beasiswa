@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LayoutAdmin from "../../../layouts/Admin";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
 import ModalDinsos from "../../../components/general/ModalDinsos";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export default function DinsosIndex() {
   document.title = "Dinsos - Beasiswa Sidoarjo";
@@ -21,10 +21,12 @@ export default function DinsosIndex() {
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
   const [sertifikat, setSertifikat] = useState("");
 
-
   const [isLoading, setLoading] = useState(false);
 
   const [errors, setErros] = useState([]);
+
+  const [users, setUsers] = useState("");
+  const [step, setStep] = useState("");
 
   const handleSelectChange = (event) => {
     setSelectedSertifikat(event.target.value);
@@ -70,6 +72,22 @@ export default function DinsosIndex() {
     }
     setSertifikat(imageData);
   };
+
+  //hook useEffect
+  useEffect(() => {
+    //fetch api
+    Api.get("/api/admin/users/byid", {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      //set data
+      setUsers(response.data.data.status_pendaftar);
+      setStep(response.data.data.step);
+    });
+  }, []);
 
   const storeDinsos = async (e) => {
     e.preventDefault();
@@ -121,84 +139,95 @@ export default function DinsosIndex() {
               <i className="fa-solid fa-backward"></i> Kembali
             </Link>
           </div>
-          <div className="row">
-            <div className="col-md-12">
-              <div className="card border-0 rounded shadow-sm border-top-success">
-                <div className="card-body">
-                  <h6>
-                    <i className="fa fa-shield-alt"></i> Beasiswa Dinsos
-                  </h6>
-                  <hr />
-                  <form onSubmit={storeDinsos}>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Pilih Salah Satu Terdaftar DTKS atau Tidak Terdaftar
-                            DTKS
-                          </label>
-                          <select
-                            className="form-select"
-                            value={selectedSertifikat}
-                            onChange={handleSelectChange}
-                          >
-                            <option value="">
-                              -- Pilih Salah Satu Terdaftar DTKS atau Tidak
-                              Terdaftar DTKS --
-                            </option>
-                            <option value="1">
-                              Terdaftar Data Terpadu Kesejahteraan Sosial (DTKS)
-                            </option>
-                            <option value="2">
-                              Tidak Terdaftar Data Terpadu Kesejahteraan Sosial
-                              (DTKS)
-                            </option>
-                          </select>
-                        </div>
-                        {errors.tipe_daftar && (
-                          <div className="alert alert-danger">
-                            {errors.tipe_daftar[0]}
+          {users === 1 ? (
+            <div className="alert alert-danger" role="alert">
+              Anda Sudah Terdaftar di Beasiswa
+            </div>
+          ) : step === 1 ? (
+            <div className="alert alert-danger" role="alert">
+              Anda Belum Menyelesaikan step 2 di Data Perguruan Tinggi Anda
+            </div>
+          ) : (
+            <div className="row">
+              <div className="col-md-12">
+                <div className="card border-0 rounded shadow-sm border-top-success">
+                  <div className="card-body">
+                    <h6>
+                      <i className="fa fa-shield-alt"></i> Beasiswa Dinsos
+                    </h6>
+                    <hr />
+                    <form onSubmit={storeDinsos}>
+                      <div className="row">
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              Pilih Salah Satu Terdaftar DTKS atau Tidak
+                              Terdaftar DTKS
+                            </label>
+                            <select
+                              className="form-select"
+                              value={selectedSertifikat}
+                              onChange={handleSelectChange}
+                            >
+                              <option value="">
+                                -- Pilih Salah Satu Terdaftar DTKS atau Tidak
+                                Terdaftar DTKS --
+                              </option>
+                              <option value="1">
+                                Terdaftar Data Terpadu Kesejahteraan Sosial
+                                (DTKS)
+                              </option>
+                              <option value="2">
+                                Tidak Terdaftar Data Terpadu Kesejahteraan
+                                Sosial (DTKS)
+                              </option>
+                            </select>
                           </div>
-                        )}
+                          {errors.tipe_daftar && (
+                            <div className="alert alert-danger">
+                              {errors.tipe_daftar[0]}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    {["2"].includes(selectedSertifikat) && (
-                      <>
-                        <div className="row">
-                          <div className="col-md-12">
-                            <div className="mb-3">
-                              <label className="form-label fw-bold">
-                                Data Terpadu Kesejahteraan Sosial (DTKS) atau
-                                Surat Keterangan Tidak Mampu (SKTM) dari Desa
-                                Sesuai yang dipilih PDF dan Maksimal 2MB
-                              </label>
-                              <input
-                                type="file"
-                                className="form-control"
-                                onChange={handleFileSertifikat}
-                              />
+                      {["2"].includes(selectedSertifikat) && (
+                        <>
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Data Terpadu Kesejahteraan Sosial (DTKS) atau
+                                  Surat Keterangan Tidak Mampu (SKTM) dari Desa
+                                  Sesuai yang dipilih PDF dan Maksimal 2MB
+                                </label>
+                                <input
+                                  type="file"
+                                  className="form-control"
+                                  onChange={handleFileSertifikat}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </>
-                    )}
-                    <div className="d-flex justify-content-center">
-                      <button
-                        type="submit"
-                        className="btn btn-md btn-primary me-2"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                      </button>
-                      <button type="reset" className="btn btn-md btn-warning">
-                        <i className="fa fa-redo"></i> Reset
-                      </button>
-                    </div>
-                  </form>
+                        </>
+                      )}
+                      <div className="d-flex justify-content-center">
+                        <button
+                          type="submit"
+                          className="btn btn-md btn-primary me-2"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                        </button>
+                        <button type="reset" className="btn btn-md btn-warning">
+                          <i className="fa fa-redo"></i> Reset
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </main>
     </LayoutAdmin>

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
 import ModalKesra from "../../../components/general/ModalKesra";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export default function KeagamanD() {
   document.title = "Kesra - Beasiswa Sidoarjo";
@@ -19,6 +19,8 @@ export default function KeagamanD() {
   const generatedUuid = uuidv4();
 
   const [users, setUsers] = useState("");
+  const [step, setStep] = useState("");
+
   const [namaorganisasi, setNamaorganisasi] = useState("");
   const [alamatorganisasi, setAlamatorganisasi] = useState("");
   const [selectedSertifikat, setSelectedSertifikat] = useState("");
@@ -87,6 +89,7 @@ export default function KeagamanD() {
     }).then((response) => {
       //set data
       setUsers(response.data.data.status_pendaftar);
+      setStep(response.data.data.step);
       setLoading(false);
     });
   }, []);
@@ -149,8 +152,8 @@ export default function KeagamanD() {
 
   const storeKesra = async (e) => {
     e.preventDefault();
-    if (selectedSertifikat === '2' && !namaorganisasi) {
-      alert('Mohon isi Nama Ponpes Dan Alamat Ponpes');
+    if (selectedSertifikat === "2" && !namaorganisasi) {
+      alert("Mohon isi Nama Ponpes Dan Alamat Ponpes");
       return;
     }
     setLoading(true);
@@ -195,10 +198,12 @@ export default function KeagamanD() {
     <LayoutAdmin>
       <main>
         {users === 1 ? (
-          <div className="container-fluid mb-5 mt-5">
-            <div className="alert alert-danger" role="alert">
-              Anda Sudah Terdaftar di Beasiswa
-            </div>
+          <div className="alert alert-danger" role="alert">
+            Anda Sudah Terdaftar di Beasiswa
+          </div>
+        ) : step === 1 ? (
+          <div className="alert alert-danger" role="alert">
+            Anda Belum Menyelesaikan step 2 di Data Perguruan Tinggi Anda
           </div>
         ) : (
           <>
