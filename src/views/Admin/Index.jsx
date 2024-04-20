@@ -514,6 +514,7 @@ export default function Dashboard() {
                                   <a
                                     href="https://cdkbeasiswa.sidoarjokab.go.id/storage/imageakrekampus/Rji0wic3IBBCoTxrZo0OUYv2J8DMuac0hlrjNrJm.pdf"
                                     download
+                                    target="_blank"
                                   >
                                     (Contoh Surat Pernyataan)
                                   </a>
