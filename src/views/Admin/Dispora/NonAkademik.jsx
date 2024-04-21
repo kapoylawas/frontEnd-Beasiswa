@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LayoutAdmin from "../../../layouts/Admin";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Api from "../../../services/Api";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export default function NonAkademik() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
@@ -23,6 +23,9 @@ export default function NonAkademik() {
   const [tahun, setTahun] = useState("");
   const [tingkatanSertifikat, setTingkatanSertifikat] = useState("");
   const [isLoading, setLoading] = useState(false);
+
+  const [users, setUsers] = useState("");
+  const [step, setStep] = useState("");
 
   // handel jenis prestasi
   const handleSelectChange = (event) => {
@@ -145,6 +148,22 @@ export default function NonAkademik() {
       });
   };
 
+   //hook useEffect
+   useEffect(() => {
+    //fetch api
+    Api.get("/api/admin/users/byid", {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      //set data
+      setUsers(response.data.data.status_pendaftar);
+      setStep(response.data.data.step);
+    });
+  }, []);
+
   return (
     <LayoutAdmin>
       <main>
@@ -158,172 +177,184 @@ export default function NonAkademik() {
               <i className="fa-solid fa-backward"></i> Kembali
             </Link>
           </div>
-          <div className="row">
-            <div className="col-md-12">
-              <div className="card border-0 rounded shadow-sm border-top-success">
-                <div className="card-body">
-                  <h6>
-                    <i className="fa fa-shield-alt"></i> Beasiswa Disporapar Non
-                    Akademik
-                  </h6>
-                  <hr />
-                  <form onSubmit={storeNonAkademik}>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">Semester</label>
-                          <select
-                            className="form-select"
-                            value={semester}
-                            onChange={handleshowhideSemester}
-                          >
-                            <option value="">-- Select Semester --</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                          </select>
-                        </div>
-                        {errors.semester && (
-                          <div className="alert alert-danger">
-                            {errors.semester[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Sertifikat /Piagam/Surat Keterangan prestasi bidang
-                            ilmu pengetahuan, teknologi, kebudayaan, olahraga,
-                            sosial, kemanusiaan, lingkungan, dan nasionalisme
-                            tingkat Internasional, Nasional, Provinsi, dan
-                            Kabupaten yang dibuktikan dengan sertifikat, piagam,
-                            surat keterangan dan/atau bentuk lain yang
-                            dipersamakan
-                          </label>
-                          <select
-                            className="form-select"
-                            value={selectedSertifikat}
-                            onChange={handleSelectChange}
-                          >
-                            <option value="">
-                              -- Pilih Salah Satu Sertifikat --
-                            </option>
-                            <option value="1">Ilmu Pengetahuan</option>
-                            <option value="2">Teknologi</option>
-                            <option value="3">Seni</option>
-                            <option value="4">Budaya</option>
-                            <option value="5">Olahraga</option>
-                            <option value="6">Sosial</option>
-                            <option value="7">Kemanusiaan</option>
-                            <option value="8">Lingkungan</option>
-                            <option value="9">Bela Negara</option>
-                          </select>
-                        </div>
-                        {errors.jenis_sertifikat && (
-                          <div className="alert alert-danger">
-                            {errors.jenis_sertifikat[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    {["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(
-                      selectedSertifikat
-                    ) && (
+          {users === 1 ? (
+            <div className="alert alert-danger" role="alert">
+              Anda Sudah Terdaftar di Beasiswa
+            </div>
+          ) : step === 1 ? (
+            <div className="alert alert-danger" role="alert">
+              Anda Belum Menyelesaikan step 2 di Data Perguruan Tinggi Anda
+            </div>
+          ) : (
+            <div className="row">
+              <div className="col-md-12">
+                <div className="card border-0 rounded shadow-sm border-top-success">
+                  <div className="card-body">
+                    <h6>
+                      <i className="fa fa-shield-alt"></i> Beasiswa Disporapar
+                      Non Akademik
+                    </h6>
+                    <hr />
+                    <form onSubmit={storeNonAkademik}>
                       <div className="row">
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label fw-bold">
-                              Upload Berkas Sesuai yang dipilih PDF
-                              dan Maksimal 2MB
+                              Semester
                             </label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              onChange={handleFileSertifikat}
-                            />
+                            <select
+                              className="form-select"
+                              value={semester}
+                              onChange={handleshowhideSemester}
+                            >
+                              <option value="">-- Select Semester --</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                            </select>
                           </div>
-                          {errors.imagesertifikat && (
+                          {errors.semester && (
                             <div className="alert alert-danger">
-                              {errors.imagesertifikat[0]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="row">
-                          <div className="col-md-12">
-                            <div className="mb-3">
-                              <label className="form-label fw-bold">
-                                Tingkat Prestasi
-                              </label>
-                              <select
-                                className="form-select"
-                                value={tingkatanSertifikat}
-                                onChange={handleSelectTingkatPrestasi}
-                              >
-                                <option value="">
-                                  -- Pilih Salah Satu Sertifikat --
-                                </option>
-                                <option value="1">Internasional</option>
-                                <option value="2">Nasional</option>
-                                <option value="3">Provinsi</option>
-                                <option value="4">Kabupaten</option>
-                              </select>
-                            </div>
-                            {errors.jenis_sertifikat && (
-                              <div className="alert alert-danger">
-                                {errors.jenis_sertifikat[0]}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <div className="col-md-12">
-                          <div className="mb-3">
-                            <label className="form-label fw-bold">
-                              Sertifikat yang pernah diperoleh dalam kurun waktu
-                              4 tahun terakhir (YANG TERBARU)
-                            </label>
-                            <input
-                              type="number"
-                              className="form-control"
-                              value={tahun}
-                              onChange={handleYearChange}
-                              placeholder="tahun"
-                            />
-                          </div>
-                          {errors.tahun && (
-                            <div className="alert alert-danger">
-                              {errors.tahun[0]}
+                              {errors.semester[0]}
                             </div>
                           )}
                         </div>
                       </div>
-                    )}
-                    <div className="d-flex justify-content-center">
-                      <button
-                        type="submit"
-                        className="btn btn-md btn-primary me-2"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                      </button>
-                      <button type="reset" className="btn btn-md btn-warning">
-                        <i className="fa fa-redo"></i> Reset
-                      </button>
-                    </div>
-                  </form>
+                      <div className="row">
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label fw-bold">
+                              Sertifikat /Piagam/Surat Keterangan prestasi
+                              bidang ilmu pengetahuan, teknologi, kebudayaan,
+                              olahraga, sosial, kemanusiaan, lingkungan, dan
+                              nasionalisme tingkat Internasional, Nasional,
+                              Provinsi, dan Kabupaten yang dibuktikan dengan
+                              sertifikat, piagam, surat keterangan dan/atau
+                              bentuk lain yang dipersamakan
+                            </label>
+                            <select
+                              className="form-select"
+                              value={selectedSertifikat}
+                              onChange={handleSelectChange}
+                            >
+                              <option value="">
+                                -- Pilih Salah Satu Sertifikat --
+                              </option>
+                              <option value="1">Ilmu Pengetahuan</option>
+                              <option value="2">Teknologi</option>
+                              <option value="3">Seni</option>
+                              <option value="4">Budaya</option>
+                              <option value="5">Olahraga</option>
+                              <option value="6">Sosial</option>
+                              <option value="7">Kemanusiaan</option>
+                              <option value="8">Lingkungan</option>
+                              <option value="9">Bela Negara</option>
+                            </select>
+                          </div>
+                          {errors.jenis_sertifikat && (
+                            <div className="alert alert-danger">
+                              {errors.jenis_sertifikat[0]}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(
+                        selectedSertifikat
+                      ) && (
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Upload Berkas Sesuai yang dipilih PDF dan
+                                Maksimal 2MB
+                              </label>
+                              <input
+                                type="file"
+                                className="form-control"
+                                onChange={handleFileSertifikat}
+                              />
+                            </div>
+                            {errors.imagesertifikat && (
+                              <div className="alert alert-danger">
+                                {errors.imagesertifikat[0]}
+                              </div>
+                            )}
+                          </div>
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Tingkat Prestasi
+                                </label>
+                                <select
+                                  className="form-select"
+                                  value={tingkatanSertifikat}
+                                  onChange={handleSelectTingkatPrestasi}
+                                >
+                                  <option value="">
+                                    -- Pilih Salah Satu Sertifikat --
+                                  </option>
+                                  <option value="1">Internasional</option>
+                                  <option value="2">Nasional</option>
+                                  <option value="3">Provinsi</option>
+                                  <option value="4">Kabupaten</option>
+                                </select>
+                              </div>
+                              {errors.jenis_sertifikat && (
+                                <div className="alert alert-danger">
+                                  {errors.jenis_sertifikat[0]}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-12">
+                            <div className="mb-3">
+                              <label className="form-label fw-bold">
+                                Sertifikat yang pernah diperoleh dalam kurun
+                                waktu 4 tahun terakhir (YANG TERBARU)
+                              </label>
+                              <input
+                                type="number"
+                                className="form-control"
+                                value={tahun}
+                                onChange={handleYearChange}
+                                placeholder="tahun"
+                              />
+                            </div>
+                            {errors.tahun && (
+                              <div className="alert alert-danger">
+                                {errors.tahun[0]}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      <div className="d-flex justify-content-center">
+                        <button
+                          type="submit"
+                          className="btn btn-md btn-primary me-2"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                        </button>
+                        <button type="reset" className="btn btn-md btn-warning">
+                          <i className="fa fa-redo"></i> Reset
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </main>
     </LayoutAdmin>
