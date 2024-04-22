@@ -61,6 +61,8 @@ export default function EditDinsosNoDtks() {
   const [idUser, setIdUser] = useState("");
   const [alasan, setAlasan] = useState("");
   const [jenisVerif, setJenisVerif] = useState("");
+  const [namaVerifikator, setNamaVerifikator] = useState("")
+
 
   //action handel jenis verif
   const handleShowHideJenisVerif = (event) => {
@@ -92,6 +94,17 @@ export default function EditDinsosNoDtks() {
   useEffect(() => {
     //call function "fetchDataPost"
     fetchDataDinsos();
+
+    Api.get("/api/admin/users/byid", {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      //set data
+      setNamaVerifikator(response.data.data.name);
+    });
   }, []);
 
   // verifikasi dinsos
@@ -104,6 +117,7 @@ export default function EditDinsosNoDtks() {
     //append data to "formData"
     formData.append("alasan", alasan);
     formData.append("jenis_verif", jenisVerif);
+    formData.append("verifikator", namaVerifikator);
     formData.append("_method", "PUT");
 
     //sending data

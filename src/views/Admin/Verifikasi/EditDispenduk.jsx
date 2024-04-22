@@ -37,6 +37,8 @@ export default function EditDispenduk() {
   const [isLoading, setLoading] = useState(false);
   const [isLoadingSave, setLoadingSave] = useState(false);
 
+  const [namaVerifikator, setNamaVerifikator] = useState("")
+
   const [dataUsers, setDataUsers] = useState({
     name: "",
     nik: "",
@@ -83,6 +85,17 @@ export default function EditDispenduk() {
   useEffect(() => {
     //call function "fetchDataPost"
     fetchDataDinsos();
+
+    Api.get("/api/admin/users/byid", {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      //set data
+      setNamaVerifikator(response.data.data.name);
+    });
   }, []);
 
   // verifikasi dinsos
@@ -95,6 +108,7 @@ export default function EditDispenduk() {
     //append data to "formData"
     formData.append("alasan_nik", alasan);
     formData.append("jenis_verif_nik", jenisVerif);
+    formData.append("verifikator", namaVerifikator);
     formData.append("_method", "PUT");
 
     //sending data

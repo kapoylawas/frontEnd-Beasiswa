@@ -36,6 +36,8 @@ export default function EditDinsosDtks() {
   const [isLoading, setLoading] = useState(false);
   const [isLoadingSave, setLoadingSave] = useState(false);
 
+  const [namaVerifikator, setNamaVerifikator] = useState("")
+
   const [dataUsers, setDataUsers] = useState({
     name: "",
     nik: "",
@@ -62,7 +64,7 @@ export default function EditDinsosDtks() {
 
   const fetchDataDinsos = async () => {
     setLoading(true);
-    await Api.get(`/api/admin/dinsos/${id}`, {
+    await Api.get(`/api/admin/beasiswa/dinsoses/${id}`, {
       headers: {
         //header Bearer + Token
         Authorization: `Bearer ${token}`,
@@ -83,6 +85,17 @@ export default function EditDinsosDtks() {
   useEffect(() => {
     //call function "fetchDataPost"
     fetchDataDinsos();
+
+    Api.get("/api/admin/users/byid", {
+      //header
+      headers: {
+        //header Bearer + Token
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      //set data
+      setNamaVerifikator(response.data.data.name);
+    });
   }, []);
 
   // verifikasi dinsos
@@ -95,6 +108,7 @@ export default function EditDinsosDtks() {
     //append data to "formData"
     formData.append("alasan", alasan);
     formData.append("jenis_verif", jenisVerif);
+    formData.append("verifikator", namaVerifikator);
     formData.append("_method", "PUT");
 
     //sending data
