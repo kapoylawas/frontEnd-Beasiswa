@@ -677,6 +677,29 @@ export default function Dashboard() {
             </>
           )}
 
+          {hasAnyPermission(["dispenduk.index"]) && (
+            <div className="row">
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{users}</strong> Users
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* KUSUS ADMIN */}
           {hasAnyPermission(["permissions.index"]) && (
             <div className="row">

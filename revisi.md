@@ -14,7 +14,7 @@ REVISI 1
 12. hasil akhir masih ditanyakan
 13. ditambahkan filed upload bukti akreditasi BAN-PT
 14. field akhreditasi kampus dikasih link BAN-PT
-15. persyaratan beasiswa luar negeri : GPA (grade point average) /IPK , link dikti ( https://beasiswa.kemdikbud.go.id/list-perguruan-tinggi-gtk-s2-ln/, https://beasiswa.kemdikbud.go.id/list-perguruan-tinggi-pta-s3-ln/, https://beasiswa.kemdikbud.go.id/list-perguruan-tinggi-bim-s1-ln/)
+15. persyaratan beasiswa luar negeri : GPA (grade point average) /IPK , link dikti (https://beasiswa.kemdikbud.go.id/list-perguruan-tinggi-gtk-s2-ln/, https://beasiswa.kemdikbud.go.id/list-perguruan-tinggi-pta-s3-ln/, https://beasiswa.kemdikbud.go.id/list-perguruan-tinggi-bim-s1-ln/)
 16. label Sertifikat /Piagam/Surat Keterangan sesuai Prestasi Bidang yang di isi pendaftar ditambah “Sertifikat /Piagam/Surat Keterangan prestasi bidang ilmu pengetahuan, teknologi, kebudayaan, olahraga, sosial, kemanusiaan, lingkungan, dan nasionalisme tingkat Internasional, Nasional, Provinsi, dan Kabupaten yang dibuktikan dengan sertifikat, piagam, surat keterangan dan/atau bentuk lain yang dipersamakan.”
 17. tambah kolom di table user untuk notif WA dan email
 18. beasiswa kurang mampu tebalik file upload DTKS
@@ -45,16 +45,14 @@ Revisi 2
 
 ## user opd
 ```json
-2222222222222222 dispora
-3333333333333333 kesra
-4444444444444444 dinsos
-1111111111111111 dispenduk
-
 1996042620190310 ARDIANSYAH
 1997083020201220 YULFA HARLIAGUSTINA
 1981040620100110 ASAD RIDHADIN
-!dispenduk@2024
 
 1976031020110110
-!kesra@2024
+1987082820060220
+
+1983100520110120
+
+1987120320110120
 ```
