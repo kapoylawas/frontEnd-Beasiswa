@@ -700,6 +700,121 @@ export default function Dashboard() {
             </div>
           )}
 
+          {hasAnyPermission(["akademiks.index"]) && (
+            <div className="row">
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{akademiks}</strong> Akademik
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {hasAnyPermission(["dispora.index"]) && (
+            <div className="row">
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{dinsoses}</strong> Dinsos
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {hasAnyPermission(["kesra.index"]) && (
+            <div className="row">
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{kesras}</strong> Kesra
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {hasAnyPermission(["nonakademiks.index"]) && (
+            <div className="row">
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{nonAkademiks}</strong> Non Akademik
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {hasAnyPermission(["luarnegeri.index"]) && (
+            <div className="row">
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-body">
+                    <strong>{luarNegeris}</strong> Luar Negeri
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* KUSUS ADMIN */}
           {hasAnyPermission(["permissions.index"]) && (
             <div className="row">
