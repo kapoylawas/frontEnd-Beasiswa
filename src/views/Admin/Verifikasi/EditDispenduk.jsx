@@ -108,7 +108,7 @@ export default function EditDispenduk() {
     //append data to "formData"
     formData.append("alasan_nik", alasan);
     formData.append("jenis_verif_nik", jenisVerif);
-    formData.append("verifikator", namaVerifikator);
+    formData.append("verifikator_nik", namaVerifikator);
     formData.append("_method", "PUT");
 
     //sending data
