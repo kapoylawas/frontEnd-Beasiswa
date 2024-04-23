@@ -115,7 +115,7 @@ export default function EditKesraD() {
     //append data to "formData"
     formData.append("alasan", alasan);
     formData.append("jenis_verif", jenisVerif);
-    formData.append("verifikator", namaVerifikator);
+    formData.append("verifikator_berkas", namaVerifikator);
     formData.append("_method", "PUT");
 
     //sending data
