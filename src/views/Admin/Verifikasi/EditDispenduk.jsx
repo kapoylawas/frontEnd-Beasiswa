@@ -209,9 +209,6 @@ export default function EditDispenduk() {
                                                 handleShowHideJenisVerif
                                               }
                                             >
-                                              <option value="">
-                                                -- Pilih Jenis Verifikasi --
-                                              </option>
                                               <option value="lolos">
                                                 NIK Sama
                                               </option>
