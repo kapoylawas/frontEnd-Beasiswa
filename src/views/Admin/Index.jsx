@@ -700,7 +700,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {hasAnyPermission(["akademiks.index"]) && (
+          {hasAnyPermission(["dispenduk.index"]) && (
             <div className="row">
               <div className="col-xl-3 col-md-6">
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
@@ -759,7 +759,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {hasAnyPermission(["dinsos.index"]) && (
+          {hasAnyPermission(["dispenduk.index"]) && (
             <div className="row">
               <div className="col-xl-3 col-md-6">
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
@@ -782,7 +782,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {hasAnyPermission(["kesra.index"]) && (
+          {hasAnyPermission(["dispenduk.index"]) && (
             <div className="row">
               <div className="col-xl-3 col-md-6">
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
