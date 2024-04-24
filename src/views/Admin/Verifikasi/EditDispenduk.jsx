@@ -16,7 +16,6 @@ import Cookies from "js-cookie";
 //import toast
 import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
-import DinsosDtks from "../../../components/admin/DinsosDtks";
 import Dispenduk from "../../../components/admin/Dispenduk";
 
 export default function EditDispenduk() {
@@ -197,25 +196,6 @@ export default function EditDispenduk() {
                                       </div>
                                       <div className="row mt-2">
                                         <div className="col-md-12">
-                                          {/*  <div className="mb-3">
-                                            <label className="form-label fw-bold">
-                                              Pilih Verifikasi
-                                            </label>
-                                            <select
-                                              className="form-select"
-                                              value={jenisVerif}
-                                              onChange={
-                                                handleShowHideJenisVerif
-                                              }
-                                            >
-                                              <option value="lolos">
-                                                NIK Sama
-                                              </option>
-                                              <option value="tidak">
-                                                NIK Tidak Sesuai
-                                              </option>
-                                            </select>
-                                          </div> */}
                                             <label>
                                               <input
                                                 type="radio"
