@@ -37,7 +37,7 @@ export default function EditDispenduk() {
   const [isLoading, setLoading] = useState(false);
   const [isLoadingSave, setLoadingSave] = useState(false);
 
-  const [namaVerifikator, setNamaVerifikator] = useState("")
+  const [namaVerifikator, setNamaVerifikator] = useState("");
 
   const [dataUsers, setDataUsers] = useState({
     name: "",
@@ -57,9 +57,8 @@ export default function EditDispenduk() {
   const [jenisVerif, setJenisVerif] = useState("");
 
   //action handel jenis verif
-  const handleShowHideJenisVerif = (event) => {
-    const getType = event.target.value;
-    setJenisVerif(getType);
+  const handleOptionChange = (event) => {
+    setJenisVerif(event.target.value);
   };
 
   const fetchDataDinsos = async () => {
@@ -198,7 +197,7 @@ export default function EditDispenduk() {
                                       </div>
                                       <div className="row mt-2">
                                         <div className="col-md-12">
-                                          <div className="mb-3">
+                                          {/*  <div className="mb-3">
                                             <label className="form-label fw-bold">
                                               Pilih Verifikasi
                                             </label>
@@ -216,7 +215,26 @@ export default function EditDispenduk() {
                                                 NIK Tidak Sesuai
                                               </option>
                                             </select>
-                                          </div>
+                                          </div> */}
+                                            <label>
+                                              <input
+                                                type="radio"
+                                                value="lolos"
+                                                checked={jenisVerif === "lolos"}
+                                                onChange={handleOptionChange}
+                                              />
+                                              Lolos
+                                            </label>
+                                          {"   "}
+                                          <label>
+                                            <input
+                                              type="radio"
+                                              value="tidak"
+                                              checked={jenisVerif === "tidak"}
+                                              onChange={handleOptionChange}
+                                            />
+                                            Tidak Lolos
+                                          </label>
                                           {errors.jenis_verif && (
                                             <div className="alert alert-danger">
                                               {errors.jenis_verif[0]}
