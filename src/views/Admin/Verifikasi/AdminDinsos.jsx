@@ -8,6 +8,7 @@ import Api from "../../../services/Api";
 import Cookies from "js-cookie";
 import LoadingTable from "../../../components/general/LoadingTable";
 import Pagination from "../../../components/general/Pagination";
+import PaginationNoDtks from "../../../components/general/PaginationNoDtks";
 
 export default function AdminDinsos() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
@@ -71,10 +72,10 @@ export default function AdminDinsos() {
     });
   };
 
-  const fetchDataNoDtks = async (pageNumber = 1, keywordsNo = "") => {
+  const fetchDataNoDtks = async (pageNumberNo = 1, keywordsNo = "") => {
     setLoadingNo(true);
     //define variable "page"
-    const page = pageNumber ? pageNumber : paginationNo.currentPage;
+    const page = pageNumberNo ? pageNumberNo : paginationNo.currentPage;
     await Api.get(
       `/api/admin/beasiswa/dinsosNoDtks?search=${keywordsNo}&page=${page}`,
       {
@@ -171,7 +172,7 @@ export default function AdminDinsos() {
                           <th className="border-0" style={{ width: "5%" }}>
                             No.
                           </th>
-                          <th className="border-0">Nama</th>
+                          <th className="border-0">Namas</th>
                           <th className="border-0">NIK</th>
                           <th className="border-0">No KK</th>
                           <th className="border-0">Nohp</th>
@@ -294,7 +295,7 @@ export default function AdminDinsos() {
                     currentPage={pagination.currentPage}
                     perPage={pagination.perPage}
                     total={pagination.total}
-                    onChange={(pageNumber) => fetchData(pageNumber, keywords)}
+                    onChange={(pageNumber) => fetchDataDtks(pageNumber, keywords)}
                     position="end"
                   />
                 </div>
@@ -453,11 +454,11 @@ export default function AdminDinsos() {
                       )}
                     </table>
                   </div>
-                  <Pagination
-                    currentPage={pagination.currentPage}
-                    perPage={pagination.perPage}
-                    total={pagination.total}
-                    onChange={(pageNumber) => fetchData(pageNumber, keywordsNo)}
+                  <PaginationNoDtks
+                    currentPage={paginationNo.currentPage}
+                    perPage={paginationNo.perPage}
+                    total={paginationNo.total}
+                    onChange={(pageNumberNo) => fetchDataNoDtks(pageNumberNo, keywordsNo)}
                     position="end"
                   />
                 </div>
