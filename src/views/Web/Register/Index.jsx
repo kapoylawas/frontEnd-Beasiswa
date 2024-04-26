@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 //import toast
 import toast from "react-hot-toast";
 import Api from "../../../services/Api";
-import Logo from '../../../../public/images/lock.svg';
+import Logo from "../../../../public/images/lock.svg";
 
 export default function Register() {
   document.title = "Register - Beasiswa Sidoarjo";
@@ -286,6 +286,9 @@ export default function Register() {
                   <h4 className="font-weight-bold text-dark">
                     Register Beasiswa
                   </h4>
+                  <div className="alert alert-danger" role="alert">
+                     <b>PENDAFTARAN SAMPAI TANGGAL 16-MEI-2024</b>
+                  </div>
                   <hr />
                   <form onSubmit={storeRegister}>
                     <div className="row">
