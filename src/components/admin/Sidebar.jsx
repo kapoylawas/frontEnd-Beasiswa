@@ -345,6 +345,45 @@ export default function sidebar() {
                 </div>
                 Data Pendaftar
               </Link>
+              <Link
+                className={
+                  activeRoute[2] === "adminDispendukAkademik"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminDispendukAkademik"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Akademik
+              </Link>
+              {/* <Link
+                className={
+                  activeRoute[2] === "adminDispendukNonAkademik"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminDispendukNonAkademik"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Non Akademik
+              </Link>
+              <Link
+                className={
+                  activeRoute[2] === "adminDispendukLuarNegeri"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminDispendukLuarNegeri"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Luar Negeri
+              </Link> */}
             </>
           )}
 
