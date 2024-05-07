@@ -158,7 +158,7 @@ export default function EditDispendukNonAkademik() {
                     <div className="col-md-12">
                       <div className="card border-0 rounded shadow-sm border-top-success">
                         <div className="card-header text-dark">
-                          Verifikasi Data Beasiswa Dinsos
+                          Verifikasi Data Beasiswa Non Akademik
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">

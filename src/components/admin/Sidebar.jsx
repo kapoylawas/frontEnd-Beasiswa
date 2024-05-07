@@ -384,6 +384,19 @@ export default function sidebar() {
                 </div>
                 Luar Negeri
               </Link>
+              <Link
+                className={
+                  activeRoute[2] === "adminDispendukKesra"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminDispendukKesra"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Beasiswa Kesra
+              </Link>
             </>
           )}
 

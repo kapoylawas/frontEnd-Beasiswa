@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 import Loading from "../../../components/general/Loading";
 import Dispenduk from "../../../components/admin/Dispenduk";
 
-export default function EditDispendukLuarNegeri() {
+export default function EditDispendukKesra() {
   //title page
   document.title = "Detail Akademik - Beasiswa";
 
@@ -126,7 +126,7 @@ export default function EditDispendukLuarNegeri() {
         });
 
         //redirect
-        navigate("/admin/adminDispendukLuarNegeri");
+        navigate("/admin/adminDispendukKesra");
       })
       .catch((error) => {
         setLoadingSave(false);
@@ -142,7 +142,7 @@ export default function EditDispendukLuarNegeri() {
           <div className="row">
             <div className="col-md-12">
               <Link
-                to="/admin/adminDispendukLuarNegeri"
+                to="/admin/adminDispendukKesra"
                 className="btn btn-md btn-primary border-0 shadow-sm mb-3"
                 type="button"
               >
@@ -158,7 +158,7 @@ export default function EditDispendukLuarNegeri() {
                     <div className="col-md-12">
                       <div className="card border-0 rounded shadow-sm border-top-success">
                         <div className="card-header text-dark">
-                          Verifikasi Data Beasiswa Luar Negeri
+                          Verifikasi Data Beasiswa Kesra
                         </div>
                         <div className="card-body">
                           <div className="table-responsive">
