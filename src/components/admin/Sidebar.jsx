@@ -397,6 +397,19 @@ export default function sidebar() {
                 </div>
                 Beasiswa Kesra
               </Link>
+              <Link
+                className={
+                  activeRoute[2] === "adminDispendukDinsos"
+                    ? "nav-link active-sidebar"
+                    : "nav-link"
+                }
+                to="/admin/adminDispendukDinsos"
+              >
+                <div className="sb-nav-link-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                Beasiswa Dinsos
+              </Link>
             </>
           )}
 
