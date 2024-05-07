@@ -358,7 +358,7 @@ export default function sidebar() {
                 </div>
                 Akademik
               </Link>
-              {/* <Link
+              <Link
                 className={
                   activeRoute[2] === "adminDispendukNonAkademik"
                     ? "nav-link active-sidebar"
@@ -371,7 +371,7 @@ export default function sidebar() {
                 </div>
                 Non Akademik
               </Link>
-              <Link
+             {/*  <Link
                 className={
                   activeRoute[2] === "adminDispendukLuarNegeri"
                     ? "nav-link active-sidebar"

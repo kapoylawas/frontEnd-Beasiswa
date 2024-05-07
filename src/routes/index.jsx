@@ -55,6 +55,8 @@ import EditKesraD from "../views/Admin/Verifikasi/EditKesraD";
 import EditDispenduk from "../views/Admin/Verifikasi/EditDispenduk";
 import AdminDispendukAkademik from "../views/Admin/Verifikasi/AdminDispendukAkademik";
 import EditDispendukAkademik from "../views/Admin/Verifikasi/EditDispendukAkademik";
+import AdminDispendukNonAkademik from "../views/Admin/Verifikasi/AdminDispendukNonAkademik";
+import EditDispendukNonAkademik from "../views/Admin/Verifikasi/EditDispendukNonAkademik";
 
 export default function RoutesIndex() {
   return (
@@ -467,6 +469,15 @@ export default function RoutesIndex() {
       />
 
       <Route
+        path="/admin/adminDispendukNonAkademik"
+        element={
+          <PrivateRoutes>
+            <AdminDispendukNonAkademik />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
         path="/admin/editDispenduk/:id"
         element={
           <PrivateRoutes>
@@ -480,6 +491,15 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <EditDispendukAkademik />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/editDispendukNonAkademik/:id"
+        element={
+          <PrivateRoutes>
+            <EditDispendukNonAkademik />
           </PrivateRoutes>
         }
       />
