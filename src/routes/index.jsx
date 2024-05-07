@@ -57,6 +57,8 @@ import AdminDispendukAkademik from "../views/Admin/Verifikasi/AdminDispendukAkad
 import EditDispendukAkademik from "../views/Admin/Verifikasi/EditDispendukAkademik";
 import AdminDispendukNonAkademik from "../views/Admin/Verifikasi/AdminDispendukNonAkademik";
 import EditDispendukNonAkademik from "../views/Admin/Verifikasi/EditDispendukNonAkademik";
+import AdminDispendukLuarNegeri from "../views/Admin/Verifikasi/AdminDispendukLuarNegeri";
+import EditDispendukLuarNegeri from "../views/Admin/Verifikasi/EditDispendukLuarNegeri";
 
 export default function RoutesIndex() {
   return (
@@ -478,6 +480,15 @@ export default function RoutesIndex() {
       />
 
       <Route
+        path="/admin/adminDispendukLuarNegeri"
+        element={
+          <PrivateRoutes>
+            <AdminDispendukLuarNegeri />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
         path="/admin/editDispenduk/:id"
         element={
           <PrivateRoutes>
@@ -500,6 +511,15 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <EditDispendukNonAkademik />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/EditDispendukLuarNegeri/:id"
+        element={
+          <PrivateRoutes>
+            <EditDispendukLuarNegeri />
           </PrivateRoutes>
         }
       />

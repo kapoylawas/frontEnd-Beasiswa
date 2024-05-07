@@ -371,7 +371,7 @@ export default function sidebar() {
                 </div>
                 Non Akademik
               </Link>
-             {/*  <Link
+              <Link
                 className={
                   activeRoute[2] === "adminDispendukLuarNegeri"
                     ? "nav-link active-sidebar"
@@ -383,7 +383,7 @@ export default function sidebar() {
                   <i className="fas fa-user"></i>
                 </div>
                 Luar Negeri
-              </Link> */}
+              </Link>
             </>
           )}
 
