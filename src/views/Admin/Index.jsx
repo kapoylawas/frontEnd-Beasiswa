@@ -535,7 +535,7 @@ export default function Dashboard() {
                           <div className="col-md-12">
                             <div className="mb-3">
                               <label className="form-label fw-bold">
-                                Upload Akredetasi Dari Universitas pdf dan
+                                Upload Akredetasi Dari Universitas/Kampus pdf dan
                                 maksimal 2MB
                               </label>
                               <input
