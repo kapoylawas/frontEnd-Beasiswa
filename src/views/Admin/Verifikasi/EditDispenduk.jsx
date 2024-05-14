@@ -53,12 +53,14 @@ export default function EditDispenduk() {
 
   const [idUser, setIdUser] = useState("");
   const [alasan, setAlasan] = useState("");
-  const [jenisVerif, setJenisVerif] = useState("");
+  const [jenisVerif, setJenisVerif] = useState(null);
 
   //action handel jenis verif
   const handleOptionChange = (event) => {
     setJenisVerif(event.target.value);
   };
+
+  const handleSubmit = () => {};
 
   const fetchDataDinsos = async () => {
     setLoading(true);
@@ -99,7 +101,12 @@ export default function EditDispenduk() {
   // verifikasi dinsos
   const verifDinsos = async (e) => {
     e.preventDefault();
+    if (jenisVerif === null) {
+      toast.error("Pilih Radio Button Terlebih Dahulu")
+      return;
+    }
     setLoadingSave(true);
+
     //define formData
     const formData = new FormData();
 
@@ -188,23 +195,18 @@ export default function EditDispenduk() {
                                             className="form-control"
                                           />
                                         </div>
-                                        {errors.alasan && (
-                                          <div className="alert alert-danger">
-                                            {errors.alasan[0]}
-                                          </div>
-                                        )}
                                       </div>
                                       <div className="row mt-2">
                                         <div className="col-md-12">
-                                            <label>
-                                              <input
-                                                type="radio"
-                                                value="lolos"
-                                                checked={jenisVerif === "lolos"}
-                                                onChange={handleOptionChange}
-                                              />
-                                              Lolos
-                                            </label>
+                                          <label>
+                                            <input
+                                              type="radio"
+                                              value="lolos"
+                                              checked={jenisVerif === "lolos"}
+                                              onChange={handleOptionChange}
+                                            />
+                                            Lolos
+                                          </label>
                                           {"   "}
                                           <label>
                                             <input
@@ -215,11 +217,6 @@ export default function EditDispenduk() {
                                             />
                                             Tidak Lolos
                                           </label>
-                                          {errors.jenis_verif && (
-                                            <div className="alert alert-danger">
-                                              {errors.jenis_verif[0]}
-                                            </div>
-                                          )}
                                         </div>
                                       </div>
                                       <div className="d-flex justify-content-center">

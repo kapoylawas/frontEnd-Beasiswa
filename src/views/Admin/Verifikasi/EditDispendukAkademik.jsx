@@ -99,6 +99,10 @@ export default function EditDispendukAkademik() {
   // verifikasi dinsos
   const verifDinsos = async (e) => {
     e.preventDefault();
+    if (jenisVerif === null) {
+      toast.error("Pilih Radio Button Terlebih Dahulu")
+      return;
+    }
     setLoadingSave(true);
     //define formData
     const formData = new FormData();
