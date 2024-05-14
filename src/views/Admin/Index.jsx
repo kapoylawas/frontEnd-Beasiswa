@@ -36,6 +36,8 @@ export default function Dashboard() {
   const [isLoading, setLoading] = useState(false);
 
   const [errors, setErros] = useState([]);
+  const [dashboard, setDashboard] = useState("");
+  console.log(dashboard);
   const [users, setUsers] = useState(0);
   const [akademiks, setAkademiks] = useState(0);
   const [dinsoses, setDinsoses] = useState(0);
@@ -60,6 +62,7 @@ export default function Dashboard() {
       },
     }).then((response) => {
       //set data
+      setDashboard(response.data.data);
       setUsers(response.data.data.users);
       setAkademiks(response.data.data.akademiks);
       setDinsoses(response.data.data.dinsoses);
@@ -706,6 +709,8 @@ export default function Dashboard() {
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
                   <div className="card-body">
                     <strong>{akademiks}</strong> Akademik
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifAkademik}</strong> Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -724,6 +729,8 @@ export default function Dashboard() {
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
                   <div className="card-body">
                     <strong>{nonAkademiks}</strong> Non Akademik
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifNonAkademik}</strong> Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -742,6 +749,8 @@ export default function Dashboard() {
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
                   <div className="card-body">
                     <strong>{luarNegeris}</strong> Luar Negeri
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifLuarNegeri}</strong> Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -765,6 +774,8 @@ export default function Dashboard() {
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
                   <div className="card-body">
                     <strong>{dinsoses}</strong> Dinsos
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifDinsos}</strong> Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -788,6 +799,8 @@ export default function Dashboard() {
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
                   <div className="card-body">
                     <strong>{kesras}</strong> Kesra
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifKesra}</strong> Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
