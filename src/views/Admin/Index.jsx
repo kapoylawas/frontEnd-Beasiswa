@@ -711,6 +711,8 @@ export default function Dashboard() {
                     <strong>{akademiks}</strong> Akademik
                     <hr />
                     <strong>{dashboard.jumlahSudahVerifAkademik}</strong> Sudah Di Verif
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifNikAkademik}</strong> NIK Yang Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -731,6 +733,8 @@ export default function Dashboard() {
                     <strong>{nonAkademiks}</strong> Non Akademik
                     <hr />
                     <strong>{dashboard.jumlahSudahVerifNonAkademik}</strong> Sudah Di Verif
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifNikNonAkademik}</strong> NIK Yang Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -751,6 +755,8 @@ export default function Dashboard() {
                     <strong>{luarNegeris}</strong> Luar Negeri
                     <hr />
                     <strong>{dashboard.jumlahSudahVerifLuarNegeri}</strong> Sudah Di Verif
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifNikLuarNegeri}</strong> NIK Yang Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -776,6 +782,8 @@ export default function Dashboard() {
                     <strong>{dinsoses}</strong> Dinsos
                     <hr />
                     <strong>{dashboard.jumlahSudahVerifDinsos}</strong> Sudah Di Verif
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifNikDinsos}</strong> NIK Yang Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -801,6 +809,8 @@ export default function Dashboard() {
                     <strong>{kesras}</strong> Kesra
                     <hr />
                     <strong>{dashboard.jumlahSudahVerifKesra}</strong> Sudah Di Verif
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifNikKesra}</strong> NIK Yang Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
