@@ -707,8 +707,11 @@ export default function Dashboard() {
             <div className="row">
               <div className="col-xl-3 col-md-6">
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                <div className="card-header d-flex bg-danger align-items-center justify-content-between">
+                    AKADEMIK
+                  </div>
                   <div className="card-body">
-                    <strong>{akademiks}</strong> Akademik
+                    <strong>{akademiks}</strong> Pendaftar
                     <hr />
                     <strong>{dashboard.jumlahSudahVerifAkademik}</strong> Sudah
                     Di Verif
@@ -731,8 +734,11 @@ export default function Dashboard() {
               </div>
               <div className="col-xl-3 col-md-6">
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-header d-flex bg-danger align-items-center justify-content-between">
+                    NON AKADEMIK
+                  </div>
                   <div className="card-body">
-                    <strong>{nonAkademiks}</strong> Non Akademik
+                    <strong>{nonAkademiks}</strong> Pendaftar
                     <hr />
                     <strong>
                       {dashboard.jumlahSudahVerifNonAkademik}
@@ -759,7 +765,7 @@ export default function Dashboard() {
               </div>
               <div className="col-xl-3 col-md-6">
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
-                <div className="card-header d-flex bg-danger align-items-center justify-content-between">
+                  <div className="card-header d-flex bg-danger align-items-center justify-content-between">
                     LUAR NEGERI
                   </div>
                   <div className="card-body">
