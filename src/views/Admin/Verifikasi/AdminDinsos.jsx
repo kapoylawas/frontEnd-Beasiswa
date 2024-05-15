@@ -305,7 +305,7 @@ export default function AdminDinsos() {
         </div>
         <div className="container-fluid px-4 mb-4 mt-5">
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-12">
               <div className="row">
                 <div className="col-md-9 col-12 mb-2">
                   <div className="input-group">
