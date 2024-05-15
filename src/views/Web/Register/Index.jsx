@@ -37,6 +37,17 @@ export default function Register() {
   const [selectedKecamatan, setSelectedKecamatan] = useState("");
   const [selectedKelurahan, setSelectedKelurahan] = useState("");
 
+
+  const [tanggalBatas, setTanggalBatas] = useState();
+
+  useEffect(() => {
+    //fetch api
+    Api.get("/api/tanggalBatas", {}).then((response) => {
+      //set data
+      setTanggalBatas(response.data.data);
+    });
+  }, []);
+
   //hook useEffect
   useEffect(() => {
     //fetch api
@@ -268,7 +279,7 @@ export default function Register() {
                   <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
                     <div className="card-body mt-2">
                       <h4 className="font-weight-bold text-dark">
-                        Pendaftaran Sedang Dalam Perbaikan
+                        Pendaftaran Sudah Di tutup
                       </h4>
                       <hr />
                       <h6>
@@ -287,7 +298,7 @@ export default function Register() {
                     Register Beasiswa
                   </h4>
                   <div className="alert alert-danger" role="alert">
-                     <b>PENDAFTARAN SAMPAI TANGGAL 15-MEI-2024</b>
+                     <b>PENDAFTARAN SAMPAI TANGGAL 15-MEI-2024 AKAN TUTUP OTOMATIS PADA PUKUL 00:00</b>
                   </div>
                   <hr />
                   <form onSubmit={storeRegister}>

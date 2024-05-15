@@ -8,12 +8,16 @@ import { Link, useNavigate } from "react-router-dom";
 import hasAnyPermission from "../../utils/Permissions";
 import toast from "react-hot-toast";
 //import Surat from "../../../public/images/surat.docx";
+import Logo from "../../../public/images/lock.svg";
+
 
 export default function Dashboard() {
   document.title = "Dashboard - Beasiswa";
 
   //navigata
   const navigate = useNavigate();
+
+  const maintenance = false;
 
   const [nim, setNim] = useState("");
   const [ktm, setKtm] = useState("");
@@ -371,313 +375,336 @@ export default function Dashboard() {
             Selamat Datang <b>{user.name}</b>
           </div>
 
-          {hasAnyPermission(["mahasiswa.index"]) && (
+          {maintenance ? (
             <>
-              <hr />
-              {step === 1 ? (
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="card border-0 rounded shadow-sm border-top-success">
-                      <div className="card-body">
-                        <h6>
-                          <i className="fa fa-shield-alt"></i> Lengkapi Data
-                          Perguruan Tinggi Anda
-                        </h6>
-                        <hr />
-                        <form onSubmit={updateUsers}>
-                          <div className="row">
-                            <div className="col-md-6">
-                              <div className="mb-3">
-                                <label className="form-label fw-bold">
-                                  NIM (No Induk Mahasiswa)
-                                </label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  value={nim}
-                                  onChange={handleChangeNIM}
-                                  placeholder="Enter NIM"
-                                />
-                              </div>
-                              {errors.nim && (
-                                <div className="alert alert-danger">
-                                  {errors.nim[0]}
-                                </div>
-                              )}
-                            </div>
-                            <div className="col-md-6">
-                              <div className="mb-3">
-                                <label className="form-label fw-bold">
-                                  Upload KTM (Kartu Induk Mahasiswa) pdf dan
-                                  maksimal 2MB
-                                </label>
-                                <input
-                                  type="file"
-                                  className="form-control"
-                                  onChange={handleFileKtm}
-                                />
-                              </div>
-                              {errors.ktm && (
-                                <div className="alert alert-danger">
-                                  {errors.ktm[0]}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-6">
-                              <div className="mb-3">
-                                <label className="form-label fw-bold">
-                                  Universitas
-                                </label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  value={universitas}
-                                  onChange={(e) =>
-                                    setUniversitas(e.target.value)
-                                  }
-                                  placeholder="Enter Nama Universitas"
-                                />
-                              </div>
-                              {errors.universitas && (
-                                <div className="alert alert-danger">
-                                  {errors.universitas[0]}
-                                </div>
-                              )}
-                            </div>
-                            <div className="col-md-6">
-                              <div className="mb-3">
-                                <label className="form-label fw-bold">
-                                  Jurusan
-                                </label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  value={jurusan}
-                                  onChange={(e) => setJurusan(e.target.value)}
-                                  placeholder="Enter Nama Jurusan"
-                                />
-                              </div>
-                              {errors.jurusan && (
-                                <div className="alert alert-danger">
-                                  {errors.jurusan[0]}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-12">
-                              <div className="mb-3">
-                                <label className="form-label fw-bold">
-                                  Alamat Universitas
-                                </label>
-                                <textarea
-                                  type="text"
-                                  className="form-control"
-                                  value={alamatuniv}
-                                  onChange={(e) =>
-                                    setAlamatuniv(e.target.value)
-                                  }
-                                  placeholder="Enter Alamat Universitas"
-                                  rows="4" // Set the number of visible text lines
-                                  cols="50"
-                                />
-                              </div>
-                              {errors.alamat_univ && (
-                                <div className="alert alert-danger">
-                                  {errors.alamat_univ[0]}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-12">
-                              <div className="mb-3">
-                                <label className="form-label fw-bold">
-                                  Upload Surat Aktif Kuliah pdf dan maksimal 2MB
-                                </label>
-                                <input
-                                  type="file"
-                                  className="form-control"
-                                  onChange={handleFileAktifKuliah}
-                                />
-                              </div>
-                              {errors.imageaktifkampus && (
-                                <div className="alert alert-danger">
-                                  {errors.imageaktifkampus[0]}
-                                </div>
-                              )}
-                            </div>
-                            <div className="col-md-12">
-                              <div className="mb-3">
-                                <label className="form-label fw-bold">
-                                  Upload Surat Pernyataan Bermaterai pdf dan
-                                  maksimal 2MB{" "}
-                                  <a
-                                    href="https://cdkbeasiswa.sidoarjokab.go.id/storage/imageakrekampus/Rji0wic3IBBCoTxrZo0OUYv2J8DMuac0hlrjNrJm.pdf"
-                                    download
-                                    target="_blank"
-                                  >
-                                    (Contoh Surat Pernyataan)
-                                  </a>
-                                </label>
-                                <input
-                                  type="file"
-                                  className="form-control"
-                                  onChange={handleFileSuratPernyataan}
-                                />
-                              </div>
-                              {errors.imagesuratpernyataan && (
-                                <div className="alert alert-danger">
-                                  {errors.imagesuratpernyataan[0]}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div className="col-md-12">
-                            <div className="mb-3">
-                              <label className="form-label fw-bold">
-                                Upload Akredetasi Dari Universitas/Kampus pdf
-                                dan maksimal 2MB
-                              </label>
-                              <input
-                                type="file"
-                                className="form-control"
-                                onChange={handleFileAkre}
-                              />
-                            </div>
-                            {errors.imageakrekampus && (
-                              <div className="alert alert-danger">
-                                {errors.imageakrekampus[0]}
-                              </div>
-                            )}
-                          </div>
-                          <div className="col-md-12">
-                            <div className="mb-3">
-                              <label className="form-label fw-bold">
-                                Pilih Universitas Dalam Negeri / Luar Negeri
-                              </label>
-                              <select
-                                className="form-select"
-                                value={pilihuniversitas}
-                                onChange={handleshowhidePilih}
-                              >
-                                <option value="">
-                                  -- Pilih Universitas Dalam Negeri / Luar
-                                  Negeri --
-                                </option>
-                                <option value="Dalam">Dalam Negeri</option>
-                                <option value="Luar">Luar Negeri</option>
-                              </select>
-                            </div>
-                            {errors.pilih_universitas && (
-                              <div className="alert alert-danger">
-                                {errors.pilih_universitas[0]}
-                              </div>
-                            )}
-                          </div>
-                          {pilihuniversitas === "Dalam" && (
-                            <>
-                              <div className="col-md-12">
+              <div className="col-md-12 mt-5 mb-4">
+                <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
+                  <div className="card-body mt-2">
+                    <h4 className="font-weight-bold text-dark">
+                      Pendaftaran Sudah Di tutup
+                    </h4>
+                    <hr />
+                    <h6>
+                      <div className="list-group my-3">
+                        <img src={Logo} alt="Logo" height={300} />
+                      </div>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            hasAnyPermission(["mahasiswa.index"]) && (
+              <>
+                <hr />
+                {step === 1 ? (
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="card border-0 rounded shadow-sm border-top-success">
+                        <div className="card-body">
+                          <h6>
+                            <i className="fa fa-shield-alt"></i> Lengkapi Data
+                            Perguruan Tinggi Anda
+                          </h6>
+                          <hr />
+                          <form onSubmit={updateUsers}>
+                            <div className="row">
+                              <div className="col-md-6">
                                 <div className="mb-3">
                                   <label className="form-label fw-bold">
-                                    Upload Surat Tidak Menerima Beasiswa Lain
-                                    dan maksimal 2MB
+                                    NIM (No Induk Mahasiswa)
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    value={nim}
+                                    onChange={handleChangeNIM}
+                                    placeholder="Enter NIM"
+                                  />
+                                </div>
+                                {errors.nim && (
+                                  <div className="alert alert-danger">
+                                    {errors.nim[0]}
+                                  </div>
+                                )}
+                              </div>
+                              <div className="col-md-6">
+                                <div className="mb-3">
+                                  <label className="form-label fw-bold">
+                                    Upload KTM (Kartu Induk Mahasiswa) pdf dan
+                                    maksimal 2MB
                                   </label>
                                   <input
                                     type="file"
                                     className="form-control"
-                                    onChange={handleFileSuratBeasiswa}
+                                    onChange={handleFileKtm}
                                   />
                                 </div>
-                                {errors.imagesuratbeasiswa && (
+                                {errors.ktm && (
                                   <div className="alert alert-danger">
-                                    {errors.imagesuratbeasiswa[0]}
+                                    {errors.ktm[0]}
                                   </div>
                                 )}
                               </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-md-6">
+                                <div className="mb-3">
+                                  <label className="form-label fw-bold">
+                                    Universitas
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    value={universitas}
+                                    onChange={(e) =>
+                                      setUniversitas(e.target.value)
+                                    }
+                                    placeholder="Enter Nama Universitas"
+                                  />
+                                </div>
+                                {errors.universitas && (
+                                  <div className="alert alert-danger">
+                                    {errors.universitas[0]}
+                                  </div>
+                                )}
+                              </div>
+                              <div className="col-md-6">
+                                <div className="mb-3">
+                                  <label className="form-label fw-bold">
+                                    Jurusan
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    value={jurusan}
+                                    onChange={(e) => setJurusan(e.target.value)}
+                                    placeholder="Enter Nama Jurusan"
+                                  />
+                                </div>
+                                {errors.jurusan && (
+                                  <div className="alert alert-danger">
+                                    {errors.jurusan[0]}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-md-12">
+                                <div className="mb-3">
+                                  <label className="form-label fw-bold">
+                                    Alamat Universitas
+                                  </label>
+                                  <textarea
+                                    type="text"
+                                    className="form-control"
+                                    value={alamatuniv}
+                                    onChange={(e) =>
+                                      setAlamatuniv(e.target.value)
+                                    }
+                                    placeholder="Enter Alamat Universitas"
+                                    rows="4" // Set the number of visible text lines
+                                    cols="50"
+                                  />
+                                </div>
+                                {errors.alamat_univ && (
+                                  <div className="alert alert-danger">
+                                    {errors.alamat_univ[0]}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-md-12">
+                                <div className="mb-3">
+                                  <label className="form-label fw-bold">
+                                    Upload Surat Aktif Kuliah pdf dan maksimal
+                                    2MB
+                                  </label>
+                                  <input
+                                    type="file"
+                                    className="form-control"
+                                    onChange={handleFileAktifKuliah}
+                                  />
+                                </div>
+                                {errors.imageaktifkampus && (
+                                  <div className="alert alert-danger">
+                                    {errors.imageaktifkampus[0]}
+                                  </div>
+                                )}
+                              </div>
+                              <div className="col-md-12">
+                                <div className="mb-3">
+                                  <label className="form-label fw-bold">
+                                    Upload Surat Pernyataan Bermaterai pdf dan
+                                    maksimal 2MB{" "}
+                                    <a
+                                      href="https://cdkbeasiswa.sidoarjokab.go.id/storage/imageakrekampus/Rji0wic3IBBCoTxrZo0OUYv2J8DMuac0hlrjNrJm.pdf"
+                                      download
+                                      target="_blank"
+                                    >
+                                      (Contoh Surat Pernyataan)
+                                    </a>
+                                  </label>
+                                  <input
+                                    type="file"
+                                    className="form-control"
+                                    onChange={handleFileSuratPernyataan}
+                                  />
+                                </div>
+                                {errors.imagesuratpernyataan && (
+                                  <div className="alert alert-danger">
+                                    {errors.imagesuratpernyataan[0]}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                            <div className="col-md-12">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Upload Akredetasi Dari Universitas/Kampus pdf
+                                  dan maksimal 2MB
+                                </label>
+                                <input
+                                  type="file"
+                                  className="form-control"
+                                  onChange={handleFileAkre}
+                                />
+                              </div>
+                              {errors.imageakrekampus && (
+                                <div className="alert alert-danger">
+                                  {errors.imageakrekampus[0]}
+                                </div>
+                              )}
+                            </div>
+                            <div className="col-md-12">
+                              <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                  Pilih Universitas Dalam Negeri / Luar Negeri
+                                </label>
+                                <select
+                                  className="form-select"
+                                  value={pilihuniversitas}
+                                  onChange={handleshowhidePilih}
+                                >
+                                  <option value="">
+                                    -- Pilih Universitas Dalam Negeri / Luar
+                                    Negeri --
+                                  </option>
+                                  <option value="Dalam">Dalam Negeri</option>
+                                  <option value="Luar">Luar Negeri</option>
+                                </select>
+                              </div>
+                              {errors.pilih_universitas && (
+                                <div className="alert alert-danger">
+                                  {errors.pilih_universitas[0]}
+                                </div>
+                              )}
+                            </div>
+                            {pilihuniversitas === "Dalam" && (
+                              <>
+                                <div className="col-md-12">
+                                  <div className="mb-3">
+                                    <label className="form-label fw-bold">
+                                      Upload Surat Tidak Menerima Beasiswa Lain
+                                      dan maksimal 2MB
+                                    </label>
+                                    <input
+                                      type="file"
+                                      className="form-control"
+                                      onChange={handleFileSuratBeasiswa}
+                                    />
+                                  </div>
+                                  {errors.imagesuratbeasiswa && (
+                                    <div className="alert alert-danger">
+                                      {errors.imagesuratbeasiswa[0]}
+                                    </div>
+                                  )}
+                                </div>
 
-                              <div className="col-md-12">
-                                <div className="mb-3">
-                                  <label className="form-label fw-bold">
-                                    Pilih Sidoarjo atau Luar Sidoarjo
-                                  </label>
-                                  <select
-                                    className="form-select"
-                                    value={jeniskota}
-                                    onChange={handleshowKota}
-                                  >
-                                    <option value="">
-                                      -- Pilih Sidoarjo atau Luar Sidoarjo --
-                                    </option>
-                                    <option value="sidoarjo">Sidoarjo</option>
-                                    <option value="luar">Luar Sidoarjo</option>
-                                  </select>
-                                </div>
-                                {errors.jenis_universitas && (
-                                  <div className="alert alert-danger">
-                                    {errors.jenis_universitas[0]}
+                                <div className="col-md-12">
+                                  <div className="mb-3">
+                                    <label className="form-label fw-bold">
+                                      Pilih Sidoarjo atau Luar Sidoarjo
+                                    </label>
+                                    <select
+                                      className="form-select"
+                                      value={jeniskota}
+                                      onChange={handleshowKota}
+                                    >
+                                      <option value="">
+                                        -- Pilih Sidoarjo atau Luar Sidoarjo --
+                                      </option>
+                                      <option value="sidoarjo">Sidoarjo</option>
+                                      <option value="luar">
+                                        Luar Sidoarjo
+                                      </option>
+                                    </select>
                                   </div>
-                                )}
-                              </div>
-                              <div className="col-md-12">
-                                <div className="mb-3">
-                                  <label className="form-label fw-bold">
-                                    Pilih Universitas Negeri / Swasta
-                                  </label>
-                                  <select
-                                    className="form-select"
-                                    value={jenisuniversitas}
-                                    onChange={handleshowhideJenis}
-                                  >
-                                    <option value="">
-                                      -- Pilih Universitas PTN / PTS --
-                                    </option>
-                                    <option value="Negeri">
-                                      PTN (Perguruan Tinggi Negeri)
-                                    </option>
-                                    <option value="Swasta">
-                                      PTS (Perguruan Tinggi Swasta)
-                                    </option>
-                                  </select>
+                                  {errors.jenis_universitas && (
+                                    <div className="alert alert-danger">
+                                      {errors.jenis_universitas[0]}
+                                    </div>
+                                  )}
                                 </div>
-                                {errors.jenis_universitas && (
-                                  <div className="alert alert-danger">
-                                    {errors.jenis_universitas[0]}
+                                <div className="col-md-12">
+                                  <div className="mb-3">
+                                    <label className="form-label fw-bold">
+                                      Pilih Universitas Negeri / Swasta
+                                    </label>
+                                    <select
+                                      className="form-select"
+                                      value={jenisuniversitas}
+                                      onChange={handleshowhideJenis}
+                                    >
+                                      <option value="">
+                                        -- Pilih Universitas PTN / PTS --
+                                      </option>
+                                      <option value="Negeri">
+                                        PTN (Perguruan Tinggi Negeri)
+                                      </option>
+                                      <option value="Swasta">
+                                        PTS (Perguruan Tinggi Swasta)
+                                      </option>
+                                    </select>
                                   </div>
-                                )}
-                              </div>
-                            </>
-                          )}
-                          <div className="d-flex justify-content-center">
-                            <button
-                              type="submit"
-                              className="btn btn-md btn-primary me-2"
-                              disabled={isLoading}
-                            >
-                              {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                            </button>
-                            <button
-                              type="reset"
-                              className="btn btn-md btn-warning"
-                            >
-                              <i className="fa fa-redo"></i> Reset
-                            </button>
-                          </div>
-                        </form>
+                                  {errors.jenis_universitas && (
+                                    <div className="alert alert-danger">
+                                      {errors.jenis_universitas[0]}
+                                    </div>
+                                  )}
+                                </div>
+                              </>
+                            )}
+                            <div className="d-flex justify-content-center">
+                              <button
+                                type="submit"
+                                className="btn btn-md btn-primary me-2"
+                                disabled={isLoading}
+                              >
+                                {isLoading ? "LOADING..." : "SIMPAN"}{" "}
+                              </button>
+                              <button
+                                type="reset"
+                                className="btn btn-md btn-warning"
+                              >
+                                <i className="fa fa-redo"></i> Reset
+                              </button>
+                            </div>
+                          </form>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ) : (
-                <div className="alert alert-danger" role="alert">
-                  Anda Sudah Menyelesaikan tahap Input Data Mahasiswa di
-                  Beasiswa Silahkan Ke Menu Kategori Beasiswa Untuk Memilih
-                  SALAH SATU DARI BEBERAPA BEASISWA Kab.Sidoarjo
-                </div>
-              )}
-            </>
+                ) : (
+                  <div className="alert alert-danger" role="alert">
+                    Anda Sudah Menyelesaikan tahap Input Data Mahasiswa di
+                    Beasiswa Silahkan Ke Menu Kategori Beasiswa Untuk Memilih
+                    SALAH SATU DARI BEBERAPA BEASISWA Kab.Sidoarjo
+                  </div>
+                )}
+              </>
+            )
           )}
 
           {hasAnyPermission(["dispenduk.index"]) && (
@@ -707,7 +734,7 @@ export default function Dashboard() {
             <div className="row">
               <div className="col-xl-3 col-md-6">
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
-                <div className="card-header d-flex bg-danger align-items-center justify-content-between">
+                  <div className="card-header d-flex bg-danger align-items-center justify-content-between">
                     AKADEMIK
                   </div>
                   <div className="card-body">
