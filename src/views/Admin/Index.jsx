@@ -538,8 +538,8 @@ export default function Dashboard() {
                           <div className="col-md-12">
                             <div className="mb-3">
                               <label className="form-label fw-bold">
-                                Upload Akredetasi Dari Universitas/Kampus pdf dan
-                                maksimal 2MB
+                                Upload Akredetasi Dari Universitas/Kampus pdf
+                                dan maksimal 2MB
                               </label>
                               <input
                                 type="file"
@@ -710,9 +710,11 @@ export default function Dashboard() {
                   <div className="card-body">
                     <strong>{akademiks}</strong> Akademik
                     <hr />
-                    <strong>{dashboard.jumlahSudahVerifAkademik}</strong> Sudah Di Verif
+                    <strong>{dashboard.jumlahSudahVerifAkademik}</strong> Sudah
+                    Di Verif
                     <hr />
-                    <strong>{dashboard.jumlahSudahVerifNikAkademik}</strong> NIK Yang Sudah Di Verif
+                    <strong>{dashboard.jumlahSudahVerifNikAkademik}</strong> NIK
+                    Yang Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -732,9 +734,15 @@ export default function Dashboard() {
                   <div className="card-body">
                     <strong>{nonAkademiks}</strong> Non Akademik
                     <hr />
-                    <strong>{dashboard.jumlahSudahVerifNonAkademik}</strong> Sudah Di Verif
+                    <strong>
+                      {dashboard.jumlahSudahVerifNonAkademik}
+                    </strong>{" "}
+                    Sudah Di Verif
                     <hr />
-                    <strong>{dashboard.jumlahSudahVerifNikNonAkademik}</strong> NIK Yang Sudah Di Verif
+                    <strong>
+                      {dashboard.jumlahSudahVerifNikNonAkademik}
+                    </strong>{" "}
+                    NIK Yang Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -751,39 +759,19 @@ export default function Dashboard() {
               </div>
               <div className="col-xl-3 col-md-6">
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
-                  <div className="card-body">
-                    <strong>{luarNegeris}</strong> Luar Negeri
-                    <hr />
-                    <strong>{dashboard.jumlahSudahVerifLuarNegeri}</strong> Sudah Di Verif
-                    <hr />
-                    <strong>{dashboard.jumlahSudahVerifNikLuarNegeri}</strong> NIK Yang Sudah Di Verif
+                <div className="card-header d-flex bg-danger align-items-center justify-content-between">
+                    LUAR NEGERI
                   </div>
-                  <div className="card-footer d-flex align-items-center justify-content-between">
-                    <Link
-                      className="small text-white stretched-link"
-                      to="/admin/users"
-                    >
-                      View Details
-                    </Link>
-                    <div className="small text-white">
-                      <i className="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {hasAnyPermission(["dashboard.index"]) && (
-            <div className="row">
-              <div className="col-xl-3 col-md-6">
-                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
                   <div className="card-body">
-                    <strong>{dinsoses}</strong> Dinsos
+                    <strong>{luarNegeris}</strong> Pendaftar
                     <hr />
-                    <strong>{dashboard.jumlahSudahVerifDinsos}</strong> Sudah Di Verif
+                    <strong>{dashboard.jumlahSudahVerifLuarNegeri}</strong>{" "}
+                    Sudah Di Verif
                     <hr />
-                    <strong>{dashboard.jumlahSudahVerifNikDinsos}</strong> NIK Yang Sudah Di Verif
+                    <strong>
+                      {dashboard.jumlahSudahVerifNikLuarNegeri}
+                    </strong>{" "}
+                    NIK Yang Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -805,12 +793,49 @@ export default function Dashboard() {
             <div className="row">
               <div className="col-xl-3 col-md-6">
                 <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-header d-flex bg-danger align-items-center justify-content-between">
+                    DINSOS
+                  </div>
                   <div className="card-body">
-                    <strong>{kesras}</strong> Kesra
+                    <strong>{dinsoses}</strong> Pendaftar
                     <hr />
-                    <strong>{dashboard.jumlahSudahVerifKesra}</strong> Sudah Di Verif
+                    <strong>{dashboard.jumlahSudahVerifDinsos}</strong> Sudah Di
+                    Verif
                     <hr />
-                    <strong>{dashboard.jumlahSudahVerifNikKesra}</strong> NIK Yang Sudah Di Verif
+                    <strong>{dashboard.jumlahSudahVerifNikDinsos}</strong> NIK
+                    Yang Sudah Di Verif
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-between">
+                    <Link
+                      className="small text-white stretched-link"
+                      to="/admin/users"
+                    >
+                      View Details
+                    </Link>
+                    <div className="small text-white">
+                      <i className="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {hasAnyPermission(["dashboard.index"]) && (
+            <div className="row">
+              <div className="col-xl-3 col-md-6">
+                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+                  <div className="card-header d-flex bg-danger align-items-center justify-content-between">
+                    KESRA
+                  </div>
+                  <div className="card-body">
+                    <strong>{kesras}</strong> Pendaftar
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifKesra}</strong> Sudah Di
+                    Verif
+                    <hr />
+                    <strong>{dashboard.jumlahSudahVerifNikKesra}</strong> NIK
+                    Yang Sudah Di Verif
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-between">
                     <Link
@@ -829,7 +854,6 @@ export default function Dashboard() {
           )}
 
           {/* KUSUS ADMIN */}
-        
         </div>
       </main>
     </LayoutAdmin>

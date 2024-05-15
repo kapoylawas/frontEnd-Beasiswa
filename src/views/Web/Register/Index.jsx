@@ -287,7 +287,7 @@ export default function Register() {
                     Register Beasiswa
                   </h4>
                   <div className="alert alert-danger" role="alert">
-                     <b>PENDAFTARAN SAMPAI TANGGAL 16-MEI-2024</b>
+                     <b>PENDAFTARAN SAMPAI TANGGAL 15-MEI-2024</b>
                   </div>
                   <hr />
                   <form onSubmit={storeRegister}>
