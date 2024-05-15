@@ -313,7 +313,7 @@ export default function AdminDinsos() {
                       type="text"
                       className="form-control border-0 shadow-sm"
                       onChange={(e) => searchDataNoDtks(e)}
-                      placeholder="Masukkan NIK Peserta Dinsos Yang Tidak Memiliki Surat DTKS"
+                      placeholder="Masukkan NIK Peserta Dinsos Yang Menggunakan Surat Keterangan Tidak Mampu (SKTM)"
                     />
                     <span className="input-group-text border-0 shadow-sm">
                       <i className="fa fa-search"></i>
