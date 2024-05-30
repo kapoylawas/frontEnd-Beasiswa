@@ -123,15 +123,12 @@ export default function AdminNonAkademik() {
                       onChange={handleselectTipeVerif}
                     >
                       <option value="">-- Pilih Tipe Verif --</option>
-                      <option value="null">Belum Verif</option>
+                      <option value="belum">Belum Verif</option>
                       <option value="lolos">Lolos</option>
                       <option value="tidak">Tidak</option>
                     </select>
                   </div>
                 </div>
-                {/* <div className="col-md-3 col-12 mb-2">
-                  
-                </div> */}
               </div>
             </div>
           </div>

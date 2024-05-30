@@ -22,6 +22,13 @@ export default function AdminAkademik() {
   //define state "keywords"
   const [keywords, setKeywords] = useState("");
 
+  const [selectTipeVerif, setSelectTipeVerif] = useState("");
+
+  const handleselectTipeVerif = (event) => {
+    const getType = event.target.value;
+    setSelectTipeVerif(getType);
+  };
+
   //define state "pagination"
   const [pagination, setPagination] = useState({
     currentPage: 0,
@@ -36,7 +43,7 @@ export default function AdminAkademik() {
     //define variable "page"
     const page = pageNumber ? pageNumber : pagination.currentPage;
     await Api.get(
-      `/api/admin/beasiswa/akademiks?search=${keywords}&page=${page}`,
+      `/api/admin/beasiswa/akademiks?search=${keywords}&page=${page}&jenis_verif=${selectTipeVerif}`,
       {
         //header
         headers: {
@@ -78,7 +85,7 @@ export default function AdminAkademik() {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, []);
+  }, [selectTipeVerif]);
 
   //function "searchData"
   const searchData = async (e) => {
@@ -94,9 +101,9 @@ export default function AdminAkademik() {
       <main>
         <div className="container-fluid px-4 mb-4 mt-4">
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-12">
               <div className="row">
-                <div className="col-md-9 col-12 mb-2">
+                <div className="col-md-5 col-12 mb-2">
                   <div className="input-group">
                     <input
                       type="text"
@@ -107,6 +114,20 @@ export default function AdminAkademik() {
                     <span className="input-group-text border-0 shadow-sm">
                       <i className="fa fa-search"></i>
                     </span>
+                  </div>
+                </div>
+                <div className="col-md-5 mb-2">
+                  <div className="input-group">
+                    <select
+                      className="form-select"
+                      value={selectTipeVerif}
+                      onChange={handleselectTipeVerif}
+                    >
+                      <option value="">-- Pilih Tipe Verif --</option>
+                      <option value="belum">Belum Verif</option>
+                      <option value="lolos">Lolos</option>
+                      <option value="tidak">Tidak</option>
+                    </select>
                   </div>
                 </div>
               </div>
