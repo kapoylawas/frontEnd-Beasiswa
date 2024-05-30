@@ -149,8 +149,8 @@ export default function AdminAkademik() {
                                 akademiks.map((akademik, index) => (
                                   <tr
                                     className={`verif-${
-                                      akademik.user.jenis_verif === null
-                                        ? "null"
+                                      akademik.user.jenis_verif === "belum"
+                                        ? "belum"
                                         : akademik.user.jenis_verif
                                     }`}
                                     key={index}
@@ -199,7 +199,8 @@ export default function AdminAkademik() {
                                           </button>
                                         </p>
                                       )}
-                                      {akademik.user.jenis_verif === null && (
+                                      {akademik.user.jenis_verif ===
+                                        "belum" && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
                                             Belum verifikasi

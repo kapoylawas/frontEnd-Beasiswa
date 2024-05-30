@@ -152,8 +152,8 @@ export default function AdminLuarNegeri() {
                                 luarNegeris.map((luarNegeri, index) => (
                                   <tr
                                     className={`verif-${
-                                      luarNegeri.user.jenis_verif === null
-                                        ? "null"
+                                      luarNegeri.user.jenis_verif === 'belum'
+                                        ? "belum"
                                         : luarNegeri.user.jenis_verif
                                     }`}
                                     key={index}
@@ -202,7 +202,7 @@ export default function AdminLuarNegeri() {
                                           </button>
                                         </p>
                                       )}
-                                      {luarNegeri.user.jenis_verif === null && (
+                                      {luarNegeri.user.jenis_verif === 'belum' && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
                                             Belum verifikasi

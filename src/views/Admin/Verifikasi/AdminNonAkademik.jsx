@@ -21,6 +21,13 @@ export default function AdminNonAkademik() {
   //define state "keywords"
   const [keywords, setKeywords] = useState("");
 
+  const [selectTipeVerif, setSelectTipeVerif] = useState("");
+
+  const handleselectTipeVerif = (event) => {
+    const getType = event.target.value;
+    setSelectTipeVerif(getType);
+  };
+
   //define state "pagination"
   const [pagination, setPagination] = useState({
     currentPage: 0,
@@ -35,7 +42,7 @@ export default function AdminNonAkademik() {
     //define variable "page"
     const page = pageNumber ? pageNumber : pagination.currentPage;
     await Api.get(
-      `/api/admin/beasiswa/nonAkademiks?search=${keywords}&page=${page}`,
+      `/api/admin/beasiswa/nonAkademiks?search=${keywords}&page=${page}&jenis_verif=${selectTipeVerif}`,
       {
         //header
         headers: {
@@ -77,7 +84,7 @@ export default function AdminNonAkademik() {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, []);
+  }, [selectTipeVerif]);
 
   //function "searchData"
   const searchData = async (e) => {
@@ -93,9 +100,9 @@ export default function AdminNonAkademik() {
       <main>
         <div className="container-fluid px-4 mb-4 mt-4">
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-12">
               <div className="row">
-                <div className="col-md-9 col-12 mb-2">
+                <div className="col-md-5 mb-2">
                   <div className="input-group">
                     <input
                       type="text"
@@ -108,6 +115,23 @@ export default function AdminNonAkademik() {
                     </span>
                   </div>
                 </div>
+                <div className="col-md-5 mb-2">
+                  <div className="input-group">
+                    <select
+                      className="form-select"
+                      value={selectTipeVerif}
+                      onChange={handleselectTipeVerif}
+                    >
+                      <option value="">-- Pilih Tipe Verif --</option>
+                      <option value="null">Belum Verif</option>
+                      <option value="lolos">Lolos</option>
+                      <option value="tidak">Tidak</option>
+                    </select>
+                  </div>
+                </div>
+                {/* <div className="col-md-3 col-12 mb-2">
+                  
+                </div> */}
               </div>
             </div>
           </div>
@@ -148,8 +172,8 @@ export default function AdminNonAkademik() {
                                 nonAkademiks.map((nonAkademik, index) => (
                                   <tr
                                     className={`verif-${
-                                      nonAkademik.user.jenis_verif === null
-                                        ? "null"
+                                      nonAkademik.user.jenis_verif === 'belum'
+                                        ? "belum"
                                         : nonAkademik.user.jenis_verif
                                     }`}
                                     key={index}
@@ -199,7 +223,7 @@ export default function AdminNonAkademik() {
                                         </p>
                                       )}
                                       {nonAkademik.user.jenis_verif ===
-                                        null && (
+                                        'belum' && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
                                             Belum verifikasi

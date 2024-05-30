@@ -22,6 +22,13 @@ export default function AdminDispendukNonAkademik() {
   //define state "keywords"
   const [keywords, setKeywords] = useState("");
 
+  const [selectTipeVerif, setSelectTipeVerif] = useState("");
+
+  const handleselectTipeVerif = (event) => {
+    const getType = event.target.value;
+    setSelectTipeVerif(getType);
+  };
+
   //define state "pagination"
   const [pagination, setPagination] = useState({
     currentPage: 0,
@@ -70,13 +77,13 @@ export default function AdminDispendukNonAkademik() {
       // This code should not explicitly disable caching
 
       // Optionally, you can provide a confirmation message
-      event.returnValue = 'Are you sure you want to leave this page?';
+      event.returnValue = "Are you sure you want to leave this page?";
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
@@ -108,6 +115,18 @@ export default function AdminDispendukNonAkademik() {
                       <i className="fa fa-search"></i>
                     </span>
                   </div>
+                </div>
+                <div className="col-md-3 col-12 mb-2">
+                  <label className="form-label fw-bold">Jenis Kelamin</label>
+                  <select
+                    className="form-select"
+                    value={selectTipeVerif}
+                    onChange={handleselectTipeVerif}
+                  >
+                    <option value="">-- Pilih Tipe Verif --</option>
+                    <option value="lolos">Lolos</option>
+                    <option value="tidak">Tidak</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -142,7 +161,7 @@ export default function AdminDispendukNonAkademik() {
                         </div>
                       ) : (
                         <>
-                         <tbody>
+                          <tbody>
                             {
                               //cek apakah data ada
                               users.length > 0 ? (
@@ -166,25 +185,23 @@ export default function AdminDispendukNonAkademik() {
                                     <td>{user.nohp}</td>
                                     <td>{user.email}</td>
                                     <td>
-                                      {user.jenis_verif_nik ===
-                                        "tidak" && (
+                                      {user.jenis_verif_nik === "tidak" && (
                                         <p>
                                           <button className="btn btn-md btn-danger me-2">
-                                           NIK Tidak Lolos verifikasi
+                                            NIK Tidak Lolos verifikasi
                                           </button>
                                         </p>
                                       )}
                                       {user.jenis_verif_nik === null && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
-                                           NIK Belum verifikasi
+                                            NIK Belum verifikasi
                                           </button>
                                         </p>
                                       )}
-                                      {user.jenis_verif_nik ===
-                                        "lolos" && (
+                                      {user.jenis_verif_nik === "lolos" && (
                                         <button className="btn btn-md btn-success me-2">
-                                         NIK Lolos verifikasi
+                                          NIK Lolos verifikasi
                                         </button>
                                       )}
                                     </td>

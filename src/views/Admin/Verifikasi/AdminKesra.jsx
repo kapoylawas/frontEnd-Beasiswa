@@ -157,8 +157,8 @@ export default function AdminKesra() {
                                 kesras.map((kesra, index) => (
                                   <tr
                                     className={`verif-${
-                                      kesra.user.jenis_verif === null
-                                        ? "null"
+                                      kesra.user.jenis_verif === 'belum'
+                                        ? "belum"
                                         : kesra.user.jenis_verif
                                     }`}
                                     key={index}
@@ -206,7 +206,7 @@ export default function AdminKesra() {
                                           </button>
                                         </p>
                                       )}
-                                      {kesra.user.jenis_verif === null && (
+                                      {kesra.user.jenis_verif === 'belum' && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
                                             Belum verifikasi

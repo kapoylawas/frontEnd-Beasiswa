@@ -295,7 +295,9 @@ export default function AdminDinsos() {
                     currentPage={pagination.currentPage}
                     perPage={pagination.perPage}
                     total={pagination.total}
-                    onChange={(pageNumber) => fetchDataDtks(pageNumber, keywords)}
+                    onChange={(pageNumber) =>
+                      fetchDataDtks(pageNumber, keywords)
+                    }
                     position="end"
                   />
                 </div>
@@ -360,8 +362,8 @@ export default function AdminDinsos() {
                                 dinsosNoDtkses.map((dinsosNoDtks, index) => (
                                   <tr
                                     className={`verif-${
-                                      dinsosNoDtks.user.jenis_verif === null
-                                        ? "null"
+                                      dinsosNoDtks.user.jenis_verif === "belum"
+                                        ? "belum"
                                         : dinsosNoDtks.user.jenis_verif
                                     }`}
                                     key={index}
@@ -411,7 +413,7 @@ export default function AdminDinsos() {
                                         </p>
                                       )}
                                       {dinsosNoDtks.user.jenis_verif ===
-                                        null && (
+                                        "belum" && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
                                             Belum verifikasi
@@ -458,7 +460,9 @@ export default function AdminDinsos() {
                     currentPage={paginationNo.currentPage}
                     perPage={paginationNo.perPage}
                     total={paginationNo.total}
-                    onChange={(pageNumberNo) => fetchDataNoDtks(pageNumberNo, keywordsNo)}
+                    onChange={(pageNumberNo) =>
+                      fetchDataNoDtks(pageNumberNo, keywordsNo)
+                    }
                     position="end"
                   />
                 </div>
