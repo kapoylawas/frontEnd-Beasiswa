@@ -41,7 +41,6 @@ export default function Dashboard() {
 
   const [errors, setErros] = useState([]);
   const [dashboard, setDashboard] = useState("");
-  console.log(dashboard);
   const [users, setUsers] = useState(0);
   const [akademiks, setAkademiks] = useState(0);
   const [dinsoses, setDinsoses] = useState(0);
