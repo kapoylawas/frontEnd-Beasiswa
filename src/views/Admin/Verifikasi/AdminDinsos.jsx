@@ -248,7 +248,8 @@ export default function AdminDinsos() {
                                           </button>
                                         </p>
                                       )}
-                                      {dinsosDtks.user.jenis_verif === null && (
+                                      {dinsosDtks.user.jenis_verif ===
+                                        "belum" && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
                                             Belum verifikasi
