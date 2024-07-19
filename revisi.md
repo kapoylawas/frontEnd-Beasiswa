@@ -43,16 +43,42 @@ Revisi 2
 15.	Tambah menu login untuk akun DISPENDUKCAPIL
 ```
 
-## user opd
+## tipe kesra A
+
 ```json
-1996042620190310 ARDIANSYAH
-1997083020201220 YULFA HARLIAGUSTINA
-1981040620100110 ASAD RIDHADIN
+-Hafal minimal 10 (sepuluh) juz A1-Qur'an : Sertifikat / SK .
+-Pernah mengikuti kejuaraan MTQ : Sertifikat / SK .
+-Prestasi lain di bidang keagamaan : sertifikat atau surat keterangan dan/atau bentuk lain yang dipersamakan .
 
-1976031020110110
-1987082820060220
+1. hafal minimal 10 (sepuluh) juz A1-Qur'an : Sertifikat / SK 
+2. Pernah mengikuti kejuaraan MTQ : Sertifikat / SK
+3. Prestasi lain di bidang keagamaan :  sertifikat atau surat keterangan dan/atau bentuk lain yang dipersamakan
+```
 
-1983100520110120
+## tipe kesra B
 
-1987120320110120
+```json
+-Santriwan dan Santriwati yang berkuliah dan menetap di Pondok Pesantren : Surat Ket Ponpes.
+-Ustadz/ustadzah sebagai guru ngaji di TPA/TPQ/ Madin : Surat Rekomendasi Kepala TPQ atau Madrasah Diniyah .
+
+1. Santriwan dan Santriwati yang berkuliah dan menetap di Pondok Pesantren : Surat Ket Ponpes
+2. Ustadz/ustadzah sebagai guru ngaji di TPA/TPQ/ Madin : Surat Rekomendasi Kepala TPQ atau Madrasah Diniyah
+```
+
+## tipe kesra C
+
+```json
+-Jajaran pengurus harian (Ketua, Wakil Ketua, Sekretaris, Bendahara) aktifis organisasi keagamaan tingkat Kabupaten/ Kecamatan dan/ atau perguruan tinggi.
+
+1. Jajaran pengurus (Ketua, Wakil Ketua, Sekretaris, Bendahara) aktifis organisasi keagamaan tingkat Kabupaten/Kecamatan dan/atau perguruan tinggi
+
+```
+
+# tipe kesra D
+
+```json
+-(Khusus Non Muslim) tercatat sebagai pengurus/aktifis atau mempunyai piagam kejuaraan bidang keagamaan.
+
+1. Piagam kejuaraan keagamaan
+2. Pengurus atau Aktifis Keagamaan
 ```
