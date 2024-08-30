@@ -68,7 +68,7 @@ export default function Home() {
                   </div> */}
                   <div className="col-md-12">
                     <div className="card rounded">
-                      <div className="text-center">File KTP</div>
+                      <div className="text-center">30 Aug 2024</div>
                       <iframe
                         src='https://adminweb.sidoarjokab.go.id/upload/files/1724983712-Pengumuman%20Beasiswa.pdf'
                         title="Embedded Content"
