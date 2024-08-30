@@ -20,10 +20,13 @@ export default function Home() {
           <div className="col-md-12 mt-3 mb-4">
             <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
               <div className="card-body mt-2">
-                <h4 className="font-weight-bold text-dark">Persyaratan</h4>
+                <h4 className="font-weight-bold text-dark">
+                  Penguman Penerima Beasiswa Pendidikan Tinggi Di Kabupaten
+                  Sidoarjo Tahun Anggaran 2024
+                </h4>
                 <hr />
                 <h6>
-                  <div className="list-group my-3">
+                  {/* <div className="list-group my-3">
                     <ul className="list-group">
                       <li className="list-group-item">
                         <span
@@ -62,6 +65,18 @@ export default function Home() {
                         </span>
                       </li>
                     </ul>
+                  </div> */}
+                  <div className="col-md-12">
+                    <div className="card rounded">
+                      <div className="text-center">File KTP</div>
+                      <iframe
+                        src='https://adminweb.sidoarjokab.go.id/upload/files/1724983712-Pengumuman%20Beasiswa.pdf'
+                        title="Embedded Content"
+                        className="embed-responsive-item"
+                        height="700"
+                        allowFullScreen
+                      />
+                    </div>
                   </div>
                 </h6>
               </div>
