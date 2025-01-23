@@ -14,7 +14,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-md navbar-light navbar-top d-none d-md-block d-lg-block">
+      {/* <nav className="navbar navbar-expand-md navbar-light navbar-top d-none d-md-block d-lg-block">
         <div className="container">
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
@@ -36,81 +36,9 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
-      <div className="jumbotron-header pb-3">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-9 d-none d-md-block d-lg-block">
-              <div className="header-logo">
-                <a href="#">
-                  <img
-                    src="/images/sidoarjo-logo.png"
-                    width="110"
-                    className="img-responsive"
-                    alt="Logo Pendaftaran Beasiswa"
-                  />
-                </a>
-              </div>
-              <div className="header-text">
-                <h5 className="header-school">
-                  BEASISWA Pendidikan Bagi Masyarakat Sidoarjo
-                </h5>
-                <hr />
-                <div className="header-address">
-                  <h5>Tahun 2024</h5>
-                </div>
-              </div>
-            </div>
-
-            <div className="row d-block d-md-none d-lg-none">
-              <div className="col-md-6 text-center mt-3">
-                <a href="#">
-                  <img
-                    src="/images/sidoarjo-logo.png"
-                    width="110"
-                    className="img-responsive"
-                  />
-                </a>
-              </div>
-              <div className="col-md-12 text-center text-white mb-3">
-                <h2 className="header-school">BEASISWA</h2>
-                <hr />
-                <div className="header-address">
-                  Jln. Diponegoro No. 58, Sidoarjo, Sidoarjo, Jawa Timur, 61225
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-3">
-              <div
-                className="d-none d-md-block d-lg-block"
-                style={{ marginTop: "60px" }}
-              ></div>
-              <form className="d-flex" action="#" method="GET">
-                <input
-                  className="form-control border-0 me-2"
-                  type="search"
-                  name="q"
-                  placeholder="cari sesuatu..."
-                  aria-label="Search"
-                />
-                <button
-                  className="btn btn-primary-dark"
-                  type="submit"
-                  style={{
-                    backgroundColor: "#005005",
-                    borderColor: "#005005",
-                    color: "white",
-                  }}
-                >
-                  CARI
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <nav className="navbar navbar-expand-md navbar-light navbar-blue nav-web">
         <div className="container">
           <button
@@ -139,7 +67,7 @@ export default function Navbar() {
                 </Link>
               </li>
 
-              <li className="nav-item ms-2">
+              {/* <li className="nav-item ms-2">
                 <Link
                   className={
                     activeRoute[1] === "info"
@@ -150,7 +78,7 @@ export default function Navbar() {
                 >
                   <i className="fa fa-info-circle"></i> INFO BEASISWA
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item ms-2">
                 <Link
                   className={

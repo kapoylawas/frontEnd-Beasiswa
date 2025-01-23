@@ -73,11 +73,11 @@ export default function Login() {
       <div
         className="row d-flex align-items-center justify-content-center"
         style={{
-          marginTop: "50px",
+          marginTop: "60px",
         }}
       >
-        <div className="col-md-7">
-          <div className="text-center mt-2 mb-3">
+        <div className="col-md-6 mt-5">
+          <div className="text-center mt-5">
             <img
               src={"/images/sidoarjo-logo.png"}
               width={"100"}

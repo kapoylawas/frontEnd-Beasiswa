@@ -17,7 +17,7 @@ export default function Dashboard() {
   //navigata
   const navigate = useNavigate();
 
-  const maintenance = true;
+  const maintenance = false;
 
   const [nim, setNim] = useState("");
   const [ktm, setKtm] = useState("");
@@ -320,7 +320,7 @@ export default function Dashboard() {
 
     // Lakukan validasi di sini sebelum mengirim form
     if (pilihuniversitas === "Dalam" && !imagesuratbeasiswa) {
-      alert("Mohon Upload Surat Tidak Menerima Beasiswa Lain dan maksimal 2MB");
+      toast.error("Mohon Upload Surat Tidak Menerima Beasiswa Lain dan maksimal 2MB");
       return;
     }
 
@@ -340,30 +340,26 @@ export default function Dashboard() {
     formData.append("jenis_universitas", jenisuniversitas);
     formData.append("_method", "PUT");
 
-    await Api.post(`/api/users/${usersbyid}`, formData, {
-      //header
-      headers: {
-        //header
-        "content-type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        setLoading(false);
-        //show toast
-        toast.success(response.data.message, {
-          position: "top-right",
-          duration: 4000,
-        });
-
-        //redirect
-        navigate("/admin/mahasiswa");
-      })
-      .catch((error) => {
-        //set error message to state "errors"
-        setLoading(false);
-        setErros(error.response.data);
-      });
+    toast.promise(
+      Api.post(`/api/users/${usersbyid}`, formData, {
+        // Header
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      }),
+      {
+        loading: 'Saving...',
+        success: (response) => {
+          navigate("/login");
+          return <b>Submit Telah Berhasil!</b>;
+        },
+        error: (error) => {
+          setLoading(false);
+          setErros(error.response.data);
+          return <b>Lengkapi Data Anda!!</b>;
+        },
+      }
+    );
   };
 
   return (

@@ -10,7 +10,7 @@ import Logo from "../../../../public/images/lock.svg";
 export default function Register() {
   document.title = "Register - Beasiswa Sidoarjo";
 
-  const maintenance = true;
+  const maintenance = false;
 
   //navigata
   const navigate = useNavigate();
@@ -221,10 +221,11 @@ export default function Register() {
   const storeRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
-    //define formData
+
+    // Define formData
     const formData = new FormData();
 
-    //append data to "formData"
+    // Append data to "formData"
     formData.append("nik", nik);
     formData.append("nokk", nokk);
     formData.append("name", name);
@@ -241,31 +242,33 @@ export default function Register() {
     formData.append("imagekk", kk);
     formData.append("password", password);
     formData.append("password_confirmation", passwordConfirmation);
-    // formData.append("roles", roles);
 
-    //sending data
-    await Api.post("/api/users", formData, {
-      //header
-      headers: {
-        //header
-        "content-type": "multipart/form-data",
-      },
-    })
-      .then((response) => {
-        //show toast
-        toast.success(response.data.message, {
-          position: "top-right",
-          duration: 4000,
-        });
-
-        //redirect
-        navigate("/login");
-      })
-      .catch((error) => {
-        //set error message to state "errors"
-        setLoading(false);
-        setErros(error.response.data);
-      });
+    // Sending data with toast promise
+    toast.promise(
+      Api.post("/api/users", formData, {
+        // Header
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      }),
+      {
+        loading: 'Saving...',
+        success: (response) => {
+          console.log(response);
+          navigate("/login");
+          // Tampilkan pesan sukses
+          toast.success(response.data.message, {
+            duration: 20000, // Set durasi
+          });
+          return <b>Data Berhasil Disimpan</b> // Pastikan ini string
+        },
+        error: (error) => {
+          setLoading(false);
+          setErros(error.response.data);
+          return <b>Lengkapi Data Anda!!</b>;
+        },
+      }
+    );
   };
 
   return (
@@ -275,7 +278,7 @@ export default function Register() {
           <div className="col-md-12 mt-3 mb-4">
             {maintenance ? (
               <>
-                <div className="col-md-12 mt-5 mb-4">
+                <div className="col-md-12 mt-5">
                   <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
                     <div className="card-body mt-2">
                       <h4 className="font-weight-bold text-dark">
@@ -297,9 +300,6 @@ export default function Register() {
                   <h4 className="font-weight-bold text-dark">
                     Register Beasiswa
                   </h4>
-                  <div className="alert alert-danger" role="alert">
-                     <b>PENDAFTARAN SAMPAI TANGGAL 15-MEI-2024 AKAN TUTUP OTOMATIS PADA PUKUL 00:00</b>
-                  </div>
                   <hr />
                   <form onSubmit={storeRegister}>
                     <div className="row">
