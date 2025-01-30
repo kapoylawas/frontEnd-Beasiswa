@@ -38,7 +38,7 @@ export default function Navbar() {
         </div>
       </nav> */}
 
-      
+
       <nav className="navbar navbar-expand-md navbar-light navbar-blue nav-web">
         <div className="container">
           <button
@@ -63,7 +63,7 @@ export default function Navbar() {
                   }
                   to="/"
                 >
-                  <i className="fa fa-home"></i> BERANDA
+                  <i className="fa fa-home"></i> Home
                 </Link>
               </li>
 
@@ -88,7 +88,7 @@ export default function Navbar() {
                   }
                   to="/registers"
                 >
-                  <i className="fa fa-circle-user"></i> REGISTER
+                  <i className="fa fa-circle-user"></i> PENDAFTARAN
                 </Link>
               </li>
               <li className="nav-item ms-2">

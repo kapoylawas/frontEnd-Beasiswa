@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Api from "../../../services/Api";
 import Logo from "../../../../public/images/lock.svg";
+//import react select
+import Select from "react-select";
 
 export default function Register() {
   document.title = "Register - Beasiswa Sidoarjo";
@@ -37,8 +39,13 @@ export default function Register() {
   const [selectedKecamatan, setSelectedKecamatan] = useState("");
   const [selectedKelurahan, setSelectedKelurahan] = useState("");
 
+  console.log(kecamatanList);
+
+
 
   const [tanggalBatas, setTanggalBatas] = useState();
+
+
 
   useEffect(() => {
     //fetch api
@@ -48,35 +55,36 @@ export default function Register() {
     });
   }, []);
 
-  //hook useEffect
+  // get data kecamatan
   useEffect(() => {
-    //fetch api
     Api.get("/api/kecamatan/all", {}).then((response) => {
-      //set data
-      setKecamatanList(response.data.data);
+      const formattedKecamatan = response.data.data.map(kecamatan => ({
+        value: kecamatan.id,
+        label: kecamatan.name
+      }));
+      setKecamatanList(formattedKecamatan);
     });
   }, []);
 
-  useEffect(() => {
-    //   //fetch api
-    Api.get(`/api/kelurahan/byid?kecamatan_id=${selectedKecamatan}`).then(
-      (response) => {
-        //set data
-        setKelurahanList(response.data.data);
-      }
-    );
-  }, [selectedKecamatan]);
-
-  const handleKecamatanChange = (e) => {
-    setSelectedKecamatan(e.target.value);
+  const handleKecamatanChange = (selectedOption) => {
+    setSelectedKecamatan(selectedOption.value);
     setSelectedKelurahan(""); // Reset selected kelurahan when kecamatan changes
   };
 
-  const handleKelurahanChange = (e) => {
-    setSelectedKelurahan(e.target.value);
-  };
+  // hook data kelurahan by id kecamatan
+  useEffect(() => {
+    Api.get(`/api/kelurahan/byid?kecamatan_id=${selectedKecamatan}`).then((response) => {
+      const formattedKelurahan = response.data.data.map(kelurahan => ({
+        value: kelurahan.id,
+        label: kelurahan.name
+      }));
+      setKelurahanList(formattedKelurahan);
+    });
+  }, [selectedKecamatan]);
 
-  const handleshowhideGender = (event) => {
+
+
+  const handleshowhideGender = (selectedOption) => {
     const getType = event.target.value;
     setGender(getType);
   };
@@ -258,7 +266,7 @@ export default function Register() {
           navigate("/login");
           // Tampilkan pesan sukses
           toast.success(response.data.message, {
-            duration: 20000, // Set durasi
+            duration: 40000, // Set durasi
           });
           return <b>Data Berhasil Disimpan</b> // Pastikan ini string
         },
@@ -430,18 +438,12 @@ export default function Register() {
                           <label className="form-label fw-bold">
                             Kecamatan
                           </label>
-                          <select
-                            className="form-select"
-                            value={selectedKecamatan}
+                          <Select
+                            options={kecamatanList}
+                            value={kecamatanList.find(kecamatan => kecamatan.value === selectedKecamatan) || null}
                             onChange={handleKecamatanChange}
-                          >
-                            <option value="">-- Pilih Kecamatan --</option>
-                            {kecamatanList.map((kecamatan, index) => (
-                              <option value={kecamatan.id} key={index}>
-                                {kecamatan.name}
-                              </option>
-                            ))}
-                          </select>
+                            placeholder="Pilih Kecamatan"
+                          />
                         </div>
                         {errors.id_kecamatan && (
                           <div className="alert alert-danger">
@@ -456,18 +458,14 @@ export default function Register() {
                           <label className="form-label fw-bold">
                             Kelurahan/Desa
                           </label>
-                          <select
-                            className="form-select"
-                            value={selectedKelurahan}
-                            onChange={handleKelurahanChange}
-                          >
-                            <option value="">-- Pilih Kelurahan --</option>
-                            {kelurahanList.map((kelurahan, index) => (
-                              <option value={kelurahan.id} key={index}>
-                                {kelurahan.name}
-                              </option>
-                            ))}
-                          </select>
+                          <Select
+                            options={kelurahanList}
+                            value={kelurahanList.find(kelurahan => kelurahan.value === selectedKelurahan) || null}
+                            onChange={(selectedOption) => {
+                              setSelectedKelurahan(selectedOption.value);
+                            }}
+                            placeholder="Pilih Kelurahan"
+                          />
                         </div>
                         {errors.id_kelurahan && (
                           <div className="alert alert-danger">

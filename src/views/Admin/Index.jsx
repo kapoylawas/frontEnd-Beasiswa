@@ -42,11 +42,14 @@ export default function Dashboard() {
   const [errors, setErros] = useState([]);
   const [dashboard, setDashboard] = useState("");
   const [users, setUsers] = useState(0);
+
   const [akademiks, setAkademiks] = useState(0);
   const [dinsoses, setDinsoses] = useState(0);
   const [kesras, setKesras] = useState(0);
   const [luarNegeris, setLuarNegeris] = useState(0);
   const [nonAkademiks, setNonAkademiks] = useState(0);
+  const [terdaftars, setTerdaftars] = useState([]);
+
 
   const [usersbyid, setUsersByid] = useState("");
   const [step, setStep] = useState("");
@@ -64,6 +67,7 @@ export default function Dashboard() {
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
+
       //set data
       setDashboard(response.data.data);
       setUsers(response.data.data.users);
@@ -72,6 +76,7 @@ export default function Dashboard() {
       setKesras(response.data.data.kesras);
       setLuarNegeris(response.data.data.luarNegeris);
       setNonAkademiks(response.data.data.nonAkademiks);
+      setTerdaftars(response.data.terdaftar)
     });
   }, []);
 
@@ -368,6 +373,13 @@ export default function Dashboard() {
         <div className="container-fluid px-4 mb-4 mt-3">
           <div className="alert alert-success" role="alert">
             Selamat Datang <b>{user.name}</b>
+          </div>
+
+          <div className="alert alert-danger" role="alert">
+            Data Anda sudah menerima beasiswa sebagai berikut :
+            {terdaftars.map((terdaftar, index) => (
+              <li key={index}>{terdaftar.name}, {terdaftar.universitas}, {terdaftar.tahun}</li>
+            ))}
           </div>
 
           {maintenance ? (
