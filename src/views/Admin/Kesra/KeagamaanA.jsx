@@ -153,13 +153,6 @@ export default function KeagamanA() {
       <main>
         <div className="container-fluid mb-5 mt-5">
           <div className="col-md-3 col-12 mb-2">
-            <Link
-              to="/admin/mahasiswa"
-              className="btn btn-md btn-primary border-0 shadow w-100"
-              type="button"
-            >
-              <i className="fa-solid fa-backward"></i> Kembali
-            </Link>
           </div>
           {users === 1 ? (
             <div className="alert alert-danger" role="alert">

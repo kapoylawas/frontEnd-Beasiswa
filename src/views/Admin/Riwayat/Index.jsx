@@ -68,7 +68,7 @@ export default function RiwayatIndex() {
       jenisBeasiswa = "Luar Negeri";
       break;
     default:
-      jenisBeasiswa = "Tipe Beasiswa Tidak Diketahui";
+      jenisBeasiswa = "Anda Belum Memilih Tipe Beasiswa";
   }
 
   //hook useEffect

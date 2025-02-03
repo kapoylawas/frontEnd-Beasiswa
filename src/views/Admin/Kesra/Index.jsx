@@ -41,6 +41,15 @@ export default function KesraIndex() {
     <LayoutAdmin>
       <main>
         <div className="container-fluid mb-5 mt-5">
+          <div className="col-md-3 col-12 mb-2">
+            <Link
+              to="/admin/mahasiswa"
+              className="btn btn-md btn-primary border-0 shadow w-100"
+              type="button"
+            >
+              <i className="fa-solid fa-backward"></i> Kembali
+            </Link>
+          </div>
           <h5 className="text-center">
             PILIH SALAH SATU DARI BEBERAPA BEASISWA. Mahasiswa yang memiliki
             prestasi, baik tingkat Internasional, Nasional, Provinsi dan
@@ -62,43 +71,7 @@ export default function KesraIndex() {
                 <Loading />
               ) : (
                 <>
-                  <div className="col-md-6 mb-4">
-                    <div className="card border-0 rounded shadow-sm">
-                      <div className="card-body text-center">
-                        <img
-                          src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
-                          className="rounded"
-                          style={{ width: "60px" }}
-                          alt="Logo Pendaftaran Beasiswa"
-                        />
-                        <hr />
-                        <h6 className="text-wrap mb-3 font-weight-bold text-dark">
-                          <ol>
-                            <li>
-                              Hafal minimal 10 (sepuluh) juz A1-Qur'an :
-                              Sertifikat / SK .
-                            </li>
-                            <li>
-                              Pernah mengikuti kejuaraan MTQ : Sertifikat / SK .
-                            </li>
-                            <li>
-                              Prestasi lain di bidang keagamaan : sertifikat
-                              atau surat keterangan dan/atau bentuk lain yang
-                              dipersamakan .
-                            </li>
-                          </ol>
-                        </h6>
-                        <div className="d-grid">
-                          <Link
-                            to="/admin/kesra/a"
-                            className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
-                          >
-                            Daftar
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+
                   <div className="col-md-6 mb-4">
                     <div className="card border-0 rounded shadow-sm">
                       <div className="card-body text-center">
@@ -156,6 +129,43 @@ export default function KesraIndex() {
                         <div className="d-grid">
                           <Link
                             to="/admin/kesra/c"
+                            className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
+                          >
+                            Daftar
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-4">
+                    <div className="card border-0 rounded shadow-sm">
+                      <div className="card-body text-center">
+                        <img
+                          src="https://santrikoding.com/images/menu-icons/book-bundles.webp"
+                          className="rounded"
+                          style={{ width: "60px" }}
+                          alt="Logo Pendaftaran Beasiswa"
+                        />
+                        <hr />
+                        <h6 className="text-wrap mb-3 font-weight-bold text-dark">
+                          <ol>
+                            <li>
+                              Hafal minimal 10 (sepuluh) juz A1-Qur'an :
+                              Sertifikat / SK .
+                            </li>
+                            <li>
+                              Pernah mengikuti kejuaraan MTQ : Sertifikat / SK .
+                            </li>
+                            <li>
+                              Prestasi lain di bidang keagamaan : sertifikat
+                              atau surat keterangan dan/atau bentuk lain yang
+                              dipersamakan .
+                            </li>
+                          </ol>
+                        </h6>
+                        <div className="d-grid">
+                          <Link
+                            to="/admin/kesra/a"
                             className="btn btn-primary btn-md shadow-custom border-0 btn-block font-weight-bold"
                           >
                             Daftar
