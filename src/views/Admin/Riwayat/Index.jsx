@@ -82,6 +82,7 @@ export default function RiwayatIndex() {
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
+
       //set data
       setTipebeasiswa(response.data.data.tipe_beasiswa);
       setDataAkademik(response.data.data);
@@ -141,7 +142,9 @@ export default function RiwayatIndex() {
     <LayoutAdmin>
       <main>
         <div className="container-fluid mb-5 mt-5">
-          <p>Tipe Beasiswa: {jenisBeasiswa}</p>
+          <div className="alert alert-danger" role="alert">
+            <p>Tipe Beasiswa: {jenisBeasiswa}</p>
+          </div>
           {tipebeasiswa === 1 ? (
             <>
               <ModalFinish />

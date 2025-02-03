@@ -48,8 +48,7 @@ export default function Dashboard() {
   const [kesras, setKesras] = useState(0);
   const [luarNegeris, setLuarNegeris] = useState(0);
   const [nonAkademiks, setNonAkademiks] = useState(0);
-  const [terdaftars, setTerdaftars] = useState([]);
-
+  const [terdaftars, setTerdaftars] = useState("");
 
   const [usersbyid, setUsersByid] = useState("");
   const [step, setStep] = useState("");
@@ -98,6 +97,8 @@ export default function Dashboard() {
 
   //get data user from cookies
   const user = JSON.parse(Cookies.get("user"));
+
+  const terdaftar = JSON.parse(Cookies.get("terdaftar"));
 
   const handleFileKtm = (e) => {
     const imageData = e.target.files[0];
@@ -355,7 +356,7 @@ export default function Dashboard() {
       {
         loading: 'Saving...',
         success: (response) => {
-          navigate("/login");
+          navigate("/admin/mahasiswa");
           return <b>Submit Telah Berhasil!</b>;
         },
         error: (error) => {
@@ -372,15 +373,16 @@ export default function Dashboard() {
       <main>
         <div className="container-fluid px-4 mb-4 mt-3">
           <div className="alert alert-success" role="alert">
-            Selamat Datang <b>{user.name}</b>
+            Selamat Datang <b>{user.name}</b>, {" "}
+            <b> {terdaftar} </b>
           </div>
 
-          <div className="alert alert-danger" role="alert">
+          {/* <div className="alert alert-danger" role="alert">
             Data Anda sudah menerima beasiswa sebagai berikut :
             {terdaftars.map((terdaftar, index) => (
               <li key={index}>{terdaftar.name}, {terdaftar.universitas}, {terdaftar.tahun}</li>
             ))}
-          </div>
+          </div> */}
 
           {maintenance ? (
             <>

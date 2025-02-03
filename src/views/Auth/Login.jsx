@@ -37,11 +37,14 @@ export default function Login() {
     })
       .then((response) => {
         setLoading(false);
+
         //set token to cookies
         Cookies.set("token", response.data.token);
 
         //set user to cookies
         Cookies.set("user", JSON.stringify(response.data.user));
+
+        Cookies.set("terdaftar", JSON.stringify(response.data.metta));
 
         //set permissions to cookies
         Cookies.set("permissions", JSON.stringify(response.data.permissions));

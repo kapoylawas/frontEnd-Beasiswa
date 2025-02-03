@@ -39,13 +39,7 @@ export default function Register() {
   const [selectedKecamatan, setSelectedKecamatan] = useState("");
   const [selectedKelurahan, setSelectedKelurahan] = useState("");
 
-  console.log(kecamatanList);
-
-
-
   const [tanggalBatas, setTanggalBatas] = useState();
-
-
 
   useEffect(() => {
     //fetch api
@@ -262,7 +256,6 @@ export default function Register() {
       {
         loading: 'Saving...',
         success: (response) => {
-          console.log(response);
           navigate("/login");
           // Tampilkan pesan sukses
           toast.success(response.data.message, {
