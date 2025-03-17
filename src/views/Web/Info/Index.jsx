@@ -29,7 +29,7 @@ export default function Info() {
             <ul>
               <li>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan Kartu Keluarga (KK) dan Kartu Tanda Penduduk Elektronik (KTP-el).</li>
               <li>Terdaftar sebagai mahasiswa Perguruan Tinggi yang dibuktikan dengan surat keterangan aktif kuliah dan kartu identitas kemahasiswaan dari Perguruan Tinggi.</li>
-              <li>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun yang dibuktikan dengan surat pernyataan.</li>
+              <li>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun yang dibuktikan dengan surat pernyataan dari kampus/perguruan tinggi.</li>
             </ul>
 
             <h5 className="card-title">3. Persyaratan Khusus</h5>
