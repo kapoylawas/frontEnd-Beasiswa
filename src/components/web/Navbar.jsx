@@ -67,7 +67,7 @@ export default function Navbar() {
                 </Link>
               </li>
 
-              {/* <li className="nav-item ms-2">
+              <li className="nav-item ms-2">
                 <Link
                   className={
                     activeRoute[1] === "info"
@@ -76,9 +76,9 @@ export default function Navbar() {
                   }
                   to="/info"
                 >
-                  <i className="fa fa-info-circle"></i> INFO BEASISWA
+                  <i className="fa fa-info-circle"></i> PERSYARATAN
                 </Link>
-              </li> */}
+              </li>
               <li className="nav-item ms-2">
                 <Link
                   className={

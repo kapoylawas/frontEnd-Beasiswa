@@ -160,30 +160,28 @@ export default function Akademik() {
     // formData.append("imageketerangan", hasilAkhir);
     formData.append("imagebanpt", banpt);
 
-    await Api.post("/api/admin/akademiks", formData, {
-      //header
-      headers: {
-        //header
-        "content-type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        setLoading(false);
-        //show toast
-        toast.success(response.data.message, {
-          position: "top-right",
-          duration: 4000,
-        });
-
-        //redirect
-        navigate("/admin/mahasiswa");
-      })
-      .catch((error) => {
-        //set error message to state "errors"
-        setLoading(false);
-        setErros(error.response.data);
-      });
+    toast.promise(
+      Api.post("/api/admin/akademiks", formData, {
+        // Header
+        headers: {
+          //header
+          "content-type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      {
+        loading: 'Saving...',
+        success: (response) => {
+          navigate("/admin/mahasiswa");
+          return response.data.message;
+        },
+        error: (error) => {
+          setLoading(false);
+          setErros(error.response.data);
+          return <b>Lengkapi Data Anda!!</b>;
+        },
+      }
+    );
   };
 
   //hook useEffect

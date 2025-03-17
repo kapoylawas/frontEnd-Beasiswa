@@ -100,6 +100,7 @@ export default function Dashboard() {
 
   const terdaftar = JSON.parse(Cookies.get("terdaftar"));
 
+
   const handleFileKtm = (e) => {
     const imageData = e.target.files[0];
 
@@ -374,7 +375,11 @@ export default function Dashboard() {
         <div className="container-fluid px-4 mb-4 mt-3">
           <div className="alert alert-success" role="alert">
             Selamat Datang <b>{user.name}</b>, {" "}
-            <b> {terdaftar} </b>
+            {terdaftar ? (
+              <b>{terdaftar}</b>
+            ) : (
+              <b>Data belum ada</b>
+            )}
           </div>
 
           {/* <div className="alert alert-danger" role="alert">

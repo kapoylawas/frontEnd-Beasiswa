@@ -8,86 +8,54 @@ export default function Info() {
   const dinsos = `https://wa.me/6285711404090`;
   return (
     <LayoutWeb>
-      <div className="container mt-4 mb-3">
-        <div className="row">
-          <div className="col-md-8 offset-md-2">
-            <div className="text-center">
-              <h4 className="font-weight-bold text-dark">
-                Informasi Helpdesk Beasiswa
-              </h4>
-              <div className="divider-custom mx-auto"></div>
-            </div>
-            <div className="card-body mt-2"></div>
-          </div>
-          <div className="col-md-12 mt-5 mb-4">
-            <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
-              <div className="card-body mt-2">
-                <h4 className="font-weight-bold text-dark">Kontak Person</h4>
-                <hr />
-                <h6>
-                  <div className="list-group my-3">
-                    <ul className="list-group">
-                      <li className="list-group-item">
-                        <span
-                          style={{ fontSize: "1.2rem" }}
-                          className="text-dark mt-2"
-                        >
-                          Helpdesk Beasiswa Akademik, Non Akademik, Luar Negeri:{" "}
-                          {""}
-                          <i class="fa-brands fa-whatsapp"></i>
-                          <a target="_blank" href={fiqi}>
-                            {" "}
-                            {""} Hp.089630324926
-                          </a>
-                          , <i class="fa-brands fa-whatsapp"></i>{" "}
-                          <a target="_blank" href={petirc}>
-                            {" "}
-                            {""} Hp.081235949497
-                          </a>
-                        </span>
-                      </li>
-                      <li className="list-group-item">
-                        <span
-                          style={{ fontSize: "1.2rem" }}
-                          className="text-dark mt-2"
-                        >
-                          Heldesk Beasiswa Bidang Keagamaan:{" "}
-                          <i class="fa-brands fa-whatsapp"></i>
-                          <a target="_blank" href={munip}>
-                            {" "}
-                            {""} Hp.081234278662
-                          </a>
-                        </span>
-                      </li>
-                      <li className="list-group-item">
-                        <span
-                          style={{ fontSize: "1.2rem" }}
-                          className="text-dark mt-2"
-                        >
-                          Helpdesk Beasiswa Kurang Mampu:{" "}
-                          <i class="fa-brands fa-whatsapp"></i>
-                          <a target="_blank" href={dinsos}>
-                            {" "}
-                            {""} Hp.085711404090
-                          </a>{" "}
-                        </span>
-                      </li>
-                      <li className="list-group-item">
-                        <span
-                          style={{ fontSize: "1.2rem" }}
-                          className="text-dark mt-2"
-                        >
-                          Mengisi form dan mengunggah file persyaratan melalui :{" "}
-                          <a href="https://beasiswa.sidoarjokab.go.id/">
-                            https://beasiswa.sidoarjokab.go.id/
-                          </a>
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                </h6>
-              </div>
-            </div>
+      <div className="container mt-5">
+        <div className="text-center">
+          <img src="/sidoarjo.png" alt="Sidoarjo" className="img-fluid rounded mb-3" style={{ maxWidth: '100px' }} />
+          <h4 className="font-weight-bold text-dark">Informasi Beasiswa</h4>
+          <p className="text-dark" style={{ fontSize: "1.5rem" }}>
+            PPersyaratan Administrasi Calon Penerima Beasiswa
+            <b style={{ marginLeft: "5px" }}>Kabupaten Sidoarjo 2025</b>
+          </p>
+          <div className="divider-custom mx-auto mb-3"></div>
+        </div>
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title">1. Pengajuan Permohonan</h5>
+            <p>
+              Mahasiswa mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan.
+            </p>
+
+            <h5 className="card-title">2. Persyaratan Umum</h5>
+            <ul>
+              <li>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan Kartu Keluarga (KK) dan Kartu Tanda Penduduk Elektronik (KTP-el).</li>
+              <li>Terdaftar sebagai mahasiswa Perguruan Tinggi yang dibuktikan dengan surat keterangan aktif kuliah dan kartu identitas kemahasiswaan dari Perguruan Tinggi.</li>
+              <li>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun yang dibuktikan dengan surat pernyataan.</li>
+            </ul>
+
+            <h5 className="card-title">3. Persyaratan Khusus</h5>
+            <h6>Beasiswa Prestasi bidang akademik</h6>
+            <ul>
+              <li><strong>Dalam Negeri:</strong> Memiliki IPK serendah-rendahnya 3,4 yang dibuktikan dengan transkrip nilai.</li>
+              <li><strong>Luar Negeri:</strong> Memiliki IPK atau GPA yang dibuktikan dengan transkrip nilai.</li>
+            </ul>
+
+            <h6>Beasiswa Prestasi bidang non akademik</h6>
+            <ul>
+              <li>Prestasi di berbagai bidang dengan menunjukkan bukti prestasi dalam 4 tahun terakhir.</li>
+            </ul>
+
+            <h6>Beasiswa mahasiswa kurang mampu</h6>
+            <ul>
+              <li>Terdaftar dalam Data Terpadu Kesejahteraan Sosial (DTKS) atau melampirkan SKTM dari Desa.</li>
+            </ul>
+
+            <h6>Beasiswa bidang keagamaan</h6>
+            <ul>
+              <li>Hafal minimal 10 juz A1-Qur'an dan bukti prestasi di bidang keagamaan.</li>
+              <li>Santriwan/Santriwati yang berkuliah dan menetap di Pondok Pesantren.</li>
+              <li>Pengurus organisasi keagamaan tingkat Kabupaten/Kecamatan.</li>
+              <li>Mahasiswa Non Muslim dengan bukti keaktifan di bidang keagamaan.</li>
+            </ul>
           </div>
         </div>
       </div>

@@ -12,10 +12,11 @@ export default function Home() {
         <div className="row">
           <div className="col-md-8 offset-md-2">
             <div className="text-center">
+              <img src="/sidoarjo.png" alt="Sidoarjo" className="img-fluid rounded mb-3" style={{ maxWidth: '100px' }} />
               <h4 className="font-weight-bold text-dark">Informasi Beasiswa</h4>
-              <p className="text-dark" style={{ fontSize: "1.1rem" }}>
+              <p className="text-dark" style={{ fontSize: "1.5rem" }}>
                 Pemerintah Kabupaten Sidoarjo menyambut para mahasiswa Kabupaten
-                Sidoarjo
+                <b style={{ marginLeft: "5px" }}>Sidoarjo 2025</b>
               </p>
               <div className="divider-custom mx-auto"></div>
             </div>
@@ -115,7 +116,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="text-center mb-3">
+            {/* <div className="text-center mb-3">
               <h4 className="font-weight-bold text-dark">Timeline Pendaftaran Beasiswa</h4>
               <div className="divider-custom mx-auto"></div>
             </div>
@@ -141,7 +142,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
