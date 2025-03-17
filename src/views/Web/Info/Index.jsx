@@ -13,7 +13,7 @@ export default function Info() {
           <img src="/sidoarjo.png" alt="Sidoarjo" className="img-fluid rounded mb-3" style={{ maxWidth: '100px' }} />
           <h4 className="font-weight-bold text-dark">Informasi Beasiswa</h4>
           <p className="text-dark" style={{ fontSize: "1.5rem" }}>
-            PPersyaratan Administrasi Calon Penerima Beasiswa
+            Persyaratan Administrasi Calon Penerima Beasiswa
             <b style={{ marginLeft: "5px" }}>Kabupaten Sidoarjo 2025</b>
           </p>
           <div className="divider-custom mx-auto mb-3"></div>
