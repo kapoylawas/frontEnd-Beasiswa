@@ -385,15 +385,8 @@ export default function Dashboard() {
         <div className="container-fluid px-4 mb-4 mt-3">
           <div className="alert alert-success" role="alert">
             Selamat Datang <b>{user.name}</b>, {" "}
-            <b>{terdaftar ? terdaftar : "Data anda tidak ada di database"}</b>
+            <b>{terdaftar ? terdaftar : "Anda tidak penerima beasiswa tahun 2024"}</b>
           </div>
-
-          {/* <div className="alert alert-danger" role="alert">
-            Data Anda sudah menerima beasiswa sebagai berikut :
-            {terdaftars.map((terdaftar, index) => (
-              <li key={index}>{terdaftar.name}, {terdaftar.universitas}, {terdaftar.tahun}</li>
-            ))}
-          </div> */}
 
           {maintenance ? (
             <>
