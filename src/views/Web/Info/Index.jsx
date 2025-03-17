@@ -51,9 +51,12 @@ export default function Info() {
 
             <h6>Beasiswa bidang keagamaan</h6>
             <ul>
-              <li>Hafal minimal 10 juz A1-Qur'an dan bukti prestasi di bidang keagamaan.</li>
+              <li>Hafal minimal 10 juz A1-Qur'an.</li>
+              <li>Pernah mengikuti kejuaraan MTQ.</li>
               <li>Santriwan/Santriwati yang berkuliah dan menetap di Pondok Pesantren.</li>
-              <li>Pengurus organisasi keagamaan tingkat Kabupaten/Kecamatan.</li>
+              <li>Pengurus organisasi keagamaan tingkat Kabupaten/Kecamatan dan atau perguruan tinggi.</li>
+              <li>Prestasi lain di bidang keagamaan.</li>
+              <li>Ustad atau ustaza sebagai guru ngaji di TPA/TPQ/Madin.</li>
               <li>Mahasiswa Non Muslim dengan bukti keaktifan di bidang keagamaan.</li>
             </ul>
           </div>
