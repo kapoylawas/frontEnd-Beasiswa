@@ -98,7 +98,17 @@ export default function Dashboard() {
   //get data user from cookies
   const user = JSON.parse(Cookies.get("user"));
 
-  const terdaftar = JSON.parse(Cookies.get("terdaftar"));
+  const terdaftarCookie = Cookies.get("terdaftar");
+  let terdaftar;
+
+  if (terdaftarCookie) {
+    try {
+      terdaftar = JSON.parse(terdaftarCookie);
+    } catch (e) {
+      console.error("Parsing error:", e);
+      terdaftar = undefined;
+    }
+  }
 
 
   const handleFileKtm = (e) => {
@@ -375,11 +385,7 @@ export default function Dashboard() {
         <div className="container-fluid px-4 mb-4 mt-3">
           <div className="alert alert-success" role="alert">
             Selamat Datang <b>{user.name}</b>, {" "}
-            {terdaftar ? (
-              <b>{terdaftar}</b>
-            ) : (
-              <b>Data belum ada</b>
-            )}
+            <b>{terdaftar ? terdaftar : "Data anda tidak ada di database"}</b>
           </div>
 
           {/* <div className="alert alert-danger" role="alert">
