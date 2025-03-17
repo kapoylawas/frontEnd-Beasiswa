@@ -8,7 +8,7 @@ export default function Home() {
   const dinsos = `https://wa.me/6285711404090`;
   return (
     <LayoutWeb>
-      <div className="container mt-4 mb-3">
+      <div className="container mt-4 mb-1">
         <div className="row">
           <div className="col-md-8 offset-md-2">
             <div className="text-center">
@@ -20,35 +20,12 @@ export default function Home() {
               </p>
               <div className="divider-custom mx-auto"></div>
             </div>
-            <div className="card-body mt-2"></div>
+            <div className="card-body mt-1"></div>
           </div>
-          <div className="col-md-12 mt-3 mb-4">
-            {/* <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
-              <div className="card-body mt-2">
-                <h4 className="font-weight-bold text-dark">
-                  Penguman Penerima Beasiswa Pendidikan Tinggi Di Kabupaten
-                  Sidoarjo Tahun Anggaran 2024
-                </h4>
-                <hr />
-                <h6>
-                  <div className="col-md-12">
-                    <div className="card rounded">
-                      <div className="text-center">30 Aug 2024</div>
-                      <iframe
-                        src='https://adminweb.sidoarjokab.go.id/upload/files/1724983712-Pengumuman%20Beasiswa.pdf'
-                        title="Embedded Content"
-                        className="embed-responsive-item"
-                        height="700"
-                        allowFullScreen
-                      />
-                    </div>
-                  </div>
-                </h6>
-              </div>
-            </div> */}
-            <div className="col-md-12 mt-5 mb-5">
+          <div className="col-md-12 mt-1 mb-1">
+            <div className="col-md-12 mb-2">
               <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
-                <div className="card-body mt-2">
+                <div className="card-body mt-1">
                   <h4 className="font-weight-bold text-dark">Kontak Person</h4>
                   <hr />
                   <h6>
@@ -116,33 +93,24 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            {/* <div className="text-center mb-3">
-              <h4 className="font-weight-bold text-dark">Timeline Pendaftaran Beasiswa</h4>
-              <div className="divider-custom mx-auto"></div>
+          </div>
+          <div className="col-md-12 mt-1">
+            <div className="col-md-12">
+              <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
+                <div className="card-body mt-1">
+                  <h4 className="font-weight-bold text-dark">Pengumuman</h4>
+                  <hr />
+                  <div className="d-flex justify-content-center">
+                    <img
+                      src="/pengumuman.jpeg"
+                      alt="Sidoarjo"
+                      className="img-fluid rounded mb-3"
+                      style={{ maxWidth: '80%', height: 'auto' }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="row justify-content-center">
-              <div className="col-xl-3 col-md-6">
-                <div className="card bg-white mb-4 border-0 shadow-sm">
-                  <div className="card-body text-black">
-                    Pendaftaran
-                  </div>
-                </div>
-              </div>
-              <div className="col-xl-3 col-md-6">
-                <div className="card bg-white mb-4 border-0 shadow-sm">
-                  <div className="card-body text-black">
-                    Seleksi Berkas
-                  </div>
-                </div>
-              </div>
-              <div className="col-xl-3 col-md-6">
-                <div className="card bg-white mb-4 border-0 shadow-sm">
-                  <div className="card-body text-black">
-                    Pengumuman
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
