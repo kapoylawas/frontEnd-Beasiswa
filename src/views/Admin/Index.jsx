@@ -326,11 +326,11 @@ export default function Dashboard() {
   const handleChangeNIM = (event) => {
     const inputValue = event.target.value;
 
-    // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, "");
+    // Memungkinkan huruf dan angka
+    const alphanumericValue = inputValue.replace(/[^a-zA-Z0-9]/g, "");
 
-    setNim(numericValue);
-  };
+    setNim(alphanumericValue);
+  }
 
   const updateUsers = async (e) => {
     e.preventDefault();
