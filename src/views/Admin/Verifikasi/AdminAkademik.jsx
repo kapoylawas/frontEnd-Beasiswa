@@ -169,17 +169,16 @@ export default function AdminAkademik() {
                               akademiks.length > 0 ? (
                                 akademiks.map((akademik, index) => (
                                   <tr
-                                    className={`verif-${
-                                      akademik.user.jenis_verif === "belum"
+                                    className={`verif-${akademik.user.jenis_verif === "belum"
                                         ? "belum"
                                         : akademik.user.jenis_verif
-                                    }`}
+                                      }`}
                                     key={index}
                                   >
                                     <td className="fw-bold text-center">
                                       {++index +
                                         (pagination.currentPage - 1) *
-                                          pagination.perPage}
+                                        pagination.perPage}
                                     </td>
                                     <td>{akademik.user.name}</td>
                                     <td className="text-center">
@@ -187,26 +186,26 @@ export default function AdminAkademik() {
                                       <br />
                                       {akademik.user.jenis_verif_nik ===
                                         "tidak" && (
-                                        <p>
-                                          <button className="btn btn-md btn-danger me-2">
-                                            NIK Tidak Lolos verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-danger me-2">
+                                              NIK Tidak Lolos verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {akademik.user.jenis_verif_nik ===
                                         null && (
-                                        <p>
-                                          <button className="btn btn-md btn-warning me-2">
-                                            NIK Belum verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-warning me-2">
+                                              NIK Belum verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {akademik.user.jenis_verif_nik ===
                                         "lolos" && (
-                                        <button className="btn btn-md btn-success me-2">
-                                          NIK Lolos verifikasi
-                                        </button>
-                                      )}
+                                          <button className="btn btn-md btn-success me-2">
+                                            NIK Lolos verifikasi
+                                          </button>
+                                        )}
                                     </td>
                                     <td>{akademik.user.nokk}</td>
                                     <td>{akademik.user.nohp}</td>
@@ -214,26 +213,26 @@ export default function AdminAkademik() {
                                     <td>
                                       {akademik.user.jenis_verif ===
                                         "tidak" && (
-                                        <p>
-                                          <button className="btn btn-md btn-danger me-2">
-                                            Tidak Lolos verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-danger me-2">
+                                              Tidak Lolos verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {akademik.user.jenis_verif ===
                                         "belum" && (
-                                        <p>
-                                          <button className="btn btn-md btn-warning me-2">
-                                            Belum verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-warning me-2">
+                                              Belum verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {akademik.user.jenis_verif ===
                                         "lolos" && (
-                                        <button className="btn btn-md btn-success me-2">
-                                          Lolos verifikasi
-                                        </button>
-                                      )}
+                                          <button className="btn btn-md btn-success me-2">
+                                            Lolos verifikasi
+                                          </button>
+                                        )}
                                     </td>
                                     <td className="text-center">
                                       <Link

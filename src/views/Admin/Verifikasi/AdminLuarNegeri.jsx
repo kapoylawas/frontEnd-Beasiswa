@@ -151,17 +151,16 @@ export default function AdminLuarNegeri() {
                               luarNegeris.length > 0 ? (
                                 luarNegeris.map((luarNegeri, index) => (
                                   <tr
-                                    className={`verif-${
-                                      luarNegeri.user.jenis_verif === 'belum'
+                                    className={`verif-${luarNegeri.user.jenis_verif === 'belum'
                                         ? "belum"
                                         : luarNegeri.user.jenis_verif
-                                    }`}
+                                      }`}
                                     key={index}
                                   >
                                     <td className="fw-bold text-center">
                                       {++index +
                                         (pagination.currentPage - 1) *
-                                          pagination.perPage}
+                                        pagination.perPage}
                                     </td>
                                     <td>{luarNegeri.user.name}</td>
                                     <td className="text-center">
@@ -169,26 +168,26 @@ export default function AdminLuarNegeri() {
                                       <br />
                                       {luarNegeri.user.jenis_verif_nik ===
                                         "tidak" && (
-                                        <p>
-                                          <button className="btn btn-md btn-danger me-2">
-                                            NIK Tidak Lolos verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-danger me-2">
+                                              NIK Tidak Lolos verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {luarNegeri.user.jenis_verif_nik ===
                                         null && (
-                                        <p>
-                                          <button className="btn btn-md btn-warning me-2">
-                                            NIK Belum verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-warning me-2">
+                                              NIK Belum verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {luarNegeri.user.jenis_verif_nik ===
                                         "lolos" && (
-                                        <button className="btn btn-md btn-success me-2">
-                                          NIK Lolos verifikasi
-                                        </button>
-                                      )}
+                                          <button className="btn btn-md btn-success me-2">
+                                            NIK Lolos verifikasi
+                                          </button>
+                                        )}
                                     </td>
                                     <td>{luarNegeri.user.nokk}</td>
                                     <td>{luarNegeri.user.nohp}</td>
@@ -196,12 +195,12 @@ export default function AdminLuarNegeri() {
                                     <td>
                                       {luarNegeri.user.jenis_verif ===
                                         "tidak" && (
-                                        <p>
-                                          <button className="btn btn-md btn-danger me-2">
-                                            Tidak Lolos verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-danger me-2">
+                                              Tidak Lolos verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {luarNegeri.user.jenis_verif === 'belum' && (
                                         <p>
                                           <button className="btn btn-md btn-warning me-2">
@@ -211,10 +210,10 @@ export default function AdminLuarNegeri() {
                                       )}
                                       {luarNegeri.user.jenis_verif ===
                                         "lolos" && (
-                                        <button className="btn btn-md btn-success me-2">
-                                          Lolos verifikasi
-                                        </button>
-                                      )}
+                                          <button className="btn btn-md btn-success me-2">
+                                            Lolos verifikasi
+                                          </button>
+                                        )}
                                     </td>
                                     <td className="text-center">
                                       <Link

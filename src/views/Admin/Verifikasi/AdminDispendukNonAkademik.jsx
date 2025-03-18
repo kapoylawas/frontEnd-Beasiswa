@@ -116,7 +116,7 @@ export default function AdminDispendukNonAkademik() {
                     </span>
                   </div>
                 </div>
-                <div className="col-md-3 col-12 mb-2">
+                {/* <div className="col-md-3 col-12 mb-2">
                   <label className="form-label fw-bold">Jenis Kelamin</label>
                   <select
                     className="form-select"
@@ -127,7 +127,7 @@ export default function AdminDispendukNonAkademik() {
                     <option value="lolos">Lolos</option>
                     <option value="tidak">Tidak</option>
                   </select>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -167,17 +167,16 @@ export default function AdminDispendukNonAkademik() {
                               users.length > 0 ? (
                                 users.map((user, index) => (
                                   <tr
-                                    className={`verif-${
-                                      user.jenis_verif_nik === null
+                                    className={`verif-${user.jenis_verif_nik === null
                                         ? "null"
                                         : user.jenis_verif_nik
-                                    }`}
+                                      }`}
                                     key={index}
                                   >
                                     <td className="fw-bold text-center">
                                       {++index +
                                         (pagination.currentPage - 1) *
-                                          pagination.perPage}
+                                        pagination.perPage}
                                     </td>
                                     <td>{user.name}</td>
                                     <td>{user.nik}</td>

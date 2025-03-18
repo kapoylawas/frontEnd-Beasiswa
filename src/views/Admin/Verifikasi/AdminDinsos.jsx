@@ -197,17 +197,16 @@ export default function AdminDinsos() {
                               dinsosDtkses.length > 0 ? (
                                 dinsosDtkses.map((dinsosDtks, index) => (
                                   <tr
-                                    className={`verif-${
-                                      dinsosDtks.user.jenis_verif === null
+                                    className={`verif-${dinsosDtks.user.jenis_verif === null
                                         ? "null"
                                         : dinsosDtks.user.jenis_verif
-                                    }`}
+                                      }`}
                                     key={index}
                                   >
                                     <td className="fw-bold text-center">
                                       {++index +
                                         (pagination.currentPage - 1) *
-                                          pagination.perPage}
+                                        pagination.perPage}
                                     </td>
                                     <td>{dinsosDtks.user.name}</td>
                                     <td className="text-center">
@@ -215,26 +214,26 @@ export default function AdminDinsos() {
                                       <br />
                                       {dinsosDtks.user.jenis_verif_nik ===
                                         "tidak" && (
-                                        <p>
-                                          <button className="btn btn-md btn-danger me-2">
-                                            NIK Tidak Lolos verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-danger me-2">
+                                              NIK Tidak Lolos verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {dinsosDtks.user.jenis_verif_nik ===
                                         null && (
-                                        <p>
-                                          <button className="btn btn-md btn-warning me-2">
-                                            NIK Belum verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-warning me-2">
+                                              NIK Belum verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {dinsosDtks.user.jenis_verif_nik ===
                                         "lolos" && (
-                                        <button className="btn btn-md btn-success me-2">
-                                          NIK Lolos verifikasi
-                                        </button>
-                                      )}
+                                          <button className="btn btn-md btn-success me-2">
+                                            NIK Lolos verifikasi
+                                          </button>
+                                        )}
                                     </td>
                                     <td>{dinsosDtks.user.nokk}</td>
                                     <td>{dinsosDtks.user.nohp}</td>
@@ -242,26 +241,26 @@ export default function AdminDinsos() {
                                     <td>
                                       {dinsosDtks.user.jenis_verif ===
                                         "tidak" && (
-                                        <p>
-                                          <button className="btn btn-md btn-danger me-2">
-                                            Tidak Lolos verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-danger me-2">
+                                              Tidak Lolos verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {dinsosDtks.user.jenis_verif ===
                                         "belum" && (
-                                        <p>
-                                          <button className="btn btn-md btn-warning me-2">
-                                            Belum verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-warning me-2">
+                                              Belum verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {dinsosDtks.user.jenis_verif ===
                                         "lolos" && (
-                                        <button className="btn btn-md btn-success me-2">
-                                          Lolos verifikasi
-                                        </button>
-                                      )}
+                                          <button className="btn btn-md btn-success me-2">
+                                            Lolos verifikasi
+                                          </button>
+                                        )}
                                     </td>
                                     <td className="text-center">
                                       <Link
@@ -362,17 +361,16 @@ export default function AdminDinsos() {
                               dinsosNoDtkses.length > 0 ? (
                                 dinsosNoDtkses.map((dinsosNoDtks, index) => (
                                   <tr
-                                    className={`verif-${
-                                      dinsosNoDtks.user.jenis_verif === "belum"
+                                    className={`verif-${dinsosNoDtks.user.jenis_verif === "belum"
                                         ? "belum"
                                         : dinsosNoDtks.user.jenis_verif
-                                    }`}
+                                      }`}
                                     key={index}
                                   >
                                     <td className="fw-bold text-center">
                                       {++index +
                                         (paginationNo.currentPage - 1) *
-                                          paginationNo.perPage}
+                                        paginationNo.perPage}
                                     </td>
                                     <td>{dinsosNoDtks.user.name}</td>
                                     <td className="text-center">
@@ -380,26 +378,26 @@ export default function AdminDinsos() {
                                       <br />
                                       {dinsosNoDtks.user.jenis_verif_nik ===
                                         "tidak" && (
-                                        <p>
-                                          <button className="btn btn-md btn-danger me-2">
-                                            NIK Tidak Lolos verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-danger me-2">
+                                              NIK Tidak Lolos verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {dinsosNoDtks.user.jenis_verif_nik ===
                                         null && (
-                                        <p>
-                                          <button className="btn btn-md btn-warning me-2">
-                                            NIK Belum verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-warning me-2">
+                                              NIK Belum verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {dinsosNoDtks.user.jenis_verif_nik ===
                                         "lolos" && (
-                                        <button className="btn btn-md btn-success me-2">
-                                          NIK Lolos verifikasi
-                                        </button>
-                                      )}
+                                          <button className="btn btn-md btn-success me-2">
+                                            NIK Lolos verifikasi
+                                          </button>
+                                        )}
                                     </td>
                                     <td>{dinsosNoDtks.user.nokk}</td>
                                     <td>{dinsosNoDtks.user.nohp}</td>
@@ -407,26 +405,26 @@ export default function AdminDinsos() {
                                     <td>
                                       {dinsosNoDtks.user.jenis_verif ===
                                         "tidak" && (
-                                        <p>
-                                          <button className="btn btn-md btn-danger me-2">
-                                            Tidak Lolos verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-danger me-2">
+                                              Tidak Lolos verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {dinsosNoDtks.user.jenis_verif ===
                                         "belum" && (
-                                        <p>
-                                          <button className="btn btn-md btn-warning me-2">
-                                            Belum verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-warning me-2">
+                                              Belum verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {dinsosNoDtks.user.jenis_verif ===
                                         "lolos" && (
-                                        <button className="btn btn-md btn-success me-2">
-                                          Lolos verifikasi
-                                        </button>
-                                      )}
+                                          <button className="btn btn-md btn-success me-2">
+                                            Lolos verifikasi
+                                          </button>
+                                        )}
                                     </td>
                                     <td className="text-center">
                                       <Link

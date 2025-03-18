@@ -155,17 +155,16 @@ export default function AdminKesraC() {
                               kesraCs.length > 0 ? (
                                 kesraCs.map((kesraC, index) => (
                                   <tr
-                                    className={`verif-${
-                                      kesraC.user.jenis_verif === 'belum'
+                                    className={`verif-${kesraC.user.jenis_verif === 'belum'
                                         ? "belum"
                                         : kesraC.user.jenis_verif
-                                    }`}
+                                      }`}
                                     key={index}
                                   >
                                     <td className="fw-bold text-center">
                                       {++index +
                                         (pagination.currentPage - 1) *
-                                          pagination.perPage}
+                                        pagination.perPage}
                                     </td>
                                     <td>{kesraC.user.name}</td>
                                     <td className="text-center">
@@ -173,26 +172,26 @@ export default function AdminKesraC() {
                                       <br />
                                       {kesraC.user.jenis_verif_nik ===
                                         "tidak" && (
-                                        <p>
-                                          <button className="btn btn-md btn-danger me-2">
-                                            NIK Tidak Lolos verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-danger me-2">
+                                              NIK Tidak Lolos verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {kesraC.user.jenis_verif_nik ===
                                         null && (
-                                        <p>
-                                          <button className="btn btn-md btn-warning me-2">
-                                            NIK Belum verifikasi
-                                          </button>
-                                        </p>
-                                      )}
+                                          <p>
+                                            <button className="btn btn-md btn-warning me-2">
+                                              NIK Belum verifikasi
+                                            </button>
+                                          </p>
+                                        )}
                                       {kesraC.user.jenis_verif_nik ===
                                         "lolos" && (
-                                        <button className="btn btn-md btn-success me-2">
-                                          NIK Lolos verifikasi
-                                        </button>
-                                      )}
+                                          <button className="btn btn-md btn-success me-2">
+                                            NIK Lolos verifikasi
+                                          </button>
+                                        )}
                                     </td>
                                     <td>{kesraC.user.nokk}</td>
                                     <td>{kesraC.user.nohp}</td>
