@@ -549,10 +549,9 @@ export default function Dashboard() {
                               <div className="col-md-12">
                                 <div className="mb-3">
                                   <label className="form-label fw-bold">
-                                    Upload Surat Pernyataan Bermaterai pdf dan
-                                    maksimal 2MB{" "}
+                                    Upload Surat Pernyataan Bermaterai pdf dan maksimal 2MB{" "}
                                     <a
-                                      href="https://cdkbeasiswa.sidoarjokab.go.id/storage/imageakrekampus/Rji0wic3IBBCoTxrZo0OUYv2J8DMuac0hlrjNrJm.pdf"
+                                      href="/surat.pdf" // Link to the file in the public folder
                                       download
                                       target="_blank"
                                     >
