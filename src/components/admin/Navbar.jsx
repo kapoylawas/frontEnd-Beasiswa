@@ -106,9 +106,15 @@ export default function navbar() {
                 Logout
               </Link>
             </li>
+            <li>
+              <Link className="dropdown-item" to="/admin/gantiPassword">
+                Ganti Password
+              </Link>
+            </li>
           </ul>
         </li>
       </ul>
+
     </nav>
   );
 }

@@ -63,6 +63,7 @@ import AdminDispendukKesra from "../views/Admin/Verifikasi/AdminDispendukKesra";
 import EditDispendukKesra from "../views/Admin/Verifikasi/EditDispendukKesra";
 import AdminDispendukDinsos from "../views/Admin/Verifikasi/AdminDispendukDinsos";
 import EditDispendukDinsos from "../views/Admin/Verifikasi/EditDispendukDinsos";
+import GantiPassword from "../views/Admin/GantiPassword";
 
 export default function RoutesIndex() {
   return (
@@ -80,6 +81,15 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <Dashboard />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/gantiPassword"
+        element={
+          <PrivateRoutes>
+            <GantiPassword />
           </PrivateRoutes>
         }
       />
