@@ -11,6 +11,8 @@ import Kesra from "../../../components/admin/KesraA";
 import KesraB from "../../../components/admin/KesraB";
 import KesraC from "../../../components/admin/KesraC";
 import KesraD from "../../../components/admin/KesraD";
+import axios from 'axios';
+
 
 export default function RiwayatIndex() {
   document.title = "Dashboard - Riwayat Pendaftar Beasiswa";
@@ -29,6 +31,7 @@ export default function RiwayatIndex() {
   });
   const [idUser, setIdUser] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
+  const [cekNik, setCekNik] = useState("");
 
   // variabel untuk mengambil data di kesra
   const dataTipeKesra = dataKesra.kesra;
@@ -103,6 +106,7 @@ export default function RiwayatIndex() {
 
       const formData = new FormData();
       formData.append("status_finish", 1);
+      formData.append("jenis_verif_nik", cekNik);
       formData.append("_method", "PUT");
 
       Api.post(`/api/admin/users/verif/${idUser}`, formData, {
@@ -136,6 +140,40 @@ export default function RiwayatIndex() {
   const handleClick = () => {
     // Mengubah status dan merubahnya menjadi 1 saat tombol diklik
     setStatusFinish(1);
+  };
+
+  const handleButtonClick = async () => {
+
+    const postData = {
+      USER_ID: "290220241042163515522230800018550",
+      PASSWORD: "gT8!jiPQ",
+      IP_USER: "10.35.15.152",
+      TRESHOLD: "1",
+      NIK: "3515082306920001",
+      NAMA_LGKP: "ARIEF SANGGA UTAMA"
+    };
+
+    try {
+      const response = await axios.post("https://172.16.160.177:8000/dukcapil/get_json/351552223080001/CALL_VERIFY_BY_ELEMEN", postData, {
+        // Header
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+      console.log(response);
+
+      navigate("/admin/riwayat");
+      // Handle success scenario, e.g., set a success message in state if needed
+      // setSuccessMessage(response.data.message);
+
+    } catch (error) {
+      console.log(error);
+
+      // Handle error scenario, e.g., set an error message in state if needed
+      // setErrorMessage("Lengkapi Data Anda!!");
+    } finally {
+      setLoading(false); // Ensure loading is set to false when done
+    }
   };
 
   return (
@@ -315,6 +353,13 @@ export default function RiwayatIndex() {
                                       >
                                         {isLoading ? "LOADING..." : "SIMPAN"}{" "}
                                       </button>
+                                    </div>
+
+                                    <div>
+                                      <button onClick={handleButtonClick} >
+                                        Cek Data
+                                      </button>
+
                                     </div>
                                   </>
                                 ) : (
