@@ -147,6 +147,11 @@ export default function Login() {
                   >
                     {isLoading ? "LOADING..." : "LOGIN"}{" "}
                   </button>
+                  <Link to="/reset">
+                    <div className="text-center">
+                      <h5 className="text-blue">Lupa Password</h5>
+                    </div>
+                  </Link>
                   <Link to="/">
                     <i className="fa-solid fa-backward"></i> KEMBALI
                   </Link>

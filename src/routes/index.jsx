@@ -64,12 +64,17 @@ import EditDispendukKesra from "../views/Admin/Verifikasi/EditDispendukKesra";
 import AdminDispendukDinsos from "../views/Admin/Verifikasi/AdminDispendukDinsos";
 import EditDispendukDinsos from "../views/Admin/Verifikasi/EditDispendukDinsos";
 import GantiPassword from "../views/Admin/GantiPassword";
+import LupaPassword from "../views/Auth/LupaPassword";
 
 export default function RoutesIndex() {
   return (
     <Routes>
       {/* route "/login" */}
       <Route path="/login" element={<Login />} />
+
+      {/* route "/login" */}
+      <Route path="/reset" element={<LupaPassword />} />
+
       {/* route "/forbidden" */}
       <Route path="/forbidden" element={<Forbidden />} />
 
