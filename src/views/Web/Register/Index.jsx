@@ -12,7 +12,7 @@ import Select from "react-select";
 export default function Register() {
   document.title = "Register - Beasiswa Sidoarjo";
 
-  const maintenance = false;
+  const maintenance = true;
 
   //navigata
   const navigate = useNavigate();
