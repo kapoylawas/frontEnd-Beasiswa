@@ -27,9 +27,6 @@ export default function Home() {
           <div className="modal-content">
             <div className="modal-header bg-primary text-white">
               <h5 className="modal-title font-weight-bold">PENGUMUMAN BEASISWA SIDOARJO 2025</h5>
-              <button type="button" className="close text-black" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">X</span>
-              </button>
             </div>
             <div className="modal-body text-center">
               <img
