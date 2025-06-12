@@ -1,4 +1,4 @@
-//import layout
+import { useEffect } from 'react';
 import LayoutWeb from "../../../layouts/Web";
 
 export default function Home() {
@@ -6,8 +6,60 @@ export default function Home() {
   const petirc = `https://wa.me/6281235949497`;
   const munip = `https://wa.me/6281234278662`;
   const dinsos = `https://wa.me/6285711404090`;
+
+  useEffect(() => {
+    const showModal = async () => {
+      const { Modal } = await import('bootstrap');
+      const modalElement = document.getElementById('announcementModal');
+      if (modalElement) {
+        new Modal(modalElement).show();
+      }
+    };
+
+    const timer = setTimeout(showModal, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <LayoutWeb>
+      <div className="modal fade" id="announcementModal" tabIndex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-lg modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header bg-primary text-white">
+              <h5 className="modal-title font-weight-bold">PENGUMUMAN BEASISWA SIDOARJO 2025</h5>
+              <button type="button" className="close text-black" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">X</span>
+              </button>
+            </div>
+            <div className="modal-body text-center">
+              <img
+                src="/2025.jpeg"
+                alt="Pengumuman Beasiswa Sidoarjo 2025"
+                className="img-fluid rounded mb-3"
+                style={{ maxWidth: '100%', height: 'auto' }}
+              />
+              <p className="text-muted">Informasi lengkap dapat diunduh dalam bentuk PDF</p>
+            </div>
+            <div className="modal-footer d-flex justify-content-center">
+              <a
+                href="/pengumuman_penerima.pdf"
+                className="btn btn-danger mr-3"
+                download="pengumuman_penerima.pdf"
+              >
+                <i className="fas fa-file-pdf mr-2"></i> Download PDF
+              </a>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Tutup
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container mt-4 mb-1">
         <div className="row">
           <div className="col-md-8 offset-md-2">
@@ -38,12 +90,12 @@ export default function Home() {
                           >
                             Helpdesk Beasiswa Akademik, Non Akademik, Luar Negeri:{" "}
                             {""}
-                            <i class="fa-brands fa-whatsapp"></i>
+                            <i className="fa-brands fa-whatsapp"></i>
                             <a target="_blank" href={fiqi}>
                               {" "}
                               {""} Hp.089630324926
                             </a>
-                            , <i class="fa-brands fa-whatsapp"></i>{" "}
+                            , <i className="fa-brands fa-whatsapp"></i>{" "}
                             <a target="_blank" href={petirc}>
                               {" "}
                               {""} Hp.081235949497
@@ -56,7 +108,7 @@ export default function Home() {
                             className="text-dark mt-2"
                           >
                             Heldesk Beasiswa Bidang Keagamaan:{" "}
-                            <i class="fa-brands fa-whatsapp"></i>
+                            <i className="fa-brands fa-whatsapp"></i>
                             <a target="_blank" href={munip}>
                               {" "}
                               {""} Hp.081234278662
@@ -69,7 +121,7 @@ export default function Home() {
                             className="text-dark mt-2"
                           >
                             Helpdesk Beasiswa Kurang Mampu:{" "}
-                            <i class="fa-brands fa-whatsapp"></i>
+                            <i className="fa-brands fa-whatsapp"></i>
                             <a target="_blank" href={dinsos}>
                               {" "}
                               {""} Hp.085711404090
@@ -100,12 +152,36 @@ export default function Home() {
                 <div className="card-body mt-1">
                   <h4 className="font-weight-bold text-dark">Pengumuman</h4>
                   <hr />
+                  {/* <div className="mt-3">
+                    <button
+                      className="btn btn-primary mr-3"
+                      onClick={() => {
+                        const modal = new window.bootstrap.Modal(document.getElementById('announcementModal'));
+                        modal.show();
+                      }}
+                    >
+                      <i className="fas fa-eye mr-2"></i> Lihat Pengumuman
+                    </button>
+                    <a
+                      href="/2025.pdf"
+                      className="btn btn-success"
+                      download="Beasiswa_Sidoarjo_2025.pdf"
+                    >
+                      <i className="fas fa-download mr-2"></i> Download PDF
+                    </a>
+                  </div> */}
                   <div className="d-flex justify-content-center">
                     <img
-                      src="/pengumuman.jpeg"
-                      alt="Sidoarjo"
+                      src="/2025.jpeg"
+                      alt="Pengumuman Beasiswa Sidoarjo"
                       className="img-fluid rounded mb-3"
                       style={{ maxWidth: '80%', height: 'auto' }}
+                      data-toggle="modal"
+                      data-target="#announcementModal"
+                      onClick={() => {
+                        const modal = new window.bootstrap.Modal(document.getElementById('announcementModal'));
+                        modal.show();
+                      }}
                     />
                   </div>
                 </div>
