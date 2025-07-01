@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /pengumuman_penerima.pdf
