@@ -22,32 +22,42 @@ export default function Home() {
 
   return (
     <LayoutWeb>
+      {/* Modal Pengumuman */}
       <div className="modal fade" id="announcementModal" tabIndex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-lg modal-dialog-centered">
           <div className="modal-content">
-            <div className="modal-header bg-primary text-white">
-              <h5 className="modal-title font-weight-bold">PENGUMUMAN BEASISWA SIDOARJO 2025</h5>
+            <div className="modal-header">
+              <div className="modal-header-content">
+                <i className="fas fa-bullhorn"></i>
+                <h5 className="modal-title">PENGUMUMAN BEASISWA SIDOARJO 2025</h5>
+              </div>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div className="modal-body text-center">
-              <img
-                src="/2025.jpeg"
-                alt="Pengumuman Beasiswa Sidoarjo 2025"
-                className="img-fluid rounded mb-3"
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-              <p className="text-muted">Informasi lengkap dapat diunduh dalam bentuk PDF</p>
+            <div className="modal-body">
+              <div className="announcement-image">
+                <img
+                  src="/2025.jpeg"
+                  alt="Pengumuman Beasiswa Sidoarjo 2025"
+                  className="img-fluid"
+                />
+              </div>
+              <p className="download-info">
+                <i className="fas fa-info-circle"></i>
+                Informasi lengkap dapat diunduh dalam bentuk PDF
+              </p>
             </div>
-            <div className="modal-footer d-flex justify-content-center">
+            <div className="modal-footer">
               <a
                 href="/pengumuman_penerima.pdf"
-                className="btn btn-danger mr-3"
+                className="btn btn-download-pdf"
                 download="pengumuman_penerima.pdf"
               >
-                <i className="fas fa-file-pdf mr-2"></i> Download PDF
+                <i className="fas fa-file-pdf"></i>
+                Download PDF
               </a>
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-close-modal"
                 data-bs-dismiss="modal"
               >
                 Tutup
@@ -57,136 +67,828 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="container mt-4 mb-1">
-        <div className="row">
-          <div className="col-md-8 offset-md-2">
-            <div className="text-center">
-              <img src="/sidoarjo.png" alt="Sidoarjo" className="img-fluid rounded mb-3" style={{ maxWidth: '100px' }} />
-              <h4 className="font-weight-bold text-dark">Informasi Beasiswa</h4>
-              <p className="text-dark" style={{ fontSize: "1.5rem" }}>
-                Pemerintah Kabupaten Sidoarjo menyambut para mahasiswa Kabupaten
-                <b style={{ marginLeft: "5px" }}>Sidoarjo 2025</b>
-              </p>
-              <div className="divider-custom mx-auto"></div>
-            </div>
-            <div className="card-body mt-1"></div>
-          </div>
-          <div className="col-md-12 mt-1 mb-1">
-            <div className="col-md-12 mb-2">
-              <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
-                <div className="card-body mt-1">
-                  <h4 className="font-weight-bold text-dark">Kontak Person</h4>
-                  <hr />
-                  <h6>
-                    <div className="list-group my-3">
-                      <ul className="list-group">
-                        <li className="list-group-item">
-                          <span
-                            style={{ fontSize: "1.2rem" }}
-                            className="text-dark mt-2"
-                          >
-                            Helpdesk Beasiswa Akademik, Non Akademik, Luar Negeri:{" "}
-                            {""}
-                            <i className="fa-brands fa-whatsapp"></i>
-                            <a target="_blank" href={fiqi}>
-                              {" "}
-                              {""} Hp.089630324926
-                            </a>
-                            , <i className="fa-brands fa-whatsapp"></i>{" "}
-                            <a target="_blank" href={petirc}>
-                              {" "}
-                              {""} Hp.081235949497
-                            </a>
-                          </span>
-                        </li>
-                        <li className="list-group-item">
-                          <span
-                            style={{ fontSize: "1.2rem" }}
-                            className="text-dark mt-2"
-                          >
-                            Heldesk Beasiswa Bidang Keagamaan:{" "}
-                            <i className="fa-brands fa-whatsapp"></i>
-                            <a target="_blank" href={munip}>
-                              {" "}
-                              {""} Hp.081234278662
-                            </a>
-                          </span>
-                        </li>
-                        <li className="list-group-item">
-                          <span
-                            style={{ fontSize: "1.2rem" }}
-                            className="text-dark mt-2"
-                          >
-                            Helpdesk Beasiswa Kurang Mampu:{" "}
-                            <i className="fa-brands fa-whatsapp"></i>
-                            <a target="_blank" href={dinsos}>
-                              {" "}
-                              {""} Hp.085711404090
-                            </a>{" "}
-                          </span>
-                        </li>
-                        <li className="list-group-item">
-                          <span
-                            style={{ fontSize: "1.2rem" }}
-                            className="text-dark mt-2"
-                          >
-                            Mengisi form dan mengunggah file persyaratan melalui :{" "}
-                            <a href="https://beasiswa.sidoarjokab.go.id/">
-                              https://beasiswa.sidoarjokab.go.id/
-                            </a>
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-                  </h6>
+      {/* Hero Section */}
+      <div className="home-hero">
+        <div className="container">
+          <div className="hero-content">
+            <div className="hero-logo">
+              <div className="logo-container">
+                <img
+                  src="/sidoarjo.png"
+                  alt="Logo Sidoarjo"
+                  className="logo-image"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'block';
+                  }}
+                />
+                <div className="logo-fallback" style={{ display: 'none' }}>
+                  <i className="fas fa-graduation-cap"></i>
+                  <span>Beasiswa Sidoarjo</span>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="col-md-12 mt-1">
-            <div className="col-md-12">
-              <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
-                <div className="card-body mt-1">
-                  <h4 className="font-weight-bold text-dark">Pengumuman</h4>
-                  <hr />
-                  {/* <div className="mt-3">
-                    <button
-                      className="btn btn-primary mr-3"
-                      onClick={() => {
-                        const modal = new window.bootstrap.Modal(document.getElementById('announcementModal'));
-                        modal.show();
-                      }}
-                    >
-                      <i className="fas fa-eye mr-2"></i> Lihat Pengumuman
-                    </button>
-                    <a
-                      href="/2025.pdf"
-                      className="btn btn-success"
-                      download="Beasiswa_Sidoarjo_2025.pdf"
-                    >
-                      <i className="fas fa-download mr-2"></i> Download PDF
-                    </a>
-                  </div> */}
-                  <div className="d-flex justify-content-center">
-                    <img
-                      src="/2025.jpeg"
-                      alt="Pengumuman Beasiswa Sidoarjo"
-                      className="img-fluid rounded mb-3"
-                      style={{ maxWidth: '80%', height: 'auto' }}
-                      data-toggle="modal"
-                      data-target="#announcementModal"
-                      onClick={() => {
-                        const modal = new window.bootstrap.Modal(document.getElementById('announcementModal'));
-                        modal.show();
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <h1 className="hero-title">
+              Beasiswa <span className="highlight">Sidoarjo 2025</span>
+            </h1>
+            <p className="hero-subtitle">
+              Pemerintah Kabupaten Sidoarjo menyambut para mahasiswa Kabupaten
+              <span className="highlight-text"> Sidoarjo 2025</span>
+            </p>
+            <div className="hero-divider"></div>
           </div>
         </div>
       </div>
+
+      {/* Main Content - Layout Atas Bawah */}
+      <div className="container home-container mb-3 mt-3">
+        <div className="home-vertical-layout">
+
+          {/* Section 1: Pengumuman */}
+          <div className="section-top">
+            <div className="section-header">
+              <i className="fas fa-bullhorn"></i>
+              <h2>Pengumuman</h2>
+            </div>
+            <div className="announcement-content-vertical">
+              <div className="announcement-card-vertical">
+                <div className="announcement-image-preview-vertical">
+                  <img
+                    src="/2025.jpeg"
+                    alt="Pengumuman Beasiswa Sidoarjo"
+                    className="img-fluid"
+                    onClick={() => {
+                      const modal = new window.bootstrap.Modal(document.getElementById('announcementModal'));
+                      modal.show();
+                    }}
+                  />
+                  <div className="image-overlay-vertical">
+                    <i className="fas fa-search-plus"></i>
+                    <span>Klik untuk memperbesar</span>
+                  </div>
+                </div>
+                <div className="announcement-actions-vertical">
+                  <button
+                    className="btn btn-view-announcement"
+                    onClick={() => {
+                      const modal = new window.bootstrap.Modal(document.getElementById('announcementModal'));
+                      modal.show();
+                    }}
+                  >
+                    <i className="fas fa-eye"></i>
+                    Lihat Pengumuman
+                  </button>
+                  <a
+                    href="/pengumuman_penerima.pdf"
+                    className="btn btn-download-announcement"
+                    download="pengumuman_penerima.pdf"
+                  >
+                    <i className="fas fa-download"></i>
+                    Download PDF
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 2: Kontak Person */}
+          <div className="section-bottom">
+            <div className="section-header">
+              <i className="fas fa-headset"></i>
+              <h2>Kontak Person</h2>
+            </div>
+            <div className="contact-grid-vertical">
+
+              {/* Card 1: Beasiswa Akademik & Non Akademik */}
+              <div className="contact-card-vertical">
+                <div className="contact-card-header-vertical">
+                  <div className="contact-icon-vertical academic">
+                    <i className="fas fa-graduation-cap"></i>
+                  </div>
+                  <div className="contact-card-info">
+                    <h3>Beasiswa Akademik & Non Akademik</h3>
+                    <p>Dalam dan Luar Negeri</p>
+                  </div>
+                </div>
+                <div className="contact-card-content">
+                  <div className="contact-item-vertical">
+                    <div className="contact-details">
+                      <span className="contact-name">Helpdesk 1</span>
+                      <span className="contact-role">Customer Service</span>
+                    </div>
+                    <a target="_blank" href={fiqi} className="whatsapp-btn">
+                      <i className="fab fa-whatsapp"></i>
+                      0896-3032-4926
+                    </a>
+                  </div>
+                  <div className="contact-item-vertical">
+                    <div className="contact-details">
+                      <span className="contact-name">Helpdesk 2</span>
+                      <span className="contact-role">Customer Service</span>
+                    </div>
+                    <a target="_blank" href={petirc} className="whatsapp-btn">
+                      <i className="fab fa-whatsapp"></i>
+                      0812-3594-9497
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2: Beasiswa Bidang Keagamaan */}
+              <div className="contact-card-vertical">
+                <div className="contact-card-header-vertical">
+                  <div className="contact-icon-vertical religion">
+                    <i className="fas fa-mosque"></i>
+                  </div>
+                  <div className="contact-card-info">
+                    <h3>Beasiswa Bidang Keagamaan</h3>
+                    <p>Spesialis Keagamaan</p>
+                  </div>
+                </div>
+                <div className="contact-card-content">
+                  <div className="contact-item-vertical">
+                    <div className="contact-details">
+                      <span className="contact-name">Helpdesk Keagamaan</span>
+                      <span className="contact-role">Spesialis Keagamaan</span>
+                    </div>
+                    <a target="_blank" href={munip} className="whatsapp-btn">
+                      <i className="fab fa-whatsapp"></i>
+                      0812-3427-8662
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: Beasiswa Kurang Mampu */}
+              <div className="contact-card-vertical">
+                <div className="contact-card-header-vertical">
+                  <div className="contact-icon-vertical social">
+                    <i className="fas fa-hands-helping"></i>
+                  </div>
+                  <div className="contact-card-info">
+                    <h3>Beasiswa Kurang Mampu</h3>
+                    <p>Dinas Sosial</p>
+                  </div>
+                </div>
+                <div className="contact-card-content">
+                  <div className="contact-item-vertical">
+                    <div className="contact-details">
+                      <span className="contact-name">Helpdesk Sosial</span>
+                      <span className="contact-role">Dinas Sosial</span>
+                    </div>
+                    <a target="_blank" href={dinsos} className="whatsapp-btn">
+                      <i className="fab fa-whatsapp"></i>
+                      0857-1140-4090
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 4: Website Pendaftaran */}
+              <div className="contact-card-vertical website">
+                <div className="contact-card-header-vertical">
+                  <div className="contact-icon-vertical website">
+                    <i className="fas fa-globe"></i>
+                  </div>
+                  <div className="contact-card-info">
+                    <h3>Pendaftaran Online</h3>
+                    <p>Website Resmi</p>
+                  </div>
+                </div>
+                <div className="contact-card-content">
+                  <p className="website-description-vertical">
+                    Mengisi form dan mengunggah file persyaratan melalui:
+                  </p>
+                  <a href="https://beasiswa.sidoarjokab.go.id/" className="website-link-vertical">
+                    <i className="fas fa-external-link-alt"></i>
+                    https://beasiswa.sidoarjokab.go.id/
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <style jsx>{`
+        /* Global Styles */
+        .home-container {
+          padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .home-hero {
+          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+          color: white;
+          padding: 60px 0;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .home-hero::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 2;
+        }
+
+        /* Logo Styles */
+        .hero-logo {
+          margin-bottom: 25px;
+        }
+
+        .logo-container {
+          display: inline-block;
+          position: relative;
+        }
+
+        .logo-image {
+          width: 150px;
+          height: 150px;
+          object-fit: contain;
+          background: white;
+          border-radius: 20px;
+          padding: 15px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          border: 3px solid #ffd700;
+          transition: all 0.3s ease;
+        }
+
+        .logo-image:hover {
+          transform: scale(1.05) rotate(2deg);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-fallback {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          background: white;
+          border-radius: 20px;
+          padding: 30px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          border: 3px solid #ffd700;
+        }
+
+        .logo-fallback i {
+          font-size: 3rem;
+          color: #1e3c72;
+        }
+
+        .logo-fallback span {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: #1e3c72;
+        }
+
+        .hero-title {
+          font-size: 3rem;
+          font-weight: 700;
+          margin-bottom: 15px;
+          text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-title .highlight {
+          color: #ffd700;
+        }
+
+        .hero-subtitle {
+          font-size: 1.3rem;
+          margin-bottom: 25px;
+          opacity: 0.9;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .hero-subtitle .highlight-text {
+          color: #ffd700;
+          font-weight: 600;
+        }
+
+        .hero-divider {
+          width: 100px;
+          height: 4px;
+          background: #ffd700;
+          margin: 0 auto;
+          border-radius: 2px;
+        }
+
+        /* Vertical Layout */
+        .home-vertical-layout {
+          display: flex;
+          flex-direction: column;
+          gap: 50px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .section-top, .section-bottom {
+          background: white;
+          border-radius: 20px;
+          padding: 40px;
+          box-shadow: 0 10px 30px rgba(30, 60, 114, 0.1);
+          border: 1px solid #e8f0ff;
+        }
+
+        /* Section Headers */
+        .section-header {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 30px;
+          padding-bottom: 15px;
+          border-bottom: 3px solid #1e3c72;
+        }
+
+        .section-header i {
+          font-size: 2rem;
+          color: #1e3c72;
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .section-header h2 {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #1e3c72;
+          margin: 0;
+        }
+
+        /* Announcement Section - Vertical */
+        .announcement-content-vertical {
+          display: flex;
+          justify-content: center;
+        }
+
+        .announcement-card-vertical {
+          text-align: center;
+          max-width: 600px;
+          width: 100%;
+        }
+
+        .announcement-image-preview-vertical {
+          position: relative;
+          border-radius: 15px;
+          overflow: hidden;
+          margin-bottom: 25px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .announcement-image-preview-vertical:hover {
+          transform: scale(1.02);
+        }
+
+        .announcement-image-preview-vertical img {
+          width: 100%;
+          height: auto;
+          border-radius: 15px;
+          transition: all 0.3s ease;
+        }
+
+        .image-overlay-vertical {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(30, 60, 114, 0.8);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          opacity: 0;
+          transition: all 0.3s ease;
+        }
+
+        .announcement-image-preview-vertical:hover .image-overlay-vertical {
+          opacity: 1;
+        }
+
+        .image-overlay-vertical i {
+          font-size: 2rem;
+          margin-bottom: 10px;
+        }
+
+        .announcement-actions-vertical {
+          display: flex;
+          gap: 15px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        /* Contact Section - Vertical */
+        .contact-grid-vertical {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 25px;
+        }
+
+        .contact-card-vertical {
+          background: #f8faff;
+          border-radius: 16px;
+          padding: 25px;
+          border: 1px solid #e1e8ff;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .contact-card-vertical::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5px;
+          height: 100%;
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          transition: all 0.3s ease;
+        }
+
+        .contact-card-vertical:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 35px rgba(30, 60, 114, 0.15);
+          background: white;
+        }
+
+        .contact-card-vertical:hover::before {
+          width: 8px;
+        }
+
+        .contact-card-vertical.website {
+          background: linear-gradient(135deg, #f8faff 0%, #e8f0ff 100%);
+        }
+
+        .contact-card-header-vertical {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 20px;
+        }
+
+        .contact-icon-vertical {
+          width: 60px;
+          height: 60px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 1.5rem;
+          flex-shrink: 0;
+        }
+
+        .contact-icon-vertical.academic {
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+        }
+
+        .contact-icon-vertical.religion {
+          background: linear-gradient(135deg, #2e7d32, #4caf50);
+        }
+
+        .contact-icon-vertical.social {
+          background: linear-gradient(135deg, #ef6c00, #ff9800);
+        }
+
+        .contact-icon-vertical.website {
+          background: linear-gradient(135deg, #7b1fa2, #9c27b0);
+        }
+
+        .contact-card-info h3 {
+          color: #1e3c72;
+          font-weight: 700;
+          font-size: 1.2rem;
+          margin: 0 0 5px 0;
+          line-height: 1.3;
+        }
+
+        .contact-card-info p {
+          color: #666;
+          font-size: 0.9rem;
+          margin: 0;
+        }
+
+        .contact-card-content {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .contact-item-vertical {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 12px 15px;
+          background: white;
+          border-radius: 10px;
+          border: 1px solid #e8f0ff;
+          transition: all 0.3s ease;
+        }
+
+        .contact-item-vertical:hover {
+          border-color: #1e3c72;
+          transform: translateX(5px);
+        }
+
+        .contact-details {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .contact-name {
+          font-weight: 600;
+          color: #1e3c72;
+          font-size: 0.95rem;
+        }
+
+        .contact-role {
+          font-size: 0.8rem;
+          color: #666;
+          margin-top: 2px;
+        }
+
+        .whatsapp-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: #25D366;
+          color: white;
+          text-decoration: none;
+          padding: 8px 14px;
+          border-radius: 8px;
+          font-weight: 600;
+          transition: all 0.3s ease;
+          white-space: nowrap;
+          font-size: 0.9rem;
+        }
+
+        .whatsapp-btn:hover {
+          background: #1da851;
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+          color: white;
+        }
+
+        .website-description-vertical {
+          color: #666;
+          margin-bottom: 15px;
+          line-height: 1.5;
+          font-size: 0.95rem;
+        }
+
+        .website-link-vertical {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: white;
+          color: #1e3c72;
+          text-decoration: none;
+          padding: 12px 18px;
+          border-radius: 10px;
+          font-weight: 600;
+          border: 2px solid #e8f0ff;
+          transition: all 0.3s ease;
+          font-size: 0.9rem;
+        }
+
+        .website-link-vertical:hover {
+          background: #1e3c72;
+          color: white;
+          border-color: #1e3c72;
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(30, 60, 114, 0.2);
+        }
+
+        /* Button Styles */
+        .btn {
+          padding: 12px 24px;
+          border: none;
+          border-radius: 10px;
+          font-weight: 600;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .btn-view-announcement {
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          color: white;
+        }
+
+        .btn-view-announcement:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .btn-download-announcement {
+          background: linear-gradient(135deg, #dc3545, #c82333);
+          color: white;
+        }
+
+        .btn-download-announcement:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        /* Modal Styles */
+        .modal-header {
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          color: white;
+          border-bottom: none;
+          padding: 25px;
+        }
+
+        .modal-header-content {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .modal-header-content i {
+          font-size: 1.5rem;
+          color: #ffd700;
+        }
+
+        .modal-title {
+          font-weight: 700;
+          margin: 0;
+        }
+
+        .btn-close {
+          filter: brightness(0) invert(1);
+        }
+
+        .modal-body {
+          padding: 30px;
+        }
+
+        .announcement-image {
+          margin-bottom: 20px;
+        }
+
+        .announcement-image img {
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .download-info {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          color: #666;
+          font-style: italic;
+        }
+
+        .download-info i {
+          color: #1e3c72;
+        }
+
+        .modal-footer {
+          border-top: 1px solid #e9ecef;
+          padding: 20px 30px;
+          gap: 15px;
+        }
+
+        .btn-download-pdf {
+          background: linear-gradient(135deg, #dc3545, #c82333);
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 8px;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          transition: all 0.3s ease;
+        }
+
+        .btn-download-pdf:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+          color: white;
+        }
+
+        .btn-close-modal {
+          background: #6c757d;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 8px;
+          transition: all 0.3s ease;
+        }
+
+        .btn-close-modal:hover {
+          background: #5a6268;
+          transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+          .contact-grid-vertical {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          }
+        }
+
+        @media (max-width: 768px) {
+          .home-hero {
+            padding: 40px 0;
+          }
+          
+          .hero-title {
+            font-size: 2rem;
+          }
+          
+          .hero-subtitle {
+            font-size: 1.1rem;
+          }
+          
+          .section-top, .section-bottom {
+            padding: 30px 25px;
+          }
+          
+          .contact-grid-vertical {
+            grid-template-columns: 1fr;
+          }
+          
+          .contact-item-vertical {
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+          }
+          
+          .announcement-actions-vertical {
+            flex-direction: column;
+            align-items: center;
+          }
+          
+          .btn {
+            width: 200px;
+            justify-content: center;
+          }
+        }
+
+        @media (max-width: 576px) {
+          .home-container {
+            padding: 20px 15px;
+          }
+          
+          .home-hero {
+            padding: 30px 0;
+          }
+          
+          .hero-title {
+            font-size: 1.8rem;
+          }
+          
+          .section-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+          }
+          
+          .section-header h2 {
+            font-size: 1.5rem;
+          }
+          
+          .section-top, .section-bottom {
+            padding: 25px 20px;
+          }
+          
+          .contact-card-vertical {
+            padding: 20px;
+          }
+          
+          .contact-card-header-vertical {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+          }
+          
+          .logo-image {
+            width: 120px;
+            height: 120px;
+          }
+        }
+      `}</style>
     </LayoutWeb>
   );
 }

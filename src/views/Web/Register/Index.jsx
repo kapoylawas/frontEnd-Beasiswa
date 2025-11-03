@@ -1,20 +1,16 @@
-//import layout
 import { useEffect, useState } from "react";
 import LayoutWeb from "../../../layouts/Web";
 import { useNavigate } from "react-router-dom";
-//import toast
 import toast from "react-hot-toast";
 import Api from "../../../services/Api";
 import Logo from "../../../../public/images/lock.svg";
-//import react select
 import Select from "react-select";
 
 export default function Register() {
   document.title = "Register - Beasiswa Sidoarjo";
 
-  const maintenance = true;
+  const maintenance = false;
 
-  //navigata
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -31,20 +27,18 @@ export default function Register() {
   const [kk, setKk] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  // const [roles] = useState(["user"]);
-  const [errors, setErros] = useState([]);
+  const [errors, setErrors] = useState({});
   const [isLoading, setLoading] = useState(false);
   const [kecamatanList, setKecamatanList] = useState([]);
   const [kelurahanList, setKelurahanList] = useState([]);
   const [selectedKecamatan, setSelectedKecamatan] = useState("");
   const [selectedKelurahan, setSelectedKelurahan] = useState("");
-
   const [tanggalBatas, setTanggalBatas] = useState();
+  const [currentStep, setCurrentStep] = useState(1);
+  const [showPersyaratan, setShowPersyaratan] = useState(false);
 
   useEffect(() => {
-    //fetch api
     Api.get("/api/tanggalBatas", {}).then((response) => {
-      //set data
       setTanggalBatas(response.data.data);
     });
   }, []);
@@ -62,172 +56,233 @@ export default function Register() {
 
   const handleKecamatanChange = (selectedOption) => {
     setSelectedKecamatan(selectedOption.value);
-    setSelectedKelurahan(""); // Reset selected kelurahan when kecamatan changes
+    setSelectedKelurahan("");
+    setErrors(prev => ({ ...prev, id_kecamatan: null, id_kelurahan: null }));
+  };
+
+  const handleKelurahanChange = (selectedOption) => {
+    setSelectedKelurahan(selectedOption.value);
+    setErrors(prev => ({ ...prev, id_kelurahan: null }));
   };
 
   // hook data kelurahan by id kecamatan
   useEffect(() => {
-    Api.get(`/api/kelurahan/byid?kecamatan_id=${selectedKecamatan}`).then((response) => {
-      const formattedKelurahan = response.data.data.map(kelurahan => ({
-        value: kelurahan.id,
-        label: kelurahan.name
-      }));
-      setKelurahanList(formattedKelurahan);
-    });
+    if (selectedKecamatan) {
+      Api.get(`/api/kelurahan/byid?kecamatan_id=${selectedKecamatan}`).then((response) => {
+        const formattedKelurahan = response.data.data.map(kelurahan => ({
+          value: kelurahan.id,
+          label: kelurahan.name
+        }));
+        setKelurahanList(formattedKelurahan);
+      });
+    }
   }, [selectedKecamatan]);
 
+  const validateStep1 = () => {
+    const newErrors = {};
 
+    if (!name.trim()) newErrors.name = ["Nama lengkap tidak boleh kosong"];
+    if (!nik.trim()) newErrors.nik = ["NIK tidak boleh kosong"];
+    else if (nik.length !== 16) newErrors.nik = ["NIK harus 16 digit"];
+    if (!nokk.trim()) newErrors.nokk = ["Nomor Kartu Keluarga tidak boleh kosong"];
+    else if (nokk.length !== 16) newErrors.nokk = ["Nomor KK harus 16 digit"];
+    if (!nohp.trim()) newErrors.nohp = ["Nomor HP/WhatsApp tidak boleh kosong"];
+    else if (nohp.length < 10) newErrors.nohp = ["Nomor HP minimal 10 digit"];
+    if (!email.trim()) newErrors.email = ["Email tidak boleh kosong"];
+    else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = ["Format email tidak valid"];
+    if (!gender) newErrors.gender = ["Pilih jenis kelamin terlebih dahulu"];
 
-  const handleshowhideGender = (selectedOption) => {
-    const getType = event.target.value;
-    setGender(getType);
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validateStep2 = () => {
+    const newErrors = {};
+
+    if (!selectedKecamatan) newErrors.id_kecamatan = ["Pilih kecamatan terlebih dahulu"];
+    if (!selectedKelurahan) newErrors.id_kelurahan = ["Pilih kelurahan terlebih dahulu"];
+    if (!codepos.trim()) newErrors.codepos = ["Kode POS tidak boleh kosong"];
+    else if (codepos.length !== 5) newErrors.codepos = ["Kode POS harus 5 digit"];
+    if (!rt.trim()) newErrors.rt = ["RT tidak boleh kosong"];
+    if (!rw.trim()) newErrors.rw = ["RW tidak boleh kosong"];
+    if (!alamat.trim()) newErrors.alamat = ["Alamat lengkap tidak boleh kosong"];
+    else if (alamat.length < 10) newErrors.alamat = ["Alamat terlalu pendek, minimal 10 karakter"];
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validateStep3 = () => {
+    const newErrors = {};
+
+    if (!ktp) newErrors.imagektp = ["File KTP harus diupload"];
+    if (!kk) newErrors.imagekk = ["File Kartu Keluarga harus diupload"];
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validateStep4 = () => {
+    const newErrors = {};
+
+    if (!password) newErrors.password = ["Password tidak boleh kosong"];
+    else if (password.length < 8) newErrors.password = ["Password minimal 8 karakter"];
+    if (!passwordConfirmation) newErrors.password_confirmation = ["Konfirmasi password tidak boleh kosong"];
+    else if (password !== passwordConfirmation) newErrors.password_confirmation = ["Konfirmasi password tidak cocok"];
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const nextStep = () => {
+    let isValid = false;
+
+    switch (currentStep) {
+      case 1:
+        isValid = validateStep1();
+        break;
+      case 2:
+        isValid = validateStep2();
+        break;
+      case 3:
+        isValid = validateStep3();
+        break;
+      default:
+        isValid = true;
+    }
+
+    if (isValid) {
+      setCurrentStep(currentStep + 1);
+      window.scrollTo(0, 0);
+      setErrors({});
+    } else {
+      // Scroll to first error
+      const firstErrorElement = document.querySelector('.error-message');
+      if (firstErrorElement) {
+        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  };
+
+  const prevStep = () => {
+    setCurrentStep(currentStep - 1);
+    window.scrollTo(0, 0);
+    setErrors({});
   };
 
   const handleFileKtp = (e) => {
     const imageData = e.target.files[0];
+    setErrors(prev => ({ ...prev, imagektp: null }));
 
-    if (imageData) {
-      const maxSize = 2 * 1024 * 1024; // 2MB
-
-      if (imageData.size > maxSize) {
-        toast.error("Ukuran file melebihi batas (2MB)", {
-          duration: 5000,
-          position: "top-center",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      } else {
-        setKtp(imageData);
-      }
-    }
+    if (!imageData) return;
 
     if (!imageData.type.match("pdf.*")) {
       setKtp("");
-
-      toast.error("Format File KTP Tidak Cocok Harus PDF", {
+      toast.error("Format File KTP harus PDF", {
         duration: 5000,
         position: "top-center",
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
       });
       return;
     }
+
+    const maxSize = 2 * 1024 * 1024;
+    if (imageData.size > maxSize) {
+      toast.error("Ukuran file melebihi batas (2MB)", {
+        duration: 5000,
+        position: "top-center",
+      });
+      return;
+    }
+
     setKtp(imageData);
+    toast.success("File KTP berhasil diupload", {
+      duration: 3000,
+      position: "top-center",
+    });
   };
 
   const handleFileKk = (e) => {
     const imageData = e.target.files[0];
+    setErrors(prev => ({ ...prev, imagekk: null }));
 
-    if (imageData) {
-      const maxSize = 2 * 1024 * 1024; // 2MB
-
-      if (imageData.size > maxSize) {
-        toast.error("Ukuran file melebihi batas (2MB)", {
-          duration: 5000,
-          position: "top-center",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      } else {
-        setKk(imageData);
-      }
-    }
+    if (!imageData) return;
 
     if (!imageData.type.match("pdf.*")) {
       setKk("");
-
-      toast.error("Format File Kartu Keluarga Tidak Cocok Harus PDF", {
+      toast.error("Format File Kartu Keluarga harus PDF", {
         duration: 5000,
         position: "top-center",
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
       });
       return;
     }
+
+    const maxSize = 2 * 1024 * 1024;
+    if (imageData.size > maxSize) {
+      toast.error("Ukuran file melebihi batas (2MB)", {
+        duration: 5000,
+        position: "top-center",
+      });
+      return;
+    }
+
     setKk(imageData);
+    toast.success("File Kartu Keluarga berhasil diupload", {
+      duration: 3000,
+      position: "top-center",
+    });
   };
 
   const handleChangeNik = (event) => {
-    const inputValue = event.target.value;
-
-    // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, "");
-
-    // Limit the length to 16 digits
-    const truncatedValue = numericValue.slice(0, 16);
-
-    setNik(truncatedValue);
+    const inputValue = event.target.value.replace(/\D/g, "").slice(0, 16);
+    setNik(inputValue);
+    setErrors(prev => ({ ...prev, nik: null }));
   };
 
   const handleChangeKartuKeluarga = (event) => {
-    const inputValue = event.target.value;
-
-    // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, "");
-
-    // Limit the length to 16 digits
-    const truncatedValue = numericValue.slice(0, 16);
-
-    setNokk(truncatedValue);
+    const inputValue = event.target.value.replace(/\D/g, "").slice(0, 16);
+    setNokk(inputValue);
+    setErrors(prev => ({ ...prev, nokk: null }));
   };
 
   const handleChangeNoHp = (event) => {
-    const inputValue = event.target.value;
-
-    // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, "");
-
-    setNohp(numericValue);
+    const inputValue = event.target.value.replace(/\D/g, "");
+    setNohp(inputValue);
+    setErrors(prev => ({ ...prev, nohp: null }));
   };
 
   const handleChangeKodePos = (event) => {
-    const inputValue = event.target.value;
-
-    // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, "");
-
-    setCodepos(numericValue);
+    const inputValue = event.target.value.replace(/\D/g, "");
+    setCodepos(inputValue);
+    setErrors(prev => ({ ...prev, codepos: null }));
   };
 
   const handleChangeRT = (event) => {
-    const inputValue = event.target.value;
-
-    // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, "");
-
-    setRt(numericValue);
+    const inputValue = event.target.value.replace(/\D/g, "");
+    setRt(inputValue);
+    setErrors(prev => ({ ...prev, rt: null }));
   };
 
   const handleChangeRW = (event) => {
-    const inputValue = event.target.value;
-
-    // Remove non-numeric characters
-    const numericValue = inputValue.replace(/\D/g, "");
-
-    setRw(numericValue);
+    const inputValue = event.target.value.replace(/\D/g, "");
+    setRw(inputValue);
+    setErrors(prev => ({ ...prev, rw: null }));
   };
 
   //function "storeRegister"
   const storeRegister = async (e) => {
     e.preventDefault();
+
+    if (!validateStep4()) {
+      const firstErrorElement = document.querySelector('.error-message');
+      if (firstErrorElement) {
+        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
     setLoading(true);
 
-    // Define formData
     const formData = new FormData();
-
-    // Append data to "formData"
     formData.append("nik", nik);
     formData.append("nokk", nokk);
     formData.append("name", name);
@@ -245,190 +300,486 @@ export default function Register() {
     formData.append("password", password);
     formData.append("password_confirmation", passwordConfirmation);
 
-    // Sending data with toast promise
     toast.promise(
       Api.post("/api/users", formData, {
-        // Header
         headers: {
           "content-type": "multipart/form-data",
         },
       }),
       {
-        loading: 'Saving...',
+        loading: 'Menyimpan data...',
         success: (response) => {
+          setLoading(false);
           navigate("/login");
-          // Tampilkan pesan sukses
           toast.success(response.data.message, {
-            duration: 40000, // Set durasi
+            duration: 4000,
           });
-          return <b>Data Berhasil Disimpan</b> // Pastikan ini string
+          return "Pendaftaran berhasil! Silakan login.";
         },
         error: (error) => {
           setLoading(false);
-          setErros(error.response.data);
-          return <b>Lengkapi Data Anda!!</b>;
+          if (error.response && error.response.data) {
+            setErrors(error.response.data);
+            // Scroll to first error
+            setTimeout(() => {
+              const firstErrorElement = document.querySelector('.error-message');
+              if (firstErrorElement) {
+                firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }, 100);
+          }
+          return "Terjadi kesalahan. Periksa kembali data Anda.";
         },
       }
     );
   };
 
+  const customSelectStyles = {
+    control: (base, state) => ({
+      ...base,
+      border: `2px solid ${errors.id_kecamatan || errors.id_kelurahan ? '#dc2626' : '#e2e8f0'}`,
+      borderRadius: '10px',
+      padding: '4px 8px',
+      boxShadow: 'none',
+      '&:hover': {
+        borderColor: errors.id_kecamatan || errors.id_kelurahan ? '#dc2626' : '#3b82f6',
+      },
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isSelected ? '#1e3c72' : state.isFocused ? '#f1f5f9' : 'white',
+      color: state.isSelected ? 'white' : '#1f2937',
+    }),
+  };
+
+  // Fungsi untuk mendapatkan error messages yang aman
+  const getErrorMessages = () => {
+    const errorEntries = Object.entries(errors);
+    const validErrors = errorEntries.filter(([field, messages]) =>
+      messages && Array.isArray(messages) && messages.length > 0
+    );
+    return validErrors;
+  };
+
   return (
     <LayoutWeb>
-      <div className="container mt-4 mb-3">
-        <div classname="row">
-          <div className="col-md-12 mt-3 mb-4">
-            {maintenance ? (
-              <>
-                <div className="col-md-12 mt-5">
-                  <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
-                    <div className="card-body mt-2">
-                      <h4 className="font-weight-bold text-dark">
-                        Pendaftaran Sudah Di tutup
-                      </h4>
-                      <hr />
-                      <h6>
-                        <div className="list-group my-3">
-                          <img src={Logo} alt="Logo" height={300} />
+      <div className="register-container">
+        <div className="register-hero">
+          <div className="container">
+            <div className="hero-content">
+              <div className="hero-logo">
+                <img
+                  src="/images/sidoarjo.png"
+                  alt="Logo Sidoarjo"
+                  className="logo-image"
+                  onError={(e) => {
+                    e.target.src = "/sidoarjo.png";
+                    e.target.onerror = () => {
+                      e.target.src = "https://via.placeholder.com/100x100?text=Logo+Sidoarjo";
+                    };
+                  }}
+                />
+              </div>
+              <h1 className="hero-title">Pendaftaran Beasiswa</h1>
+              <p className="hero-subtitle">
+                Daftarkan diri Anda untuk menjadi penerima beasiswa
+                <span className="highlight"> Kabupaten Sidoarjo 2025</span>
+              </p>
+              <div className="hero-divider"></div>
+
+              {/* Tombol Lihat Persyaratan */}
+              <div className="persyaratan-button-container">
+                <button
+                  className="btn-persyaratan"
+                  onClick={() => setShowPersyaratan(true)}
+                >
+                  <i className="fas fa-list-alt"></i>
+                  Lihat Persyaratan Beasiswa
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Modal Persyaratan Beasiswa */}
+        {showPersyaratan && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              {/* Modal Header dihilangkan */}
+              <div className="modal-body">
+                <div className="persyaratan-section">
+                  <p className="persyaratan-description">
+                    Informasi lengkap persyaratan administrasi bagi penerima
+                    beasiswa <strong>Kabupaten Sidoarjo 2025</strong>
+                  </p>
+
+                  <div className="persyaratan-grid">
+                    <div className="persyaratan-card">
+                      <div className="card-header">
+                        <div className="card-icon">
+                          <i className="fas fa-file-alt"></i>
                         </div>
-                      </h6>
+                        <h3>Persyaratan Umum</h3>
+                      </div>
+                      <div className="card-body">
+                        <ul className="requirements-list">
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Warga Negara Indonesia (WNI)</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Berdomisili di Kabupaten Sidoarjo minimal 2 tahun</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Usia maksimal 25 tahun pada saat pendaftaran</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Tidak sedang menerima beasiswa lain dari pemerintah</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Memiliki Kartu Keluarga (KK) Kabupaten Sidoarjo</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="persyaratan-card">
+                      <div className="card-header">
+                        <div className="card-icon">
+                          <i className="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Persyaratan Akademik</h3>
+                      </div>
+                      <div className="card-body">
+                        <ul className="requirements-list">
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>IPK minimal 3.00 untuk mahasiswa</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Nilai rata-rata rapor minimal 80 untuk siswa SMA/SMK</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Terdaftar aktif di sekolah/universitas terakreditasi</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Tidak sedang cuti akademik</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Surat rekomendasi dari institusi pendidikan</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="persyaratan-card">
+                      <div className="card-header">
+                        <div className="card-icon">
+                          <i className="fas fa-file-pdf"></i>
+                        </div>
+                        <h3>Dokumen yang Diperlukan</h3>
+                      </div>
+                      <div className="card-body">
+                        <ul className="requirements-list">
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>KTP Elektronik (asli dan scan)</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Kartu Keluarga (asli dan scan)</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Foto 3x4 latar belakang merah</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Transkrip nilai atau rapor terakhir</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Surat keterangan aktif belajar</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-check-circle"></i>
+                            <span>Surat pernyataan tidak menerima beasiswa lain</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="persyaratan-card">
+                      <div className="card-header">
+                        <div className="card-icon">
+                          <i className="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Timeline Pendaftaran</h3>
+                      </div>
+                      <div className="card-body">
+                        <ul className="requirements-list">
+                          <li className="requirement-item">
+                            <i className="fas fa-calendar-day"></i>
+                            <span><strong>Pendaftaran:</strong> 1 Januari - 31 Maret 2025</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-file-upload"></i>
+                            <span><strong>Upload Dokumen:</strong> 1 Januari - 5 April 2025</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-clipboard-check"></i>
+                            <span><strong>Seleksi Administrasi:</strong> 6 - 20 April 2025</span>
+                          </li>
+                          <li className="requirement-item">
+                            <i className="fas fa-user-check"></i>
+                            <span><strong>Pengumuman:</strong> 1 Mei 2025</span>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </>
-            ) : (
-              <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
-                <div className="card-body mt-2">
-                  <h4 className="font-weight-bold text-dark">
-                    Register Beasiswa
-                  </h4>
-                  <hr />
-                  <form onSubmit={storeRegister}>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
+              </div>
+              <div className="modal-footer">
+                <button
+                  className="btn-modal-close"
+                  onClick={() => setShowPersyaratan(false)}
+                >
+                  Tutup
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="container main-container mt-5 mb-5">
+          {maintenance ? (
+            <div className="maintenance-section">
+              <div className="maintenance-card">
+                <div className="maintenance-icon">
+                  <i className="fas fa-tools"></i>
+                </div>
+                <h2>Pendaftaran Sudah Ditutup</h2>
+                <p>Masa pendaftaran beasiswa telah berakhir. Terima kasih atas minat Anda.</p>
+                <div className="maintenance-image">
+                  <img src={Logo} alt="Maintenance" />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="register-section">
+              {/* Progress Steps */}
+              <div className="progress-steps">
+                <div className={`step ${currentStep >= 1 ? 'active' : ''}`}>
+                  <div className="step-number">1</div>
+                  <div className="step-label">Data Pribadi</div>
+                </div>
+                <div className={`step ${currentStep >= 2 ? 'active' : ''}`}>
+                  <div className="step-number">2</div>
+                  <div className="step-label">Alamat</div>
+                </div>
+                <div className={`step ${currentStep >= 3 ? 'active' : ''}`}>
+                  <div className="step-number">3</div>
+                  <div className="step-label">Dokumen</div>
+                </div>
+                <div className={`step ${currentStep >= 4 ? 'active' : ''}`}>
+                  <div className="step-number">4</div>
+                  <div className="step-label">Akun</div>
+                </div>
+              </div>
+
+              <div className="register-card">
+                <div className="card-header">
+                  <i className="fas fa-user-plus"></i>
+                  <h2>Formulir Pendaftaran</h2>
+                </div>
+
+                {/* Global Error Summary - FIXED */}
+                {getErrorMessages().length > 0 && (
+                  <div className="error-summary">
+                    <div className="error-header">
+                      <i className="fas fa-exclamation-triangle"></i>
+                      <h4>Perbaiki data berikut:</h4>
+                    </div>
+                    <div className="error-list">
+                      {getErrorMessages().map(([field, messages]) => (
+                        <div key={field} className="error-item">
+                          <i className="fas fa-times-circle"></i>
+                          <span>{messages[0]}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <form onSubmit={storeRegister}>
+                  {/* Step 1: Data Pribadi */}
+                  {currentStep === 1 && (
+                    <div className="step-content">
+                      <h3 className="step-title">Data Pribadi</h3>
+                      <p className="step-description">Isi data pribadi Anda dengan benar sesuai dokumen resmi</p>
+
+                      <div className="form-grid">
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-user"></i>
                             Nama Lengkap Sesuai KTP-EL
                           </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className={`form-input ${errors.name ? 'error' : ''}`}
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => {
+                              setName(e.target.value);
+                              setErrors(prev => ({ ...prev, name: null }));
+                            }}
                             placeholder="Masukkan Nama Lengkap"
                           />
+                          {errors.name && errors.name[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.name[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.name && (
-                          <div className="alert alert-danger">
-                            {errors.name[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
+
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-id-card"></i>
                             NIK Sesuai KTP-EL
                           </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className={`form-input ${errors.nik ? 'error' : ''}`}
                             value={nik}
                             onChange={handleChangeNik}
-                            placeholder="Masukkan No Induk Kependudukan"
+                            placeholder="Masukkan No Induk Kependudukan (16 digit)"
                             maxLength={16}
                           />
+                          {errors.nik && errors.nik[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.nik[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.nik && (
-                          <div className="alert alert-danger">
-                            {errors.nik[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
+
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-home"></i>
                             No Kartu Keluarga (KK)
                           </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className={`form-input ${errors.nokk ? 'error' : ''}`}
                             value={nokk}
                             onChange={handleChangeKartuKeluarga}
-                            placeholder="Masukkan No Kartu Keluarga"
+                            placeholder="Masukkan No Kartu Keluarga (16 digit)"
                             maxLength={16}
                           />
+                          {errors.nokk && errors.nokk[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.nokk[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.nokk && (
-                          <div className="alert alert-danger">
-                            {errors.nokk[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
+
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-phone"></i>
                             No HP/Whatsapp
                           </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className={`form-input ${errors.nohp ? 'error' : ''}`}
                             value={nohp}
                             onChange={handleChangeNoHp}
                             placeholder="Masukkan No Hp atau Whatsapp"
                           />
+                          {errors.nohp && errors.nohp[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.nohp[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.nohp && (
-                          <div className="alert alert-danger">
-                            {errors.nohp[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">Email</label>
+
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-envelope"></i>
+                            Email
+                          </label>
                           <input
                             type="email"
-                            className="form-control"
+                            className={`form-input ${errors.email ? 'error' : ''}`}
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => {
+                              setEmail(e.target.value);
+                              setErrors(prev => ({ ...prev, email: null }));
+                            }}
                             placeholder="Masukkan Email"
                           />
+                          {errors.email && errors.email[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.email[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.email && (
-                          <div className="alert alert-danger">
-                            {errors.email[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
+
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-venus-mars"></i>
                             Jenis Kelamin
                           </label>
                           <select
-                            className="form-select"
+                            className={`form-select ${errors.gender ? 'error' : ''}`}
                             value={gender}
-                            onChange={handleshowhideGender}
+                            onChange={(e) => {
+                              setGender(e.target.value);
+                              setErrors(prev => ({ ...prev, gender: null }));
+                            }}
                           >
                             <option value="">-- Pilih Jenis Kelamin --</option>
                             <option value="L">Laki-Laki</option>
                             <option value="P">Perempuan</option>
                           </select>
+                          {errors.gender && errors.gender[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.gender[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.gender && (
-                          <div className="alert alert-danger">
-                            {errors.gender[0]}
-                          </div>
-                        )}
                       </div>
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
+
+                      <div className="step-actions">
+                        <button type="button" className="btn-next" onClick={nextStep}>
+                          Selanjutnya <i className="fas fa-arrow-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Step 2: Alamat */}
+                  {currentStep === 2 && (
+                    <div className="step-content">
+                      <h3 className="step-title">Data Alamat</h3>
+                      <p className="step-description">Isi alamat lengkap sesuai KTP</p>
+
+                      <div className="form-grid">
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-map-marker-alt"></i>
                             Kecamatan
                           </label>
                           <Select
@@ -436,197 +787,1084 @@ export default function Register() {
                             value={kecamatanList.find(kecamatan => kecamatan.value === selectedKecamatan) || null}
                             onChange={handleKecamatanChange}
                             placeholder="Pilih Kecamatan"
+                            styles={customSelectStyles}
                           />
+                          {errors.id_kecamatan && errors.id_kecamatan[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.id_kecamatan[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.id_kecamatan && (
-                          <div className="alert alert-danger">
-                            {errors.id_kecamatan[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
+
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-map-pin"></i>
                             Kelurahan/Desa
                           </label>
                           <Select
                             options={kelurahanList}
                             value={kelurahanList.find(kelurahan => kelurahan.value === selectedKelurahan) || null}
-                            onChange={(selectedOption) => {
-                              setSelectedKelurahan(selectedOption.value);
-                            }}
+                            onChange={handleKelurahanChange}
                             placeholder="Pilih Kelurahan"
+                            styles={customSelectStyles}
+                            isDisabled={!selectedKecamatan}
                           />
+                          {errors.id_kelurahan && errors.id_kelurahan[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.id_kelurahan[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.id_kelurahan && (
-                          <div className="alert alert-danger">
-                            {errors.id_kelurahan[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-4">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">Kode POS</label>
+
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-mail-bulk"></i>
+                            Kode POS
+                          </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className={`form-input ${errors.codepos ? 'error' : ''}`}
                             value={codepos}
                             onChange={handleChangeKodePos}
-                            placeholder="Masukkan Kode POS"
+                            placeholder="Masukkan Kode POS (5 digit)"
+                            maxLength={5}
                           />
+                          {errors.codepos && errors.codepos[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.codepos[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.codepos && (
-                          <div className="alert alert-danger">
-                            {errors.codepos[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-4">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">RT</label>
+
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-hashtag"></i>
+                            RT
+                          </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className={`form-input ${errors.rt ? 'error' : ''}`}
                             value={rt}
                             onChange={handleChangeRT}
-                            placeholder="Kalau RT Belum Ada Isi Dengan (0)"
+                            placeholder="Isi 0 jika belum ada"
                           />
+                          {errors.rt && errors.rt[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.rt[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.rt && (
-                          <div className="alert alert-danger">
-                            {errors.rt[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-4">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">RW</label>
+
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-hashtag"></i>
+                            RW
+                          </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className={`form-input ${errors.rw ? 'error' : ''}`}
                             value={rw}
                             onChange={handleChangeRW}
-                            placeholder="Kalau RW Belum Ada Isi Dengan (0)"
+                            placeholder="Isi 0 jika belum ada"
                           />
+                          {errors.rw && errors.rw[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.rw[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.rw && (
-                          <div className="alert alert-danger">
-                            {errors.rw[0]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12 mb-3">
-                        <label className="form-label fw-bold">
-                          Alamat Lengkap Sesuai KTP
-                        </label>
-                        <textarea
-                          rows="5"
-                          cols="50"
-                          value={alamat}
-                          onChange={(e) => setAlamat(e.target.value)}
-                          className="form-control"
-                        />
-                      </div>
-                    </div>
-                    {errors.alamat && (
-                      <div className="alert alert-danger">
-                        {errors.alamat[0]}
-                      </div>
-                    )}
-                    <div className="row">
-                      <div className="col-md-12 mt-2">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Upload KTP pdf dan maksimal 2MB
+
+                        <div className="form-group full-width">
+                          <label className="form-label">
+                            <i className="fas fa-map-marked-alt"></i>
+                            Alamat Lengkap Sesuai KTP
                           </label>
-                          <input
-                            type="file"
-                            className="form-control"
-                            onChange={handleFileKtp}
+                          <textarea
+                            rows="4"
+                            className={`form-textarea ${errors.alamat ? 'error' : ''}`}
+                            value={alamat}
+                            onChange={(e) => {
+                              setAlamat(e.target.value);
+                              setErrors(prev => ({ ...prev, alamat: null }));
+                            }}
+                            placeholder="Tulis alamat lengkap sesuai KTP"
                           />
+                          {errors.alamat && errors.alamat[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.alamat[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.imagektp && (
-                          <div className="alert alert-danger">
-                            {errors.imagektp[0]}
-                          </div>
-                        )}
                       </div>
-                      <div className="col-md-12 mt-2">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Upload Kartu Keluarga pdf dan maksimal 2MB
-                          </label>
-                          <input
-                            type="file"
-                            className="form-control"
-                            onChange={handleFileKk}
-                          />
-                        </div>
-                        {errors.imagekk && (
-                          <div className="alert alert-danger">
-                            {errors.imagekk[0]}
-                          </div>
-                        )}
+
+                      <div className="step-actions">
+                        <button type="button" className="btn-prev" onClick={prevStep}>
+                          <i className="fas fa-arrow-left"></i> Sebelumnya
+                        </button>
+                        <button type="button" className="btn-next" onClick={nextStep}>
+                          Selanjutnya <i className="fas fa-arrow-right"></i>
+                        </button>
                       </div>
                     </div>
-                    <div className="row">
-                      <div className="col-md-6 mt-2">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">Password</label>
+                  )}
+
+                  {/* Step 3: Dokumen */}
+                  {currentStep === 3 && (
+                    <div className="step-content">
+                      <h3 className="step-title">Upload Dokumen</h3>
+                      <p className="step-description">Upload dokumen dalam format PDF (maksimal 2MB)</p>
+
+                      <div className="document-upload">
+                        <div className="upload-group">
+                          <label className="upload-label">
+                            <i className="fas fa-file-pdf"></i>
+                            Upload KTP (PDF)
+                          </label>
+                          <div className={`upload-area ${errors.imagektp ? 'error' : ''}`}>
+                            <input
+                              type="file"
+                              className="upload-input"
+                              onChange={handleFileKtp}
+                              accept=".pdf"
+                            />
+                            <div className="upload-content">
+                              <i className="fas fa-cloud-upload-alt"></i>
+                              <p>Klik untuk upload KTP</p>
+                              <span>Format: PDF, Maksimal: 2MB</span>
+                            </div>
+                          </div>
+                          {ktp && (
+                            <div className="file-preview success">
+                              <i className="fas fa-check-circle"></i>
+                              <span>{ktp.name}</span>
+                            </div>
+                          )}
+                          {errors.imagektp && errors.imagektp[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.imagektp[0]}
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="upload-group">
+                          <label className="upload-label">
+                            <i className="fas fa-file-pdf"></i>
+                            Upload Kartu Keluarga (PDF)
+                          </label>
+                          <div className={`upload-area ${errors.imagekk ? 'error' : ''}`}>
+                            <input
+                              type="file"
+                              className="upload-input"
+                              onChange={handleFileKk}
+                              accept=".pdf"
+                            />
+                            <div className="upload-content">
+                              <i className="fas fa-cloud-upload-alt"></i>
+                              <p>Klik untuk upload Kartu Keluarga</p>
+                              <span>Format: PDF, Maksimal: 2MB</span>
+                            </div>
+                          </div>
+                          {kk && (
+                            <div className="file-preview success">
+                              <i className="fas fa-check-circle"></i>
+                              <span>{kk.name}</span>
+                            </div>
+                          )}
+                          {errors.imagekk && errors.imagekk[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.imagekk[0]}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="step-actions">
+                        <button type="button" className="btn-prev" onClick={prevStep}>
+                          <i className="fas fa-arrow-left"></i> Sebelumnya
+                        </button>
+                        <button type="button" className="btn-next" onClick={nextStep}>
+                          Selanjutnya <i className="fas fa-arrow-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Step 4: Akun */}
+                  {currentStep === 4 && (
+                    <div className="step-content">
+                      <h3 className="step-title">Buat Akun</h3>
+                      <p className="step-description">Buat password untuk akun Anda</p>
+
+                      <div className="form-grid">
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-lock"></i>
+                            Password
+                          </label>
                           <input
                             type="password"
-                            className="form-control"
+                            className={`form-input ${errors.password ? 'error' : ''}`}
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => {
+                              setPassword(e.target.value);
+                              setErrors(prev => ({ ...prev, password: null }));
+                            }}
+                            placeholder="Buat password (minimal 8 karakter)"
                           />
+                          {errors.password && errors.password[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.password[0]}
+                            </div>
+                          )}
                         </div>
-                        {errors.password && (
-                          <div className="alert alert-danger">
-                            {errors.password[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6 mt-2">
-                        <div className="mb-3">
-                          <label className="form-label fw-bold">
-                            Password Konfirmasi
+
+                        <div className="form-group">
+                          <label className="form-label">
+                            <i className="fas fa-lock"></i>
+                            Konfirmasi Password
                           </label>
                           <input
                             type="password"
-                            className="form-control"
+                            className={`form-input ${errors.password_confirmation ? 'error' : ''}`}
                             value={passwordConfirmation}
-                            onChange={(e) =>
-                              setPasswordConfirmation(e.target.value)
-                            }
+                            onChange={(e) => {
+                              setPasswordConfirmation(e.target.value);
+                              setErrors(prev => ({ ...prev, password_confirmation: null }));
+                            }}
+                            placeholder="Ulangi password"
                           />
+                          {errors.password_confirmation && errors.password_confirmation[0] && (
+                            <div className="error-message">
+                              <i className="fas fa-exclamation-circle"></i>
+                              {errors.password_confirmation[0]}
+                            </div>
+                          )}
                         </div>
                       </div>
+
+                      <div className="step-actions">
+                        <button type="button" className="btn-prev" onClick={prevStep}>
+                          <i className="fas fa-arrow-left"></i> Sebelumnya
+                        </button>
+
+                        <button
+                          type="submit"
+                          className="btn-submit"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? (
+                            <>
+                              <i className="fas fa-spinner fa-spin"></i> MENYIMPAN...
+                            </>
+                          ) : (
+                            <>
+                              <i className="fas fa-check"></i> DAFTAR SEKARANG
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </div>
-                    <div>
-                      <button
-                        type="submit"
-                        className="btn btn-md btn-primary me-2"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? "LOADING..." : "SIMPAN"}{" "}
-                      </button>
-                      <button type="reset" className="btn btn-md btn-warning">
-                        <i className="fa fa-redo"></i> Reset
-                      </button>
-                    </div>
-                  </form>
+                  )}
+                </form>
+              </div>
+
+              {/* Info Box */}
+              <div className="info-box">
+                <div className="info-header">
+                  <i className="fas fa-info-circle"></i>
+                  <h4>Informasi Penting</h4>
+                </div>
+                <div className="info-content">
+                  <div className="info-item">
+                    <i className="fas fa-check"></i>
+                    <span>Pastikan semua data diisi dengan benar sesuai dokumen resmi</span>
+                  </div>
+                  <div className="info-item">
+                    <i className="fas fa-check"></i>
+                    <span>Dokumen harus dalam format PDF dengan ukuran maksimal 2MB</span>
+                  </div>
+                  <div className="info-item">
+                    <i className="fas fa-check"></i>
+                    <span>Data yang sudah terkirim tidak dapat diubah</span>
+                  </div>
+                  <div className="info-item">
+                    <i className="fas fa-check"></i>
+                    <span>Simpan password Anda dengan aman</span>
+                  </div>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
+
+      <style jsx>{`
+        /* Error Styles */
+        .error-summary {
+          background: #fef2f2;
+          border: 1px solid #fecaca;
+          border-radius: 10px;
+          padding: 20px;
+          margin-bottom: 25px;
+        }
+
+        .error-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 15px;
+        }
+
+        .error-header i {
+          color: #dc2626;
+          font-size: 1.2rem;
+        }
+
+        .error-header h4 {
+          color: #dc2626;
+          margin: 0;
+          font-size: 1.1rem;
+        }
+
+        .error-list {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .error-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #dc2626;
+        }
+
+        .error-item i {
+          font-size: 0.9rem;
+        }
+
+        .form-input.error, .form-select.error, .form-textarea.error, .upload-area.error {
+          border-color: #dc2626 !important;
+          background: #fef2f2;
+        }
+
+        .form-input.error:focus, .form-select.error:focus, .form-textarea.error:focus {
+          box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .upload-area.error {
+          border-color: #dc2626 !important;
+          background: #fef2f2;
+        }
+
+        .error-message {
+          color: #dc2626;
+          font-size: 0.875rem;
+          margin-top: 5px;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+
+        .file-preview.success {
+          color: #059669;
+        }
+
+        /* Logo Styles */
+        .hero-logo img {
+          width: 120px;
+          height: auto;
+          margin-bottom: 20px;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          background: white;
+          padding: 8px;
+        }
+
+        /* Persyaratan Button Styles */
+        .persyaratan-button-container {
+          margin-top: 25px;
+        }
+
+        .btn-persyaratan {
+          background: linear-gradient(135deg, #059669, #10b981);
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 10px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 0 auto;
+        }
+
+        .btn-persyaratan:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.7);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          padding: 20px;
+        }
+
+        .modal-content {
+          background: white;
+          border-radius: 20px;
+          max-width: 900px;
+          width: 100%;
+          max-height: 90vh;
+          overflow-y: auto;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 25px 30px;
+          border-bottom: 2px solid #f1f5f9;
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          color: white;
+          border-radius: 20px 20px 0 0;
+        }
+
+        .modal-header h2 {
+          margin: 0;
+          font-size: 1.8rem;
+        }
+
+        .modal-close {
+          background: none;
+          border: none;
+          color: white;
+          font-size: 1.5rem;
+          cursor: pointer;
+          padding: 5px;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 0.3s ease;
+        }
+
+        .modal-close:hover {
+          background: rgba(255,255,255,0.1);
+        }
+
+        .modal-body {
+          padding: 30px;
+        }
+
+        .modal-footer {
+          padding: 20px 30px;
+          border-top: 1px solid #e2e8f0;
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .btn-modal-close {
+          background: #64748b;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 600;
+          transition: background 0.3s ease;
+        }
+
+        .btn-modal-close:hover {
+          background: #475569;
+        }
+
+        /* Persyaratan Section Styles */
+        .persyaratan-description {
+          text-align: center;
+          color: #666;
+          font-size: 1.1rem;
+          margin-bottom: 30px;
+          line-height: 1.6;
+        }
+
+        .persyaratan-description strong {
+          color: #1e3c72;
+        }
+
+        .persyaratan-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 25px;
+        }
+
+        .persyaratan-card {
+          background: #f8fafc;
+          border-radius: 15px;
+          padding: 25px;
+          border: 1px solid #e2e8f0;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .persyaratan-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 20px;
+        }
+
+        .card-icon {
+          width: 50px;
+          height: 50px;
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 1.3rem;
+        }
+
+        .card-header h3 {
+          margin: 0;
+          color: #1e3c72;
+          font-size: 1.3rem;
+        }
+
+        .requirements-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .requirement-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          margin-bottom: 12px;
+          padding: 8px 0;
+        }
+
+        .requirement-item i {
+          color: #059669;
+          margin-top: 2px;
+          flex-shrink: 0;
+        }
+
+        .requirement-item span {
+          color: #374151;
+          line-height: 1.5;
+        }
+
+        .requirement-item strong {
+          color: #1e3c72;
+        }
+
+        /* Rest of the styles remain the same as previous version */
+        .register-container {
+          min-height: 100vh;
+          background: #f8fafc;
+        }
+
+        .register-hero {
+          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+          color: white;
+          padding: 50px 0;
+          text-align: center;
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 2;
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+          font-weight: 700;
+          margin-bottom: 15px;
+        }
+
+        .hero-subtitle {
+          font-size: 1.2rem;
+          margin-bottom: 25px;
+          opacity: 0.9;
+        }
+
+        .hero-subtitle .highlight {
+          color: #ffd700;
+          font-weight: 600;
+        }
+
+        .hero-divider {
+          width: 80px;
+          height: 4px;
+          background: #ffd700;
+          margin: 0 auto;
+          border-radius: 2px;
+        }
+
+        .main-container {
+          padding: 40px 20px;
+        }
+
+        .maintenance-section {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 50vh;
+        }
+
+        .maintenance-card {
+          background: white;
+          border-radius: 20px;
+          padding: 50px;
+          text-align: center;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          max-width: 500px;
+          width: 100%;
+        }
+
+        .maintenance-icon {
+          font-size: 4rem;
+          color: #6c757d;
+          margin-bottom: 20px;
+        }
+
+        .maintenance-card h2 {
+          color: #1e3c72;
+          margin-bottom: 15px;
+        }
+
+        .maintenance-card p {
+          color: #666;
+          margin-bottom: 25px;
+        }
+
+        .maintenance-image img {
+          max-width: 200px;
+          height: auto;
+        }
+
+        .register-section {
+          max-width: 1000px;
+          margin: 0 auto;
+        }
+
+        .progress-steps {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 40px;
+          position: relative;
+        }
+
+        .progress-steps::before {
+          content: '';
+          position: absolute;
+          top: 20px;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: #e2e8f0;
+          z-index: 1;
+        }
+
+        .step {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+          z-index: 2;
+        }
+
+        .step-number {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: #e2e8f0;
+          color: #64748b;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          margin-bottom: 10px;
+          transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+          background: #1e3c72;
+          color: white;
+        }
+
+        .step-label {
+          font-size: 0.9rem;
+          color: #64748b;
+          font-weight: 600;
+        }
+
+        .step.active .step-label {
+          color: #1e3c72;
+        }
+
+        .register-card {
+          background: white;
+          border-radius: 20px;
+          padding: 40px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          margin-bottom: 30px;
+        }
+
+        .card-header {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 30px;
+          padding-bottom: 20px;
+          border-bottom: 2px solid #f1f5f9;
+        }
+
+        .card-header i {
+          font-size: 2rem;
+          color: #1e3c72;
+        }
+
+        .card-header h2 {
+          color: #1e3c72;
+          margin: 0;
+          font-size: 1.8rem;
+        }
+
+        .step-title {
+          color: #1e3c72;
+          font-size: 1.5rem;
+          margin-bottom: 10px;
+        }
+
+        .step-description {
+          color: #666;
+          margin-bottom: 30px;
+        }
+
+        .form-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          margin-bottom: 30px;
+        }
+
+        .form-group.full-width {
+          grid-column: 1 / -1;
+        }
+
+        .form-label {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #1e3c72;
+          font-weight: 600;
+          margin-bottom: 8px;
+        }
+
+        .form-label i {
+          color: #64748b;
+        }
+
+        .form-input, .form-select, .form-textarea {
+          width: 100%;
+          padding: 12px 16px;
+          border: 2px solid #e2e8f0;
+          border-radius: 10px;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+          outline: none;
+          border-color: #1e3c72;
+          box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+
+        .form-textarea {
+          resize: vertical;
+          min-height: 100px;
+        }
+
+        .document-upload {
+          display: flex;
+          flex-direction: column;
+          gap: 25px;
+        }
+
+        .upload-group {
+          margin-bottom: 20px;
+        }
+
+        .upload-label {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #1e3c72;
+          font-weight: 600;
+          margin-bottom: 12px;
+        }
+
+        .upload-area {
+          position: relative;
+          border: 2px dashed #cbd5e1;
+          border-radius: 12px;
+          padding: 30px;
+          text-align: center;
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .upload-area:hover {
+          border-color: #1e3c72;
+          background: #f8faff;
+        }
+
+        .upload-input {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          cursor: pointer;
+        }
+
+        .upload-content i {
+          font-size: 2.5rem;
+          color: #64748b;
+          margin-bottom: 10px;
+        }
+
+        .upload-content p {
+          color: #1e3c72;
+          font-weight: 600;
+          margin-bottom: 5px;
+        }
+
+        .upload-content span {
+          color: #64748b;
+          font-size: 0.875rem;
+        }
+
+        .file-preview {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #059669;
+          margin-top: 10px;
+          font-weight: 500;
+        }
+
+        .step-actions {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 30px;
+          padding-top: 20px;
+          border-top: 1px solid #e2e8f0;
+        }
+
+        .final-actions {
+          justify-content: flex-end;
+        }
+
+        .btn-prev, .btn-next, .btn-submit {
+          padding: 12px 24px;
+          border: none;
+          border-radius: 10px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .btn-prev {
+          background: #64748b;
+          color: white;
+        }
+
+        .btn-prev:hover {
+          background: #475569;
+        }
+
+        .btn-next {
+          background: #1e3c72;
+          color: white;
+        }
+
+        .btn-next:hover {
+          background: #2a5298;
+          transform: translateY(-2px);
+        }
+
+        .btn-submit {
+          background: linear-gradient(135deg, #059669, #10b981);
+          color: white;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn-submit:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
+        .info-box {
+          background: white;
+          border-radius: 15px;
+          padding: 25px;
+          box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .info-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 20px;
+        }
+
+        .info-header i {
+          color: #1e3c72;
+          font-size: 1.5rem;
+        }
+
+        .info-header h4 {
+          color: #1e3c72;
+          margin: 0;
+        }
+
+        .info-content {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .info-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        .info-item i {
+          color: #059669;
+          margin-top: 2px;
+        }
+
+        .info-item span {
+          color: #555;
+          line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+          .hero-title {
+            font-size: 2rem;
+          }
+
+          .form-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .register-card {
+            padding: 25px 20px;
+          }
+
+          .progress-steps {
+            gap: 10px;
+          }
+
+          .step-label {
+            font-size: 0.8rem;
+          }
+
+          .step-actions {
+            flex-direction: column;
+            gap: 15px;
+          }
+
+          .btn-prev, .btn-next, .btn-submit {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .persyaratan-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .modal-content {
+            margin: 10px;
+          }
+
+          .modal-header {
+            padding: 20px;
+          }
+
+          .modal-body {
+            padding: 20px;
+          }
+        }
+
+        @media (max-width: 576px) {
+          .main-container {
+            padding: 20px 15px;
+          }
+
+          .hero-title {
+            font-size: 1.8rem;
+          }
+
+          .card-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+          }
+
+          .progress-steps {
+            flex-wrap: wrap;
+            gap: 15px;
+          }
+
+          .step {
+            flex: 1;
+            min-width: 80px;
+          }
+        }
+      `}</style>
     </LayoutWeb>
   );
 }
