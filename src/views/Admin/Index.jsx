@@ -17,7 +17,7 @@ export default function Dashboard() {
   //navigata
   const navigate = useNavigate();
 
-  const maintenance = true;
+  const maintenance = false;
 
   const [nim, setNim] = useState("");
   const [ktm, setKtm] = useState("");
@@ -38,6 +38,7 @@ export default function Dashboard() {
   const [jeniskota, setJeniskota] = useState("");
 
   const [isLoading, setLoading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState({});
 
   const [errors, setErros] = useState([]);
   const [dashboard, setDashboard] = useState("");
@@ -110,6 +111,21 @@ export default function Dashboard() {
     }
   }
 
+  // Function to simulate upload progress
+  const simulateUploadProgress = (fileType) => {
+    setUploadProgress(prev => ({ ...prev, [fileType]: 0 }));
+    
+    const interval = setInterval(() => {
+      setUploadProgress(prev => {
+        const newProgress = prev[fileType] + Math.floor(Math.random() * 10) + 5;
+        if (newProgress >= 100) {
+          clearInterval(interval);
+          return { ...prev, [fileType]: 100 };
+        }
+        return { ...prev, [fileType]: newProgress };
+      });
+    }, 200);
+  };
 
   const handleFileKtm = (e) => {
     const imageData = e.target.files[0];
@@ -129,6 +145,7 @@ export default function Dashboard() {
         });
       } else {
         setKtm(imageData);
+        simulateUploadProgress('ktm');
       }
     }
 
@@ -147,6 +164,7 @@ export default function Dashboard() {
       return;
     }
     setKtm(imageData);
+    simulateUploadProgress('ktm');
   };
 
   const handleFileAktifKuliah = (e) => {
@@ -167,6 +185,7 @@ export default function Dashboard() {
         });
       } else {
         setImageaktifkampus(imageData);
+        simulateUploadProgress('aktifKuliah');
       }
     }
 
@@ -185,6 +204,7 @@ export default function Dashboard() {
       return;
     }
     setImageaktifkampus(imageData);
+    simulateUploadProgress('aktifKuliah');
   };
 
   const handleFileSuratPernyataan = (e) => {
@@ -205,6 +225,7 @@ export default function Dashboard() {
         });
       } else {
         setImagesuratpernyataan(imageData);
+        simulateUploadProgress('suratPernyataan');
       }
     }
 
@@ -223,6 +244,7 @@ export default function Dashboard() {
       return;
     }
     setImagesuratpernyataan(imageData);
+    simulateUploadProgress('suratPernyataan');
   };
 
   const handleFileAkre = (e) => {
@@ -243,6 +265,7 @@ export default function Dashboard() {
         });
       } else {
         setImageakrekampus(imageData);
+        simulateUploadProgress('akreKampus');
       }
     }
 
@@ -264,6 +287,7 @@ export default function Dashboard() {
       return;
     }
     setImageakrekampus(imageData);
+    simulateUploadProgress('akreKampus');
   };
 
   const handleFileSuratBeasiswa = (e) => {
@@ -284,6 +308,7 @@ export default function Dashboard() {
         });
       } else {
         setImagesuratbeasiswa(imageData);
+        simulateUploadProgress('suratBeasiswa');
       }
     }
 
@@ -305,6 +330,7 @@ export default function Dashboard() {
       return;
     }
     setImagesuratbeasiswa(imageData);
+    simulateUploadProgress('suratBeasiswa');
   };
 
   // pilih univ negeri/luarnegeri
@@ -379,30 +405,60 @@ export default function Dashboard() {
     );
   };
 
+  // Component untuk progress bar yang bisa digunakan kembali
+  const UploadProgressBar = ({ progress, fileName, fileType }) => (
+    <div className="upload-progress-container">
+      <div className="upload-info">
+        <div className="file-name">
+          <i className="fas fa-file-pdf"></i>
+          {fileName}
+        </div>
+        <div className="progress-percentage">{progress}%</div>
+      </div>
+      <div className="progress-bar">
+        <div 
+          className="progress-fill" 
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
+      {progress === 100 && (
+        <div className="upload-success">
+          <i className="fas fa-check-circle"></i>
+          Upload Berhasil!
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <LayoutAdmin>
       <main>
-        <div className="container-fluid px-4 mb-4 mt-3">
-          <div className="alert alert-success" role="alert">
-            Selamat Datang <b>{user.name}</b>, {" "}
-            <b>{terdaftar ? terdaftar : "Anda tidak penerima beasiswa tahun 2024"}</b>
+        <div className="container-fluid px-4 mt-4 mb-4">
+          <div className="welcome-banner">
+            <div className="welcome-icon-container">
+              <i className="fas fa-bullhorn"></i>
+            </div>
+            <div className="welcome-text">
+              <h4>Selamat Datang, {user.name}!</h4>
+              <p>{terdaftar ? terdaftar : "Anda belum terdaftar sebagai penerima beasiswa tahun 2024. Silakan lengkapi data Anda untuk mendaftar."}</p>
+            </div>
           </div>
 
           {maintenance ? (
             <>
-              <div className="col-md-12 mt-5 mb-4">
-                <div className="card border-0 shadow-sm rounded-3 text-center text-uppercase">
-                  <div className="card-body mt-2">
-                    <h4 className="font-weight-bold text-dark">
-                      Pendaftaran Sudah Di tutup
-                    </h4>
-                    <hr />
-                    <h6>
-                      <div className="list-group my-3">
-                        <img src={Logo} alt="Logo" height={300} />
-                      </div>
-                    </h6>
+              <div className="maintenance-container">
+                <div className="maintenance-card">
+                  <div className="maintenance-icon">
+                    <i className="fas fa-calendar-times"></i>
                   </div>
+                  <h2 className="maintenance-title">Pendaftaran Telah Ditutup</h2>
+                  <p className="maintenance-text">
+                    Mohon maaf, periode pendaftaran beasiswa untuk saat ini telah berakhir.
+                    Terima kasih atas antusiasme Anda.
+                  </p>
+                  <p className="maintenance-subtext">
+                    Nantikan informasi pendaftaran periode selanjutnya di website ini.
+                  </p>
                 </div>
               </div>
             </>
@@ -412,24 +468,27 @@ export default function Dashboard() {
                 <hr />
                 {step === 1 ? (
                   <div className="row">
-                    <div className="col-md-12">
-                      <div className="card border-0 rounded shadow-sm border-top-success">
-                        <div className="card-body">
-                          <h6>
-                            <i className="fa fa-shield-alt"></i> Lengkapi Data
+                    <div className="col-12">
+                      <div className="form-card">
+                        <div className="form-card-header">
+                          <h2>
+                            <i className="fas fa-university"></i> Lengkapi Data
                             Perguruan Tinggi Anda
-                          </h6>
+                          </h2>
+                          <p>Pastikan semua data diisi dengan benar untuk melanjutkan ke tahap selanjutnya.</p>
                           <hr />
+                        </div>
+                        <div className="form-card-body">
                           <form onSubmit={updateUsers}>
                             <div className="row">
                               <div className="col-md-6">
                                 <div className="mb-3">
-                                  <label className="form-label fw-bold">
+                                  <label className="form-label">
                                     NIM (No Induk Mahasiswa)
                                   </label>
                                   <input
                                     type="text"
-                                    className="form-control"
+                                    className="form-input"
                                     value={nim}
                                     onChange={handleChangeNIM}
                                     placeholder="Enter NIM"
@@ -443,15 +502,25 @@ export default function Dashboard() {
                               </div>
                               <div className="col-md-6">
                                 <div className="mb-3">
-                                  <label className="form-label fw-bold">
+                                  <label className="form-label">
                                     Upload KTM (Kartu Induk Mahasiswa) pdf dan
                                     maksimal 2MB
                                   </label>
-                                  <input
-                                    type="file"
-                                    className="form-control"
-                                    onChange={handleFileKtm}
-                                  />
+                                  <div className="upload-area">
+                                    <input type="file" className="upload-input" onChange={handleFileKtm} accept=".pdf" />
+                                    <div className="upload-content">
+                                      <i className="fas fa-cloud-upload-alt"></i>
+                                      <p>{ktm ? ktm.name : 'Klik atau seret file ke sini'}</p>
+                                      <span>Format: PDF, Maks: 2MB</span>
+                                    </div>
+                                  </div>
+                                  {ktm && uploadProgress.ktm !== undefined && (
+                                    <UploadProgressBar 
+                                      progress={uploadProgress.ktm}
+                                      fileName={ktm.name}
+                                      fileType="ktm"
+                                    />
+                                  )}
                                 </div>
                                 {errors.ktm && (
                                   <div className="alert alert-danger">
@@ -463,12 +532,12 @@ export default function Dashboard() {
                             <div className="row">
                               <div className="col-md-6">
                                 <div className="mb-3">
-                                  <label className="form-label fw-bold">
+                                  <label className="form-label">
                                     Universitas
                                   </label>
                                   <input
                                     type="text"
-                                    className="form-control"
+                                    className="form-input"
                                     value={universitas}
                                     onChange={(e) =>
                                       setUniversitas(e.target.value)
@@ -484,12 +553,12 @@ export default function Dashboard() {
                               </div>
                               <div className="col-md-6">
                                 <div className="mb-3">
-                                  <label className="form-label fw-bold">
+                                  <label className="form-label">
                                     Jurusan
                                   </label>
                                   <input
                                     type="text"
-                                    className="form-control"
+                                    className="form-input"
                                     value={jurusan}
                                     onChange={(e) => setJurusan(e.target.value)}
                                     placeholder="Enter Nama Jurusan"
@@ -505,12 +574,12 @@ export default function Dashboard() {
                             <div className="row">
                               <div className="col-md-12">
                                 <div className="mb-3">
-                                  <label className="form-label fw-bold">
+                                  <label className="form-label">
                                     Alamat Universitas
                                   </label>
                                   <textarea
                                     type="text"
-                                    className="form-control"
+                                    className="form-textarea"
                                     value={alamatuniv}
                                     onChange={(e) =>
                                       setAlamatuniv(e.target.value)
@@ -530,15 +599,25 @@ export default function Dashboard() {
                             <div className="row">
                               <div className="col-md-12">
                                 <div className="mb-3">
-                                  <label className="form-label fw-bold">
+                                  <label className="form-label">
                                     Upload Surat Aktif Kuliah pdf dan maksimal
                                     2MB
                                   </label>
-                                  <input
-                                    type="file"
-                                    className="form-control"
-                                    onChange={handleFileAktifKuliah}
-                                  />
+                                  <div className="upload-area">
+                                    <input type="file" className="upload-input" onChange={handleFileAktifKuliah} accept=".pdf" />
+                                    <div className="upload-content">
+                                      <i className="fas fa-cloud-upload-alt"></i>
+                                      <p>{imageaktifkampus ? imageaktifkampus.name : 'Klik atau seret file ke sini'}</p>
+                                      <span>Format: PDF, Maks: 2MB</span>
+                                    </div>
+                                  </div>
+                                  {imageaktifkampus && uploadProgress.aktifKuliah !== undefined && (
+                                    <UploadProgressBar 
+                                      progress={uploadProgress.aktifKuliah}
+                                      fileName={imageaktifkampus.name}
+                                      fileType="aktifKuliah"
+                                    />
+                                  )}
                                 </div>
                                 {errors.imageaktifkampus && (
                                   <div className="alert alert-danger">
@@ -548,7 +627,7 @@ export default function Dashboard() {
                               </div>
                               <div className="col-md-12">
                                 <div className="mb-3">
-                                  <label className="form-label fw-bold">
+                                  <label className="form-label">
                                     Upload Surat Pernyataan Bermaterai pdf dan maksimal 2MB{" "}
                                     <a
                                       href="/surat.pdf" // Link to the file in the public folder
@@ -558,11 +637,21 @@ export default function Dashboard() {
                                       (Contoh Surat Pernyataan)
                                     </a>
                                   </label>
-                                  <input
-                                    type="file"
-                                    className="form-control"
-                                    onChange={handleFileSuratPernyataan}
-                                  />
+                                  <div className="upload-area">
+                                    <input type="file" className="upload-input" onChange={handleFileSuratPernyataan} accept=".pdf" />
+                                    <div className="upload-content">
+                                      <i className="fas fa-cloud-upload-alt"></i>
+                                      <p>{imagesuratpernyataan ? imagesuratpernyataan.name : 'Klik atau seret file ke sini'}</p>
+                                      <span>Format: PDF, Maks: 2MB</span>
+                                    </div>
+                                  </div>
+                                  {imagesuratpernyataan && uploadProgress.suratPernyataan !== undefined && (
+                                    <UploadProgressBar 
+                                      progress={uploadProgress.suratPernyataan}
+                                      fileName={imagesuratpernyataan.name}
+                                      fileType="suratPernyataan"
+                                    />
+                                  )}
                                 </div>
                                 {errors.imagesuratpernyataan && (
                                   <div className="alert alert-danger">
@@ -573,15 +662,25 @@ export default function Dashboard() {
                             </div>
                             <div className="col-md-12">
                               <div className="mb-3">
-                                <label className="form-label fw-bold">
+                                <label className="form-label">
                                   Upload Akredetasi Dari Universitas/Kampus pdf
                                   dan maksimal 2MB
                                 </label>
-                                <input
-                                  type="file"
-                                  className="form-control"
-                                  onChange={handleFileAkre}
-                                />
+                                <div className="upload-area">
+                                  <input type="file" className="upload-input" onChange={handleFileAkre} accept=".pdf" />
+                                  <div className="upload-content">
+                                    <i className="fas fa-cloud-upload-alt"></i>
+                                    <p>{imageakrekampus ? imageakrekampus.name : 'Klik atau seret file ke sini'}</p>
+                                    <span>Format: PDF, Maks: 2MB</span>
+                                  </div>
+                                </div>
+                                {imageakrekampus && uploadProgress.akreKampus !== undefined && (
+                                  <UploadProgressBar 
+                                    progress={uploadProgress.akreKampus}
+                                    fileName={imageakrekampus.name}
+                                    fileType="akreKampus"
+                                  />
+                                )}
                               </div>
                               {errors.imageakrekampus && (
                                 <div className="alert alert-danger">
@@ -591,11 +690,11 @@ export default function Dashboard() {
                             </div>
                             <div className="col-md-12">
                               <div className="mb-3">
-                                <label className="form-label fw-bold">
+                                <label className="form-label">
                                   Pilih Universitas Dalam Negeri / Luar Negeri
                                 </label>
                                 <select
-                                  className="form-select"
+                                  className="form-input"
                                   value={pilihuniversitas}
                                   onChange={handleshowhidePilih}
                                 >
@@ -617,15 +716,25 @@ export default function Dashboard() {
                               <>
                                 <div className="col-md-12">
                                   <div className="mb-3">
-                                    <label className="form-label fw-bold">
+                                    <label className="form-label">
                                       Upload Surat Tidak Menerima Beasiswa Lain
                                       dan maksimal 2MB
                                     </label>
-                                    <input
-                                      type="file"
-                                      className="form-control"
-                                      onChange={handleFileSuratBeasiswa}
-                                    />
+                                    <div className="upload-area">
+                                      <input type="file" className="upload-input" onChange={handleFileSuratBeasiswa} accept=".pdf" />
+                                      <div className="upload-content">
+                                        <i className="fas fa-cloud-upload-alt"></i>
+                                        <p>{imagesuratbeasiswa ? imagesuratbeasiswa.name : 'Klik atau seret file ke sini'}</p>
+                                        <span>Format: PDF, Maks: 2MB</span>
+                                      </div>
+                                    </div>
+                                    {imagesuratbeasiswa && uploadProgress.suratBeasiswa !== undefined && (
+                                      <UploadProgressBar 
+                                        progress={uploadProgress.suratBeasiswa}
+                                        fileName={imagesuratbeasiswa.name}
+                                        fileType="suratBeasiswa"
+                                      />
+                                    )}
                                   </div>
                                   {errors.imagesuratbeasiswa && (
                                     <div className="alert alert-danger">
@@ -636,11 +745,11 @@ export default function Dashboard() {
 
                                 <div className="col-md-12">
                                   <div className="mb-3">
-                                    <label className="form-label fw-bold">
+                                    <label className="form-label">
                                       Pilih Sidoarjo atau Luar Sidoarjo
                                     </label>
                                     <select
-                                      className="form-select"
+                                      className="form-input"
                                       value={jeniskota}
                                       onChange={handleshowKota}
                                     >
@@ -661,11 +770,11 @@ export default function Dashboard() {
                                 </div>
                                 <div className="col-md-12">
                                   <div className="mb-3">
-                                    <label className="form-label fw-bold">
+                                    <label className="form-label">
                                       Pilih Universitas Negeri / Swasta
                                     </label>
                                     <select
-                                      className="form-select"
+                                      className="form-input"
                                       value={jenisuniversitas}
                                       onChange={handleshowhideJenis}
                                     >
@@ -688,19 +797,19 @@ export default function Dashboard() {
                                 </div>
                               </>
                             )}
-                            <div className="d-flex justify-content-center">
+                            <div className="form-actions">
                               <button
                                 type="submit"
-                                className="btn btn-md btn-primary me-2"
+                                className="btn-submit"
                                 disabled={isLoading}
                               >
                                 {isLoading ? "LOADING..." : "SIMPAN"}{" "}
                               </button>
                               <button
                                 type="reset"
-                                className="btn btn-md btn-warning"
+                                className="btn-reset"
                               >
-                                <i className="fa fa-redo"></i> Reset
+                                <i className="fas fa-sync-alt"></i> Reset
                               </button>
                             </div>
                           </form>
@@ -901,6 +1010,332 @@ export default function Dashboard() {
           {/* KUSUS ADMIN */}
         </div>
       </main>
+      <style jsx>{`
+        .maintenance-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 50px 20px;
+          min-height: 60vh;
+        }
+
+        .maintenance-card {
+          background: white;
+          border-radius: 20px;
+          padding: 50px;
+          text-align: center;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+          max-width: 600px;
+          width: 100%;
+          border: 1px solid #e8f0ff;
+        }
+
+        .maintenance-icon {
+          font-size: 4.5rem;
+          color: #1e3c72;
+          margin-bottom: 25px;
+          line-height: 1;
+        }
+
+        .maintenance-title {
+          color: #1e3c72;
+          font-size: 2rem;
+          font-weight: 700;
+          margin-bottom: 15px;
+        }
+
+        .maintenance-text {
+          color: #475569;
+          font-size: 1.1rem;
+          line-height: 1.6;
+          margin-bottom: 20px;
+        }
+
+        .maintenance-subtext {
+          color: #64748b;
+          font-size: 0.95rem;
+          background-color: #f8fafc;
+          padding: 10px 15px;
+          border-radius: 10px;
+        }
+
+        .welcome-banner {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          background: linear-gradient(135deg, #e0f7fa 0%, #e8eaf6 100%);
+          color: #1e3c72;
+          padding: 25px;
+          border-radius: 15px;
+          margin-bottom: 30px;
+          border: 1px solid #d1d9e6;
+        }
+
+        .welcome-icon-container {
+          width: 60px;
+          height: 60px;
+          flex-shrink: 0;
+          background: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.8rem;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .welcome-text h4 {
+          margin: 0 0 5px 0;
+          font-weight: 700;
+        }
+
+        .welcome-text p {
+          margin: 0;
+          font-size: 1rem;
+          color: #475569;
+        }
+
+        .form-card {
+          background: white;
+          border-radius: 15px;
+          padding: 30px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          margin-bottom: 30px;
+        }
+
+        .form-card-header {
+          margin-bottom: 25px;
+        }
+
+        .form-card-header h2 {
+          color: #1e3c72;
+          font-size: 1.6rem;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        
+        .form-card-header p {
+          color: #64748b;
+          font-size: 1rem;
+        }
+
+        .form-label {
+          font-weight: 600;
+          color: #334155;
+          margin-bottom: 8px;
+          font-size: 0.95rem;
+        }
+
+        .form-input, .form-textarea {
+          width: 100%;
+          padding: 12px 16px;
+          border: 2px solid #e2e8f0;
+          border-radius: 10px;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          background-color: #f8fafc;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+          outline: none;
+          border-color: #3b82f6;
+          background-color: white;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
+
+        .upload-area {
+          position: relative;
+          border: 2px dashed #cbd5e1;
+          border-radius: 12px;
+          padding: 25px;
+          text-align: center;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          background-color: #f8fafc;
+        }
+
+        .upload-area:hover {
+          border-color: #3b82f6;
+          background-color: #f0f5ff;
+        }
+
+        .upload-input {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          cursor: pointer;
+        }
+
+        .upload-content i {
+          font-size: 2.2rem;
+          color: #94a3b8;
+          margin-bottom: 10px;
+        }
+
+        .upload-content p {
+          color: #1e3c72;
+          font-weight: 600;
+          margin-bottom: 5px;
+          font-size: 1rem;
+        }
+
+        .upload-content span {
+          color: #64748b;
+          font-size: 0.875rem;
+        }
+
+        .form-actions {
+          display: flex;
+          justify-content: flex-end;
+          gap: 15px;
+          margin-top: 30px;
+          padding-top: 20px;
+          border-top: 1px solid #e2e8f0;
+        }
+
+        .btn-submit, .btn-reset {
+          padding: 12px 24px;
+          border: none;
+          border-radius: 10px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 1rem;
+        }
+
+        .btn-submit {
+          background-color: #1e3c72;
+          color: white;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+          background-color: #1d4ed8;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(30, 60, 114, 0.2);
+        }
+
+        .btn-submit:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .btn-reset {
+          background-color: #f1f5f9;
+          color: #475569;
+        }
+
+        .btn-reset:hover {
+          background-color: #e2e8f0;
+        }
+
+        /* Upload Progress Styles */
+        .upload-progress-container {
+          margin-top: 15px;
+          padding: 15px;
+          background: #f8fafc;
+          border-radius: 10px;
+          border: 1px solid #e2e8f0;
+        }
+
+        .upload-info {
+          display: flex;
+          justify-content: between;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+
+        .file-name {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-weight: 600;
+          color: #334155;
+          flex: 1;
+        }
+
+        .file-name i {
+          color: #e53e3e;
+        }
+
+        .progress-percentage {
+          font-weight: 700;
+          color: #1e3c72;
+          font-size: 0.9rem;
+        }
+
+        .progress-bar {
+          width: 100%;
+          height: 8px;
+          background: #e2e8f0;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+
+        .progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #1e3c72, #2a5298);
+          border-radius: 10px;
+          transition: width 0.3s ease;
+          position: relative;
+        }
+
+        .progress-fill::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          background-image: linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.15) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(255, 255, 255, 0.15) 75%,
+            transparent 75%,
+            transparent
+          );
+          background-size: 1rem 1rem;
+          animation: progress-stripes 1s linear infinite;
+        }
+
+        @keyframes progress-stripes {
+          0% {
+            background-position: 1rem 0;
+          }
+          100% {
+            background-position: 0 0;
+          }
+        }
+
+        .upload-success {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #059669;
+          font-weight: 600;
+          margin-top: 10px;
+          font-size: 0.9rem;
+        }
+
+        .upload-success i {
+          font-size: 1rem;
+        }
+      `}</style>
     </LayoutAdmin>
   );
 }

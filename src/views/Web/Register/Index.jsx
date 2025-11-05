@@ -1112,11 +1112,14 @@ export default function Register() {
         .error-summary {
           background: #fef2f2;
           border: 1px solid #fecaca;
+          background-color: #fff5f5;
+          border-left: 5px solid #ef4444;
           border-radius: 10px;
           padding: 20px;
           margin-bottom: 25px;
         }
 
+ 
         .error-header {
           display: flex;
           align-items: center;
@@ -1126,12 +1129,14 @@ export default function Register() {
 
         .error-header i {
           color: #dc2626;
+          color: #ef4444;
           font-size: 1.2rem;
         }
 
         .error-header h4 {
           color: #dc2626;
           margin: 0;
+          color: #c53030;
           font-size: 1.1rem;
         }
 
@@ -1146,6 +1151,7 @@ export default function Register() {
           align-items: center;
           gap: 8px;
           color: #dc2626;
+          color: #c53030;
         }
 
         .error-item i {
@@ -1155,19 +1161,25 @@ export default function Register() {
         .form-input.error, .form-select.error, .form-textarea.error, .upload-area.error {
           border-color: #dc2626 !important;
           background: #fef2f2;
+          border-color: #ef4444 !important;
+          background-color: #fff5f5;
         }
 
         .form-input.error:focus, .form-select.error:focus, .form-textarea.error:focus {
           box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+          box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
         }
 
         .upload-area.error {
           border-color: #dc2626 !important;
           background: #fef2f2;
+          border-color: #ef4444 !important;
+          background-color: #fff5f5;
         }
 
         .error-message {
           color: #dc2626;
+          color: #ef4444;
           font-size: 0.875rem;
           margin-top: 5px;
           display: flex;
@@ -1177,6 +1189,7 @@ export default function Register() {
 
         .file-preview.success {
           color: #059669;
+          color: #10b981;
         }
 
         /* Logo Styles */
@@ -1186,6 +1199,7 @@ export default function Register() {
           margin-bottom: 20px;
           border-radius: 12px;
           box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          box-shadow: 0 8px 25px rgba(0,0,0,0.1);
           background: white;
           padding: 8px;
         }
@@ -1197,6 +1211,7 @@ export default function Register() {
 
         .btn-persyaratan {
           background: linear-gradient(135deg, #059669, #10b981);
+          background: linear-gradient(135deg, #10b981, #34d399);
           color: white;
           border: none;
           padding: 12px 24px;
@@ -1213,6 +1228,7 @@ export default function Register() {
         .btn-persyaratan:hover {
           transform: translateY(-2px);
           box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3);
+          box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
         }
 
         /* Modal Styles */
@@ -1238,6 +1254,7 @@ export default function Register() {
           max-height: 90vh;
           overflow-y: auto;
           box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+          box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
 
         .modal-header {
@@ -1246,6 +1263,7 @@ export default function Register() {
           align-items: center;
           padding: 25px 30px;
           border-bottom: 2px solid #f1f5f9;
+          border-bottom: 1px solid #e2e8f0;
           background: linear-gradient(135deg, #1e3c72, #2a5298);
           color: white;
           border-radius: 20px 20px 0 0;
@@ -1323,6 +1341,7 @@ export default function Register() {
 
         .persyaratan-card {
           background: #f8fafc;
+          background: #ffffff;
           border-radius: 15px;
           padding: 25px;
           border: 1px solid #e2e8f0;
@@ -1375,6 +1394,7 @@ export default function Register() {
 
         .requirement-item i {
           color: #059669;
+          color: #10b981;
           margin-top: 2px;
           flex-shrink: 0;
         }
@@ -1396,6 +1416,7 @@ export default function Register() {
 
         .register-hero {
           background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+          background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
           color: white;
           padding: 50px 0;
           text-align: center;
@@ -1447,6 +1468,7 @@ export default function Register() {
           border-radius: 20px;
           padding: 50px;
           text-align: center;
+          text-align: center; 
           box-shadow: 0 10px 30px rgba(0,0,0,0.1);
           max-width: 500px;
           width: 100%;
@@ -1520,12 +1542,14 @@ export default function Register() {
 
         .step.active .step-number {
           background: #1e3c72;
+          background: #1e40af;
           color: white;
         }
 
         .step-label {
           font-size: 0.9rem;
           color: #64748b;
+          color: #475569;
           font-weight: 600;
         }
 
@@ -1537,6 +1561,7 @@ export default function Register() {
           background: white;
           border-radius: 20px;
           padding: 40px;
+          padding: 30px 40px;
           box-shadow: 0 10px 30px rgba(0,0,0,0.1);
           margin-bottom: 30px;
         }
@@ -1547,6 +1572,7 @@ export default function Register() {
           gap: 15px;
           margin-bottom: 30px;
           padding-bottom: 20px;
+          padding-bottom: 15px;
           border-bottom: 2px solid #f1f5f9;
         }
 
@@ -1587,6 +1613,7 @@ export default function Register() {
           display: flex;
           align-items: center;
           gap: 8px;
+          gap: 10px;
           color: #1e3c72;
           font-weight: 600;
           margin-bottom: 8px;
@@ -1608,6 +1635,7 @@ export default function Register() {
         .form-input:focus, .form-select:focus, .form-textarea:focus {
           outline: none;
           border-color: #1e3c72;
+          border-color: #3b82f6;
           box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
         }
 
@@ -1647,6 +1675,7 @@ export default function Register() {
 
         .upload-area:hover {
           border-color: #1e3c72;
+          border-color: #3b82f6;
           background: #f8faff;
         }
 
@@ -1681,6 +1710,7 @@ export default function Register() {
           display: flex;
           align-items: center;
           gap: 8px;
+          gap: 10px;
           color: #059669;
           margin-top: 10px;
           font-weight: 500;
@@ -1722,16 +1752,19 @@ export default function Register() {
 
         .btn-next {
           background: #1e3c72;
+          background: #2563eb;
           color: white;
         }
 
         .btn-next:hover {
           background: #2a5298;
+          background: #1d4ed8;
           transform: translateY(-2px);
         }
 
         .btn-submit {
           background: linear-gradient(135deg, #059669, #10b981);
+          background: linear-gradient(135deg, #10b981, #34d399);
           color: white;
         }
 
@@ -1749,6 +1782,7 @@ export default function Register() {
           background: white;
           border-radius: 15px;
           padding: 25px;
+          padding: 30px;
           box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
@@ -1783,6 +1817,7 @@ export default function Register() {
 
         .info-item i {
           color: #059669;
+          color: #10b981;
           margin-top: 2px;
         }
 
