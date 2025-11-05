@@ -7,7 +7,25 @@ import Cookies from "js-cookie";
 //import permissions
 import hasAnyPermission from "../../utils/Permissions";
 
-export default function sidebar() {
+// Import icons (pastikan Anda memiliki library icons yang sesuai)
+import {
+  FaTachometerAlt,
+  FaImages,
+  FaUserCircle,
+  FaUser,
+  FaAngleDown,
+  FaGraduationCap,
+  FaUniversity,
+  FaHandsHelping,
+  FaUsers,
+  FaHistory,
+  FaGlobeAmericas,
+  FaIdCard,
+  FaShieldAlt,
+  FaCog
+} from "react-icons/fa";
+
+export default function Sidebar() {
   //assigning location variable
   const location = useLocation();
 
@@ -20,423 +38,375 @@ export default function sidebar() {
   //get data user from cookies
   const user = JSON.parse(Cookies.get("user"));
 
+  // Menu configuration untuk modularitas
+  const menuSections = [
+    {
+      id: "dashboard",
+      heading: "",
+      items: [
+        {
+          name: "Dashboard",
+          path: "/admin/dashboard",
+          icon: <FaTachometerAlt className="sb-nav-link-icon" />,
+          permission: null
+        }
+      ]
+    },
+    {
+      id: "media",
+      heading: "MEDIA MANAGEMENT",
+      items: [
+        {
+          name: "Media",
+          path: "#",
+          icon: <FaImages className="sb-nav-link-icon" />,
+          permission: ["photos.index", "sliders.index"],
+          children: [
+            {
+              name: "Sliders",
+              path: "/admin/sliders",
+              permission: ["sliders.index"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "users",
+      heading: "USERS MANAGEMENT",
+      items: [
+        {
+          name: "Users Management",
+          path: "#",
+          icon: <FaUserCircle className="sb-nav-link-icon" />,
+          permission: ["roles.index", "permissions.index", "users.create"],
+          children: [
+            {
+              name: "Roles",
+              path: "/admin/roles",
+              permission: ["roles.index"],
+              icon: <FaShieldAlt className="me-2" size={14} />
+            },
+            {
+              name: "Permissions",
+              path: "/admin/permissions",
+              permission: ["permissions.index"],
+              icon: <FaCog className="me-2" size={14} />
+            },
+            {
+              name: "Users",
+              path: "/admin/users",
+              permission: ["users.index"],
+              icon: <FaUsers className="me-2" size={14} />
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "mahasiswa",
+      heading: "DASHBOARD MAHASISWA",
+      items: [
+        {
+          name: "Kategori Beasiswa",
+          path: "/admin/mahasiswa",
+          icon: <FaGraduationCap className="sb-nav-link-icon" />,
+          permission: ["mahasiswa.index"]
+        },
+        {
+          name: "Riwayat Pendaftar",
+          path: "/admin/riwayat",
+          icon: <FaHistory className="sb-nav-link-icon" />,
+          permission: ["mahasiswa.index"]
+        }
+      ]
+    },
+    {
+      id: "dispora",
+      heading: "ADMIN DISPORA",
+      items: [
+        {
+          name: "Beasiswa Akademik",
+          path: "/admin/adminAkademik",
+          icon: <FaUniversity className="sb-nav-link-icon" />,
+          permission: ["dispora.index"]
+        },
+        {
+          name: "Non Akademik",
+          path: "/admin/adminNonAkademik",
+          icon: <FaUser className="sb-nav-link-icon" />,
+          permission: ["dispora.index"]
+        },
+        {
+          name: "Beasiswa Luar Negeri",
+          path: "/admin/adminLuarNegeri",
+          icon: <FaGlobeAmericas className="sb-nav-link-icon" />,
+          permission: ["dispora.index"]
+        }
+      ]
+    },
+    {
+      id: "kesra",
+      heading: "ADMIN KESRA",
+      items: [
+        {
+          name: "Kesra A",
+          path: "/admin/adminKesra",
+          icon: <FaHandsHelping className="sb-nav-link-icon" />,
+          permission: ["adminkesra.index"]
+        },
+        {
+          name: "Kesra B",
+          path: "/admin/adminKesraB",
+          icon: <FaHandsHelping className="sb-nav-link-icon" />,
+          permission: ["adminkesra.index"]
+        },
+        {
+          name: "Kesra C",
+          path: "/admin/adminKesraC",
+          icon: <FaHandsHelping className="sb-nav-link-icon" />,
+          permission: ["adminkesra.index"]
+        },
+        {
+          name: "Kesra D",
+          path: "/admin/adminKesraD",
+          icon: <FaHandsHelping className="sb-nav-link-icon" />,
+          permission: ["adminkesra.index"]
+        }
+      ]
+    },
+    {
+      id: "dispenduk",
+      heading: "ADMIN DISPENDUK",
+      items: [
+        {
+          name: "Data Pendaftar",
+          path: "/admin/adminDispenduk",
+          icon: <FaIdCard className="sb-nav-link-icon" />,
+          permission: ["dispenduk.index"]
+        },
+        {
+          name: "Akademik",
+          path: "/admin/adminDispendukAkademik",
+          icon: <FaUniversity className="sb-nav-link-icon" />,
+          permission: ["dispenduk.index"]
+        },
+        {
+          name: "Non Akademik",
+          path: "/admin/adminDispendukNonAkademik",
+          icon: <FaUser className="sb-nav-link-icon" />,
+          permission: ["dispenduk.index"]
+        },
+        {
+          name: "Luar Negeri",
+          path: "/admin/adminDispendukLuarNegeri",
+          icon: <FaGlobeAmericas className="sb-nav-link-icon" />,
+          permission: ["dispenduk.index"]
+        },
+        {
+          name: "Beasiswa Kesra",
+          path: "/admin/adminDispendukKesra",
+          icon: <FaHandsHelping className="sb-nav-link-icon" />,
+          permission: ["dispenduk.index"]
+        },
+        {
+          name: "Beasiswa Dinsos",
+          path: "/admin/adminDispendukDinsos",
+          icon: <FaUsers className="sb-nav-link-icon" />,
+          permission: ["dispenduk.index"]
+        }
+      ]
+    },
+    {
+      id: "dinsos",
+      heading: "ADMIN DINSOS",
+      items: [
+        {
+          name: "Beasiswa Dinsos",
+          path: "/admin/adminDinsos",
+          icon: <FaUsers className="sb-nav-link-icon" />,
+          permission: ["admindinsos.index"]
+        }
+      ]
+    }
+  ];
+
+  const isActive = (path) => {
+    return activeRoute[2] === path.split("/")[2] ? "nav-link active-sidebar" : "nav-link";
+  };
+
+  const shouldShowSection = (section) => {
+    return section.items.some(item =>
+      item.permission === null ||
+      (Array.isArray(item.permission) && hasAnyPermission(item.permission))
+    );
+  };
+
+  const renderMenuItem = (item, index) => {
+    if (item.permission && !hasAnyPermission(item.permission)) {
+      return null;
+    }
+
+    if (item.children) {
+      const isCollapsedActive = item.children.some(child =>
+        activeRoute[2] === child.path.split("/")[2]
+      );
+
+      return (
+        <div key={index}>
+          <a
+            className={`nav-link collapsed ${isCollapsedActive ? "active-sidebar" : ""}`}
+            href="#"
+            data-bs-toggle="collapse"
+            data-bs-target={`#collapse${item.name.replace(/\s+/g, '')}`}
+            aria-expanded={isCollapsedActive}
+            aria-controls={`collapse${item.name.replace(/\s+/g, '')}`}
+          >
+            {item.icon}
+            {item.name}
+            <div className="sb-sidenav-collapse-arrow">
+              <FaAngleDown className="text-muted" />
+            </div>
+          </a>
+          <div
+            className={`collapse ${isCollapsedActive ? "show" : ""}`}
+            id={`collapse${item.name.replace(/\s+/g, '')}`}
+            aria-labelledby="headingOne"
+            data-bs-parent="#sidenavAccordion"
+          >
+            <nav className="sb-sidenav-menu-nested nav">
+              {item.children.map((child, childIndex) =>
+                child.permission && hasAnyPermission(child.permission) && (
+                  <Link
+                    key={childIndex}
+                    className={isActive(child.path)}
+                    to={child.path}
+                  >
+                    {child.icon}
+                    {child.name}
+                  </Link>
+                )
+              )}
+            </nav>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <Link
+        key={index}
+        className={isActive(item.path)}
+        to={item.path}
+      >
+        {item.icon}
+        {item.name}
+      </Link>
+    );
+  };
+
   return (
-    <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <nav className="sb-sidenav accordion sb-sidenav-dark sb-sidenav-custom" id="sidenavAccordion">
       <div className="sb-sidenav-menu">
         <div className="nav">
           <div className="sb-sidenav-menu-heading"></div>
 
-          <Link
-            className={
-              activeRoute[2] === "dashboard"
-                ? "nav-link active-sidebar"
-                : "nav-link"
-            }
-            to="/admin/dashboard"
-          >
-            <div className="sb-nav-link-icon">
-              <i className="fas fa-tachometer-alt"></i>
-            </div>
-            Dashboard
-          </Link>
-
-          {(hasAnyPermission(["photos.index"]) ||
-            hasAnyPermission(["sliders.index"])) && (
-              <>
-                <div className="sb-sidenav-menu-heading">MEDIA MANAGEMENT</div>
-                <a
-                  className={
-                    "nav-link collapsed " +
-                    (activeRoute[2] === "photos"
-                      ? " active-sidebar"
-                      : activeRoute[2] === "sliders"
-                        ? " active-sidebar"
-                        : "")
-                  }
-                  href="#"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseMedias"
-                  aria-expanded="false"
-                  aria-controls="collapseMedias"
-                >
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-images"></i>
+          {menuSections.map((section, index) =>
+            shouldShowSection(section) && (
+              <div key={index}>
+                {section.heading && (
+                  <div className="sb-sidenav-menu-heading">
+                    <span className="heading-text">{section.heading}</span>
                   </div>
-                  Media
-                  <div className="sb-sidenav-collapse-arrow">
-                    <i
-                      className="fas fa-angle-down"
-                      style={{ color: "color: rgb(65 60 60)" }}
-                    ></i>
-                  </div>
-                </a>
-              </>
-            )}
-          <div
-            className={
-              "collapse " +
-              (activeRoute[2] === "photos"
-                ? " show"
-                : activeRoute[2] === "sliders"
-                  ? " show"
-                  : "")
-            }
-            id="collapseMedias"
-            aria-labelledby="headingOne"
-            data-bs-parent="#sidenavAccordion"
-          >
-            <nav className="sb-sidenav-menu-nested nav">
-              {hasAnyPermission(["sliders.index"]) && (
-                <Link
-                  className={
-                    activeRoute[2] === "sliders"
-                      ? "nav-link active-sidebar"
-                      : "nav-link"
-                  }
-                  to="/admin/sliders"
-                >
-                  Sliders
-                </Link>
-              )}
-            </nav>
-          </div>
-
-          {(hasAnyPermission(["roles.index"]) ||
-            hasAnyPermission(["permissions.index"]) ||
-            hasAnyPermission(["users.create"])) && (
-              <>
-                <div className="sb-sidenav-menu-heading">USERS MANAGEMENT</div>
-                <a
-                  className={
-                    "nav-link collapsed " +
-                    (activeRoute[2] === "roles"
-                      ? " active-sidebar"
-                      : activeRoute[2] === "permissions"
-                        ? " active-sidebar"
-                        : activeRoute[2] === "users"
-                          ? " active-sidebar"
-                          : "")
-                  }
-                  href="#"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseUsers"
-                  aria-expanded="false"
-                  aria-controls="collapseUsers"
-                >
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-user-circle"></i>
-                  </div>
-                  Users
-                  <div className="sb-sidenav-collapse-arrow">
-                    <i
-                      className="fas fa-angle-down"
-                      style={{ color: "color: rgb(65 60 60)" }}
-                    ></i>
-                  </div>
-                </a>
-              </>
-            )}
-          <div
-            className={
-              "collapse " +
-              (activeRoute[2] === "roles"
-                ? " show"
-                : activeRoute[2] === "permissions"
-                  ? " show"
-                  : activeRoute[2] === "users"
-                    ? " show"
-                    : "")
-            }
-            id="collapseUsers"
-            aria-labelledby="headingOne"
-            data-bs-parent="#sidenavAccordion"
-          >
-            <nav className="sb-sidenav-menu-nested nav">
-              {hasAnyPermission(["roles.index"]) && (
-                <Link
-                  className={
-                    activeRoute[2] === "roles"
-                      ? "nav-link active-sidebar"
-                      : "nav-link"
-                  }
-                  to="/admin/roles"
-                >
-                  Roles
-                </Link>
-              )}
-
-              {hasAnyPermission(["permissions.index"]) && (
-                <Link
-                  className={
-                    activeRoute[2] === "permissions"
-                      ? "nav-link active-sidebar"
-                      : "nav-link"
-                  }
-                  to="/admin/permissions"
-                >
-                  Permissions
-                </Link>
-              )}
-
-              {hasAnyPermission(["users.index"]) && (
-                <Link
-                  className={
-                    activeRoute[2] === "users"
-                      ? "nav-link active-sidebar"
-                      : "nav-link"
-                  }
-                  to="/admin/users"
-                >
-                  Users
-                </Link>
-              )}
-            </nav>
-          </div>
-
-          {hasAnyPermission(["mahasiswa.index"]) && (
-            <>
-              <div className="sb-sidenav-menu-heading">Dashboard Mahasiswa</div>
-              <Link
-                className={
-                  activeRoute[2] === "mahasiswa"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/mahasiswa"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Kategori Beasiswa
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "riwayat"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/riwayat"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Riwayat Pendaftar
-              </Link>
-            </>
-          )}
-
-          {/* admin verifikasi */}
-          {hasAnyPermission(["dispora.index"]) && (
-            <>
-              <div className="sb-sidenav-menu-heading">Admin Dispora</div>
-              <Link
-                className={
-                  activeRoute[2] === "adminAkademik"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminAkademik"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Beasiswa Akademik
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "adminNonAkademik"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminNonAkademik"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Non Akademik
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "adminLuarNegeri"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminLuarNegeri"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Beasiswa Luar Negeri
-              </Link>
-            </>
-          )}
-
-          {hasAnyPermission(["adminkesra.index"]) && (
-            <>
-              <div className="sb-sidenav-menu-heading">Admin Kesra</div>
-              <Link
-                className={
-                  activeRoute[2] === "adminKesra"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminKesra"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Kesra A
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "adminKesraB"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminKesraB"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Kesra B
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "adminKesraC"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminKesraC"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Kesra C
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "adminKesraD"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminKesraD"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Kesra D
-              </Link>
-            </>
-          )}
-
-          {hasAnyPermission(["dispenduk.index"]) && (
-            <>
-              <div className="sb-sidenav-menu-heading">Admin Dispenduk</div>
-              <Link
-                className={
-                  activeRoute[2] === "adminDispenduk"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminDispenduk"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Data Pendaftar
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "adminDispendukAkademik"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminDispendukAkademik"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Akademik
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "adminDispendukNonAkademik"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminDispendukNonAkademik"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Non Akademik
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "adminDispendukLuarNegeri"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminDispendukLuarNegeri"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Luar Negeri
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "adminDispendukKesra"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminDispendukKesra"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Beasiswa Kesra
-              </Link>
-              <Link
-                className={
-                  activeRoute[2] === "adminDispendukDinsos"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminDispendukDinsos"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Beasiswa Dinsos
-              </Link>
-            </>
-          )}
-
-          {hasAnyPermission(["admindinsos.index"]) && (
-            <>
-              <div className="sb-sidenav-menu-heading">Admin Dinsos</div>
-              <Link
-                className={
-                  activeRoute[2] === "adminDinsos"
-                    ? "nav-link active-sidebar"
-                    : "nav-link"
-                }
-                to="/admin/adminDinsos"
-              >
-                <div className="sb-nav-link-icon">
-                  <i className="fas fa-user"></i>
-                </div>
-                Beasiswa Dinsos
-              </Link>
-            </>
+                )}
+                {section.items.map((item, itemIndex) => renderMenuItem(item, itemIndex))}
+              </div>
+            )
           )}
         </div>
       </div>
+
       <div className="sb-sidenav-footer">
-        <div className="small">Logged in as:</div>
-        {user.email}
+        <div className="sidebar-user-info">
+          <div className="user-avatar">
+            <FaUserCircle size={40} className="text-light" />
+          </div>
+          <div className="user-details">
+            <div className="small text-muted">Logged in as</div>
+            <div className="user-email">{user.email}</div>
+          </div>
+        </div>
       </div>
+      {/* CSS Animation */}
+      <style>
+        {`
+          @keyframes dropdownSlideDown {
+            from {
+              opacity: 0;
+              transform: translateY(-5px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          .dropdown-menu {
+            animation: dropdownSlideDown 0.3s ease;
+          }
+
+          .arrow-wrapper i {
+            transition: all 0.3s ease;
+          }
+
+          .nav-link:hover .arrow-wrapper i {
+            opacity: 1;
+          }
+
+          /* Smooth transitions for all interactive elements */
+          .nav-link, .dropdown-item, .btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+
+          /* Hover effect for dropdown items */
+          .dropdown-item:hover {
+            transform: translateX(5px);
+          }
+
+          /* Arrow animation */
+          .fa-caret-down {
+            transform-origin: center;
+          }
+
+          /* Bouncing effect for sidebar toggle */
+          @keyframes bounce {
+            0%, 20%, 60%, 100% {
+              transform: translateY(0);
+            }
+            40% {
+              transform: translateY(-3px);
+            }
+            80% {
+              transform: translateY(-1px);
+            }
+          }
+
+          .btn:active {
+            animation: bounce 0.5s;
+          }
+
+          /* Ensure dropdown appears below navbar */
+          .nav-item.dropdown {
+            position: relative;
+          }
+
+          .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+          }
+        `}
+      </style>
     </nav>
   );
 }
