@@ -326,7 +326,7 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="sb-sidenav-footer">
+      {/* <div className="sb-sidenav-footer">
         <div className="sidebar-user-info">
           <div className="user-avatar">
             <FaUserCircle size={40} className="text-light" />
@@ -336,7 +336,7 @@ export default function Sidebar() {
             <div className="user-email">{user.email}</div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* CSS Animation */}
       <style>
         {`
