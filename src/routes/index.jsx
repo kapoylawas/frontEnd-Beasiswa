@@ -65,6 +65,7 @@ import AdminDispendukDinsos from "../views/Admin/Verifikasi/AdminDispendukDinsos
 import EditDispendukDinsos from "../views/Admin/Verifikasi/EditDispendukDinsos";
 import GantiPassword from "../views/Admin/GantiPassword";
 import LupaPassword from "../views/Auth/LupaPassword";
+import YatimIndex from "../views/Admin/Yatim/Index";
 
 export default function RoutesIndex() {
   return (
@@ -575,6 +576,15 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <EditDispendukDinsos />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/adminYatim"
+        element={
+          <PrivateRoutes>
+            <YatimIndex />
           </PrivateRoutes>
         }
       />

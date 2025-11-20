@@ -226,9 +226,15 @@ export default function Sidebar() {
           path: "/admin/adminDinsos",
           icon: <FaUsers className="sb-nav-link-icon" />,
           permission: ["admindinsos.index"]
+        },
+        {
+          name: "Beasiswa Yatim Piatu",
+          path: "/admin/adminYatim",
+          icon: <FaUsers className="sb-nav-link-icon" />,
+          permission: null
         }
       ]
-    }
+    },
   ];
 
   const isActive = (path) => {
@@ -307,39 +313,78 @@ export default function Sidebar() {
 
   return (
     <nav className="sb-sidenav accordion sb-sidenav-dark sb-sidenav-custom" id="sidenavAccordion">
-      <div className="sb-sidenav-menu">
-        <div className="nav">
-          <div className="sb-sidenav-menu-heading"></div>
+      {/* Container dengan scroll */}
+      <div className="sb-sidenav-container">
+        <div className="sb-sidenav-menu">
+          <div className="nav">
+            <div className="sb-sidenav-menu-heading"></div>
 
-          {menuSections.map((section, index) =>
-            shouldShowSection(section) && (
-              <div key={index}>
-                {section.heading && (
-                  <div className="sb-sidenav-menu-heading">
-                    <span className="heading-text">{section.heading}</span>
-                  </div>
-                )}
-                {section.items.map((item, itemIndex) => renderMenuItem(item, itemIndex))}
-              </div>
-            )
-          )}
+            {menuSections.map((section, index) =>
+              shouldShowSection(section) && (
+                <div key={index}>
+                  {section.heading && (
+                    <div className="sb-sidenav-menu-heading">
+                      <span className="heading-text">{section.heading}</span>
+                    </div>
+                  )}
+                  {section.items.map((item, itemIndex) => renderMenuItem(item, itemIndex))}
+                </div>
+              )
+            )}
+          </div>
         </div>
       </div>
 
-      {/* <div className="sb-sidenav-footer">
-        <div className="sidebar-user-info">
-          <div className="user-avatar">
-            <FaUserCircle size={40} className="text-light" />
-          </div>
-          <div className="user-details">
-            <div className="small text-muted">Logged in as</div>
-            <div className="user-email">{user.email}</div>
-          </div>
-        </div>
-      </div> */}
-      {/* CSS Animation */}
       <style>
         {`
+          /* Container untuk scroll */
+          .sb-sidenav-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+          }
+
+          .sb-sidenav-menu {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+          }
+
+          /* Custom scrollbar untuk sidebar */
+          .sb-sidenav-menu::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          .sb-sidenav-menu::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+          }
+
+          .sb-sidenav-menu::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+          }
+
+          .sb-sidenav-menu::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+          }
+
+          /* Untuk Firefox */
+          .sb-sidenav-menu {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+          }
+
+          /* Smooth scrolling */
+          .sb-sidenav-menu {
+            scroll-behavior: smooth;
+          }
+
+          /* Pastikan konten tidak terpotong */
+          .sb-sidenav-menu .nav {
+            min-height: min-content;
+          }
+
           @keyframes dropdownSlideDown {
             from {
               opacity: 0;

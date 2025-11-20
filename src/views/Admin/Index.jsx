@@ -9,7 +9,7 @@ import hasAnyPermission from "../../utils/Permissions";
 import toast from "react-hot-toast";
 //import Surat from "../../../public/images/surat.docx";
 import Logo from "../../../public/images/lock.svg";
-import './Dashboard.css';
+
 
 
 export default function Dashboard() {
@@ -1012,280 +1012,159 @@ export default function Dashboard() {
         </div>
       </main>
       <style jsx>{`
-        // Tambahkan di file Dashboard.css atau dalam komponen
-        .dashboard-container {
-          font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .maintenance-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 50px 20px;
+          min-height: 60vh;
+        }
+
+        .maintenance-card {
+          background: white;
+          border-radius: 20px;
+          padding: 50px;
+          text-align: center;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+          max-width: 600px;
+          width: 100%;
+          border: 1px solid #e8f0ff;
+        }
+
+        .maintenance-icon {
+          font-size: 4.5rem;
+          color: #1e3c72;
+          margin-bottom: 25px;
+          line-height: 1;
+        }
+
+        .maintenance-title {
+          color: #1e3c72;
+          font-size: 2rem;
+          font-weight: 700;
+          margin-bottom: 15px;
+        }
+
+        .maintenance-text {
+          color: #475569;
+          font-size: 1.1rem;
+          line-height: 1.6;
+          margin-bottom: 20px;
+        }
+
+        .maintenance-subtext {
+          color: #64748b;
+          font-size: 0.95rem;
+          background-color: #f8fafc;
+          padding: 10px 15px;
+          border-radius: 10px;
         }
 
         .welcome-banner {
           display: flex;
           align-items: center;
           gap: 20px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-          padding: 30px;
-          border-radius: 20px;
+          background: linear-gradient(135deg, #e0f7fa 0%, #e8eaf6 100%);
+          color: #1e3c72;
+          padding: 25px;
+          border-radius: 15px;
           margin-bottom: 30px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .welcome-banner::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+          border: 1px solid #d1d9e6;
         }
 
         .welcome-icon-container {
-          width: 70px;
-          height: 70px;
+          width: 60px;
+          height: 60px;
           flex-shrink: 0;
-          background: rgba(255, 255, 255, 0.2);
+          background: white;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 2rem;
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          position: relative;
-          z-index: 1;
-        }
-
-        .welcome-text {
-          position: relative;
-          z-index: 1;
+          font-size: 1.8rem;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .welcome-text h4 {
-          margin: 0 0 8px 0;
+          margin: 0 0 5px 0;
           font-weight: 700;
-          font-size: 1.5rem;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .welcome-text p {
           margin: 0;
-          font-size: 1.05rem;
-          opacity: 0.9;
-          line-height: 1.5;
-        }
-
-        .maintenance-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 60px 20px;
-          min-height: 50vh;
-        }
-
-        .maintenance-card {
-          background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
-          border-radius: 24px;
-          padding: 60px 40px;
-          text-align: center;
-          box-shadow: 
-            0 20px 60px rgba(0, 0, 0, 0.08),
-            0 0 0 1px rgba(0, 0, 0, 0.02);
-          max-width: 600px;
-          width: 100%;
-          border: 1px solid #e8f0ff;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .maintenance-card::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 4px;
-          background: linear-gradient(90deg, #ff6b6b, #ee5a24);
-        }
-
-        .maintenance-icon {
-          font-size: 5rem;
-          color: #ee5a24;
-          margin-bottom: 30px;
-          line-height: 1;
-          filter: drop-shadow(0 4px 8px rgba(238, 90, 36, 0.2));
-        }
-
-        .maintenance-title {
-          color: #1a202c;
-          font-size: 2.2rem;
-          font-weight: 800;
-          margin-bottom: 20px;
-          background: linear-gradient(135deg, #1a202c, #2d3748);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        .maintenance-text {
-          color: #4a5568;
-          font-size: 1.15rem;
-          line-height: 1.7;
-          margin-bottom: 25px;
-          font-weight: 500;
-        }
-
-        .maintenance-subtext {
-          color: #718096;
           font-size: 1rem;
-          background: linear-gradient(135deg, #f7fafc, #edf2f7);
-          padding: 15px 20px;
-          border-radius: 12px;
-          border-left: 4px solid #ee5a24;
+          color: #475569;
         }
 
         .form-card {
           background: white;
-          border-radius: 20px;
-          padding: 40px;
-          box-shadow: 
-            0 20px 60px rgba(0, 0, 0, 0.08),
-            0 0 0 1px rgba(0, 0, 0, 0.02);
+          border-radius: 15px;
+          padding: 30px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
           margin-bottom: 30px;
-          border: 1px solid #f1f5f9;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .form-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 
-            0 25px 80px rgba(0, 0, 0, 0.12),
-            0 0 0 1px rgba(0, 0, 0, 0.03);
         }
 
         .form-card-header {
-          margin-bottom: 30px;
-          text-align: center;
+          margin-bottom: 25px;
         }
 
         .form-card-header h2 {
           color: #1e3c72;
-          font-size: 1.8rem;
-          font-weight: 800;
+          font-size: 1.6rem;
+          font-weight: 700;
           display: flex;
           align-items: center;
-          justify-content: center;
-          gap: 12px;
-          margin-bottom: 12px;
+          gap: 10px;
         }
-
-        .form-card-header h2 i {
-          color: #3b82f6;
-          font-size: 1.6rem;
-        }
-
+        
         .form-card-header p {
           color: #64748b;
-          font-size: 1.05rem;
-          line-height: 1.6;
-          margin: 0;
-        }
-
-        .form-card-header hr {
-          border: none;
-          height: 2px;
-          background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
-          margin: 20px 0 0 0;
+          font-size: 1rem;
         }
 
         .form-label {
           font-weight: 600;
-          color: #374151;
-          margin-bottom: 10px;
+          color: #334155;
+          margin-bottom: 8px;
           font-size: 0.95rem;
-          display: block;
         }
 
-        .form-label a {
-          color: #3b82f6;
-          text-decoration: none;
-          font-weight: 500;
-          transition: color 0.3s ease;
-        }
-
-        .form-label a:hover {
-          color: #1d4ed8;
-          text-decoration: underline;
-        }
-
-        .form-input, .form-textarea, .form-select {
+        .form-input, .form-textarea {
           width: 100%;
-          padding: 14px 18px;
+          padding: 12px 16px;
           border: 2px solid #e2e8f0;
-          border-radius: 12px;
+          border-radius: 10px;
           font-size: 1rem;
           transition: all 0.3s ease;
           background-color: #f8fafc;
-          font-family: inherit;
         }
 
-        .form-input:focus, .form-textarea:focus, .form-select:focus {
+        .form-input:focus, .form-textarea:focus {
           outline: none;
           border-color: #3b82f6;
           background-color: white;
-          box-shadow: 
-            0 0 0 4px rgba(59, 130, 246, 0.1),
-            0 4px 12px rgba(59, 130, 246, 0.1);
-          transform: translateY(-1px);
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .form-textarea {
           resize: vertical;
           min-height: 120px;
-          line-height: 1.5;
-        }
-
-        .form-select {
-          appearance: none;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-          background-repeat: no-repeat;
-          background-position: right 16px center;
-          background-size: 16px;
-          padding-right: 45px;
         }
 
         .upload-area {
           position: relative;
           border: 2px dashed #cbd5e1;
-          border-radius: 16px;
-          padding: 30px;
+          border-radius: 12px;
+          padding: 25px;
           text-align: center;
           transition: all 0.3s ease;
           cursor: pointer;
           background-color: #f8fafc;
-          overflow: hidden;
-        }
-
-        .upload-area::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.05), transparent);
-          transition: left 0.6s ease;
-        }
-
-        .upload-area:hover::before {
-          left: 100%;
         }
 
         .upload-area:hover {
           border-color: #3b82f6;
           background-color: #f0f5ff;
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
         }
 
         .upload-input {
@@ -1299,165 +1178,118 @@ export default function Dashboard() {
         }
 
         .upload-content i {
-          font-size: 2.5rem;
+          font-size: 2.2rem;
           color: #94a3b8;
-          margin-bottom: 12px;
-          transition: color 0.3s ease;
-        }
-
-        .upload-area:hover .upload-content i {
-          color: #3b82f6;
+          margin-bottom: 10px;
         }
 
         .upload-content p {
-          color: #374151;
-          font-weight: 600;
-          margin-bottom: 6px;
-          font-size: 1.05rem;
-          transition: color 0.3s ease;
-        }
-
-        .upload-area:hover .upload-content p {
           color: #1e3c72;
+          font-weight: 600;
+          margin-bottom: 5px;
+          font-size: 1rem;
         }
 
         .upload-content span {
           color: #64748b;
-          font-size: 0.9rem;
+          font-size: 0.875rem;
         }
 
         .form-actions {
           display: flex;
           justify-content: flex-end;
-          gap: 16px;
-          margin-top: 40px;
-          padding-top: 25px;
+          gap: 15px;
+          margin-top: 30px;
+          padding-top: 20px;
           border-top: 1px solid #e2e8f0;
         }
 
         .btn-submit, .btn-reset {
-          padding: 14px 28px;
+          padding: 12px 24px;
           border: none;
-          border-radius: 12px;
+          border-radius: 10px;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.3s ease;
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 8px;
           font-size: 1rem;
-          font-family: inherit;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .btn-submit::before, .btn-reset::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-          transition: left 0.6s ease;
-        }
-
-        .btn-submit:hover::before, .btn-reset:hover::before {
-          left: 100%;
         }
 
         .btn-submit {
-          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          background-color: #1e3c72;
           color: white;
-          box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
         }
 
         .btn-submit:hover:not(:disabled) {
-          transform: translateY(-3px);
-          box-shadow: 
-            0 8px 25px rgba(30, 60, 114, 0.4),
-            0 0 0 1px rgba(30, 60, 114, 0.1);
-        }
-
-        .btn-submit:active {
-          transform: translateY(-1px);
+          background-color: #1d4ed8;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(30, 60, 114, 0.2);
         }
 
         .btn-submit:disabled {
           opacity: 0.6;
           cursor: not-allowed;
-          transform: none;
-          box-shadow: none;
         }
 
         .btn-reset {
-          background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+          background-color: #f1f5f9;
           color: #475569;
-          border: 1px solid #e2e8f0;
         }
 
         .btn-reset:hover {
-          background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          background-color: #e2e8f0;
         }
 
         /* Upload Progress Styles */
         .upload-progress-container {
-          margin-top: 20px;
-          padding: 20px;
-          background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-          border-radius: 14px;
+          margin-top: 15px;
+          padding: 15px;
+          background: #f8fafc;
+          border-radius: 10px;
           border: 1px solid #e2e8f0;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .upload-info {
           display: flex;
-          justify-content: space-between;
+          justify-content: between;
           align-items: center;
-          margin-bottom: 12px;
+          margin-bottom: 10px;
         }
 
         .file-name {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 8px;
           font-weight: 600;
-          color: #374151;
+          color: #334155;
           flex: 1;
-          font-size: 0.95rem;
         }
 
         .file-name i {
           color: #e53e3e;
-          font-size: 1.1rem;
         }
 
         .progress-percentage {
           font-weight: 700;
           color: #1e3c72;
-          font-size: 0.95rem;
-          background: white;
-          padding: 4px 10px;
-          border-radius: 20px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          font-size: 0.9rem;
         }
 
         .progress-bar {
           width: 100%;
-          height: 10px;
+          height: 8px;
           background: #e2e8f0;
           border-radius: 10px;
           overflow: hidden;
-          position: relative;
         }
 
         .progress-fill {
           height: 100%;
-          background: linear-gradient(90deg, #1e3c72, #3b82f6, #60a5fa);
+          background: linear-gradient(90deg, #1e3c72, #2a5298);
           border-radius: 10px;
-          transition: width 0.4s ease;
+          transition: width 0.3s ease;
           position: relative;
         }
 
@@ -1470,11 +1302,11 @@ export default function Dashboard() {
           right: 0;
           background-image: linear-gradient(
             45deg,
-            rgba(255, 255, 255, 0.2) 25%,
+            rgba(255, 255, 255, 0.15) 25%,
             transparent 25%,
             transparent 50%,
-            rgba(255, 255, 255, 0.2) 50%,
-            rgba(255, 255, 255, 0.2) 75%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(255, 255, 255, 0.15) 75%,
             transparent 75%,
             transparent
           );
@@ -1494,121 +1326,15 @@ export default function Dashboard() {
         .upload-success {
           display: flex;
           align-items: center;
-          justify-content: center;
-          gap: 10px;
+          gap: 8px;
           color: #059669;
           font-weight: 600;
-          margin-top: 12px;
-          font-size: 0.95rem;
-          background: white;
-          padding: 10px 15px;
-          border-radius: 10px;
-          border: 1px solid #a7f3d0;
-          animation: success-bounce 0.6s ease;
-        }
-
-        @keyframes success-bounce {
-          0%, 20%, 60%, 100% {
-            transform: translateY(0);
-          }
-          40% {
-            transform: translateY(-5px);
-          }
-          80% {
-            transform: translateY(-2px);
-          }
+          margin-top: 10px;
+          font-size: 0.9rem;
         }
 
         .upload-success i {
-          font-size: 1.1rem;
-        }
-
-        /* Card Statistics Styles */
-        .card {
-          border: none;
-          border-radius: 16px;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-          transition: all 0.3s ease;
-          overflow: hidden;
-        }
-
-        .card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
-
-        .card-header {
-          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-          font-weight: 700;
-          font-size: 0.9rem;
-          letter-spacing: 0.5px;
-        }
-
-        .card-body {
-          padding: 25px;
-        }
-
-        .card-body strong {
-          font-size: 2rem;
-          font-weight: 800;
-        }
-
-        /* Alert Styles */
-        .alert {
-          border: none;
-          border-radius: 12px;
-          padding: 20px;
-          font-weight: 500;
-        }
-
-        .alert-danger {
-          background: linear-gradient(135deg, #fed7d7, #feb2b2);
-          color: #c53030;
-          border-left: 4px solid #e53e3e;
-        }
-
-        .alert-success {
-          background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
-          color: #276749;
-          border-left: 4px solid #38a169;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-          .welcome-banner {
-            flex-direction: column;
-            text-align: center;
-            padding: 25px 20px;
-          }
-          
-          .welcome-icon-container {
-            width: 60px;
-            height: 60px;
-            font-size: 1.6rem;
-          }
-          
-          .form-card {
-            padding: 25px 20px;
-            margin: 0 -15px;
-            border-radius: 0;
-          }
-          
-          .form-actions {
-            flex-direction: column;
-          }
-          
-          .btn-submit, .btn-reset {
-            width: 100%;
-            justify-content: center;
-          }
-          
-          .maintenance-card {
-            padding: 40px 25px;
-          }
-          
-          .maintenance-title {
-            font-size: 1.8rem;
-          }
+          font-size: 1rem;
         }
       `}</style>
     </LayoutAdmin>

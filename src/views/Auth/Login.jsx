@@ -106,7 +106,7 @@ export default function Login() {
           <div className="card-body">
             <div className="login-header">
               <h2>Masuk ke Akun</h2>
-              <p>Silakan masuk dengan NIK dan password Anda</p>
+              <p>Silakan masuk dengan username dan password Anda</p>
             </div>
 
             {errors.message && (
@@ -118,7 +118,7 @@ export default function Login() {
 
             <form onSubmit={login} className="login-form">
               <div className="form-group">
-                <label className="form-label">NIK</label>
+                <label className="form-label">USERNAME</label>
                 <div className="input-container">
                   <div className="input-icon">
                     <i className="fa fa-id-card"></i>
@@ -128,8 +128,8 @@ export default function Login() {
                     className={`form-input ${errors.nik ? 'error' : ''}`}
                     value={nik}
                     onChange={(e) => setNik(e.target.value)}
-                    placeholder="Masukkan NIK Anda"
-                    maxLength={16}
+                    placeholder="Masukkan username Anda"
+
                   />
                 </div>
                 {errors.nik && (
