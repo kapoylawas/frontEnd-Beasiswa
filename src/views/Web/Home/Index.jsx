@@ -7,65 +7,23 @@ export default function Home() {
   const munip = `https://wa.me/6281234278662`;
   const dinsos = `https://wa.me/6285711404090`;
 
-  useEffect(() => {
-    const showModal = async () => {
-      const { Modal } = await import('bootstrap');
-      const modalElement = document.getElementById('announcementModal');
-      if (modalElement) {
-        new Modal(modalElement).show();
-      }
-    };
+  // Hapus useEffect yang menampilkan modal
+  // useEffect(() => {
+  //   const showModal = async () => {
+  //     const { Modal } = await import('bootstrap');
+  //     const modalElement = document.getElementById('announcementModal');
+  //     if (modalElement) {
+  //       new Modal(modalElement).show();
+  //     }
+  //   };
 
-    const timer = setTimeout(showModal, 1000);
-    return () => clearTimeout(timer);
-  }, []);
+  //   const timer = setTimeout(showModal, 1000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return (
     <LayoutWeb>
-      {/* Modal Pengumuman */}
-      <div className="modal fade" id="announcementModal" tabIndex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-lg modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <div className="modal-header-content">
-                <i className="fas fa-bullhorn"></i>
-                <h5 className="modal-title">PENGUMUMAN BEASISWA SIDOARJO 2025</h5>
-              </div>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <div className="announcement-image">
-                <img
-                  src="/2025.jpeg"
-                  alt="Pengumuman Beasiswa Sidoarjo 2025"
-                  className="img-fluid"
-                />
-              </div>
-              <p className="download-info">
-                <i className="fas fa-info-circle"></i>
-                Informasi lengkap dapat diunduh dalam bentuk PDF
-              </p>
-            </div>
-            <div className="modal-footer">
-              <a
-                href="/pengumuman_penerima.pdf"
-                className="btn btn-download-pdf"
-                download="pengumuman_penerima.pdf"
-              >
-                <i className="fas fa-file-pdf"></i>
-                Download PDF
-              </a>
-              <button
-                type="button"
-                className="btn btn-close-modal"
-                data-bs-dismiss="modal"
-              >
-                Tutup
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Modal Pengumuman dihapus */}
 
       {/* Hero Section */}
       <div className="home-hero">
@@ -117,27 +75,9 @@ export default function Home() {
                     src="/2025.jpeg"
                     alt="Pengumuman Beasiswa Sidoarjo"
                     className="img-fluid"
-                    onClick={() => {
-                      const modal = new window.bootstrap.Modal(document.getElementById('announcementModal'));
-                      modal.show();
-                    }}
                   />
-                  <div className="image-overlay-vertical">
-                    <i className="fas fa-search-plus"></i>
-                    <span>Klik untuk memperbesar</span>
-                  </div>
                 </div>
                 <div className="announcement-actions-vertical">
-                  <button
-                    className="btn btn-view-announcement"
-                    onClick={() => {
-                      const modal = new window.bootstrap.Modal(document.getElementById('announcementModal'));
-                      modal.show();
-                    }}
-                  >
-                    <i className="fas fa-eye"></i>
-                    Lihat Pengumuman
-                  </button>
                   <a
                     href="/pengumuman_penerima.pdf"
                     className="btn btn-download-announcement"
@@ -445,44 +385,12 @@ export default function Home() {
           border-radius: 15px;
           overflow: hidden;
           margin-bottom: 25px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .announcement-image-preview-vertical:hover {
-          transform: scale(1.02);
         }
 
         .announcement-image-preview-vertical img {
           width: 100%;
           height: auto;
           border-radius: 15px;
-          transition: all 0.3s ease;
-        }
-
-        .image-overlay-vertical {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(30, 60, 114, 0.8);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          opacity: 0;
-          transition: all 0.3s ease;
-        }
-
-        .announcement-image-preview-vertical:hover .image-overlay-vertical {
-          opacity: 1;
-        }
-
-        .image-overlay-vertical i {
-          font-size: 2rem;
-          margin-bottom: 10px;
         }
 
         .announcement-actions-vertical {
@@ -688,16 +596,6 @@ export default function Home() {
           cursor: pointer;
         }
 
-        .btn-view-announcement {
-          background: linear-gradient(135deg, #1e3c72, #2a5298);
-          color: white;
-        }
-
-        .btn-view-announcement:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
-        }
-
         .btn-download-announcement {
           background: linear-gradient(135deg, #dc3545, #c82333);
           color: white;
@@ -706,99 +604,6 @@ export default function Home() {
         .btn-download-announcement:hover {
           transform: translateY(-2px);
           box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
-        }
-
-        /* Modal Styles */
-        .modal-header {
-          background: linear-gradient(135deg, #1e3c72, #2a5298);
-          color: white;
-          border-bottom: none;
-          padding: 25px;
-        }
-
-        .modal-header-content {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-
-        .modal-header-content i {
-          font-size: 1.5rem;
-          color: #ffd700;
-        }
-
-        .modal-title {
-          font-weight: 700;
-          margin: 0;
-        }
-
-        .btn-close {
-          filter: brightness(0) invert(1);
-        }
-
-        .modal-body {
-          padding: 30px;
-        }
-
-        .announcement-image {
-          margin-bottom: 20px;
-        }
-
-        .announcement-image img {
-          border-radius: 10px;
-          box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .download-info {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          color: #666;
-          font-style: italic;
-        }
-
-        .download-info i {
-          color: #1e3c72;
-        }
-
-        .modal-footer {
-          border-top: 1px solid #e9ecef;
-          padding: 20px 30px;
-          gap: 15px;
-        }
-
-        .btn-download-pdf {
-          background: linear-gradient(135deg, #dc3545, #c82333);
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 8px;
-          text-decoration: none;
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          transition: all 0.3s ease;
-        }
-
-        .btn-download-pdf:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
-          color: white;
-        }
-
-        .btn-close-modal {
-          background: #6c757d;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 8px;
-          transition: all 0.3s ease;
-        }
-
-        .btn-close-modal:hover {
-          background: #5a6268;
-          transform: translateY(-2px);
         }
 
         /* Responsive Design */

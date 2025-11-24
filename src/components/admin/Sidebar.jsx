@@ -231,7 +231,13 @@ export default function Sidebar() {
           name: "Beasiswa Yatim Piatu",
           path: "/admin/adminYatim",
           icon: <FaUsers className="sb-nav-link-icon" />,
-          permission: null
+          permission: ["yatim.index"]
+        },
+        {
+          name: "Beasiswa Verifikasi Yatim Piatu",
+          path: "/admin/verifYatim",
+          icon: <FaUsers className="sb-nav-link-icon" />,
+          permission: ["verifyatim.index"]
         }
       ]
     },

@@ -67,6 +67,7 @@ import GantiPassword from "../views/Admin/GantiPassword";
 import LupaPassword from "../views/Auth/LupaPassword";
 import YatimIndex from "../views/Admin/Yatim/Index";
 import YatimDetail from "../views/Admin/Yatim/YatimDetail";
+import VerifYatimIndex from "../views/Admin/VerifYatim/Index";
 
 export default function RoutesIndex() {
   return (
@@ -586,6 +587,15 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <YatimIndex />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/verifYatim"
+        element={
+          <PrivateRoutes>
+            <VerifYatimIndex />
           </PrivateRoutes>
         }
       />
