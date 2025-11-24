@@ -17,11 +17,9 @@ export default function VerifYatimIndex() {
     const [from, setFrom] = useState(0);
     const [to, setTo] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [deletingId, setDeletingId] = useState(null);
     const [verifyingId, setVerifyingId] = useState(null);
     const [userData, setUserData] = useState(null);
-    const [userId, setUserId] = useState(null);
-    const [searchQuery, setSearchQuery] = useState(""); // State untuk pencarian
+    const [searchQuery, setSearchQuery] = useState("");
 
     // State untuk modal detail
     const [showDetailModal, setShowDetailModal] = useState(false);
@@ -44,7 +42,6 @@ export default function VerifYatimIndex() {
             try {
                 const user = JSON.parse(userCookie);
                 setUserData(user);
-                setUserId(user.id);
             } catch (error) {
                 console.error("Error parsing user cookie:", error);
                 toast.error("Gagal memuat data user");
@@ -55,7 +52,6 @@ export default function VerifYatimIndex() {
     const fetchYatim = useCallback(async (page = 1, search = "") => {
         setLoading(true);
         try {
-            // Build query parameters
             let url = `/api/admin/yatim?page=${page}`;
             if (search) {
                 url += `&search=${encodeURIComponent(search)}`;
@@ -68,7 +64,6 @@ export default function VerifYatimIndex() {
             });
 
             if (response.data.success) {
-                // Handle response structure berdasarkan format yang diberikan
                 const data = response.data.data.data || [];
                 const pagination = response.data.data;
 
@@ -79,7 +74,6 @@ export default function VerifYatimIndex() {
                 setPerPage(pagination.per_page || 10);
                 setFrom(pagination.from || 0);
                 setTo(pagination.to || 0);
-
             } else {
                 toast.error(response.data.message || "Gagal mengambil data yatim");
                 setYatim([]);
@@ -87,12 +81,9 @@ export default function VerifYatimIndex() {
             }
         } catch (error) {
             console.error("Error fetching yatim:", error);
-
-            // Cek jika error karena data tidak ditemukan (404) atau array kosong
             if (error.response?.status === 404 ||
                 error.response?.data?.message?.includes('tidak ditemukan') ||
                 error.response?.data?.message?.includes('kosong')) {
-                // Data kosong, tidak perlu show error
                 setYatim([]);
                 setTotal(0);
             } else {
@@ -107,34 +98,24 @@ export default function VerifYatimIndex() {
         fetchYatim();
     }, [fetchYatim]);
 
-    // Fungsi untuk handle pencarian
     const searchData = (e) => {
         const query = e.target.value;
         setSearchQuery(query);
-
-        // Reset ke halaman 1 ketika melakukan pencarian
         setCurrentPage(1);
-
-        // Debounce pencarian - tunggu 500ms setelah user berhenti mengetik
         const timeoutId = setTimeout(() => {
             fetchYatim(1, query);
         }, 500);
-
         return () => clearTimeout(timeoutId);
     };
 
-    // Fungsi untuk clear pencarian
     const clearSearch = () => {
         setSearchQuery("");
         setCurrentPage(1);
         fetchYatim(1);
     };
 
-    // Fungsi untuk membuka modal detail
     const handleViewDetail = async (id) => {
         setLoadingDetail(true);
-        setShowDetailModal(true);
-        setActivePdf(null); // Reset active PDF
         try {
             const response = await Api.get(`/api/admin/yatim/${id}`, {
                 headers: {
@@ -144,39 +125,36 @@ export default function VerifYatimIndex() {
 
             if (response.data.success) {
                 setDetailData(response.data.data);
-                // Set PDF pertama sebagai default
                 if (response.data.data.imageskartukeluarga) {
                     setActivePdf({
                         url: response.data.data.imageskartukeluarga,
                         title: 'Kartu Keluarga'
                     });
                 }
+                setShowDetailModal(true);
             } else {
                 toast.error(response.data.message || 'Gagal mengambil detail data');
-                setShowDetailModal(false);
             }
         } catch (error) {
             console.error('Error fetching detail:', error);
             toast.error('Terjadi kesalahan saat mengambil detail data');
-            setShowDetailModal(false);
         } finally {
             setLoadingDetail(false);
         }
     };
 
-    // Fungsi untuk menutup modal detail
     const handleCloseDetailModal = () => {
         setShowDetailModal(false);
-        setDetailData(null);
-        setActivePdf(null);
+        setTimeout(() => {
+            setDetailData(null);
+            setActivePdf(null);
+        }, 300);
     };
 
-    // Fungsi untuk memilih PDF yang akan ditampilkan
     const handlePdfSelect = (pdfUrl, title) => {
         setActivePdf({ url: pdfUrl, title });
     };
 
-    // Fungsi untuk verifikasi data
     const handleVerif = async (item) => {
         setVerifyingId(item.id);
         try {
@@ -188,11 +166,9 @@ export default function VerifYatimIndex() {
 
             if (response.data.success) {
                 toast.success('Data berhasil diverifikasi');
-                // Update data lokal
                 setYatim(prev => prev.map(y =>
                     y.id === item.id ? { ...y, status_data: 'verif' } : y
                 ));
-                // Update detail data jika sedang dibuka
                 if (detailData && detailData.id === item.id) {
                     setDetailData(prev => ({ ...prev, status_data: 'verif' }));
                 }
@@ -207,7 +183,6 @@ export default function VerifYatimIndex() {
         }
     };
 
-    // Fungsi untuk batalkan verifikasi
     const handleUnverif = async (item) => {
         setVerifyingId(item.id);
         try {
@@ -219,11 +194,9 @@ export default function VerifYatimIndex() {
 
             if (response.data.success) {
                 toast.success('Verifikasi berhasil dibatalkan');
-                // Update data lokal
                 setYatim(prev => prev.map(y =>
                     y.id === item.id ? { ...y, status_data: null } : y
                 ));
-                // Update detail data jika sedang dibuka
                 if (detailData && detailData.id === item.id) {
                     setDetailData(prev => ({ ...prev, status_data: null }));
                 }
@@ -238,7 +211,6 @@ export default function VerifYatimIndex() {
         }
     };
 
-    // Fungsi untuk tolak data
     const handleReject = async (item) => {
         const result = await Swal.fire({
             title: 'Tolak Data?',
@@ -262,13 +234,6 @@ export default function VerifYatimIndex() {
             confirmButtonText: 'Ya, Tolak!',
             cancelButtonText: 'Batal',
             reverseButtons: true,
-            customClass: {
-                popup: 'sweet-alert-custom',
-                confirmButton: 'btn btn-danger mx-1',
-                cancelButton: 'btn btn-secondary mx-1',
-                actions: 'swal2-actions-custom'
-            },
-            buttonsStyling: false,
         });
 
         if (result.isConfirmed) {
@@ -282,11 +247,9 @@ export default function VerifYatimIndex() {
 
                 if (response.data.success) {
                     toast.success('Data berhasil ditolak');
-                    // Update data lokal
                     setYatim(prev => prev.map(y =>
                         y.id === item.id ? { ...y, status_data: 'ditolak' } : y
                     ));
-                    // Update detail data jika sedang dibuka
                     if (detailData && detailData.id === item.id) {
                         setDetailData(prev => ({ ...prev, status_data: 'ditolak' }));
                     }
@@ -302,7 +265,6 @@ export default function VerifYatimIndex() {
         }
     };
 
-    // Fungsi untuk membatalkan penolakan data
     const handleCancelReject = async (item) => {
         const result = await Swal.fire({
             title: 'Batalkan Penolakan?',
@@ -326,13 +288,6 @@ export default function VerifYatimIndex() {
             confirmButtonText: 'Ya, Batalkan!',
             cancelButtonText: 'Batal',
             reverseButtons: true,
-            customClass: {
-                popup: 'sweet-alert-custom',
-                confirmButton: 'btn btn-primary mx-1',
-                cancelButton: 'btn btn-secondary mx-1',
-                actions: 'swal2-actions-custom'
-            },
-            buttonsStyling: false,
         });
 
         if (result.isConfirmed) {
@@ -346,11 +301,9 @@ export default function VerifYatimIndex() {
 
                 if (response.data.success) {
                     toast.success('Status ditolak berhasil dibatalkan');
-                    // Update data lokal
                     setYatim(prev => prev.map(y =>
                         y.id === item.id ? { ...y, status_data: null } : y
                     ));
-                    // Update detail data jika sedang dibuka
                     if (detailData && detailData.id === item.id) {
                         setDetailData(prev => ({ ...prev, status_data: null }));
                     }
@@ -366,103 +319,21 @@ export default function VerifYatimIndex() {
         }
     };
 
-    // Fungsi untuk menghapus data yatim dengan SweetAlert2
-    const handleDelete = async (item) => {
-        const result = await Swal.fire({
-            title: 'Apakah Anda yakin?',
-            html: `
-                <div class="text-start">
-                    <p>Data yang dihapus tidak dapat dikembalikan!</p>
-                    <div class="alert alert-warning mt-3 p-2">
-                        <small>
-                            <strong>Data yang akan dihapus:</strong><br/>
-                            <strong>${item.name}</strong><br/>
-                            NIK: ${item.nik}<br/>
-                            NISN: ${item.nisn}<br/>
-                            Asal Sekolah: ${item.asal_sekolah}
-                        </small>
-                    </div>
-                </div>
-            `,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#6c757d',
-            confirmButtonText: 'Ya, Hapus!',
-            cancelButtonText: 'Batal',
-            reverseButtons: true,
-            customClass: {
-                popup: 'sweet-alert-custom',
-                confirmButton: 'btn btn-danger mx-1',
-                cancelButton: 'btn btn-secondary mx-1',
-                actions: 'swal2-actions-custom'
-            },
-            buttonsStyling: false,
-            showLoaderOnConfirm: true,
-            preConfirm: async () => {
-                try {
-                    setDeletingId(item.id);
-                    const response = await Api.delete(`/api/admin/yatim/${item.id}`, {
-                        headers: {
-                            Authorization: `Bearer ${Cookies.get("token")}`,
-                        },
-                    });
-
-                    if (!response.data.success) {
-                        throw new Error(response.data.message || 'Gagal menghapus data');
-                    }
-
-                    return response.data;
-                } catch (error) {
-                    Swal.showValidationMessage(
-                        `Gagal menghapus: ${error.response?.data?.message || error.message}`
-                    );
-                } finally {
-                    setDeletingId(null);
-                }
-            },
-            allowOutsideClick: () => !Swal.isLoading()
-        });
-
-        if (result.isConfirmed) {
-            // Refresh data setelah berhasil menghapus
-            fetchYatim(currentPage, searchQuery);
-            // Tutup modal detail jika data yang dihapus sedang dibuka
-            if (detailData && detailData.id === item.id) {
-                setShowDetailModal(false);
-                setDetailData(null);
-            }
-
-            Swal.fire({
-                title: 'Terhapus!',
-                text: 'Data yatim telah berhasil dihapus.',
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK',
-                customClass: {
-                    confirmButton: 'btn btn-success'
-                },
-                buttonsStyling: false
-            });
-        }
-    };
-
-    // Fungsi untuk membuka modal alasan verifikasi
     const handleOpenAlasanModal = (item) => {
         setSelectedItem(item);
         setAlasanVerif(item.alasan_verif || "");
         setShowAlasanModal(true);
     };
 
-    // Fungsi untuk menutup modal alasan verifikasi
     const handleCloseAlasanModal = () => {
         setShowAlasanModal(false);
-        setSelectedItem(null);
-        setAlasanVerif("");
-        setSavingAlasan(false);
+        setTimeout(() => {
+            setSelectedItem(null);
+            setAlasanVerif("");
+            setSavingAlasan(false);
+        }, 300);
     };
 
-    // Fungsi untuk menyimpan alasan verifikasi
     const handleSaveAlasanVerif = async () => {
         if (!selectedItem) return;
 
@@ -483,17 +354,12 @@ export default function VerifYatimIndex() {
 
             if (response.data.success) {
                 toast.success('Alasan verifikasi berhasil disimpan');
-
-                // Update data lokal
                 setYatim(prev => prev.map(y =>
                     y.id === selectedItem.id ? { ...y, alasan_verif: alasanVerif } : y
                 ));
-
-                // Update detail data jika sedang dibuka
                 if (detailData && detailData.id === selectedItem.id) {
                     setDetailData(prev => ({ ...prev, alasan_verif: alasanVerif }));
                 }
-
                 handleCloseAlasanModal();
             } else {
                 toast.error(response.data.message || 'Gagal menyimpan alasan verifikasi');
@@ -521,21 +387,17 @@ export default function VerifYatimIndex() {
         });
     };
 
-    // Fungsi untuk menghitung umur berdasarkan tanggal lahir
     const calculateAge = (birthDate) => {
         const today = new Date();
         const birth = new Date(birthDate);
         let age = today.getFullYear() - birth.getFullYear();
         const monthDiff = today.getMonth() - birth.getMonth();
-
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
             age--;
         }
-
         return age;
     };
 
-    // Fungsi untuk mendapatkan class berdasarkan status
     const getStatusClass = (status) => {
         switch (status) {
             case 'verif':
@@ -547,7 +409,6 @@ export default function VerifYatimIndex() {
         }
     };
 
-    // Fungsi untuk mendapatkan badge status
     const getStatusBadge = (status) => {
         switch (status) {
             case 'verif':
@@ -559,7 +420,6 @@ export default function VerifYatimIndex() {
         }
     };
 
-    // Generate pagination numbers dengan ellipsis
     const generatePaginationNumbers = () => {
         const pages = [];
         const maxVisiblePages = 5;
@@ -600,7 +460,6 @@ export default function VerifYatimIndex() {
             <div className="container-fluid mb-5 mt-5">
                 <div className="row">
                     <div className="col-md-12">
-                        {/* Tabel Data Yatim */}
                         <div className="card border-0 rounded shadow-sm">
                             <div className="card-body">
                                 <div className="row mb-3">
@@ -614,7 +473,6 @@ export default function VerifYatimIndex() {
                                     </div>
                                 </div>
 
-                                {/* Search Bar */}
                                 <div className="row mb-3">
                                     <div className="col-md-5 col-12 mb-2">
                                         <div className="input-group">
@@ -645,7 +503,6 @@ export default function VerifYatimIndex() {
                                     </div>
                                 </div>
 
-                                {/* Info User */}
                                 {userData && (
                                     <div className="alert alert-info mb-4">
                                         <strong>Info Admin:</strong> {userData.name}
@@ -653,7 +510,6 @@ export default function VerifYatimIndex() {
                                     </div>
                                 )}
 
-                                {/* Legend Status */}
                                 <div className="row mb-3">
                                     <div className="col-md-12">
                                         <div className="d-flex flex-wrap gap-3">
@@ -694,7 +550,7 @@ export default function VerifYatimIndex() {
                                                         <th scope="col">Jenjang</th>
                                                         <th scope="col">Asal Sekolah</th>
                                                         <th scope="col">Alasan Verifikasi</th>
-                                                        <th scope="col" width="120">Aksi</th>
+                                                        <th scope="col" width="150">Aksi</th>
                                                         <th scope="col" width="100">Alasan</th>
                                                     </tr>
                                                 </thead>
@@ -730,19 +586,9 @@ export default function VerifYatimIndex() {
                                                                             <button
                                                                                 onClick={() => handleViewDetail(item.id)}
                                                                                 className="btn btn-primary btn-sm"
+                                                                                title="Lihat Detail"
                                                                             >
-                                                                                <i className="fa fa-eye"></i>
-                                                                            </button>
-                                                                            <button
-                                                                                onClick={() => handleDelete(item)}
-                                                                                className="btn btn-danger btn-sm"
-                                                                                disabled={deletingId === item.id}
-                                                                            >
-                                                                                {deletingId === item.id ? (
-                                                                                    <span className="spinner-border spinner-border-sm" role="status"></span>
-                                                                                ) : (
-                                                                                    <i className="fa fa-trash"></i>
-                                                                                )}
+                                                                                <i className="fa fa-eye"></i> Detail
                                                                             </button>
                                                                         </div>
                                                                         <div className="btn-group mt-1">
@@ -755,7 +601,7 @@ export default function VerifYatimIndex() {
                                                                                     {verifyingId === item.id ? (
                                                                                         <span className="spinner-border spinner-border-sm" role="status"></span>
                                                                                     ) : (
-                                                                                        'Batal'
+                                                                                        'Batal Verif'
                                                                                     )}
                                                                                 </button>
                                                                             ) : item.status_data === 'ditolak' ? (
@@ -767,7 +613,7 @@ export default function VerifYatimIndex() {
                                                                                     {verifyingId === item.id ? (
                                                                                         <span className="spinner-border spinner-border-sm" role="status"></span>
                                                                                     ) : (
-                                                                                        'Batal'
+                                                                                        'Batal Tolak'
                                                                                     )}
                                                                                 </button>
                                                                             ) : (
@@ -842,7 +688,6 @@ export default function VerifYatimIndex() {
                                             </table>
                                         </div>
 
-                                        {/* Pagination */}
                                         {total > 0 && lastPage > 1 && (
                                             <div className="d-flex justify-content-between align-items-center mt-4">
                                                 <div>
@@ -1319,59 +1164,6 @@ export default function VerifYatimIndex() {
                     </div>
                 </div>
             )}
-
-            {/* Tambahkan style untuk SweetAlert */}
-            <style jsx>{`
-                .sweet-alert-custom {
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-                }
-                .swal2-popup .alert {
-                    margin-bottom: 0;
-                }
-                .swal2-actions-custom {
-                    gap: 10px !important;
-                }
-                .btn.mx-1 {
-                    margin-left: 0.5rem !important;
-                    margin-right: 0.5rem !important;
-                }
-                .pagination {
-                    margin-bottom: 0;
-                }
-                .page-item.active .page-link {
-                    background-color: #0d6efd;
-                    border-color: #0d6efd;
-                }
-                .table-success {
-                    background-color: #d1e7dd !important;
-                }
-                .table-danger {
-                    background-color: #f8d7da !important;
-                }
-                .table-warning {
-                    background-color: #fff3cd !important;
-                }
-                .modal-content {
-                    border: none;
-                    border-radius: 10px;
-                }
-                .modal-header {
-                    border-bottom: 1px solid #dee2e6;
-                    border-radius: 10px 10px 0 0;
-                }
-                .modal-footer {
-                    border-top: 1px solid #dee2e6;
-                    border-radius: 0 0 10px 10px;
-                }
-                .form-control:focus {
-                    border-color: #0d6efd;
-                    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-                }
-                .btn-sm {
-                    padding: 0.25rem 0.5rem;
-                    font-size: 0.875rem;
-                }
-            `}</style>
         </LayoutAdmin>
     );
 }
