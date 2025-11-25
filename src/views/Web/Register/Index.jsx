@@ -364,39 +364,31 @@ export default function Register() {
   return (
     <LayoutWeb>
       <div className="register-container">
-        <div className="register-hero">
+        {/* Hero Section - DIUBAH MENJADI SAMA DENGAN HALAMAN LAIN */}
+        <div className="home-hero">
           <div className="container">
             <div className="hero-content">
               <div className="hero-logo">
-                <img
-                  src="/images/sidoarjo.png"
-                  alt="Logo Sidoarjo"
-                  className="logo-image"
-                  onError={(e) => {
-                    e.target.src = "/sidoarjo.png";
-                    e.target.onerror = () => {
-                      e.target.src = "https://via.placeholder.com/100x100?text=Logo+Sidoarjo";
-                    };
-                  }}
-                />
+                <div className="logo-container">
+                  <img
+                    src="/sidoarjo.png"
+                    alt="Logo Sidoarjo"
+                    className="logo-image"
+                  />
+                </div>
               </div>
-              <h1 className="hero-title">Pendaftaran Beasiswa</h1>
+              <h1 className="hero-title">
+                Pendaftaran Beasiswa <span className="highlight">Sidoarjo 2025</span>
+              </h1>
               <p className="hero-subtitle">
-                Daftarkan diri Anda untuk menjadi penerima beasiswa
-                <span className="highlight"> Kabupaten Sidoarjo 2025</span>
+                Program Beasiswa Sidoarjo 2025 telah
+                <span className="highlight-text"> berhasil diselenggarakan</span>
               </p>
-              <div className="hero-divider"></div>
-
-              {/* Tombol Lihat Persyaratan */}
-              <div className="persyaratan-button-container">
-                <button
-                  className="btn-persyaratan"
-                  onClick={() => setShowPersyaratan(true)}
-                >
-                  <i className="fas fa-list-alt"></i>
-                  Lihat Persyaratan Beasiswa
-                </button>
+              <div className="completion-badge">
+                <i className="fas fa-check-circle"></i>
+                <span>Pendaftaran Telah Ditutup</span>
               </div>
+              <div className="hero-divider"></div>
             </div>
           </div>
         </div>
@@ -405,7 +397,6 @@ export default function Register() {
         {showPersyaratan && (
           <div className="modal-overlay">
             <div className="modal-content">
-              {/* Modal Header dihilangkan */}
               <div className="modal-body">
                 <div className="persyaratan-section">
                   <p className="persyaratan-description">
@@ -1108,7 +1099,102 @@ export default function Register() {
       </div>
 
       <style jsx>{`
-        /* Error Styles */
+        /* ===== HERO SECTION YANG DIUBAH ===== */
+        .home-hero {
+          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+          color: white;
+          padding: 60px 0;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .home-hero::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 2;
+        }
+
+        .hero-logo {
+          margin-bottom: 25px;
+        }
+
+        .logo-container {
+          display: inline-block;
+          position: relative;
+        }
+
+        .logo-image {
+          width: 150px;
+          height: 150px;
+          object-fit: contain;
+          background: white;
+          border-radius: 20px;
+          padding: 15px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          border: 3px solid #ffd700;
+        }
+
+        .hero-title {
+          font-size: 3rem;
+          font-weight: 700;
+          margin-bottom: 15px;
+          text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-title .highlight {
+          color: #ffd700;
+        }
+
+        .hero-subtitle {
+          font-size: 1.3rem;
+          margin-bottom: 20px;
+          opacity: 0.9;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .hero-subtitle .highlight-text {
+          color: #ffd700;
+          font-weight: 600;
+        }
+
+        .completion-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(255, 215, 0, 0.2);
+          color: #ffd700;
+          padding: 10px 20px;
+          border-radius: 25px;
+          font-weight: 600;
+          margin-bottom: 25px;
+          border: 2px solid #ffd700;
+        }
+
+        .completion-badge i {
+          font-size: 1.2rem;
+        }
+
+        .hero-divider {
+          width: 100px;
+          height: 4px;
+          background: #ffd700;
+          margin: 0 auto;
+          border-radius: 2px;
+        }
+
+        /* ===== STYLE LAINNYA TETAP SAMA ===== */
         .error-summary {
           background: #fef2f2;
           border: 1px solid #fecaca;
@@ -1119,7 +1205,6 @@ export default function Register() {
           margin-bottom: 25px;
         }
 
- 
         .error-header {
           display: flex;
           align-items: center;
@@ -1128,15 +1213,13 @@ export default function Register() {
         }
 
         .error-header i {
-          color: #dc2626;
           color: #ef4444;
           font-size: 1.2rem;
         }
 
         .error-header h4 {
-          color: #dc2626;
-          margin: 0;
           color: #c53030;
+          margin: 0;
           font-size: 1.1rem;
         }
 
@@ -1150,7 +1233,6 @@ export default function Register() {
           display: flex;
           align-items: center;
           gap: 8px;
-          color: #dc2626;
           color: #c53030;
         }
 
@@ -1159,26 +1241,20 @@ export default function Register() {
         }
 
         .form-input.error, .form-select.error, .form-textarea.error, .upload-area.error {
-          border-color: #dc2626 !important;
-          background: #fef2f2;
           border-color: #ef4444 !important;
           background-color: #fff5f5;
         }
 
         .form-input.error:focus, .form-select.error:focus, .form-textarea.error:focus {
-          box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
           box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
         }
 
         .upload-area.error {
-          border-color: #dc2626 !important;
-          background: #fef2f2;
           border-color: #ef4444 !important;
           background-color: #fff5f5;
         }
 
         .error-message {
-          color: #dc2626;
           color: #ef4444;
           font-size: 0.875rem;
           margin-top: 5px;
@@ -1188,7 +1264,6 @@ export default function Register() {
         }
 
         .file-preview.success {
-          color: #059669;
           color: #10b981;
         }
 
@@ -1198,7 +1273,6 @@ export default function Register() {
           height: auto;
           margin-bottom: 20px;
           border-radius: 12px;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
           box-shadow: 0 8px 25px rgba(0,0,0,0.1);
           background: white;
           padding: 8px;
@@ -1210,7 +1284,6 @@ export default function Register() {
         }
 
         .btn-persyaratan {
-          background: linear-gradient(135deg, #059669, #10b981);
           background: linear-gradient(135deg, #10b981, #34d399);
           color: white;
           border: none;
@@ -1227,7 +1300,6 @@ export default function Register() {
 
         .btn-persyaratan:hover {
           transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3);
           box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
         }
 
@@ -1253,45 +1325,7 @@ export default function Register() {
           width: 100%;
           max-height: 90vh;
           overflow-y: auto;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
           box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-        }
-
-        .modal-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 25px 30px;
-          border-bottom: 2px solid #f1f5f9;
-          border-bottom: 1px solid #e2e8f0;
-          background: linear-gradient(135deg, #1e3c72, #2a5298);
-          color: white;
-          border-radius: 20px 20px 0 0;
-        }
-
-        .modal-header h2 {
-          margin: 0;
-          font-size: 1.8rem;
-        }
-
-        .modal-close {
-          background: none;
-          border: none;
-          color: white;
-          font-size: 1.5rem;
-          cursor: pointer;
-          padding: 5px;
-          border-radius: 50%;
-          width: 40px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: background 0.3s ease;
-        }
-
-        .modal-close:hover {
-          background: rgba(255,255,255,0.1);
         }
 
         .modal-body {
@@ -1340,7 +1374,6 @@ export default function Register() {
         }
 
         .persyaratan-card {
-          background: #f8fafc;
           background: #ffffff;
           border-radius: 15px;
           padding: 25px;
@@ -1393,7 +1426,6 @@ export default function Register() {
         }
 
         .requirement-item i {
-          color: #059669;
           color: #10b981;
           margin-top: 2px;
           flex-shrink: 0;
@@ -1408,48 +1440,10 @@ export default function Register() {
           color: #1e3c72;
         }
 
-        /* Rest of the styles remain the same as previous version */
+        /* Rest of the styles remain the same */
         .register-container {
           min-height: 100vh;
           background: #f8fafc;
-        }
-
-        .register-hero {
-          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-          background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-          color: white;
-          padding: 50px 0;
-          text-align: center;
-        }
-
-        .hero-content {
-          position: relative;
-          z-index: 2;
-        }
-
-        .hero-title {
-          font-size: 2.5rem;
-          font-weight: 700;
-          margin-bottom: 15px;
-        }
-
-        .hero-subtitle {
-          font-size: 1.2rem;
-          margin-bottom: 25px;
-          opacity: 0.9;
-        }
-
-        .hero-subtitle .highlight {
-          color: #ffd700;
-          font-weight: 600;
-        }
-
-        .hero-divider {
-          width: 80px;
-          height: 4px;
-          background: #ffd700;
-          margin: 0 auto;
-          border-radius: 2px;
         }
 
         .main-container {
@@ -1468,7 +1462,6 @@ export default function Register() {
           border-radius: 20px;
           padding: 50px;
           text-align: center;
-          text-align: center; 
           box-shadow: 0 10px 30px rgba(0,0,0,0.1);
           max-width: 500px;
           width: 100%;
@@ -1541,14 +1534,12 @@ export default function Register() {
         }
 
         .step.active .step-number {
-          background: #1e3c72;
           background: #1e40af;
           color: white;
         }
 
         .step-label {
           font-size: 0.9rem;
-          color: #64748b;
           color: #475569;
           font-weight: 600;
         }
@@ -1560,7 +1551,6 @@ export default function Register() {
         .register-card {
           background: white;
           border-radius: 20px;
-          padding: 40px;
           padding: 30px 40px;
           box-shadow: 0 10px 30px rgba(0,0,0,0.1);
           margin-bottom: 30px;
@@ -1571,7 +1561,6 @@ export default function Register() {
           align-items: center;
           gap: 15px;
           margin-bottom: 30px;
-          padding-bottom: 20px;
           padding-bottom: 15px;
           border-bottom: 2px solid #f1f5f9;
         }
@@ -1612,7 +1601,6 @@ export default function Register() {
         .form-label {
           display: flex;
           align-items: center;
-          gap: 8px;
           gap: 10px;
           color: #1e3c72;
           font-weight: 600;
@@ -1634,7 +1622,6 @@ export default function Register() {
 
         .form-input:focus, .form-select:focus, .form-textarea:focus {
           outline: none;
-          border-color: #1e3c72;
           border-color: #3b82f6;
           box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
         }
@@ -1674,7 +1661,6 @@ export default function Register() {
         }
 
         .upload-area:hover {
-          border-color: #1e3c72;
           border-color: #3b82f6;
           background: #f8faff;
         }
@@ -1709,7 +1695,6 @@ export default function Register() {
         .file-preview {
           display: flex;
           align-items: center;
-          gap: 8px;
           gap: 10px;
           color: #059669;
           margin-top: 10px;
@@ -1723,10 +1708,6 @@ export default function Register() {
           margin-top: 30px;
           padding-top: 20px;
           border-top: 1px solid #e2e8f0;
-        }
-
-        .final-actions {
-          justify-content: flex-end;
         }
 
         .btn-prev, .btn-next, .btn-submit {
@@ -1751,19 +1732,16 @@ export default function Register() {
         }
 
         .btn-next {
-          background: #1e3c72;
           background: #2563eb;
           color: white;
         }
 
         .btn-next:hover {
-          background: #2a5298;
           background: #1d4ed8;
           transform: translateY(-2px);
         }
 
         .btn-submit {
-          background: linear-gradient(135deg, #059669, #10b981);
           background: linear-gradient(135deg, #10b981, #34d399);
           color: white;
         }
@@ -1781,7 +1759,6 @@ export default function Register() {
         .info-box {
           background: white;
           border-radius: 15px;
-          padding: 25px;
           padding: 30px;
           box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
@@ -1816,7 +1793,6 @@ export default function Register() {
         }
 
         .info-item i {
-          color: #059669;
           color: #10b981;
           margin-top: 2px;
         }
@@ -1863,10 +1839,6 @@ export default function Register() {
 
           .modal-content {
             margin: 10px;
-          }
-
-          .modal-header {
-            padding: 20px;
           }
 
           .modal-body {

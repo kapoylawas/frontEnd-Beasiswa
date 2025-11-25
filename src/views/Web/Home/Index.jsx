@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import LayoutWeb from "../../../layouts/Web";
 
 export default function Home() {
@@ -7,62 +6,45 @@ export default function Home() {
   const munip = `https://wa.me/6281234278662`;
   const dinsos = `https://wa.me/6285711404090`;
 
-  // Hapus useEffect yang menampilkan modal
-  // useEffect(() => {
-  //   const showModal = async () => {
-  //     const { Modal } = await import('bootstrap');
-  //     const modalElement = document.getElementById('announcementModal');
-  //     if (modalElement) {
-  //       new Modal(modalElement).show();
-  //     }
-  //   };
-
-  //   const timer = setTimeout(showModal, 1000);
-  //   return () => clearTimeout(timer);
-  // }, []);
-
   return (
     <LayoutWeb>
-      {/* Modal Pengumuman dihapus */}
-
       {/* Hero Section */}
       <div className="home-hero">
         <div className="container">
           <div className="hero-content">
             <div className="hero-logo">
               <div className="logo-container">
-                <img
-                  src="/sidoarjo.png"
-                  alt="Logo Sidoarjo"
-                  className="logo-image"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'block';
-                  }}
-                />
-                <div className="logo-fallback" style={{ display: 'none' }}>
-                  <i className="fas fa-graduation-cap"></i>
-                  <span>Beasiswa Sidoarjo</span>
-                </div>
+                <img src="/sidoarjo.png" alt="Logo Sidoarjo" className="logo-image" />
               </div>
             </div>
+
             <h1 className="hero-title">
               Beasiswa <span className="highlight">Sidoarjo 2025</span>
             </h1>
+
             <p className="hero-subtitle">
-              Pemerintah Kabupaten Sidoarjo menyambut para mahasiswa Kabupaten
-              <span className="highlight-text"> Sidoarjo 2025</span>
+              Program Beasiswa Sidoarjo 2025 telah
+              <span className="highlight-text"> berhasil diselenggarakan</span>
             </p>
+
+            {/* Stats Section */}
+            <div className="hero-stats">
+              <div className="stat-item">
+                <div className="stat-number">500+</div>
+                <div className="stat-label">Penerima Beasiswa</div>
+              </div>
+            </div>
+
             <div className="hero-divider"></div>
           </div>
         </div>
       </div>
 
-      {/* Main Content - Layout Atas Bawah */}
-      <div className="container home-container mb-3 mt-3">
+      {/* Main Content */}
+      <div className="container home-container mt-5 mb-5">
         <div className="home-vertical-layout">
 
-          {/* Section 1: Pengumuman */}
+          {/* Pengumuman Section */}
           <div className="section-top">
             <div className="section-header">
               <i className="fas fa-bullhorn"></i>
@@ -70,19 +52,15 @@ export default function Home() {
             </div>
             <div className="announcement-content-vertical">
               <div className="announcement-card-vertical">
+                <div className="achievement-badge">
+                  <i className="fas fa-star"></i>
+                  <span>Program Selesai</span>
+                </div>
                 <div className="announcement-image-preview-vertical">
-                  <img
-                    src="/2025.jpeg"
-                    alt="Pengumuman Beasiswa Sidoarjo"
-                    className="img-fluid"
-                  />
+                  <img src="/2025.jpeg" alt="Pengumuman Beasiswa" className="img-fluid" />
                 </div>
                 <div className="announcement-actions-vertical">
-                  <a
-                    href="/pengumuman_penerima.pdf"
-                    className="btn btn-download-announcement"
-                    download="pengumuman_penerima.pdf"
-                  >
+                  <a href="/pengumuman_penerima.pdf" className="btn btn-download-announcement" download>
                     <i className="fas fa-download"></i>
                     Download PDF
                   </a>
@@ -91,7 +69,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Section 2: Kontak Person */}
+          {/* Kontak Section */}
           <div className="section-bottom">
             <div className="section-header">
               <i className="fas fa-headset"></i>
@@ -99,7 +77,7 @@ export default function Home() {
             </div>
             <div className="contact-grid-vertical">
 
-              {/* Card 1: Beasiswa Akademik & Non Akademik */}
+              {/* Card 1: Akademik */}
               <div className="contact-card-vertical">
                 <div className="contact-card-header-vertical">
                   <div className="contact-icon-vertical academic">
@@ -134,7 +112,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Card 2: Beasiswa Bidang Keagamaan */}
+              {/* Card 2: Keagamaan */}
               <div className="contact-card-vertical">
                 <div className="contact-card-header-vertical">
                   <div className="contact-icon-vertical religion">
@@ -159,7 +137,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Card 3: Beasiswa Kurang Mampu */}
+              {/* Card 3: Kurang Mampu */}
               <div className="contact-card-vertical">
                 <div className="contact-card-header-vertical">
                   <div className="contact-icon-vertical social">
@@ -184,7 +162,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Card 4: Website Pendaftaran */}
+              {/* Card 4: Website */}
               <div className="contact-card-vertical website">
                 <div className="contact-card-header-vertical">
                   <div className="contact-icon-vertical website">
@@ -213,12 +191,33 @@ export default function Home() {
       </div>
 
       <style jsx>{`
-        /* Global Styles */
+        /* ===== VARIABLES & RESET ===== */
+        :global(*) {
+          box-sizing: border-box;
+        }
+
+        /* ===== LAYOUT & CONTAINER ===== */
         .home-container {
           padding: 40px 20px;
         }
 
-        /* Hero Section */
+        .home-vertical-layout {
+          display: flex;
+          flex-direction: column;
+          gap: 50px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .section-top, .section-bottom {
+          background: white;
+          border-radius: 20px;
+          padding: 40px;
+          box-shadow: 0 10px 30px rgba(30, 60, 114, 0.1);
+          border: 1px solid #e8f0ff;
+        }
+
+        /* ===== HERO SECTION ===== */
         .home-hero {
           background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
           color: white;
@@ -243,7 +242,7 @@ export default function Home() {
           z-index: 2;
         }
 
-        /* Logo Styles */
+        /* ===== HERO COMPONENTS ===== */
         .hero-logo {
           margin-bottom: 25px;
         }
@@ -262,35 +261,6 @@ export default function Home() {
           padding: 15px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
           border: 3px solid #ffd700;
-          transition: all 0.3s ease;
-        }
-
-        .logo-image:hover {
-          transform: scale(1.05) rotate(2deg);
-          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo-fallback {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 10px;
-          background: white;
-          border-radius: 20px;
-          padding: 30px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-          border: 3px solid #ffd700;
-        }
-
-        .logo-fallback i {
-          font-size: 3rem;
-          color: #1e3c72;
-        }
-
-        .logo-fallback span {
-          font-size: 1.2rem;
-          font-weight: 700;
-          color: #1e3c72;
         }
 
         .hero-title {
@@ -326,24 +296,37 @@ export default function Home() {
           border-radius: 2px;
         }
 
-        /* Vertical Layout */
-        .home-vertical-layout {
+        /* ===== HERO STATS ===== */
+        .hero-stats {
           display: flex;
-          flex-direction: column;
-          gap: 50px;
-          max-width: 1200px;
-          margin: 0 auto;
+          justify-content: center;
+          gap: 40px;
+          margin: 30px 0;
+          flex-wrap: wrap;
         }
 
-        .section-top, .section-bottom {
-          background: white;
-          border-radius: 20px;
-          padding: 40px;
-          box-shadow: 0 10px 30px rgba(30, 60, 114, 0.1);
-          border: 1px solid #e8f0ff;
+        .stat-item {
+          text-align: center;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 20px;
+          border-radius: 15px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Section Headers */
+        .stat-number {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: #ffd700;
+          margin-bottom: 5px;
+        }
+
+        .stat-label {
+          font-size: 0.9rem;
+          opacity: 0.9;
+        }
+
+        /* ===== SECTION HEADERS ===== */
         .section-header {
           display: flex;
           align-items: center;
@@ -368,7 +351,7 @@ export default function Home() {
           margin: 0;
         }
 
-        /* Announcement Section - Vertical */
+        /* ===== ANNOUNCEMENT SECTION ===== */
         .announcement-content-vertical {
           display: flex;
           justify-content: center;
@@ -378,6 +361,23 @@ export default function Home() {
           text-align: center;
           max-width: 600px;
           width: 100%;
+          position: relative;
+        }
+
+        .achievement-badge {
+          position: absolute;
+          top: -15px;
+          right: -15px;
+          background: linear-gradient(135deg, #ffd700, #ff6b00);
+          color: white;
+          padding: 8px 15px;
+          border-radius: 20px;
+          font-weight: 600;
+          font-size: 0.8rem;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          z-index: 10;
         }
 
         .announcement-image-preview-vertical {
@@ -400,7 +400,7 @@ export default function Home() {
           flex-wrap: wrap;
         }
 
-        /* Contact Section - Vertical */
+        /* ===== CONTACT SECTION ===== */
         .contact-grid-vertical {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -412,7 +412,6 @@ export default function Home() {
           border-radius: 16px;
           padding: 25px;
           border: 1px solid #e1e8ff;
-          transition: all 0.3s ease;
           position: relative;
           overflow: hidden;
         }
@@ -425,17 +424,6 @@ export default function Home() {
           width: 5px;
           height: 100%;
           background: linear-gradient(135deg, #1e3c72, #2a5298);
-          transition: all 0.3s ease;
-        }
-
-        .contact-card-vertical:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 15px 35px rgba(30, 60, 114, 0.15);
-          background: white;
-        }
-
-        .contact-card-vertical:hover::before {
-          width: 8px;
         }
 
         .contact-card-vertical.website {
@@ -505,12 +493,6 @@ export default function Home() {
           background: white;
           border-radius: 10px;
           border: 1px solid #e8f0ff;
-          transition: all 0.3s ease;
-        }
-
-        .contact-item-vertical:hover {
-          border-color: #1e3c72;
-          transform: translateX(5px);
         }
 
         .contact-details {
@@ -530,6 +512,24 @@ export default function Home() {
           margin-top: 2px;
         }
 
+        /* ===== BUTTON STYLES ===== */
+        .btn {
+          padding: 12px 24px;
+          border: none;
+          border-radius: 10px;
+          font-weight: 600;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          cursor: pointer;
+        }
+
+        .btn-download-announcement {
+          background: linear-gradient(135deg, #dc3545, #c82333);
+          color: white;
+        }
+
         .whatsapp-btn {
           display: flex;
           align-items: center;
@@ -540,16 +540,8 @@ export default function Home() {
           padding: 8px 14px;
           border-radius: 8px;
           font-weight: 600;
-          transition: all 0.3s ease;
           white-space: nowrap;
           font-size: 0.9rem;
-        }
-
-        .whatsapp-btn:hover {
-          background: #1da851;
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-          color: white;
         }
 
         .website-description-vertical {
@@ -570,43 +562,10 @@ export default function Home() {
           border-radius: 10px;
           font-weight: 600;
           border: 2px solid #e8f0ff;
-          transition: all 0.3s ease;
           font-size: 0.9rem;
         }
 
-        .website-link-vertical:hover {
-          background: #1e3c72;
-          color: white;
-          border-color: #1e3c72;
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(30, 60, 114, 0.2);
-        }
-
-        /* Button Styles */
-        .btn {
-          padding: 12px 24px;
-          border: none;
-          border-radius: 10px;
-          font-weight: 600;
-          text-decoration: none;
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          transition: all 0.3s ease;
-          cursor: pointer;
-        }
-
-        .btn-download-announcement {
-          background: linear-gradient(135deg, #dc3545, #c82333);
-          color: white;
-        }
-
-        .btn-download-announcement:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
-        }
-
-        /* Responsive Design */
+        /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 1024px) {
           .contact-grid-vertical {
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -624,6 +583,18 @@ export default function Home() {
           
           .hero-subtitle {
             font-size: 1.1rem;
+          }
+          
+          .hero-stats {
+            gap: 20px;
+          }
+          
+          .stat-item {
+            padding: 15px;
+          }
+          
+          .stat-number {
+            font-size: 2rem;
           }
           
           .section-top, .section-bottom {

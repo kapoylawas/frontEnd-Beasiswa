@@ -18,24 +18,20 @@ export default function Info() {
                   src="/sidoarjo.png"
                   alt="Logo Kabupaten Sidoarjo"
                   className="logo-image"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
-                  }}
                 />
-                <div className="logo-fallback">
-                  <i className="fas fa-graduation-cap"></i>
-                  <span>Beasiswa Sidoarjo</span>
-                </div>
               </div>
             </div>
             <h1 className="hero-title">
-              Persyaratan Beasiswa
+              Persyaratan Beasiswa 2025
             </h1>
             <p className="hero-subtitle">
-              Informasi lengkap persyaratan administrasi calon penerima beasiswa
-              <span className="highlight"> Kabupaten Sidoarjo 2025</span>
+              Program Beasiswa Sidoarjo 2025 telah
+              <span className="highlight"> berhasil diselenggarakan</span>
             </p>
+            <div className="completion-badge">
+              <i className="fas fa-check-circle"></i>
+              <span>Program Telah Selesai</span>
+            </div>
             <div className="hero-divider"></div>
           </div>
         </div>
@@ -46,199 +42,236 @@ export default function Info() {
         <div className="info-content">
 
           {/* Quick Navigation */}
-          <div className="quick-nav">
-            <h3>Navigasi Cepat</h3>
+          {/* <div className="quick-nav">
+            <h3>Informasi Program 2025</h3>
             <div className="nav-buttons">
               <a href="#pengajuan" className="nav-btn">
                 <i className="fas fa-file-contract"></i>
-                Pengajuan
+                Proses Pengajuan
               </a>
               <a href="#umum" className="nav-btn">
                 <i className="fas fa-clipboard-list"></i>
-                Umum
+                Persyaratan Umum
               </a>
               <a href="#khusus" className="nav-btn">
                 <i className="fas fa-tasks"></i>
-                Khusus
+                Persyaratan Khusus
               </a>
+            </div>
+          </div> */}
+
+          {/* Completion Notice */}
+          <div className="completion-notice">
+            <div className="notice-icon">
+              <i className="fas fa-flag-checkered"></i>
+            </div>
+            <div className="notice-content">
+              <h3>Program Beasiswa 2025 Telah Berakhir</h3>
+              <p>Berikut adalah dokumentasi persyaratan yang digunakan dalam seleksi beasiswa tahun 2025. Informasi ini disimpan untuk referensi dan arsip.</p>
             </div>
           </div>
 
-          {/* Persyaratan Cards */}
           <div className="requirements-grid">
 
             {/* Card 1: Pengajuan Permohonan */}
-            <div className="requirement-card" id="pengajuan">
+            {/* <div className="requirement-card completed-card" id="pengajuan">
               <div className="card-header">
                 <div className="card-icon application">
                   <i className="fas fa-file-signature"></i>
                 </div>
                 <div className="card-title">
-                  <h2>1. Pengajuan Permohonan</h2>
-                  <span className="card-badge">Proses Awal</span>
+                  <h2>1. Proses Pengajuan Permohonan</h2>
+                  <span className="card-badge completed">Selesai</span>
                 </div>
               </div>
               <div className="card-content">
                 <p className="card-description">
-                  Mahasiswa mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan.
+                  Mahasiswa telah mengajukan permohonan melalui formulir pendaftaran online dengan mengunggah dokumen yang dipersyaratkan.
                 </p>
                 <div className="process-steps">
-                  <div className="process-step">
-                    <div className="step-number">1</div>
+                  <div className="process-step completed-step">
+                    <div className="step-number">
+                      <i className="fas fa-check"></i>
+                    </div>
                     <div className="step-content">
-                      <strong>Isi Formulir Online</strong>
+                      <strong>Formulir Online Terisi</strong>
                       <span>Melalui website resmi beasiswa</span>
                     </div>
                   </div>
-                  <div className="process-step">
-                    <div className="step-number">2</div>
+                  <div className="process-step completed-step">
+                    <div className="step-number">
+                      <i className="fas fa-check"></i>
+                    </div>
                     <div className="step-content">
-                      <strong>Unggah Dokumen</strong>
-                      <span>Semua persyaratan yang diperlukan</span>
+                      <strong>Dokumen Terunggah</strong>
+                      <span>Semua persyaratan telah dikumpulkan</span>
                     </div>
                   </div>
-                  <div className="process-step">
-                    <div className="step-number">3</div>
+                  <div className="process-step completed-step">
+                    <div className="step-number">
+                      <i className="fas fa-check"></i>
+                    </div>
                     <div className="step-content">
-                      <strong>Submit Permohonan</strong>
-                      <span>Tunggu konfirmasi selanjutnya</span>
+                      <strong>Permohonan Tersubmit</strong>
+                      <span>Proses seleksi telah dilakukan</span>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Card 2: Persyaratan Umum */}
-            <div className="requirement-card" id="umum">
+            {/* <div className="requirement-card completed-card" id="umum">
               <div className="card-header">
                 <div className="card-icon general">
                   <i className="fas fa-user-check"></i>
                 </div>
                 <div className="card-title">
                   <h2>2. Persyaratan Umum</h2>
-                  <span className="card-badge">Wajib Dipenuhi</span>
+                  <span className="card-badge completed">Terpenuhi</span>
                 </div>
               </div>
               <div className="card-content">
                 <div className="requirements-list">
-                  <div className="requirement-item">
+                  <div className="requirement-item completed-item">
                     <div className="requirement-icon population">
                       <i className="fas fa-id-card-alt"></i>
                     </div>
                     <div className="requirement-details">
-                      <h4>Kependudukan</h4>
-                      <p>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan Kartu Keluarga (KK) dan Kartu Tanda Penduduk Elektronik (KTP-el)</p>
+                      <h4>Kependudukan Sidoarjo</h4>
+                      <p>Penduduk Kabupaten Sidoarjo dengan Kartu Keluarga (KK) dan KTP-el yang valid</p>
+                      <div className="completion-tag">
+                        <i className="fas fa-check"></i>
+                        Telah diverifikasi
+                      </div>
                     </div>
                   </div>
 
-                  <div className="requirement-item">
+                  <div className="requirement-item completed-item">
                     <div className="requirement-icon student">
                       <i className="fas fa-user-graduate"></i>
                     </div>
                     <div className="requirement-details">
-                      <h4>Status Mahasiswa</h4>
-                      <p>Terdaftar sebagai mahasiswa Perguruan Tinggi yang dibuktikan dengan surat keterangan aktif kuliah dan kartu identitas kemahasiswaan</p>
+                      <h4>Status Mahasiswa Aktif</h4>
+                      <p>Terdaftar sebagai mahasiswa aktif di Perguruan Tinggi terakreditasi</p>
+                      <div className="completion-tag">
+                        <i className="fas fa-check"></i>
+                        Telah diverifikasi
+                      </div>
                     </div>
                   </div>
 
-                  <div className="requirement-item">
+                  <div className="requirement-item completed-item">
                     <div className="requirement-icon exclusive">
                       <i className="fas fa-hand-holding-usd"></i>
                     </div>
                     <div className="requirement-details">
                       <h4>Tidak Menerima Beasiswa Lain</h4>
-                      <p>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun yang dibuktikan dengan surat pernyataan dari kampus</p>
+                      <p>Tidak sedang menerima beasiswa lain selama periode program</p>
+                      <div className="completion-tag">
+                        <i className="fas fa-check"></i>
+                        Telah diverifikasi
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Card 3: Persyaratan Khusus */}
-            <div className="requirement-card" id="khusus">
+            {/* <div className="requirement-card completed-card" id="khusus">
               <div className="card-header">
                 <div className="card-icon special">
                   <i className="fas fa-award"></i>
                 </div>
                 <div className="card-title">
                   <h2>3. Persyaratan Khusus</h2>
-                  <span className="card-badge">Berdasarkan Jenis</span>
+                  <span className="card-badge completed">Terverifikasi</span>
                 </div>
               </div>
               <div className="card-content">
 
-                {/* Beasiswa Prestasi Akademik */}
-                <div className="special-requirement">
+                <div className="special-requirement completed-special">
                   <div className="special-header">
                     <div className="special-icon academic">
                       <i className="fas fa-brain"></i>
                     </div>
                     <h3>Beasiswa Prestasi Bidang Akademik</h3>
                   </div>
+                  <div className="completion-status">
+                    <i className="fas fa-check-circle"></i>
+                    Kriteria telah diterapkan dalam seleksi
+                  </div>
                   <div className="requirement-variants">
-                    <div className="variant-card">
+                    <div className="variant-card completed-variant">
                       <div className="variant-header">
                         <i className="fas fa-university domestic"></i>
                         <h4>Dalam Negeri</h4>
                       </div>
                       <div className="variant-content">
                         <div className="criteria">
-                          <i className="fas fa-check-circle success"></i>
+                          <i className="fas fa-check success"></i>
                           <span>IPK minimal <strong>3.4</strong></span>
                         </div>
-                        <p>Dibuktikan dengan transkrip nilai terbaru</p>
+                        <p>Telah diverifikasi melalui transkrip nilai</p>
                       </div>
                     </div>
 
-                    <div className="variant-card">
+                    <div className="variant-card completed-variant">
                       <div className="variant-header">
                         <i className="fas fa-globe-americas international"></i>
                         <h4>Luar Negeri</h4>
                       </div>
                       <div className="variant-content">
                         <div className="criteria">
-                          <i className="fas fa-check-circle success"></i>
+                          <i className="fas fa-check success"></i>
                           <span>IPK/GPA memenuhi syarat</span>
                         </div>
-                        <p>Dibuktikan dengan transkrip nilai resmi</p>
+                        <p>Telah diverifikasi melalui transkrip resmi</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Beasiswa Prestasi Non Akademik */}
-                <div className="special-requirement">
+                <div className="special-requirement completed-special">
                   <div className="special-header">
                     <div className="special-icon non-academic">
                       <i className="fas fa-trophy"></i>
                     </div>
                     <h3>Beasiswa Prestasi Bidang Non Akademik</h3>
                   </div>
-                  <div className="requirement-single">
+                  <div className="completion-status">
+                    <i className="fas fa-check-circle"></i>
+                    Prestasi telah dinilai dan diverifikasi
+                  </div>
+                  <div className="requirement-single completed-single">
                     <div className="criteria">
-                      <i className="fas fa-check-circle success"></i>
+                      <i className="fas fa-check success"></i>
                       <span>Prestasi di berbagai bidang</span>
                     </div>
-                    <p>Menunjukkan bukti prestasi dalam <strong>4 tahun terakhir</strong></p>
+                    <p>Bukti prestasi dalam <strong>4 tahun terakhir</strong> telah dinilai</p>
                   </div>
                 </div>
 
-                {/* Beasiswa Kurang Mampu */}
-                <div className="special-requirement">
+                <div className="special-requirement completed-special">
                   <div className="special-header">
                     <div className="special-icon social">
                       <i className="fas fa-hands-helping"></i>
                     </div>
                     <h3>Beasiswa Mahasiswa Kurang Mampu</h3>
                   </div>
-                  <div className="requirement-single">
+                  <div className="completion-status">
+                    <i className="fas fa-check-circle"></i>
+                    Verifikasi kondisi ekonomi telah dilakukan
+                  </div>
+                  <div className="requirement-single completed-single">
                     <div className="criteria-options">
-                      <div className="option">
+                      <div className="option completed-option">
                         <i className="fas fa-database dtks"></i>
                         <span>Terdaftar dalam DTKS</span>
                       </div>
                       <div className="option-divider">ATAU</div>
-                      <div className="option">
+                      <div className="option completed-option">
                         <i className="fas fa-file-certificate sktm"></i>
                         <span>SKTM dari Desa</span>
                       </div>
@@ -246,41 +279,44 @@ export default function Info() {
                   </div>
                 </div>
 
-                {/* Beasiswa Bidang Keagamaan */}
-                <div className="special-requirement">
+                <div className="special-requirement completed-special">
                   <div className="special-header">
                     <div className="special-icon religion">
                       <i className="fas fa-praying-hands"></i>
                     </div>
                     <h3>Beasiswa Bidang Keagamaan</h3>
                   </div>
+                  <div className="completion-status">
+                    <i className="fas fa-check-circle"></i>
+                    Kriteria keagamaan telah dinilai
+                  </div>
                   <div className="religion-requirements">
                     <div className="religion-grid">
-                      <div className="religion-item">
+                      <div className="religion-item completed-religion">
                         <i className="fas fa-quran quran"></i>
                         <span>Hafal minimal 10 juz Al-Qur'an</span>
                       </div>
-                      <div className="religion-item">
+                      <div className="religion-item completed-religion">
                         <i className="fas fa-medal mtq"></i>
                         <span>Pernah mengikuti MTQ</span>
                       </div>
-                      <div className="religion-item">
+                      <div className="religion-item completed-religion">
                         <i className="fas fa-mosque pesantren"></i>
                         <span>Santri di Pondok Pesantren</span>
                       </div>
-                      <div className="religion-item">
+                      <div className="religion-item completed-religion">
                         <i className="fas fa-users-cog organization"></i>
                         <span>Pengurus organisasi keagamaan</span>
                       </div>
-                      <div className="religion-item">
+                      <div className="religion-item completed-religion">
                         <i className="fas fa-star achievement"></i>
                         <span>Prestasi bidang keagamaan</span>
                       </div>
-                      <div className="religion-item">
+                      <div className="religion-item completed-religion">
                         <i className="fas fa-chalkboard-teacher teacher"></i>
                         <span>Guru ngaji TPA/TPQ/Madin</span>
                       </div>
-                      <div className="religion-item full-width">
+                      <div className="religion-item completed-religion full-width">
                         <i className="fas fa-hands non-muslim"></i>
                         <span>Mahasiswa Non Muslim dengan bukti keaktifan di bidang keagamaan</span>
                       </div>
@@ -289,18 +325,29 @@ export default function Info() {
                 </div>
 
               </div>
-            </div>
+            </div> */}
 
+          </div>
+
+          {/* Archive Notice */}
+          <div className="archive-notice">
+            <div className="archive-icon">
+              <i className="fas fa-archive"></i>
+            </div>
+            <div className="archive-content">
+              <h3>Dokumentasi Program 2025</h3>
+              <p>Halaman ini merupakan arsip resmi persyaratan beasiswa Sidoarjo tahun 2025. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
+            </div>
           </div>
 
           {/* Contact Info */}
           <div className="contact-info-section">
             <div className="contact-header">
               <i className="fas fa-headset contact-main-icon"></i>
-              <h2>Butuh Bantuan?</h2>
+              <h2>Informasi Lebih Lanjut</h2>
             </div>
             <p className="contact-description">
-              Hubungi helpdesk kami untuk informasi lebih lanjut mengenai persyaratan beasiswa
+              Untuk informasi mengenai program beasiswa di masa mendatang, silakan hubungi helpdesk kami
             </p>
             <div className="contact-buttons">
               <a target="_blank" href={fiqi} className="contact-btn whatsapp-btn">
@@ -347,7 +394,7 @@ export default function Info() {
           z-index: 2;
         }
 
-        /* Logo Styles - FIXED */
+        /* Logo Styles */
         .hero-logo {
           margin-bottom: 25px;
         }
@@ -366,35 +413,6 @@ export default function Info() {
           padding: 15px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
           border: 3px solid #ffd700;
-          transition: all 0.3s ease;
-        }
-
-        .logo-image:hover {
-          transform: scale(1.05) rotate(2deg);
-          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo-fallback {
-          display: none;
-          flex-direction: column;
-          align-items: center;
-          gap: 10px;
-          background: white;
-          border-radius: 20px;
-          padding: 30px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-          border: 3px solid #ffd700;
-        }
-
-        .logo-fallback i {
-          font-size: 3rem;
-          color: #1e3c72;
-        }
-
-        .logo-fallback span {
-          font-size: 1.2rem;
-          font-weight: 700;
-          color: #1e3c72;
         }
 
         .hero-title {
@@ -406,7 +424,7 @@ export default function Info() {
 
         .hero-subtitle {
           font-size: 1.2rem;
-          margin-bottom: 25px;
+          margin-bottom: 20px;
           opacity: 0.9;
           max-width: 600px;
           margin-left: auto;
@@ -416,6 +434,23 @@ export default function Info() {
         .hero-subtitle .highlight {
           color: #ffd700;
           font-weight: 600;
+        }
+
+        .completion-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(255, 215, 0, 0.2);
+          color: #ffd700;
+          padding: 10px 20px;
+          border-radius: 25px;
+          font-weight: 600;
+          margin-bottom: 25px;
+          border: 2px solid #ffd700;
+        }
+
+        .completion-badge i {
+          font-size: 1.2rem;
         }
 
         .hero-divider {
@@ -468,19 +503,53 @@ export default function Info() {
           padding: 12px 20px;
           border-radius: 10px;
           font-weight: 600;
-          transition: all 0.3s ease;
           border: 2px solid transparent;
         }
 
         .nav-btn:hover {
           background: #1e3c72;
           color: white;
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(30, 60, 114, 0.2);
         }
 
         .nav-btn i {
           font-size: 1.1rem;
+        }
+
+        /* Completion Notice */
+        .completion-notice {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+          border: 2px solid #4caf50;
+          border-radius: 15px;
+          padding: 25px;
+          margin-bottom: 30px;
+        }
+
+        .notice-icon {
+          width: 60px;
+          height: 60px;
+          background: #4caf50;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 1.5rem;
+          flex-shrink: 0;
+        }
+
+        .notice-content h3 {
+          color: #2e7d32;
+          margin: 0 0 10px 0;
+          font-size: 1.3rem;
+        }
+
+        .notice-content p {
+          color: #555;
+          margin: 0;
+          line-height: 1.5;
         }
 
         /* Requirements Grid */
@@ -491,19 +560,24 @@ export default function Info() {
           margin-bottom: 50px;
         }
 
-        /* Requirement Card */
-        .requirement-card {
+        /* Completed Card Styles */
+        .requirement-card.completed-card {
           background: white;
           border-radius: 20px;
           padding: 30px;
-          box-shadow: 0 10px 30px rgba(30, 60, 114, 0.1);
-          border: 1px solid #e8f0ff;
-          transition: all 0.3s ease;
+          box-shadow: 0 5px 20px rgba(30, 60, 114, 0.1);
+          border: 2px solid #e8f5e8;
+          position: relative;
         }
 
-        .requirement-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 15px 40px rgba(30, 60, 114, 0.15);
+        .requirement-card.completed-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5px;
+          height: 100%;
+          background: #4caf50;
         }
 
         .card-header {
@@ -515,7 +589,7 @@ export default function Info() {
           border-bottom: 2px solid #f0f5ff;
         }
 
-        /* Card Icons - Improved with better colors */
+        /* Card Icons */
         .card-icon {
           width: 70px;
           height: 70px;
@@ -546,34 +620,35 @@ export default function Info() {
           margin: 0 0 5px 0;
         }
 
-        .card-badge {
-          background: rgba(30, 60, 114, 0.1);
-          color: #1e3c72;
+        .card-badge.completed {
+          background: #4caf50;
+          color: white;
           padding: 4px 12px;
           border-radius: 20px;
           font-size: 0.8rem;
           font-weight: 600;
         }
 
-        /* Process Steps */
+        /* Process Steps - Completed */
         .process-steps {
           display: flex;
           gap: 20px;
           margin-top: 20px;
         }
 
-        .process-step {
+        .process-step.completed-step {
           display: flex;
           align-items: center;
           gap: 15px;
           flex: 1;
+          opacity: 0.8;
         }
 
         .step-number {
           width: 40px;
           height: 40px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          background: #4caf50;
           color: white;
           display: flex;
           align-items: center;
@@ -598,24 +673,24 @@ export default function Info() {
           font-size: 0.9rem;
         }
 
-        /* Requirements List */
+        /* Requirements List - Completed */
         .requirements-list {
           display: flex;
           flex-direction: column;
           gap: 20px;
         }
 
-        .requirement-item {
+        .requirement-item.completed-item {
           display: flex;
           align-items: flex-start;
           gap: 15px;
           padding: 20px;
           background: #f8faff;
           border-radius: 12px;
-          border-left: 4px solid #1e3c72;
+          border-left: 4px solid #4caf50;
+          opacity: 0.9;
         }
 
-        /* Requirement Icons - Improved */
         .requirement-icon {
           width: 50px;
           height: 50px;
@@ -648,18 +723,31 @@ export default function Info() {
 
         .requirement-details p {
           color: #555;
-          margin: 0;
+          margin: 0 0 10px 0;
           line-height: 1.5;
         }
 
-        /* Special Requirements */
-        .special-requirement {
+        .completion-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          background: #e8f5e8;
+          color: #2e7d32;
+          padding: 4px 10px;
+          border-radius: 12px;
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+
+        /* Special Requirements - Completed */
+        .special-requirement.completed-special {
           margin-bottom: 30px;
           padding-bottom: 25px;
           border-bottom: 1px solid #e8f0ff;
+          opacity: 0.9;
         }
 
-        .special-requirement:last-child {
+        .special-requirement.completed-special:last-child {
           border-bottom: none;
           margin-bottom: 0;
         }
@@ -668,10 +756,9 @@ export default function Info() {
           display: flex;
           align-items: center;
           gap: 15px;
-          margin-bottom: 20px;
+          margin-bottom: 15px;
         }
 
-        /* Special Icons - Improved */
         .special-icon {
           width: 60px;
           height: 60px;
@@ -706,7 +793,21 @@ export default function Info() {
           margin: 0;
         }
 
-        /* Requirement Variants */
+        .completion-status {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: #e8f5e8;
+          color: #2e7d32;
+          padding: 8px 15px;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          margin-bottom: 15px;
+          width: fit-content;
+        }
+
+        /* Requirement Variants - Completed */
         .requirement-variants {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -714,11 +815,12 @@ export default function Info() {
           margin-top: 15px;
         }
 
-        .variant-card {
+        .variant-card.completed-variant {
           background: #f8faff;
           border-radius: 12px;
           padding: 20px;
           border: 1px solid #e1e8ff;
+          opacity: 0.9;
         }
 
         .variant-header {
@@ -754,7 +856,7 @@ export default function Info() {
         }
 
         .variant-content .criteria i.success {
-          color: #43e97b;
+          color: #4caf50;
         }
 
         .variant-content p {
@@ -763,12 +865,13 @@ export default function Info() {
           font-size: 0.9rem;
         }
 
-        /* Single Requirement */
-        .requirement-single {
+        /* Single Requirement - Completed */
+        .requirement-single.completed-single {
           background: #f8faff;
           border-radius: 12px;
           padding: 20px;
           margin-top: 15px;
+          opacity: 0.9;
         }
 
         .criteria-options {
@@ -778,7 +881,7 @@ export default function Info() {
           flex-wrap: wrap;
         }
 
-        .option {
+        .option.completed-option {
           display: flex;
           align-items: center;
           gap: 8px;
@@ -786,6 +889,7 @@ export default function Info() {
           padding: 10px 15px;
           border-radius: 8px;
           border: 1px solid #e1e8ff;
+          opacity: 0.9;
         }
 
         .option i.dtks {
@@ -802,7 +906,7 @@ export default function Info() {
           font-size: 0.9rem;
         }
 
-        /* Religion Requirements - Improved Icons */
+        /* Religion Requirements - Completed */
         .religion-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -810,7 +914,7 @@ export default function Info() {
           margin-top: 15px;
         }
 
-        .religion-item {
+        .religion-item.completed-religion {
           display: flex;
           align-items: center;
           gap: 12px;
@@ -818,6 +922,7 @@ export default function Info() {
           background: #f8faff;
           border-radius: 10px;
           border-left: 3px solid #7b1fa2;
+          opacity: 0.9;
         }
 
         .religion-item.full-width {
@@ -841,6 +946,43 @@ export default function Info() {
         .religion-item span {
           color: #555;
           font-size: 0.95rem;
+        }
+
+        /* Archive Notice */
+        .archive-notice {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          background: linear-gradient(135deg, #fff3e0, #fff8e1);
+          border: 2px solid #ffa000;
+          border-radius: 15px;
+          padding: 25px;
+          margin-bottom: 30px;
+        }
+
+        .archive-icon {
+          width: 60px;
+          height: 60px;
+          background: #ffa000;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 1.5rem;
+          flex-shrink: 0;
+        }
+
+        .archive-content h3 {
+          color: #e65100;
+          margin: 0 0 10px 0;
+          font-size: 1.3rem;
+        }
+
+        .archive-content p {
+          color: #555;
+          margin: 0;
+          line-height: 1.5;
         }
 
         /* Contact Info Section */
@@ -893,14 +1035,11 @@ export default function Info() {
           padding: 15px 25px;
           border-radius: 10px;
           font-weight: 600;
-          transition: all 0.3s ease;
           border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .contact-btn:hover {
           background: white;
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .contact-btn.whatsapp-btn:hover { color: #25D366; }
@@ -945,6 +1084,12 @@ export default function Info() {
           
           .contact-btn {
             justify-content: center;
+          }
+          
+          .completion-notice,
+          .archive-notice {
+            flex-direction: column;
+            text-align: center;
           }
         }
 

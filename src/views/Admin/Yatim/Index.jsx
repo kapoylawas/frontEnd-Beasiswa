@@ -436,6 +436,7 @@ export default function YatimIndex() {
                                                         <option value="">Pilih Jenjang</option>
                                                         <option value="SD">SD</option>
                                                         <option value="SMP">SMP</option>
+                                                        <option value="SMA">SMA</option>
                                                     </select>
                                                 </div>
 
