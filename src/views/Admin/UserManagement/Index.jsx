@@ -24,6 +24,14 @@ export default function UserManagement() {
 
   document.title = "User Management - Beasiswa";
 
+  // Fungsi untuk generate email acak
+  const generateRandomEmail = () => {
+    const randomString = Math.random().toString(36).substring(2, 10); // 8 karakter acak
+    const domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com'];
+    const randomDomain = domains[Math.floor(Math.random() * domains.length)];
+    return `${randomString}@${randomDomain}`;
+  };
+
   // Fetch users
   const fetchUsers = async () => {
     try {
@@ -130,8 +138,13 @@ export default function UserManagement() {
     setErrors({});
   };
 
-  // Open modal
+  // Open modal - generate email acak saat modal dibuka
   const openModal = () => {
+    const randomEmail = generateRandomEmail();
+    setFormData(prev => ({
+      ...prev,
+      email: randomEmail
+    }));
     setShowModal(true);
   };
 
@@ -139,6 +152,15 @@ export default function UserManagement() {
   const closeModal = () => {
     setShowModal(false);
     resetForm();
+  };
+
+  // Tombol untuk generate email baru
+  const handleGenerateNewEmail = () => {
+    const newEmail = generateRandomEmail();
+    setFormData(prev => ({
+      ...prev,
+      email: newEmail
+    }));
   };
 
   // Get role names
@@ -291,16 +313,29 @@ export default function UserManagement() {
                       </div>
 
                       <div className="col-12 mb-3">
-                        <label className="form-label">Email *</label>
+                        <div className="d-flex justify-content-between align-items-center mb-2">
+                          <label className="form-label">Email *</label>
+                          <button 
+                            type="button" 
+                            className="btn btn-sm btn-outline-secondary"
+                            onClick={handleGenerateNewEmail}
+                          >
+                            <i className="fa fa-refresh me-1"></i>
+                            Generate Email Baru
+                          </button>
+                        </div>
                         <input
                           type="email"
                           className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          placeholder="Masukkan email"
+                          placeholder="Email akan digenerate otomatis"
                           required
                         />
+                        <div className="form-text">
+                          Email digenerate otomatis, klik tombol di atas untuk mengubah
+                        </div>
                         {errors.email && <div className="invalid-feedback">{errors.email[0]}</div>}
                       </div>
 

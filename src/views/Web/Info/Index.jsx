@@ -1,10 +1,9 @@
 import LayoutWeb from "../../../layouts/Web";
 
 export default function Info() {
-  const fiqi = `https://wa.me/6289630324926`;
-  const petirc = `https://wa.me/6281235949497`;
-  const munip = `https://wa.me/6281234278662`;
-  const dinsos = `https://wa.me/6285711404090`;
+  // Helpdesk Penerimaan Beasiswa Yatim
+  const dinsosYatim = `https://wa.me/6282230338338`;
+  const diknasYatim = `https://wa.me/6281336766061`;
 
   return (
     <LayoutWeb>
@@ -41,25 +40,6 @@ export default function Info() {
       <div className="container info-container mt-3 mb-2">
         <div className="info-content">
 
-          {/* Quick Navigation */}
-          {/* <div className="quick-nav">
-            <h3>Informasi Program 2025</h3>
-            <div className="nav-buttons">
-              <a href="#pengajuan" className="nav-btn">
-                <i className="fas fa-file-contract"></i>
-                Proses Pengajuan
-              </a>
-              <a href="#umum" className="nav-btn">
-                <i className="fas fa-clipboard-list"></i>
-                Persyaratan Umum
-              </a>
-              <a href="#khusus" className="nav-btn">
-                <i className="fas fa-tasks"></i>
-                Persyaratan Khusus
-              </a>
-            </div>
-          </div> */}
-
           {/* Completion Notice */}
           <div className="completion-notice">
             <div className="notice-icon">
@@ -71,297 +51,269 @@ export default function Info() {
             </div>
           </div>
 
-          <div className="requirements-grid">
-
-            {/* Card 1: Pengajuan Permohonan */}
-            {/* <div className="requirement-card completed-card" id="pengajuan">
-              <div className="card-header">
-                <div className="card-icon application">
-                  <i className="fas fa-file-signature"></i>
-                </div>
-                <div className="card-title">
-                  <h2>1. Proses Pengajuan Permohonan</h2>
-                  <span className="card-badge completed">Selesai</span>
-                </div>
-              </div>
-              <div className="card-content">
-                <p className="card-description">
-                  Mahasiswa telah mengajukan permohonan melalui formulir pendaftaran online dengan mengunggah dokumen yang dipersyaratkan.
-                </p>
-                <div className="process-steps">
-                  <div className="process-step completed-step">
-                    <div className="step-number">
-                      <i className="fas fa-check"></i>
-                    </div>
-                    <div className="step-content">
-                      <strong>Formulir Online Terisi</strong>
-                      <span>Melalui website resmi beasiswa</span>
-                    </div>
-                  </div>
-                  <div className="process-step completed-step">
-                    <div className="step-number">
-                      <i className="fas fa-check"></i>
-                    </div>
-                    <div className="step-content">
-                      <strong>Dokumen Terunggah</strong>
-                      <span>Semua persyaratan telah dikumpulkan</span>
-                    </div>
-                  </div>
-                  <div className="process-step completed-step">
-                    <div className="step-number">
-                      <i className="fas fa-check"></i>
-                    </div>
-                    <div className="step-content">
-                      <strong>Permohonan Tersubmit</strong>
-                      <span>Proses seleksi telah dilakukan</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
-            {/* Card 2: Persyaratan Umum */}
-            {/* <div className="requirement-card completed-card" id="umum">
-              <div className="card-header">
-                <div className="card-icon general">
-                  <i className="fas fa-user-check"></i>
-                </div>
-                <div className="card-title">
-                  <h2>2. Persyaratan Umum</h2>
-                  <span className="card-badge completed">Terpenuhi</span>
-                </div>
-              </div>
-              <div className="card-content">
-                <div className="requirements-list">
-                  <div className="requirement-item completed-item">
-                    <div className="requirement-icon population">
-                      <i className="fas fa-id-card-alt"></i>
-                    </div>
-                    <div className="requirement-details">
-                      <h4>Kependudukan Sidoarjo</h4>
-                      <p>Penduduk Kabupaten Sidoarjo dengan Kartu Keluarga (KK) dan KTP-el yang valid</p>
-                      <div className="completion-tag">
-                        <i className="fas fa-check"></i>
-                        Telah diverifikasi
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="requirement-item completed-item">
-                    <div className="requirement-icon student">
-                      <i className="fas fa-user-graduate"></i>
-                    </div>
-                    <div className="requirement-details">
-                      <h4>Status Mahasiswa Aktif</h4>
-                      <p>Terdaftar sebagai mahasiswa aktif di Perguruan Tinggi terakreditasi</p>
-                      <div className="completion-tag">
-                        <i className="fas fa-check"></i>
-                        Telah diverifikasi
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="requirement-item completed-item">
-                    <div className="requirement-icon exclusive">
-                      <i className="fas fa-hand-holding-usd"></i>
-                    </div>
-                    <div className="requirement-details">
-                      <h4>Tidak Menerima Beasiswa Lain</h4>
-                      <p>Tidak sedang menerima beasiswa lain selama periode program</p>
-                      <div className="completion-tag">
-                        <i className="fas fa-check"></i>
-                        Telah diverifikasi
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
-            {/* Card 3: Persyaratan Khusus */}
-            {/* <div className="requirement-card completed-card" id="khusus">
-              <div className="card-header">
-                <div className="card-icon special">
-                  <i className="fas fa-award"></i>
-                </div>
-                <div className="card-title">
-                  <h2>3. Persyaratan Khusus</h2>
-                  <span className="card-badge completed">Terverifikasi</span>
-                </div>
-              </div>
-              <div className="card-content">
-
-                <div className="special-requirement completed-special">
-                  <div className="special-header">
-                    <div className="special-icon academic">
-                      <i className="fas fa-brain"></i>
-                    </div>
-                    <h3>Beasiswa Prestasi Bidang Akademik</h3>
-                  </div>
-                  <div className="completion-status">
-                    <i className="fas fa-check-circle"></i>
-                    Kriteria telah diterapkan dalam seleksi
-                  </div>
-                  <div className="requirement-variants">
-                    <div className="variant-card completed-variant">
-                      <div className="variant-header">
-                        <i className="fas fa-university domestic"></i>
-                        <h4>Dalam Negeri</h4>
-                      </div>
-                      <div className="variant-content">
-                        <div className="criteria">
-                          <i className="fas fa-check success"></i>
-                          <span>IPK minimal <strong>3.4</strong></span>
-                        </div>
-                        <p>Telah diverifikasi melalui transkrip nilai</p>
-                      </div>
-                    </div>
-
-                    <div className="variant-card completed-variant">
-                      <div className="variant-header">
-                        <i className="fas fa-globe-americas international"></i>
-                        <h4>Luar Negeri</h4>
-                      </div>
-                      <div className="variant-content">
-                        <div className="criteria">
-                          <i className="fas fa-check success"></i>
-                          <span>IPK/GPA memenuhi syarat</span>
-                        </div>
-                        <p>Telah diverifikasi melalui transkrip resmi</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="special-requirement completed-special">
-                  <div className="special-header">
-                    <div className="special-icon non-academic">
-                      <i className="fas fa-trophy"></i>
-                    </div>
-                    <h3>Beasiswa Prestasi Bidang Non Akademik</h3>
-                  </div>
-                  <div className="completion-status">
-                    <i className="fas fa-check-circle"></i>
-                    Prestasi telah dinilai dan diverifikasi
-                  </div>
-                  <div className="requirement-single completed-single">
-                    <div className="criteria">
-                      <i className="fas fa-check success"></i>
-                      <span>Prestasi di berbagai bidang</span>
-                    </div>
-                    <p>Bukti prestasi dalam <strong>4 tahun terakhir</strong> telah dinilai</p>
-                  </div>
-                </div>
-
-                <div className="special-requirement completed-special">
-                  <div className="special-header">
-                    <div className="special-icon social">
-                      <i className="fas fa-hands-helping"></i>
-                    </div>
-                    <h3>Beasiswa Mahasiswa Kurang Mampu</h3>
-                  </div>
-                  <div className="completion-status">
-                    <i className="fas fa-check-circle"></i>
-                    Verifikasi kondisi ekonomi telah dilakukan
-                  </div>
-                  <div className="requirement-single completed-single">
-                    <div className="criteria-options">
-                      <div className="option completed-option">
-                        <i className="fas fa-database dtks"></i>
-                        <span>Terdaftar dalam DTKS</span>
-                      </div>
-                      <div className="option-divider">ATAU</div>
-                      <div className="option completed-option">
-                        <i className="fas fa-file-certificate sktm"></i>
-                        <span>SKTM dari Desa</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="special-requirement completed-special">
-                  <div className="special-header">
-                    <div className="special-icon religion">
-                      <i className="fas fa-praying-hands"></i>
-                    </div>
-                    <h3>Beasiswa Bidang Keagamaan</h3>
-                  </div>
-                  <div className="completion-status">
-                    <i className="fas fa-check-circle"></i>
-                    Kriteria keagamaan telah dinilai
-                  </div>
-                  <div className="religion-requirements">
-                    <div className="religion-grid">
-                      <div className="religion-item completed-religion">
-                        <i className="fas fa-quran quran"></i>
-                        <span>Hafal minimal 10 juz Al-Qur'an</span>
-                      </div>
-                      <div className="religion-item completed-religion">
-                        <i className="fas fa-medal mtq"></i>
-                        <span>Pernah mengikuti MTQ</span>
-                      </div>
-                      <div className="religion-item completed-religion">
-                        <i className="fas fa-mosque pesantren"></i>
-                        <span>Santri di Pondok Pesantren</span>
-                      </div>
-                      <div className="religion-item completed-religion">
-                        <i className="fas fa-users-cog organization"></i>
-                        <span>Pengurus organisasi keagamaan</span>
-                      </div>
-                      <div className="religion-item completed-religion">
-                        <i className="fas fa-star achievement"></i>
-                        <span>Prestasi bidang keagamaan</span>
-                      </div>
-                      <div className="religion-item completed-religion">
-                        <i className="fas fa-chalkboard-teacher teacher"></i>
-                        <span>Guru ngaji TPA/TPQ/Madin</span>
-                      </div>
-                      <div className="religion-item completed-religion full-width">
-                        <i className="fas fa-hands non-muslim"></i>
-                        <span>Mahasiswa Non Muslim dengan bukti keaktifan di bidang keagamaan</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div> */}
-
-          </div>
-
-          {/* Archive Notice */}
-          <div className="archive-notice">
-            <div className="archive-icon">
-              <i className="fas fa-archive"></i>
+          {/* PERSYARATAN ADMINISTRASI SECTION */}
+          <div className="requirements-section">
+            <div className="section-header">
+              <i className="fas fa-file-alt"></i>
+              <h2>Persyaratan Administrasi</h2>
             </div>
-            <div className="archive-content">
-              <h3>Dokumentasi Program 2025</h3>
-              <p>Halaman ini merupakan arsip resmi persyaratan beasiswa Sidoarjo tahun 2025. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
+            
+            <div className="requirements-header">
+              <div className="requirements-intro-card">
+                <div className="intro-icon">
+                  <i className="fas fa-graduation-cap"></i>
+                </div>
+                <div className="intro-content">
+                  <h3>Calon Penerima Beasiswa Anak Yatim</h3>
+                  <p>Jenjang SD Negeri, SMP Negeri, dan SMA Negeri</p>
+                  <div className="intro-badge">
+                    <i className="fas fa-info-circle"></i>
+                    Dokumentasi Persyaratan Tahun 2025
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="requirements-grid">
+              {/* Proses Pendaftaran */}
+              <div className="requirement-card process">
+                <div className="card-header">
+                  <div className="card-icon">
+                    <i className="fas fa-laptop"></i>
+                  </div>
+                  <h3>Proses Pendaftaran</h3>
+                  <div className="card-number">01</div>
+                </div>
+                <div className="card-content">
+                  <p>Sekolah mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan.</p>
+                  <div className="process-steps">
+                    <div className="step">
+                      <div className="step-number">1</div>
+                      <span>Isi formulir online</span>
+                    </div>
+                    <div className="step">
+                      <div className="step-number">2</div>
+                      <span>Upload dokumen persyaratan</span>
+                    </div>
+                    <div className="step">
+                      <div className="step-number">3</div>
+                      <span>Submit pendaftaran</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Persyaratan Umum */}
+              <div className="requirement-card general">
+                <div className="card-header">
+                  <div className="card-icon">
+                    <i className="fas fa-users"></i>
+                  </div>
+                  <h3>Persyaratan Umum</h3>
+                  <div className="card-number">02</div>
+                </div>
+                <div className="card-content">
+                  <div className="requirements-list">
+                    <div className="requirement-item">
+                      <div className="requirement-check">
+                        <i className="fas fa-check-circle"></i>
+                      </div>
+                      <div className="requirement-text">
+                        <span>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan <strong>Kartu Keluarga (KK)</strong></span>
+                      </div>
+                    </div>
+                    <div className="requirement-item">
+                      <div className="requirement-check">
+                        <i className="fas fa-check-circle"></i>
+                      </div>
+                      <div className="requirement-text">
+                        <span>Terdaftar sebagai siswa di sekolah <strong>SD Negeri, SMP Negeri, dan SMA Negeri</strong> yang dibuktikan dengan surat keterangan dari sekolah</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Persyaratan Khusus */}
+              <div className="requirement-card special">
+                <div className="card-header">
+                  <div className="card-icon">
+                    <i className="fas fa-user-check"></i>
+                  </div>
+                  <h3>Persyaratan Khusus</h3>
+                  <div className="card-number">03</div>
+                </div>
+                <div className="card-content">
+                  <div className="requirements-list">
+                    <div className="requirement-item">
+                      <div className="requirement-check">
+                        <i className="fas fa-database"></i>
+                      </div>
+                      <div className="requirement-text">
+                        <span>Terdaftar dalam <strong>Data Tunggal Sosial Ekonomi Nasional (DTSEN)</strong> desil 1, 2, 3, 4, dan 5 <strong>ATAU</strong> melampirkan <strong>Surat Keterangan Tidak Mampu (SKTM)</strong> dari Desa/Kelurahan</span>
+                      </div>
+                    </div>
+                    <div className="requirement-item">
+                      <div className="requirement-check">
+                        <i className="fas fa-file-certificate"></i>
+                      </div>
+                      <div className="requirement-text">
+                        <span><strong>Akte Kematian</strong> yang diterbitkan Dinas Kependudukan dan Pencatatan Sipil <strong>ATAU</strong> <strong>Surat Kematian</strong> yang diterbitkan Desa/Kelurahan</span>
+                      </div>
+                    </div>
+                    <div className="requirement-item">
+                      <div className="requirement-check">
+                        <i className="fas fa-handshake"></i>
+                      </div>
+                      <div className="requirement-text">
+                        <span>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun dibuktikan dengan <strong>surat pernyataan tidak menerima beasiswa</strong> dari Lembaga/Donatur lainnya oleh orang tua/wali siswa yang diketahui oleh sekolah</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Informasi Tambahan */}
+              <div className="requirement-card info">
+                <div className="card-header">
+                  <div className="card-icon">
+                    <i className="fas fa-info-circle"></i>
+                  </div>
+                  <h3>Informasi Penting</h3>
+                  <div className="card-number">04</div>
+                </div>
+                <div className="card-content">
+                  <div className="info-items">
+                    <div className="info-item">
+                      <div className="info-icon">
+                        <i className="fas fa-exclamation-triangle"></i>
+                      </div>
+                      <div className="info-text">
+                        <h4>Dokumen Lengkap</h4>
+                        <p>Pastikan semua dokumen sudah lengkap dan valid sebelum mengajukan permohonan</p>
+                      </div>
+                    </div>
+                    <div className="info-item">
+                      <div className="info-icon">
+                        <i className="fas fa-upload"></i>
+                      </div>
+                      <div className="info-text">
+                        <h4>Format File</h4>
+                        <p>Upload dokumen dalam format PDF dengan ukuran maksimal 2MB per file</p>
+                      </div>
+                    </div>
+                    <div className="info-item">
+                      <div className="info-icon">
+                        <i className="fas fa-clock"></i>
+                      </div>
+                      <div className="info-text">
+                        <h4>Periksa Kembali</h4>
+                        <p>Periksa kembali semua persyaratan sebelum melakukan submit pendaftaran</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Archive Notice */}
+            <div className="archive-notice">
+              <div className="archive-icon">
+                <i className="fas fa-archive"></i>
+              </div>
+              <div className="archive-content">
+                <h3>Dokumentasi Program 2025</h3>
+                <p>Halaman ini merupakan arsip resmi persyaratan beasiswa Sidoarjo tahun 2025. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
+              </div>
             </div>
           </div>
 
           {/* Contact Info */}
-          <div className="contact-info-section">
+          <div className="contact-info-section mb-3">
             <div className="contact-header">
               <i className="fas fa-headset contact-main-icon"></i>
               <h2>Informasi Lebih Lanjut</h2>
             </div>
             <p className="contact-description">
-              Untuk informasi mengenai program beasiswa di masa mendatang, silakan hubungi helpdesk kami
+              Untuk informasi mengenai program beasiswa di masa mendatang, silakan hubungi helpdesk resmi penerimaan beasiswa
             </p>
-            <div className="contact-buttons">
-              <a target="_blank" href={fiqi} className="contact-btn whatsapp-btn">
-                <i className="fab fa-whatsapp"></i>
-                Helpdesk Akademik & Non Akademik
-              </a>
-              <a target="_blank" href={munip} className="contact-btn religion-btn">
-                <i className="fab fa-whatsapp"></i>
-                Helpdesk Keagamaan
-              </a>
-              <a target="_blank" href={dinsos} className="contact-btn social-btn">
-                <i className="fab fa-whatsapp"></i>
-                Helpdesk Kurang Mampu
-              </a>
+            <div className="contact-info-grid">
+              <div className="contact-info-card">
+                <div className="contact-card-header">
+                  <div className="contact-icon dinsos">
+                    <i className="fas fa-hands-helping"></i>
+                  </div>
+                  <div className="contact-card-info">
+                    <h3>Dinas Sosial (DINSOS)</h3>
+                    <p>Beasiswa Yatim - Byamoga Dinsos</p>
+                    <div className="contact-badge">
+                      <i className="fas fa-child"></i>
+                      SD, SMP, SMA
+                    </div>
+                  </div>
+                </div>
+                <div className="contact-card-content">
+                  <div className="contact-item">
+                    <div className="contact-details">
+                      <span className="contact-name">Byamoga Dinsos</span>
+                      <span className="contact-role">Helpdesk Yatim Dinas Sosial</span>
+                    </div>
+                    <a target="_blank" href={dinsosYatim} className="whatsapp-btn">
+                      <i className="fab fa-whatsapp"></i>
+                      0822-3303-8338
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="contact-info-card">
+                <div className="contact-card-header">
+                  <div className="contact-icon diknas">
+                    <i className="fas fa-graduation-cap"></i>
+                  </div>
+                  <div className="contact-card-info">
+                    <h3>Dinas Pendidikan (DIKNAS)</h3>
+                    <p>Beasiswa Yatim - Dinas Pendidikan</p>
+                    <div className="contact-badge">
+                      <i className="fas fa-child"></i>
+                      SD, SMP, SMA
+                    </div>
+                  </div>
+                </div>
+                <div className="contact-card-content">
+                  <div className="contact-item">
+                    <div className="contact-details">
+                      <span className="contact-name">Helpdesk Diknas</span>
+                      <span className="contact-role">Helpdesk Yatim Dinas Pendidikan</span>
+                    </div>
+                    <a target="_blank" href={diknasYatim} className="whatsapp-btn">
+                      <i className="fab fa-whatsapp"></i>
+                      0813-3676-6061
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="contact-info-card website">
+                <div className="contact-card-header">
+                  <div className="contact-icon website">
+                    <i className="fas fa-globe"></i>
+                  </div>
+                  <div className="contact-card-info">
+                    <h3>Website Resmi</h3>
+                    <p>Informasi dan Pendaftaran Online</p>
+                  </div>
+                </div>
+                <div className="contact-card-content">
+                  <p className="website-description">
+                    Untuk informasi terbaru dan pendaftaran online:
+                  </p>
+                  <a href="https://beasiswa.sidoarjokab.go.id/" className="website-link">
+                    <i className="fas fa-external-link-alt"></i>
+                    https://beasiswa.sidoarjokab.go.id/
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -471,50 +423,6 @@ export default function Info() {
           margin: 0 auto;
         }
 
-        /* Quick Navigation */
-        .quick-nav {
-          background: white;
-          border-radius: 15px;
-          padding: 25px;
-          box-shadow: 0 5px 20px rgba(30, 60, 114, 0.1);
-          margin-bottom: 30px;
-          border: 1px solid #e8f0ff;
-        }
-
-        .quick-nav h3 {
-          color: #1e3c72;
-          margin-bottom: 15px;
-          font-size: 1.3rem;
-        }
-
-        .nav-buttons {
-          display: flex;
-          gap: 15px;
-          flex-wrap: wrap;
-        }
-
-        .nav-btn {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          background: #f8faff;
-          color: #1e3c72;
-          text-decoration: none;
-          padding: 12px 20px;
-          border-radius: 10px;
-          font-weight: 600;
-          border: 2px solid transparent;
-        }
-
-        .nav-btn:hover {
-          background: #1e3c72;
-          color: white;
-        }
-
-        .nav-btn i {
-          font-size: 1.1rem;
-        }
-
         /* Completion Notice */
         .completion-notice {
           display: flex;
@@ -552,400 +460,346 @@ export default function Info() {
           line-height: 1.5;
         }
 
-        /* Requirements Grid */
-        .requirements-grid {
-          display: flex;
-          flex-direction: column;
-          gap: 30px;
-          margin-bottom: 50px;
-        }
-
-        /* Completed Card Styles */
-        .requirement-card.completed-card {
+        /* PERSYARATAN ADMINISTRASI SECTION */
+        .requirements-section {
           background: white;
           border-radius: 20px;
-          padding: 30px;
-          box-shadow: 0 5px 20px rgba(30, 60, 114, 0.1);
-          border: 2px solid #e8f5e8;
-          position: relative;
+          padding: 40px;
+          box-shadow: 0 10px 30px rgba(30, 60, 114, 0.1);
+          border: 1px solid #e8f0ff;
+          margin-bottom: 30px;
         }
 
-        .requirement-card.completed-card::before {
+        .section-header {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 30px;
+          padding-bottom: 15px;
+          border-bottom: 3px solid #1e3c72;
+        }
+
+        .section-header i {
+          font-size: 2rem;
+          color: #1e3c72;
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .section-header h2 {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #1e3c72;
+          margin: 0;
+        }
+
+        .requirements-header {
+          margin-bottom: 40px;
+        }
+
+        .requirements-intro-card {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          color: white;
+          padding: 30px;
+          border-radius: 16px;
+          box-shadow: 0 10px 30px rgba(30, 60, 114, 0.2);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .requirements-intro-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 200px;
+          height: 200px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
+          transform: translate(30%, -30%);
+        }
+
+        .intro-icon {
+          width: 70px;
+          height: 70px;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.8rem;
+          flex-shrink: 0;
+        }
+
+        .intro-content {
+          flex: 1;
+        }
+
+        .intro-content h3 {
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin: 0 0 10px 0;
+        }
+
+        .intro-content p {
+          font-size: 1.1rem;
+          opacity: 0.9;
+          margin: 0 0 15px 0;
+        }
+
+        .intro-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(255, 255, 255, 0.2);
+          padding: 8px 15px;
+          border-radius: 20px;
+          font-size: 0.9rem;
+          font-weight: 600;
+        }
+
+        .requirements-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          gap: 25px;
+          margin-bottom: 40px;
+        }
+
+        .requirement-card {
+          background: white;
+          border-radius: 16px;
+          padding: 25px;
+          box-shadow: 0 5px 20px rgba(30, 60, 114, 0.08);
+          border: 1px solid #e8f0ff;
+          position: relative;
+          overflow: hidden;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .requirement-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 35px rgba(30, 60, 114, 0.15);
+        }
+
+        .requirement-card::before {
           content: '';
           position: absolute;
           top: 0;
           left: 0;
           width: 5px;
           height: 100%;
-          background: #4caf50;
+        }
+
+        .requirement-card.process::before {
+          background: linear-gradient(135deg, #2196F3, #21CBF3);
+        }
+
+        .requirement-card.general::before {
+          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .requirement-card.special::before {
+          background: linear-gradient(135deg, #FF9800, #FF5722);
+        }
+
+        .requirement-card.info::before {
+          background: linear-gradient(135deg, #9C27B0, #E91E63);
         }
 
         .card-header {
           display: flex;
           align-items: center;
-          gap: 20px;
-          margin-bottom: 25px;
-          padding-bottom: 20px;
-          border-bottom: 2px solid #f0f5ff;
+          gap: 15px;
+          margin-bottom: 20px;
+          position: relative;
         }
 
-        /* Card Icons */
         .card-icon {
-          width: 70px;
-          height: 70px;
-          border-radius: 15px;
+          width: 50px;
+          height: 50px;
+          border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
           color: white;
-          font-size: 1.8rem;
+          font-size: 1.3rem;
         }
 
-        .card-icon.application {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .requirement-card.process .card-icon {
+          background: linear-gradient(135deg, #2196F3, #21CBF3);
         }
 
-        .card-icon.general {
-          background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .requirement-card.general .card-icon {
+          background: linear-gradient(135deg, #4CAF50, #8BC34A);
         }
 
-        .card-icon.special {
-          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        .requirement-card.special .card-icon {
+          background: linear-gradient(135deg, #FF9800, #FF5722);
         }
 
-        .card-title h2 {
+        .requirement-card.info .card-icon {
+          background: linear-gradient(135deg, #9C27B0, #E91E63);
+        }
+
+        .card-header h3 {
           color: #1e3c72;
-          font-size: 1.8rem;
           font-weight: 700;
-          margin: 0 0 5px 0;
+          font-size: 1.2rem;
+          margin: 0;
+          flex: 1;
         }
 
-        .card-badge.completed {
-          background: #4caf50;
+        .card-number {
+          position: absolute;
+          top: -15px;
+          right: -15px;
+          width: 40px;
+          height: 40px;
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
           color: white;
-          padding: 4px 12px;
-          border-radius: 20px;
-          font-size: 0.8rem;
-          font-weight: 600;
-        }
-
-        /* Process Steps - Completed */
-        .process-steps {
-          display: flex;
-          gap: 20px;
-          margin-top: 20px;
-        }
-
-        .process-step.completed-step {
+          border-radius: 50%;
           display: flex;
           align-items: center;
-          gap: 15px;
-          flex: 1;
-          opacity: 0.8;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 0.9rem;
+          box-shadow: 0 4px 10px rgba(30, 60, 114, 0.3);
+        }
+
+        .card-content p {
+          color: #555;
+          line-height: 1.6;
+          margin-bottom: 15px;
+        }
+
+        .process-steps {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .step {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 10px;
+          background: #f8faff;
+          border-radius: 8px;
         }
 
         .step-number {
-          width: 40px;
-          height: 40px;
+          width: 25px;
+          height: 25px;
+          background: linear-gradient(135deg, #2196F3, #21CBF3);
+          color: white;
           border-radius: 50%;
-          background: #4caf50;
-          color: white;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-weight: 700;
-          font-size: 1.1rem;
-          flex-shrink: 0;
-        }
-
-        .step-content {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .step-content strong {
-          color: #1e3c72;
-          font-size: 1rem;
-        }
-
-        .step-content span {
-          color: #666;
-          font-size: 0.9rem;
-        }
-
-        /* Requirements List - Completed */
-        .requirements-list {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
-
-        .requirement-item.completed-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 15px;
-          padding: 20px;
-          background: #f8faff;
-          border-radius: 12px;
-          border-left: 4px solid #4caf50;
-          opacity: 0.9;
-        }
-
-        .requirement-icon {
-          width: 50px;
-          height: 50px;
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          font-size: 1.3rem;
-          flex-shrink: 0;
-        }
-
-        .requirement-icon.population {
-          background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-        }
-
-        .requirement-icon.student {
-          background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-        }
-
-        .requirement-icon.exclusive {
-          background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-        }
-
-        .requirement-details h4 {
-          color: #1e3c72;
-          margin: 0 0 8px 0;
-          font-size: 1.1rem;
-        }
-
-        .requirement-details p {
-          color: #555;
-          margin: 0 0 10px 0;
-          line-height: 1.5;
-        }
-
-        .completion-tag {
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          background: #e8f5e8;
-          color: #2e7d32;
-          padding: 4px 10px;
-          border-radius: 12px;
           font-size: 0.8rem;
           font-weight: 600;
         }
 
-        /* Special Requirements - Completed */
-        .special-requirement.completed-special {
-          margin-bottom: 30px;
-          padding-bottom: 25px;
-          border-bottom: 1px solid #e8f0ff;
-          opacity: 0.9;
-        }
-
-        .special-requirement.completed-special:last-child {
-          border-bottom: none;
-          margin-bottom: 0;
-        }
-
-        .special-header {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          margin-bottom: 15px;
-        }
-
-        .special-icon {
-          width: 60px;
-          height: 60px;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          font-size: 1.5rem;
-          flex-shrink: 0;
-        }
-
-        .special-icon.academic {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .special-icon.non-academic {
-          background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .special-icon.social {
-          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .special-icon.religion {
-          background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
-
-        .special-header h3 {
-          color: #1e3c72;
-          font-size: 1.4rem;
-          margin: 0;
-        }
-
-        .completion-status {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          background: #e8f5e8;
-          color: #2e7d32;
-          padding: 8px 15px;
-          border-radius: 8px;
-          font-size: 0.9rem;
-          font-weight: 600;
-          margin-bottom: 15px;
-          width: fit-content;
-        }
-
-        /* Requirement Variants - Completed */
-        .requirement-variants {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
-          margin-top: 15px;
-        }
-
-        .variant-card.completed-variant {
-          background: #f8faff;
-          border-radius: 12px;
-          padding: 20px;
-          border: 1px solid #e1e8ff;
-          opacity: 0.9;
-        }
-
-        .variant-header {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          margin-bottom: 15px;
-        }
-
-        .variant-header i {
-          font-size: 1.3rem;
-        }
-
-        .variant-header .domestic {
-          color: #667eea;
-        }
-
-        .variant-header .international {
-          color: #00f2fe;
-        }
-
-        .variant-header h4 {
-          color: #1e3c72;
-          margin: 0;
-          font-size: 1.1rem;
-        }
-
-        .variant-content .criteria {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          margin-bottom: 8px;
-        }
-
-        .variant-content .criteria i.success {
-          color: #4caf50;
-        }
-
-        .variant-content p {
-          color: #666;
-          margin: 0;
+        .step span {
+          color: #444;
           font-size: 0.9rem;
         }
 
-        /* Single Requirement - Completed */
-        .requirement-single.completed-single {
-          background: #f8faff;
-          border-radius: 12px;
-          padding: 20px;
-          margin-top: 15px;
-          opacity: 0.9;
-        }
-
-        .criteria-options {
+        .requirements-list {
           display: flex;
-          align-items: center;
+          flex-direction: column;
           gap: 15px;
-          flex-wrap: wrap;
         }
 
-        .option.completed-option {
+        .requirement-item {
           display: flex;
-          align-items: center;
-          gap: 8px;
-          background: white;
-          padding: 10px 15px;
-          border-radius: 8px;
-          border: 1px solid #e1e8ff;
-          opacity: 0.9;
-        }
-
-        .option i.dtks {
-          color: #4facfe;
-        }
-
-        .option i.sktm {
-          color: #f5576c;
-        }
-
-        .option-divider {
-          color: #666;
-          font-weight: 600;
-          font-size: 0.9rem;
-        }
-
-        /* Religion Requirements - Completed */
-        .religion-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 15px;
-          margin-top: 15px;
-        }
-
-        .religion-item.completed-religion {
-          display: flex;
-          align-items: center;
           gap: 12px;
           padding: 15px;
           background: #f8faff;
           border-radius: 10px;
-          border-left: 3px solid #7b1fa2;
-          opacity: 0.9;
+          border-left: 3px solid #1e3c72;
         }
 
-        .religion-item.full-width {
-          grid-column: 1 / -1;
+        .requirement-check {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 0.8rem;
+          flex-shrink: 0;
+          margin-top: 2px;
         }
 
-        .religion-item i {
-          font-size: 1.1rem;
-          width: 20px;
-          text-align: center;
+        .requirement-card.general .requirement-check {
+          background: linear-gradient(135deg, #4CAF50, #8BC34A);
         }
 
-        .religion-item .quran { color: #ff6b6b; }
-        .religion-item .mtq { color: #4ecdc4; }
-        .religion-item .pesantren { color: #45b7d1; }
-        .religion-item .organization { color: #96ceb4; }
-        .religion-item .achievement { color: #feca57; }
-        .religion-item .teacher { color: #ff9ff3; }
-        .religion-item .non-muslim { color: #54a0ff; }
+        .requirement-card.special .requirement-check {
+          background: linear-gradient(135deg, #FF9800, #FF5722);
+        }
 
-        .religion-item span {
-          color: #555;
+        .requirement-text {
+          flex: 1;
+        }
+
+        .requirement-text span {
+          color: #444;
+          line-height: 1.5;
           font-size: 0.95rem;
+        }
+
+        .requirement-text strong {
+          color: #1e3c72;
+          font-weight: 600;
+        }
+
+        .info-items {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .info-item {
+          display: flex;
+          gap: 15px;
+          padding: 15px;
+          background: #fff8e1;
+          border-radius: 10px;
+          border-left: 3px solid #FF9800;
+        }
+
+        .info-icon {
+          width: 40px;
+          height: 40px;
+          background: #FF9800;
+          color: white;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+          flex-shrink: 0;
+        }
+
+        .info-text h4 {
+          color: #1e3c72;
+          font-weight: 600;
+          font-size: 1rem;
+          margin: 0 0 5px 0;
+        }
+
+        .info-text p {
+          color: #666;
+          font-size: 0.9rem;
+          margin: 0;
+          line-height: 1.4;
         }
 
         /* Archive Notice */
@@ -957,7 +811,7 @@ export default function Info() {
           border: 2px solid #ffa000;
           border-radius: 15px;
           padding: 25px;
-          margin-bottom: 30px;
+          margin-top: 30px;
         }
 
         .archive-icon {
@@ -987,11 +841,11 @@ export default function Info() {
 
         /* Contact Info Section */
         .contact-info-section {
-          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+          background: white;
           border-radius: 20px;
           padding: 40px;
-          text-align: center;
-          color: white;
+          box-shadow: 0 10px 30px rgba(30, 60, 114, 0.1);
+          border: 1px solid #e8f0ff;
         }
 
         .contact-header {
@@ -1000,51 +854,195 @@ export default function Info() {
           justify-content: center;
           gap: 15px;
           margin-bottom: 15px;
+          padding-bottom: 20px;
+          border-bottom: 3px solid #1e3c72;
         }
 
         .contact-header .contact-main-icon {
           font-size: 2rem;
-          color: #ffd700;
+          color: #1e3c72;
         }
 
         .contact-header h2 {
           margin: 0;
           font-size: 2rem;
+          color: #1e3c72;
         }
 
         .contact-description {
           font-size: 1.1rem;
-          margin-bottom: 25px;
-          opacity: 0.9;
+          margin-bottom: 30px;
+          color: #555;
+          text-align: center;
         }
 
-        .contact-buttons {
+        .contact-info-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 25px;
+        }
+
+        .contact-info-card {
+          background: #f8faff;
+          border-radius: 16px;
+          padding: 25px;
+          border: 1px solid #e1e8ff;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .contact-info-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5px;
+          height: 100%;
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+        }
+
+        .contact-info-card.website {
+          background: linear-gradient(135deg, #f8faff 0%, #e8f0ff 100%);
+        }
+
+        .contact-card-header {
           display: flex;
+          align-items: flex-start;
           gap: 15px;
-          justify-content: center;
-          flex-wrap: wrap;
+          margin-bottom: 20px;
         }
 
-        .contact-btn {
+        .contact-icon {
+          width: 60px;
+          height: 60px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 1.5rem;
+          flex-shrink: 0;
+        }
+
+        .contact-icon.dinsos {
+          background: linear-gradient(135deg, #ef6c00, #ff9800);
+        }
+
+        .contact-icon.diknas {
+          background: linear-gradient(135deg, #2e7d32, #4caf50);
+        }
+
+        .contact-icon.website {
+          background: linear-gradient(135deg, #7b1fa2, #9c27b0);
+        }
+
+        .contact-card-info h3 {
+          color: #1e3c72;
+          font-weight: 700;
+          font-size: 1.2rem;
+          margin: 0 0 8px 0;
+          line-height: 1.3;
+        }
+
+        .contact-card-info p {
+          color: #666;
+          font-size: 0.9rem;
+          margin: 0 0 8px 0;
+        }
+
+        .contact-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          background: #ffeb3b;
+          color: #8d6e00;
+          padding: 4px 10px;
+          border-radius: 12px;
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+
+        .contact-card-content {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .contact-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 12px 15px;
+          background: white;
+          border-radius: 10px;
+          border: 1px solid #e8f0ff;
+        }
+
+        .contact-details {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .contact-name {
+          font-weight: 600;
+          color: #1e3c72;
+          font-size: 0.95rem;
+        }
+
+        .contact-role {
+          font-size: 0.8rem;
+          color: #666;
+          margin-top: 2px;
+        }
+
+        .whatsapp-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: #25D366;
+          color: white;
+          text-decoration: none;
+          padding: 8px 14px;
+          border-radius: 8px;
+          font-weight: 600;
+          white-space: nowrap;
+          font-size: 0.9rem;
+          transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+          background: #128C7E;
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .website-description {
+          color: #666;
+          margin-bottom: 15px;
+          line-height: 1.5;
+          font-size: 0.95rem;
+        }
+
+        .website-link {
           display: flex;
           align-items: center;
           gap: 10px;
-          background: rgba(255, 255, 255, 0.2);
-          color: white;
+          background: white;
+          color: #1e3c72;
           text-decoration: none;
-          padding: 15px 25px;
+          padding: 12px 18px;
           border-radius: 10px;
           font-weight: 600;
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          border: 2px solid #e8f0ff;
+          font-size: 0.9rem;
+          transition: all 0.3s ease;
         }
 
-        .contact-btn:hover {
-          background: white;
+        .website-link:hover {
+          border-color: #1e3c72;
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(30, 60, 114, 0.2);
         }
-
-        .contact-btn.whatsapp-btn:hover { color: #25D366; }
-        .contact-btn.religion-btn:hover { color: #7b1fa2; }
-        .contact-btn.social-btn:hover { color: #4facfe; }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -1056,40 +1054,29 @@ export default function Info() {
             font-size: 1.1rem;
           }
           
-          .nav-buttons {
-            flex-direction: column;
-          }
-          
-          .process-steps {
-            flex-direction: column;
-            gap: 15px;
-          }
-          
-          .requirement-variants {
+          .requirements-grid {
             grid-template-columns: 1fr;
           }
           
-          .criteria-options {
-            flex-direction: column;
-            align-items: stretch;
+          .contact-info-grid {
+            grid-template-columns: 1fr;
           }
           
-          .option-divider {
+          .contact-item {
+            flex-direction: column;
+            gap: 10px;
             text-align: center;
-          }
-          
-          .contact-buttons {
-            flex-direction: column;
-          }
-          
-          .contact-btn {
-            justify-content: center;
           }
           
           .completion-notice,
-          .archive-notice {
+          .archive-notice,
+          .requirements-intro-card {
             flex-direction: column;
             text-align: center;
+          }
+          
+          .requirements-section {
+            padding: 30px 25px;
           }
         }
 
@@ -1098,29 +1085,55 @@ export default function Info() {
             padding: 20px 15px;
           }
           
+          .contact-info-section,
+          .requirements-section {
+            padding: 25px 20px;
+          }
+          
+          .contact-info-card,
           .requirement-card {
             padding: 20px;
           }
           
+          .contact-card-header,
           .card-header {
-            flex-direction: column;
-            text-align: center;
-            gap: 15px;
-          }
-          
-          .special-header {
             flex-direction: column;
             text-align: center;
             gap: 10px;
           }
           
-          .religion-grid {
-            grid-template-columns: 1fr;
-          }
-          
           .logo-image {
             width: 120px;
             height: 120px;
+          }
+          
+          .contact-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+          }
+          
+          .contact-header h2 {
+            font-size: 1.5rem;
+          }
+          
+          .section-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+          }
+          
+          .section-header h2 {
+            font-size: 1.5rem;
+          }
+          
+          .requirements-intro-card h3 {
+            font-size: 1.3rem;
+          }
+          
+          .requirement-item,
+          .info-item {
+            padding: 12px;
           }
         }
       `}</style>

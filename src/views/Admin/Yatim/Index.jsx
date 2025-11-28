@@ -376,10 +376,10 @@ export default function YatimIndex() {
 
               {showForm && (
                 <div className="card-body">
-                  {/* Info User */}
+                  {/* Info User dan Template Dokumen */}
                   {userData && (
-                    <div className="alert alert-info">
-                      <div className="d-flex justify-content-between align-items-center">
+                    <div className="mb-4">
+                      <div className="alert alert-info d-flex justify-content-between align-items-center flex-wrap">
                         <div>
                           <strong>Info User:</strong> {userData.name} (NPSN:{" "}
                           {userData.nik})
@@ -393,6 +393,115 @@ export default function YatimIndex() {
                           <i className="fa fa-download me-1"></i>
                           Download Template Dokumen
                         </a>
+                      </div>
+
+                      {/* Informasi Detail Template Dokumen - TAMPIL LANGSUNG */}
+                      <div className="template-info-section">
+                        <div className="card border-0 shadow-sm">
+                          <div className="card-header bg-warning text-dark">
+                            <h6 className="mb-0">
+                              <i className="fa fa-info-circle me-2"></i>
+                              INFORMASI DOKUMEN YANG DIPERLUKAN
+                            </h6>
+                          </div>
+                          <div className="card-body p-3">
+                            <div className="row g-3">
+                              {/* Kartu Keluarga */}
+                              <div className="col-md-6">
+                                <div className="d-flex align-items-start p-3 border rounded bg-light-blue">
+                                  <div className="doc-icon me-3">
+                                    <i className="fa fa-file-pdf text-danger fa-2x"></i>
+                                  </div>
+                                  <div className="doc-info flex-grow-1">
+                                    <h6 className="text-primary mb-1">Kartu Keluarga</h6>
+                                    <p className="small text-muted mb-1">
+                                      Scan/foto kartu keluarga yang masih berlaku
+                                    </p>
+                                    <span className="badge bg-primary">Wajib</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Keterangan Siswa Aktif */}
+                              <div className="col-md-6">
+                                <div className="d-flex align-items-start p-3 border rounded bg-light-green">
+                                  <div className="doc-icon me-3">
+                                    <i className="fa fa-file-pdf text-success fa-2x"></i>
+                                  </div>
+                                  <div className="doc-info flex-grow-1">
+                                    <h6 className="text-primary mb-1">Keterangan Siswa Aktif</h6>
+                                    <p className="small text-muted mb-1">
+                                      Surat dari sekolah yang menyatakan siswa masih aktif
+                                    </p>
+                                    <span className="badge bg-primary">Wajib</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Surat Kematian */}
+                              <div className="col-md-6">
+                                <div className="d-flex align-items-start p-3 border rounded bg-light-purple">
+                                  <div className="doc-icon me-3">
+                                    <i className="fa fa-file-pdf text-warning fa-2x"></i>
+                                  </div>
+                                  <div className="doc-info flex-grow-1">
+                                    <h6 className="text-primary mb-1">Surat Kematian</h6>
+                                    <p className="small text-muted mb-1">
+                                      Surat kematian orang tua dari kelurahan
+                                    </p>
+                                    <span className="badge bg-primary">Wajib</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Surat Tidak Menerima Beasiswa */}
+                              <div className="col-md-6">
+                                <div className="d-flex align-items-start p-3 border rounded bg-light-orange">
+                                  <div className="doc-icon me-3">
+                                    <i className="fa fa-file-pdf text-info fa-2x"></i>
+                                  </div>
+                                  <div className="doc-info flex-grow-1">
+                                    <h6 className="text-primary mb-1">Surat Tidak Menerima Beasiswa</h6>
+                                    <p className="small text-muted mb-1">
+                                      Surat pernyataan tidak menerima beasiswa dari sumber lain
+                                    </p>
+                                    <span className="badge bg-primary">Wajib</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Surat SKTM */}
+                              <div className="col-md-6">
+                                <div className="d-flex align-items-start p-3 border rounded bg-light-pink">
+                                  <div className="doc-icon me-3">
+                                    <i className="fa fa-file-pdf text-danger fa-2x"></i>
+                                  </div>
+                                  <div className="doc-info flex-grow-1">
+                                    <h6 className="text-primary mb-1">Surat SKTM</h6>
+                                    <p className="small text-muted mb-1">
+                                      Surat Keterangan Tidak Mampu dari kelurahan
+                                    </p>
+                                    <span className="badge bg-primary">Wajib</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Informasi Format File */}
+                            <div className="alert alert-danger mt-3 mb-0 p-2 small">
+                              <div className="d-flex align-items-center">
+                                <i className="fa fa-exclamation-triangle me-2"></i>
+                                <div>
+                                  <strong>PERHATIAN:</strong> Semua dokumen harus dalam format 
+                                  <span className="badge bg-dark mx-1">PDF</span> 
+                                  dengan ukuran maksimal 
+                                  <span className="badge bg-dark mx-1">5MB</span> 
+                                  per file. Pastikan dokumen jelas terbaca.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -424,6 +533,9 @@ export default function YatimIndex() {
                             maxLength={16}
                             required
                           />
+                          <div className="form-text text-muted">
+                            16 digit Nomor Induk Kependudukan
+                          </div>
                         </div>
 
                         <div className="mb-3">
@@ -437,6 +549,9 @@ export default function YatimIndex() {
                             maxLength={10}
                             required
                           />
+                          <div className="form-text text-muted">
+                            10 digit Nomor Induk Siswa Nasional
+                          </div>
                         </div>
 
                         <div className="mb-3">
@@ -451,6 +566,9 @@ export default function YatimIndex() {
                             readOnly
                             style={{ backgroundColor: "#f8f9fa" }}
                           />
+                          <div className="form-text text-muted">
+                            Nomor Pokok Sekolah Nasional (otomatis terisi)
+                          </div>
                         </div>
 
                         <div className="mb-3">
@@ -539,14 +657,25 @@ export default function YatimIndex() {
                     </div>
 
                     {/* File Uploads */}
-                    <div className="row mt-3">
+                    <div className="row mt-4">
                       <div className="col-12">
-                        <h6>Upload Dokumen (PDF, maksimal 5MB)</h6>
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                          <h5 className="text-primary mb-0">
+                            <i className="fa fa-upload me-2"></i>
+                            Upload Dokumen
+                          </h5>
+                          <span className="badge bg-danger">* Wajib Diisi</span>
+                        </div>
+                        <p className="text-muted mb-4">
+                          Upload semua dokumen dalam format PDF (maksimal 5MB per file)
+                        </p>
                       </div>
 
                       <div className="col-md-6">
                         <div className="mb-3">
-                          <label className="form-label">Kartu Keluarga *</label>
+                          <label className="form-label fw-bold">
+                            Kartu Keluarga <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="file"
                             className="form-control"
@@ -555,23 +684,15 @@ export default function YatimIndex() {
                             accept=".pdf"
                             required
                           />
+                          <div className="form-text text-muted">
+                            <i className="fa fa-info-circle me-1"></i>
+                            Scan/foto kartu keluarga yang masih berlaku
+                          </div>
                         </div>
 
-                        {/* <div className="mb-3">
-                                                    <label className="form-label">KTP Wali *</label>
-                                                    <input
-                                                        type="file"
-                                                        className="form-control"
-                                                        name="imagesktpwali"
-                                                        onChange={handleInputChange}
-                                                        accept=".pdf"
-                                                        required
-                                                    />
-                                                </div> */}
-
                         <div className="mb-3">
-                          <label className="form-label">
-                            Keterangan Siswa Aktif *
+                          <label className="form-label fw-bold">
+                            Keterangan Siswa Aktif <span className="text-danger">*</span>
                           </label>
                           <input
                             type="file"
@@ -581,12 +702,18 @@ export default function YatimIndex() {
                             accept=".pdf"
                             required
                           />
+                          <div className="form-text text-muted">
+                            <i className="fa fa-info-circle me-1"></i>
+                            Surat dari sekolah yang menyatakan siswa masih aktif
+                          </div>
                         </div>
                       </div>
 
                       <div className="col-md-6">
                         <div className="mb-3">
-                          <label className="form-label">Surat Kematian *</label>
+                          <label className="form-label fw-bold">
+                            Surat Kematian <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="file"
                             className="form-control"
@@ -595,11 +722,15 @@ export default function YatimIndex() {
                             accept=".pdf"
                             required
                           />
+                          <div className="form-text text-muted">
+                            <i className="fa fa-info-circle me-1"></i>
+                            Surat kematian orang tua dari kelurahan
+                          </div>
                         </div>
 
                         <div className="mb-3">
-                          <label className="form-label">
-                            Surat Tidak Menerima Beasiswa *
+                          <label className="form-label fw-bold">
+                            Surat Tidak Menerima Beasiswa <span className="text-danger">*</span>
                           </label>
                           <input
                             type="file"
@@ -609,10 +740,16 @@ export default function YatimIndex() {
                             accept=".pdf"
                             required
                           />
+                          <div className="form-text text-muted">
+                            <i className="fa fa-info-circle me-1"></i>
+                            Surat pernyataan tidak menerima beasiswa dari sumber lain
+                          </div>
                         </div>
 
                         <div className="mb-3">
-                          <label className="form-label">Surat SKTM *</label>
+                          <label className="form-label fw-bold">
+                            Surat SKTM <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="file"
                             className="form-control"
@@ -621,6 +758,10 @@ export default function YatimIndex() {
                             accept=".pdf"
                             required
                           />
+                          <div className="form-text text-muted">
+                            <i className="fa fa-info-circle me-1"></i>
+                            Surat Keterangan Tidak Mampu dari kelurahan
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -829,7 +970,7 @@ export default function YatimIndex() {
         </div>
       </div>
 
-      {/* Tambahkan style untuk SweetAlert */}
+      {/* Tambahkan style untuk SweetAlert dan warna dokumen */}
       <style jsx>{`
         .sweet-alert-custom {
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
@@ -853,6 +994,41 @@ export default function YatimIndex() {
         }
         .table-warning {
           background-color: #fff3cd !important;
+        }
+        
+        /* Warna background untuk kartu dokumen */
+        .bg-light-blue {
+          background-color: #e3f2fd !important;
+          border-left: 4px solid #2196f3 !important;
+        }
+        .bg-light-green {
+          background-color: #e8f5e8 !important;
+          border-left: 4px solid #4caf50 !important;
+        }
+        .bg-light-purple {
+          background-color: #f3e5f5 !important;
+          border-left: 4px solid #9c27b0 !important;
+        }
+        .bg-light-orange {
+          background-color: #fff3e0 !important;
+          border-left: 4px solid #ff9800 !important;
+        }
+        .bg-light-pink {
+          background-color: #fce4ec !important;
+          border-left: 4px solid #e91e63 !important;
+        }
+        
+        .doc-icon {
+          flex-shrink: 0;
+        }
+        
+        .doc-info h6 {
+          font-size: 0.9rem;
+          font-weight: 600;
+        }
+        
+        .template-info-section .card-header {
+          border-bottom: 2px solid #ffc107;
         }
       `}</style>
     </LayoutAdmin>
