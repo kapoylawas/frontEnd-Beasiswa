@@ -385,7 +385,7 @@ export default function YatimDetail() {
                                 <div className="d-grid gap-2">
                                     {[
                                         { key: 'imageskartukeluarga', name: 'Kartu Keluarga', desc: 'Dokumen KK', icon: 'fa-id-card', color: 'primary' },
-                                        { key: 'imagesktpwali', name: 'KTP Wali', desc: 'Identitas Wali', icon: 'fa-address-card', color: 'info' },
+                                        // { key: 'imagesktpwali', name: 'KTP Wali', desc: 'Identitas Wali', icon: 'fa-address-card', color: 'info' },
                                         { key: 'imagesketerangansiswaaktif', name: 'Siswa Aktif', desc: 'Surat Keterangan', icon: 'fa-school', color: 'success' },
                                         { key: 'imagessuratkematian', name: 'Surat Kematian', desc: 'Akta Kematian', icon: 'fa-file-medical', color: 'danger' },
                                         { key: 'imagessurattidakmenerimabeasiswa', name: 'Tidak Menerima Beasiswa', desc: 'Surat Pernyataan', icon: 'fa-file-contract', color: 'warning' },

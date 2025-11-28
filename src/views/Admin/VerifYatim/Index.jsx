@@ -927,12 +927,12 @@ export default function VerifYatimIndex() {
                                                         >
                                                             Kartu Keluarga
                                                         </button>
-                                                        <button
+                                                        {/* <button
                                                             className={`list-group-item list-group-item-action ${activePdf?.title === 'KTP Wali' ? 'active' : ''}`}
                                                             onClick={() => handlePdfSelect(detailData.imagesktpwali, 'KTP Wali')}
                                                         >
                                                             KTP Wali
-                                                        </button>
+                                                        </button> */}
                                                         <button
                                                             className={`list-group-item list-group-item-action ${activePdf?.title === 'Keterangan Siswa Aktif' ? 'active' : ''}`}
                                                             onClick={() => handlePdfSelect(detailData.imagesketerangansiswaaktif, 'Keterangan Siswa Aktif')}

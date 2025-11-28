@@ -95,8 +95,8 @@ export default function Sidebar() {
             },
             {
               name: "Users",
-              path: "/admin/users",
-              permission: ["users.index"],
+              path: "/admin/usersManagement",
+              permission: ["usersmanagement.index"],
               icon: <FaUsers className="me-2" size={14} />
             }
           ]

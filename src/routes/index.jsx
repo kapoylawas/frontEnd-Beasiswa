@@ -68,6 +68,7 @@ import LupaPassword from "../views/Auth/LupaPassword";
 import YatimIndex from "../views/Admin/Yatim/Index";
 import YatimDetail from "../views/Admin/Yatim/YatimDetail";
 import VerifYatimIndex from "../views/Admin/VerifYatim/Index";
+import UserManagementIndex from "../views/Admin/UserManagement/Index";
 
 export default function RoutesIndex() {
   return (
@@ -108,6 +109,15 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <PermissionsIndex />
+          </PrivateRoutes>
+        }
+      />
+
+       <Route
+        path="/admin/usersManagement"
+        element={
+          <PrivateRoutes>
+            <UserManagementIndex />
           </PrivateRoutes>
         }
       />
