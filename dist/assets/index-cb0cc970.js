@@ -1605,7 +1605,7 @@ to {
             height: 38px;
           }
         }
-      `})]})}function Qs({children:e}){return s(l1,{children:[a(gq,{}),e,a(Wq,{})]})}function Lq(){return s(Qs,{children:[a("div",{className:"home-hero",children:a("div",{className:"container",children:s("div",{className:"hero-content",children:[a("div",{className:"hero-logo",children:a("div",{className:"logo-container",children:a("img",{src:"/sidoarjo.png",alt:"Logo Sidoarjo",className:"logo-image"})})}),s("h1",{className:"hero-title",children:["Beasiswa ",a("span",{className:"highlight",children:"Sidoarjo 2025"})]}),s("p",{className:"hero-subtitle",children:["Program Beasiswa Sidoarjo 2025 telah",a("span",{className:"highlight-text",children:" berhasil diselenggarakan"})]}),a("div",{className:"hero-stats",children:s("div",{className:"stat-item",children:[a("div",{className:"stat-number",children:"500+"}),a("div",{className:"stat-label",children:"Penerima Beasiswa"})]})}),a("div",{className:"hero-divider"})]})})}),a("div",{className:"container home-container mt-5 mb-5",children:s("div",{className:"home-vertical-layout",children:[s("div",{className:"section-top",children:[s("div",{className:"section-header",children:[a("i",{className:"fas fa-bullhorn"}),a("h2",{children:"Pengumuman"})]}),a("div",{className:"announcement-content-vertical",children:s("div",{className:"announcement-card-vertical",children:[s("div",{className:"achievement-badge",children:[a("i",{className:"fas fa-star"}),a("span",{children:"Program Selesai"})]}),a("div",{className:"announcement-image-preview-vertical",children:a("img",{src:"/2025.jpeg",alt:"Pengumuman Beasiswa",className:"img-fluid"})}),a("div",{className:"announcement-actions-vertical",children:s("a",{href:"/pengumuman_penerima.pdf",className:"btn btn-download-announcement",download:!0,children:[a("i",{className:"fas fa-download"}),"Download PDF Pengumuman"]})})]})})]}),s("div",{className:"section-requirements",children:[s("div",{className:"section-header",children:[a("i",{className:"fas fa-file-alt"}),a("h2",{children:"Persyaratan Administrasi"})]}),a("div",{className:"requirements-header",children:s("div",{className:"requirements-intro-card",children:[a("div",{className:"intro-icon",children:a("i",{className:"fas fa-graduation-cap"})}),s("div",{className:"intro-content",children:[a("h3",{children:"Calon Penerima Beasiswa Anak Yatim"}),a("p",{children:"Jenjang SD Negeri, SMP Negeri, dan SMA Negeri"}),s("div",{className:"intro-badge",children:[a("i",{className:"fas fa-info-circle"}),"Pastikan semua dokumen lengkap dan valid"]})]})]})}),s("div",{className:"requirements-grid-new",children:[s("div",{className:"requirement-card-new process",children:[s("div",{className:"card-header",children:[a("div",{className:"card-icon",children:a("i",{className:"fas fa-laptop"})}),a("h3",{children:"Proses Pendaftaran"}),a("div",{className:"card-number",children:"01"})]}),s("div",{className:"card-content",children:[a("p",{children:"Sekolah mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan."}),s("div",{className:"process-steps",children:[s("div",{className:"step",children:[a("div",{className:"step-number",children:"1"}),a("span",{children:"Isi formulir online"})]}),s("div",{className:"step",children:[a("div",{className:"step-number",children:"2"}),a("span",{children:"Upload dokumen"})]}),s("div",{className:"step",children:[a("div",{className:"step-number",children:"3"}),a("span",{children:"Submit pendaftaran"})]})]})]})]}),s("div",{className:"requirement-card-new general",children:[s("div",{className:"card-header",children:[a("div",{className:"card-icon",children:a("i",{className:"fas fa-users"})}),a("h3",{children:"Persyaratan Umum"}),a("div",{className:"card-number",children:"02"})]}),a("div",{className:"card-content",children:s("div",{className:"requirements-list-new",children:[s("div",{className:"requirement-item",children:[a("div",{className:"requirement-check",children:a("i",{className:"fas fa-check-circle"})}),a("div",{className:"requirement-text",children:s("span",{children:["Penduduk Kabupaten Sidoarjo yang dibuktikan dengan ",a("strong",{children:"Kartu Keluarga (KK)"})]})})]}),s("div",{className:"requirement-item",children:[a("div",{className:"requirement-check",children:a("i",{className:"fas fa-check-circle"})}),a("div",{className:"requirement-text",children:s("span",{children:["Terdaftar sebagai siswa di sekolah ",a("strong",{children:"SD Negeri, SMP Negeri, dan SMA Negeri"})," yang dibuktikan dengan surat keterangan dari sekolah"]})})]})]})})]}),s("div",{className:"requirement-card-new special",children:[s("div",{className:"card-header",children:[a("div",{className:"card-icon",children:a("i",{className:"fas fa-user-check"})}),a("h3",{children:"Persyaratan Khusus"}),a("div",{className:"card-number",children:"03"})]}),a("div",{className:"card-content",children:s("div",{className:"requirements-list-new",children:[s("div",{className:"requirement-item",children:[a("div",{className:"requirement-check",children:a("i",{className:"fas fa-database"})}),a("div",{className:"requirement-text",children:s("span",{children:["Terdaftar dalam ",a("strong",{children:"Data Tunggal Sosial Ekonomi Nasional (DTSEN)"})," desil 1, 2, 3, 4, dan 5 ",a("strong",{children:"ATAU"})," melampirkan ",a("strong",{children:"Surat Keterangan Tidak Mampu (SKTM)"})," dari Desa/Kelurahan"]})})]}),s("div",{className:"requirement-item",children:[a("div",{className:"requirement-check",children:a("i",{className:"fas fa-file-certificate"})}),a("div",{className:"requirement-text",children:s("span",{children:[a("strong",{children:"Akte Kematian"})," yang diterbitkan Dinas Kependudukan dan Pencatatan Sipil ",a("strong",{children:"ATAU"})," ",a("strong",{children:"Surat Kematian"})," yang diterbitkan Desa/Kelurahan"]})})]}),s("div",{className:"requirement-item",children:[a("div",{className:"requirement-check",children:a("i",{className:"fas fa-handshake"})}),a("div",{className:"requirement-text",children:s("span",{children:["Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun dibuktikan dengan ",a("strong",{children:"surat pernyataan tidak menerima beasiswa"})," dari Lembaga/Donatur lainnya oleh orang tua/wali siswa yang diketahui oleh sekolah"]})})]})]})})]}),s("div",{className:"requirement-card-new info",children:[s("div",{className:"card-header",children:[a("div",{className:"card-icon",children:a("i",{className:"fas fa-info-circle"})}),a("h3",{children:"Informasi Penting"}),a("div",{className:"card-number",children:"04"})]}),a("div",{className:"card-content",children:s("div",{className:"info-items-new",children:[s("div",{className:"info-item-new",children:[a("div",{className:"info-icon",children:a("i",{className:"fas fa-exclamation-triangle"})}),s("div",{className:"info-text",children:[a("h4",{children:"Dokumen Lengkap"}),a("p",{children:"Pastikan semua dokumen sudah lengkap dan valid sebelum mengajukan permohonan"})]})]}),s("div",{className:"info-item-new",children:[a("div",{className:"info-icon",children:a("i",{className:"fas fa-upload"})}),s("div",{className:"info-text",children:[a("h4",{children:"Format File"}),a("p",{children:"Upload dokumen dalam format PDF dengan ukuran maksimal 2MB per file"})]})]}),s("div",{className:"info-item-new",children:[a("div",{className:"info-icon",children:a("i",{className:"fas fa-clock"})}),s("div",{className:"info-text",children:[a("h4",{children:"Periksa Kembali"}),a("p",{children:"Periksa kembali semua persyaratan sebelum melakukan submit pendaftaran"})]})]})]})})]})]}),a("div",{className:"requirements-cta",children:s("div",{className:"cta-content",children:[a("h3",{children:"Siap Mengajukan Beasiswa?"}),a("p",{children:"Pastikan semua persyaratan telah dipenuhi sebelum melanjutkan ke proses pendaftaran"}),s("div",{className:"cta-buttons",children:[s("a",{href:"https://beasiswa.sidoarjokab.go.id/",className:"btn btn-primary",children:[a("i",{className:"fas fa-external-link-alt"}),"Daftar Sekarang"]}),s("a",{href:"#helpdesk",className:"btn btn-secondary",children:[a("i",{className:"fas fa-question-circle"}),"Butuh Bantuan?"]})]})]})})]}),s("div",{className:"section-info",children:[s("div",{className:"section-header",children:[a("i",{className:"fas fa-info-circle"}),a("h2",{children:"Informasi Helpdesk"})]}),a("div",{className:"info-content",children:s("div",{className:"info-card",children:[a("div",{className:"info-icon",children:a("i",{className:"fas fa-users"})}),s("div",{className:"info-text",children:[a("h3",{children:"Helpdesk Khusus Penerimaan Beasiswa"}),a("p",{children:"Berikut adalah kontak helpdesk resmi untuk informasi penerimaan beasiswa SD, SMP, SMA bagi siswa yatim:"})]})]})})]}),s("div",{className:"section-bottom",children:[s("div",{className:"section-header",children:[a("i",{className:"fas fa-headset"}),a("h2",{children:"Kontak Helpdesk Resmi"})]}),s("div",{className:"contact-grid-vertical",children:[s("div",{className:"contact-card-vertical",children:[s("div",{className:"contact-card-header-vertical",children:[a("div",{className:"contact-icon-vertical dinsos",children:a("i",{className:"fas fa-hands-helping"})}),s("div",{className:"contact-card-info",children:[a("h3",{children:"Dinas Sosial (DINSOS)"}),a("p",{children:"Beasiswa Yatim - Byamoga Dinsos"}),s("div",{className:"contact-badge",children:[a("i",{className:"fas fa-child"}),"SD, SMP, SMA"]})]})]}),a("div",{className:"contact-card-content",children:s("div",{className:"contact-item-vertical",children:[s("div",{className:"contact-details",children:[a("span",{className:"contact-name",children:"Byamoga Dinsos"}),a("span",{className:"contact-role",children:"Helpdesk Yatim Dinas Sosial"})]}),s("a",{target:"_blank",href:"https://wa.me/6282230338338",className:"whatsapp-btn",children:[a("i",{className:"fab fa-whatsapp"}),"0822-3303-8338"]})]})})]}),s("div",{className:"contact-card-vertical",children:[s("div",{className:"contact-card-header-vertical",children:[a("div",{className:"contact-icon-vertical diknas",children:a("i",{className:"fas fa-graduation-cap"})}),s("div",{className:"contact-card-info",children:[a("h3",{children:"Dinas Pendidikan (DIKNAS)"}),a("p",{children:"Beasiswa Yatim - Dinas Pendidikan"}),s("div",{className:"contact-badge",children:[a("i",{className:"fas fa-child"}),"SD, SMP, SMA"]})]})]}),a("div",{className:"contact-card-content",children:s("div",{className:"contact-item-vertical",children:[s("div",{className:"contact-details",children:[a("span",{className:"contact-name",children:"Helpdesk Diknas"}),a("span",{className:"contact-role",children:"Helpdesk Yatim Dinas Pendidikan"})]}),s("a",{target:"_blank",href:"https://wa.me/6281336766061",className:"whatsapp-btn",children:[a("i",{className:"fab fa-whatsapp"}),"0813-3676-6061"]})]})})]}),s("div",{className:"contact-card-vertical website",children:[s("div",{className:"contact-card-header-vertical",children:[a("div",{className:"contact-icon-vertical website",children:a("i",{className:"fas fa-globe"})}),s("div",{className:"contact-card-info",children:[a("h3",{children:"Pendaftaran Online"}),a("p",{children:"Website Resmi Beasiswa"})]})]}),s("div",{className:"contact-card-content",children:[a("p",{className:"website-description-vertical",children:"Untuk pendaftaran dan informasi lebih lanjut, kunjungi website resmi:"}),s("a",{href:"https://beasiswa.sidoarjokab.go.id/",className:"website-link-vertical",children:[a("i",{className:"fas fa-external-link-alt"}),"https://beasiswa.sidoarjokab.go.id/"]}),s("div",{className:"website-info",children:[a("i",{className:"fas fa-info-circle"}),a("span",{children:"Form online dan upload persyaratan"})]})]})]})]})]})]})}),a("style",{jsx:!0,children:`
+      `})]})}function Qs({children:e}){return s(l1,{children:[a(gq,{}),e,a(Wq,{})]})}function Lq(){return s(Qs,{children:[a("div",{className:"home-hero",children:a("div",{className:"container",children:s("div",{className:"hero-content",children:[a("div",{className:"hero-logo",children:a("div",{className:"logo-container",children:a("img",{src:"/sidoarjo.png",alt:"Logo Sidoarjo",className:"logo-image"})})}),s("h1",{className:"hero-title",children:["Beasiswa ",a("span",{className:"highlight",children:"Sidoarjo 2025"})]}),s("p",{className:"hero-subtitle",children:["Program Beasiswa Sidoarjo 2025 telah",a("span",{className:"highlight-text",children:" berhasil diselenggarakan"})]}),a("div",{className:"hero-stats",children:s("div",{className:"stat-item",children:[a("div",{className:"stat-number",children:"500+"}),a("div",{className:"stat-label",children:"Penerima Beasiswa"})]})}),a("div",{className:"hero-divider"})]})})}),a("div",{className:"container home-container mt-5 mb-5",children:s("div",{className:"home-vertical-layout",children:[s("div",{className:"section-top",children:[s("div",{className:"section-header",children:[a("i",{className:"fas fa-graduation-cap"}),a("h2",{children:"Beasiswa Pendidikan Anak Yatim"})]}),a("div",{className:"announcement-content-vertical",children:s("div",{className:"announcement-card-vertical",children:[s("div",{className:"achievement-badge",children:[a("i",{className:"fas fa-heart"}),a("span",{children:"Dukungan Pendidikan"})]}),a("div",{className:"announcement-image-preview-vertical",children:a("img",{src:"/pendidikan.jpeg",alt:"Beasiswa Pendidikan Anak Yatim SD SMP SMA",className:"img-fluid"})}),s("div",{className:"announcement-info-vertical",children:[a("h4",{children:"Program Beasiswa Khusus Anak Yatim"}),a("p",{children:"Dukungan pendidikan bagi siswa yatim jenjang SD, SMP, dan SMA Negeri di Kabupaten Sidoarjo"})]})]})})]}),s("div",{className:"section-top",children:[s("div",{className:"section-header",children:[a("i",{className:"fas fa-bullhorn"}),a("h2",{children:"Pengumuman"})]}),a("div",{className:"announcement-content-vertical",children:s("div",{className:"announcement-card-vertical",children:[s("div",{className:"achievement-badge",children:[a("i",{className:"fas fa-star"}),a("span",{children:"Program Selesai"})]}),a("div",{className:"announcement-image-preview-vertical",children:a("img",{src:"/2025.jpeg",alt:"Pengumuman Beasiswa",className:"img-fluid"})}),a("div",{className:"announcement-actions-vertical",children:s("a",{href:"/pengumuman_penerima.pdf",className:"btn btn-download-announcement",download:!0,children:[a("i",{className:"fas fa-download"}),"Download PDF Pengumuman"]})})]})})]}),s("div",{className:"section-requirements",children:[s("div",{className:"section-header",children:[a("i",{className:"fas fa-file-alt"}),a("h2",{children:"Persyaratan Administrasi"})]}),a("div",{className:"requirements-header",children:s("div",{className:"requirements-intro-card",children:[a("div",{className:"intro-icon",children:a("i",{className:"fas fa-graduation-cap"})}),s("div",{className:"intro-content",children:[a("h3",{children:"Calon Penerima Beasiswa Anak Yatim"}),a("p",{children:"Jenjang SD Negeri, SMP Negeri, dan SMA Negeri"}),s("div",{className:"intro-badge",children:[a("i",{className:"fas fa-info-circle"}),"Pastikan semua dokumen lengkap dan valid"]})]})]})}),s("div",{className:"requirements-grid-new",children:[s("div",{className:"requirement-card-new process",children:[s("div",{className:"card-header",children:[a("div",{className:"card-icon",children:a("i",{className:"fas fa-laptop"})}),a("h3",{children:"Proses Pendaftaran"}),a("div",{className:"card-number",children:"01"})]}),s("div",{className:"card-content",children:[a("p",{children:"Sekolah mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan."}),s("div",{className:"process-steps",children:[s("div",{className:"step",children:[a("div",{className:"step-number",children:"1"}),a("span",{children:"Isi formulir online"})]}),s("div",{className:"step",children:[a("div",{className:"step-number",children:"2"}),a("span",{children:"Upload dokumen"})]}),s("div",{className:"step",children:[a("div",{className:"step-number",children:"3"}),a("span",{children:"Submit pendaftaran"})]})]})]})]}),s("div",{className:"requirement-card-new general",children:[s("div",{className:"card-header",children:[a("div",{className:"card-icon",children:a("i",{className:"fas fa-users"})}),a("h3",{children:"Persyaratan Umum"}),a("div",{className:"card-number",children:"02"})]}),a("div",{className:"card-content",children:s("div",{className:"requirements-list-new",children:[s("div",{className:"requirement-item",children:[a("div",{className:"requirement-check",children:a("i",{className:"fas fa-check-circle"})}),a("div",{className:"requirement-text",children:s("span",{children:["Penduduk Kabupaten Sidoarjo yang dibuktikan dengan"," ",a("strong",{children:"Kartu Keluarga (KK)"})]})})]}),s("div",{className:"requirement-item",children:[a("div",{className:"requirement-check",children:a("i",{className:"fas fa-check-circle"})}),a("div",{className:"requirement-text",children:s("span",{children:["Terdaftar sebagai siswa di sekolah"," ",a("strong",{children:"SD Negeri, SMP Negeri, dan SMA Negeri"})," ","yang dibuktikan dengan surat keterangan dari sekolah"]})})]})]})})]}),s("div",{className:"requirement-card-new special",children:[s("div",{className:"card-header",children:[a("div",{className:"card-icon",children:a("i",{className:"fas fa-user-check"})}),a("h3",{children:"Persyaratan Khusus"}),a("div",{className:"card-number",children:"03"})]}),a("div",{className:"card-content",children:s("div",{className:"requirements-list-new",children:[s("div",{className:"requirement-item",children:[a("div",{className:"requirement-check",children:a("i",{className:"fas fa-database"})}),a("div",{className:"requirement-text",children:s("span",{children:["Terdaftar dalam"," ",a("strong",{children:"Data Tunggal Sosial Ekonomi Nasional (DTSEN)"})," ","desil 1, 2, 3, 4, dan 5 ",a("strong",{children:"ATAU"})," ","melampirkan"," ",a("strong",{children:"Surat Keterangan Tidak Mampu (SKTM)"})," ","dari Desa/Kelurahan"]})})]}),s("div",{className:"requirement-item",children:[a("div",{className:"requirement-check",children:a("i",{className:"fas fa-file-certificate"})}),a("div",{className:"requirement-text",children:s("span",{children:[a("strong",{children:"Akte Kematian"})," yang diterbitkan Dinas Kependudukan dan Pencatatan Sipil"," ",a("strong",{children:"ATAU"})," ",a("strong",{children:"Surat Kematian"})," ","yang diterbitkan Desa/Kelurahan"]})})]}),s("div",{className:"requirement-item",children:[a("div",{className:"requirement-check",children:a("i",{className:"fas fa-handshake"})}),a("div",{className:"requirement-text",children:s("span",{children:["Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun dibuktikan dengan"," ",a("strong",{children:"surat pernyataan tidak menerima beasiswa"})," ","dari Lembaga/Donatur lainnya oleh orang tua/wali siswa yang diketahui oleh sekolah"]})})]})]})})]}),s("div",{className:"requirement-card-new info",children:[s("div",{className:"card-header",children:[a("div",{className:"card-icon",children:a("i",{className:"fas fa-info-circle"})}),a("h3",{children:"Informasi Penting"}),a("div",{className:"card-number",children:"04"})]}),a("div",{className:"card-content",children:s("div",{className:"info-items-new",children:[s("div",{className:"info-item-new",children:[a("div",{className:"info-icon",children:a("i",{className:"fas fa-exclamation-triangle"})}),s("div",{className:"info-text",children:[a("h4",{children:"Dokumen Lengkap"}),a("p",{children:"Pastikan semua dokumen sudah lengkap dan valid sebelum mengajukan permohonan"})]})]}),s("div",{className:"info-item-new",children:[a("div",{className:"info-icon",children:a("i",{className:"fas fa-upload"})}),s("div",{className:"info-text",children:[a("h4",{children:"Format File"}),a("p",{children:"Upload dokumen dalam format PDF dengan ukuran maksimal 2MB per file"})]})]}),s("div",{className:"info-item-new",children:[a("div",{className:"info-icon",children:a("i",{className:"fas fa-clock"})}),s("div",{className:"info-text",children:[a("h4",{children:"Periksa Kembali"}),a("p",{children:"Periksa kembali semua persyaratan sebelum melakukan submit pendaftaran"})]})]})]})})]})]}),a("div",{className:"requirements-cta",children:s("div",{className:"cta-content",children:[a("h3",{children:"Siap Mengajukan Beasiswa?"}),a("p",{children:"Pastikan semua persyaratan telah dipenuhi sebelum melanjutkan ke proses pendaftaran"}),s("div",{className:"cta-buttons",children:[s("a",{href:"https://beasiswa.sidoarjokab.go.id/",className:"btn btn-primary",children:[a("i",{className:"fas fa-external-link-alt"}),"Daftar Sekarang"]}),s("a",{href:"#helpdesk",className:"btn btn-secondary",children:[a("i",{className:"fas fa-question-circle"}),"Butuh Bantuan?"]})]})]})})]}),s("div",{className:"section-info",children:[s("div",{className:"section-header",children:[a("i",{className:"fas fa-info-circle"}),a("h2",{children:"Informasi Helpdesk"})]}),a("div",{className:"info-content",children:s("div",{className:"info-card",children:[a("div",{className:"info-icon",children:a("i",{className:"fas fa-users"})}),s("div",{className:"info-text",children:[a("h3",{children:"Helpdesk Khusus Penerimaan Beasiswa"}),a("p",{children:"Berikut adalah kontak helpdesk resmi untuk informasi penerimaan beasiswa SD, SMP, SMA bagi siswa yatim:"})]})]})})]}),s("div",{className:"section-bottom",children:[s("div",{className:"section-header",children:[a("i",{className:"fas fa-headset"}),a("h2",{children:"Kontak Helpdesk Resmi"})]}),s("div",{className:"contact-grid-vertical",children:[s("div",{className:"contact-card-vertical",children:[s("div",{className:"contact-card-header-vertical",children:[a("div",{className:"contact-icon-vertical dinsos",children:a("i",{className:"fas fa-hands-helping"})}),s("div",{className:"contact-card-info",children:[a("h3",{children:"Dinas Sosial (DINSOS)"}),a("p",{children:"Beasiswa Yatim - Byamoga Dinsos"}),s("div",{className:"contact-badge",children:[a("i",{className:"fas fa-child"}),"SD, SMP, SMA"]})]})]}),a("div",{className:"contact-card-content",children:s("div",{className:"contact-item-vertical",children:[s("div",{className:"contact-details",children:[a("span",{className:"contact-name",children:"Byamoga Dinsos"}),a("span",{className:"contact-role",children:"Helpdesk Yatim Dinas Sosial"})]}),s("a",{target:"_blank",href:"https://wa.me/6282230338338",className:"whatsapp-btn",children:[a("i",{className:"fab fa-whatsapp"}),"0822-3303-8338"]})]})})]}),s("div",{className:"contact-card-vertical",children:[s("div",{className:"contact-card-header-vertical",children:[a("div",{className:"contact-icon-vertical diknas",children:a("i",{className:"fas fa-graduation-cap"})}),s("div",{className:"contact-card-info",children:[a("h3",{children:"Dinas Pendidikan (DIKNAS)"}),a("p",{children:"Beasiswa Yatim - Dinas Pendidikan"}),s("div",{className:"contact-badge",children:[a("i",{className:"fas fa-child"}),"SD, SMP, SMA"]})]})]}),a("div",{className:"contact-card-content",children:s("div",{className:"contact-item-vertical",children:[s("div",{className:"contact-details",children:[a("span",{className:"contact-name",children:"Helpdesk Diknas"}),a("span",{className:"contact-role",children:"Helpdesk Yatim Dinas Pendidikan"})]}),s("a",{target:"_blank",href:"https://wa.me/6281336766061",className:"whatsapp-btn",children:[a("i",{className:"fab fa-whatsapp"}),"0813-3676-6061"]})]})})]}),s("div",{className:"contact-card-vertical website",children:[s("div",{className:"contact-card-header-vertical",children:[a("div",{className:"contact-icon-vertical website",children:a("i",{className:"fas fa-globe"})}),s("div",{className:"contact-card-info",children:[a("h3",{children:"Pendaftaran Online"}),a("p",{children:"Website Resmi Beasiswa"})]})]}),s("div",{className:"contact-card-content",children:[a("p",{className:"website-description-vertical",children:"Untuk pendaftaran dan informasi lebih lanjut, kunjungi website resmi:"}),s("a",{href:"https://beasiswa.sidoarjokab.go.id/",className:"website-link-vertical",children:[a("i",{className:"fas fa-external-link-alt"}),"https://beasiswa.sidoarjokab.go.id/"]}),s("div",{className:"website-info",children:[a("i",{className:"fas fa-info-circle"}),a("span",{children:"Form online dan upload persyaratan"})]})]})]})]})]})]})}),a("style",{jsx:!0,children:`
         /* ===== VARIABLES & RESET ===== */
         :global(*) {
           box-sizing: border-box;
@@ -1624,7 +1624,10 @@ to {
           margin: 0 auto;
         }
 
-        .section-top, .section-bottom, .section-info, .section-requirements {
+        .section-top,
+        .section-bottom,
+        .section-info,
+        .section-requirements {
           background: white;
           border-radius: 20px;
           padding: 40px;
@@ -1643,7 +1646,7 @@ to {
         }
 
         .home-hero::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
@@ -1682,7 +1685,7 @@ to {
           font-size: 3rem;
           font-weight: 700;
           margin-bottom: 15px;
-          text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .hero-title .highlight {
@@ -1785,7 +1788,7 @@ to {
         }
 
         .requirements-intro-card::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           right: 0;
@@ -1859,7 +1862,7 @@ to {
         }
 
         .requirement-card-new::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
@@ -1868,19 +1871,19 @@ to {
         }
 
         .requirement-card-new.process::before {
-          background: linear-gradient(135deg, #2196F3, #21CBF3);
+          background: linear-gradient(135deg, #2196f3, #21cbf3);
         }
 
         .requirement-card-new.general::before {
-          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+          background: linear-gradient(135deg, #4caf50, #8bc34a);
         }
 
         .requirement-card-new.special::before {
-          background: linear-gradient(135deg, #FF9800, #FF5722);
+          background: linear-gradient(135deg, #ff9800, #ff5722);
         }
 
         .requirement-card-new.info::before {
-          background: linear-gradient(135deg, #9C27B0, #E91E63);
+          background: linear-gradient(135deg, #9c27b0, #e91e63);
         }
 
         .card-header {
@@ -1903,19 +1906,19 @@ to {
         }
 
         .requirement-card-new.process .card-icon {
-          background: linear-gradient(135deg, #2196F3, #21CBF3);
+          background: linear-gradient(135deg, #2196f3, #21cbf3);
         }
 
         .requirement-card-new.general .card-icon {
-          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+          background: linear-gradient(135deg, #4caf50, #8bc34a);
         }
 
         .requirement-card-new.special .card-icon {
-          background: linear-gradient(135deg, #FF9800, #FF5722);
+          background: linear-gradient(135deg, #ff9800, #ff5722);
         }
 
         .requirement-card-new.info .card-icon {
-          background: linear-gradient(135deg, #9C27B0, #E91E63);
+          background: linear-gradient(135deg, #9c27b0, #e91e63);
         }
 
         .card-header h3 {
@@ -1967,7 +1970,7 @@ to {
         .step-number {
           width: 25px;
           height: 25px;
-          background: linear-gradient(135deg, #2196F3, #21CBF3);
+          background: linear-gradient(135deg, #2196f3, #21cbf3);
           color: white;
           border-radius: 50%;
           display: flex;
@@ -2011,11 +2014,11 @@ to {
         }
 
         .requirement-card-new.general .requirement-check {
-          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+          background: linear-gradient(135deg, #4caf50, #8bc34a);
         }
 
         .requirement-card-new.special .requirement-check {
-          background: linear-gradient(135deg, #FF9800, #FF5722);
+          background: linear-gradient(135deg, #ff9800, #ff5722);
         }
 
         .requirement-text {
@@ -2045,13 +2048,13 @@ to {
           padding: 15px;
           background: #fff8e1;
           border-radius: 10px;
-          border-left: 3px solid #FF9800;
+          border-left: 3px solid #ff9800;
         }
 
         .info-icon {
           width: 40px;
           height: 40px;
-          background: #FF9800;
+          background: #ff9800;
           color: white;
           border-radius: 8px;
           display: flex;
@@ -2192,6 +2195,26 @@ to {
           border-radius: 15px;
         }
 
+        .announcement-info-vertical {
+          background: #f8faff;
+          padding: 20px;
+          border-radius: 12px;
+          margin-top: 15px;
+        }
+
+        .announcement-info-vertical h4 {
+          color: #1e3c72;
+          font-weight: 700;
+          margin: 0 0 10px 0;
+          font-size: 1.2rem;
+        }
+
+        .announcement-info-vertical p {
+          color: #666;
+          margin: 0;
+          line-height: 1.5;
+        }
+
         .announcement-actions-vertical {
           display: flex;
           gap: 15px;
@@ -2216,7 +2239,7 @@ to {
         }
 
         .contact-card-vertical::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
@@ -2335,7 +2358,7 @@ to {
 
         .btn:hover {
           transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn-download-announcement {
@@ -2357,7 +2380,7 @@ to {
           display: flex;
           align-items: center;
           gap: 8px;
-          background: #25D366;
+          background: #25d366;
           color: white;
           text-decoration: none;
           padding: 8px 14px;
@@ -2369,7 +2392,7 @@ to {
         }
 
         .whatsapp-btn:hover {
-          background: #128C7E;
+          background: #128c7e;
           transform: translateY(-2px);
           box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
         }
@@ -2416,7 +2439,7 @@ to {
           .contact-grid-vertical {
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
           }
-          
+
           .requirements-grid-new {
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
           }
@@ -2426,71 +2449,74 @@ to {
           .home-hero {
             padding: 40px 0;
           }
-          
+
           .hero-title {
             font-size: 2rem;
           }
-          
+
           .hero-subtitle {
             font-size: 1.1rem;
           }
-          
+
           .hero-stats {
             gap: 20px;
           }
-          
+
           .stat-item {
             padding: 15px;
           }
-          
+
           .stat-number {
             font-size: 2rem;
           }
-          
-          .section-top, .section-bottom, .section-info, .section-requirements {
+
+          .section-top,
+          .section-bottom,
+          .section-info,
+          .section-requirements {
             padding: 30px 25px;
           }
-          
+
           .contact-grid-vertical {
             grid-template-columns: 1fr;
           }
-          
+
           .requirements-grid-new {
             grid-template-columns: 1fr;
           }
-          
+
           .contact-item-vertical {
             flex-direction: column;
             gap: 10px;
             text-align: center;
           }
-          
+
           .announcement-actions-vertical {
             flex-direction: column;
             align-items: center;
           }
-          
+
           .btn {
             width: 200px;
             justify-content: center;
           }
-          
+
           .info-card {
             flex-direction: column;
             text-align: center;
             padding: 20px;
           }
-          
+
           .requirement-card-new {
             padding: 20px;
           }
-          
+
           .requirements-intro-card {
             flex-direction: column;
             text-align: center;
             padding: 25px;
           }
-          
+
           .cta-buttons {
             flex-direction: column;
             align-items: center;
@@ -2501,56 +2527,59 @@ to {
           .home-container {
             padding: 20px 15px;
           }
-          
+
           .home-hero {
             padding: 30px 0;
           }
-          
+
           .hero-title {
             font-size: 1.8rem;
           }
-          
+
           .section-header {
             flex-direction: column;
             text-align: center;
             gap: 10px;
           }
-          
+
           .section-header h2 {
             font-size: 1.5rem;
           }
-          
-          .section-top, .section-bottom, .section-info, .section-requirements {
+
+          .section-top,
+          .section-bottom,
+          .section-info,
+          .section-requirements {
             padding: 25px 20px;
           }
-          
+
           .contact-card-vertical {
             padding: 20px;
           }
-          
+
           .contact-card-header-vertical {
             flex-direction: column;
             text-align: center;
             gap: 10px;
           }
-          
+
           .logo-image {
             width: 120px;
             height: 120px;
           }
-          
+
           .info-text h3 {
             font-size: 1.1rem;
           }
-          
+
           .requirements-intro-card h3 {
             font-size: 1.3rem;
           }
-          
+
           .requirement-item {
             padding: 12px;
           }
-          
+
           .info-item-new {
             padding: 12px;
           }

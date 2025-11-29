@@ -13,7 +13,11 @@ export default function Home() {
           <div className="hero-content">
             <div className="hero-logo">
               <div className="logo-container">
-                <img src="/sidoarjo.png" alt="Logo Sidoarjo" className="logo-image" />
+                <img
+                  src="/sidoarjo.png"
+                  alt="Logo Sidoarjo"
+                  className="logo-image"
+                />
               </div>
             </div>
 
@@ -42,6 +46,35 @@ export default function Home() {
       {/* Main Content */}
       <div className="container home-container mt-5 mb-5">
         <div className="home-vertical-layout">
+          {/* Gambar Beasiswa Pendidikan Section */}
+          <div className="section-top">
+            <div className="section-header">
+              <i className="fas fa-graduation-cap"></i>
+              <h2>Beasiswa Pendidikan Anak Yatim</h2>
+            </div>
+            <div className="announcement-content-vertical">
+              <div className="announcement-card-vertical">
+                <div className="achievement-badge">
+                  <i className="fas fa-heart"></i>
+                  <span>Dukungan Pendidikan</span>
+                </div>
+                <div className="announcement-image-preview-vertical">
+                  <img
+                    src="/pendidikan.jpeg"
+                    alt="Beasiswa Pendidikan Anak Yatim SD SMP SMA"
+                    className="img-fluid"
+                  />
+                </div>
+                <div className="announcement-info-vertical">
+                  <h4>Program Beasiswa Khusus Anak Yatim</h4>
+                  <p>
+                    Dukungan pendidikan bagi siswa yatim jenjang SD, SMP, dan
+                    SMA Negeri di Kabupaten Sidoarjo
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Pengumuman Section */}
           <div className="section-top">
@@ -56,10 +89,18 @@ export default function Home() {
                   <span>Program Selesai</span>
                 </div>
                 <div className="announcement-image-preview-vertical">
-                  <img src="/2025.jpeg" alt="Pengumuman Beasiswa" className="img-fluid" />
+                  <img
+                    src="/2025.jpeg"
+                    alt="Pengumuman Beasiswa"
+                    className="img-fluid"
+                  />
                 </div>
                 <div className="announcement-actions-vertical">
-                  <a href="/pengumuman_penerima.pdf" className="btn btn-download-announcement" download>
+                  <a
+                    href="/pengumuman_penerima.pdf"
+                    className="btn btn-download-announcement"
+                    download
+                  >
                     <i className="fas fa-download"></i>
                     Download PDF Pengumuman
                   </a>
@@ -74,7 +115,7 @@ export default function Home() {
               <i className="fas fa-file-alt"></i>
               <h2>Persyaratan Administrasi</h2>
             </div>
-            
+
             <div className="requirements-header">
               <div className="requirements-intro-card">
                 <div className="intro-icon">
@@ -102,7 +143,11 @@ export default function Home() {
                   <div className="card-number">01</div>
                 </div>
                 <div className="card-content">
-                  <p>Sekolah mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan.</p>
+                  <p>
+                    Sekolah mengajukan permohonan dengan mengisi formulir
+                    pendaftaran secara online dan mengunggah dokumen yang
+                    dipersyaratkan.
+                  </p>
                   <div className="process-steps">
                     <div className="step">
                       <div className="step-number">1</div>
@@ -136,7 +181,10 @@ export default function Home() {
                         <i className="fas fa-check-circle"></i>
                       </div>
                       <div className="requirement-text">
-                        <span>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan <strong>Kartu Keluarga (KK)</strong></span>
+                        <span>
+                          Penduduk Kabupaten Sidoarjo yang dibuktikan dengan{" "}
+                          <strong>Kartu Keluarga (KK)</strong>
+                        </span>
                       </div>
                     </div>
                     <div className="requirement-item">
@@ -144,7 +192,11 @@ export default function Home() {
                         <i className="fas fa-check-circle"></i>
                       </div>
                       <div className="requirement-text">
-                        <span>Terdaftar sebagai siswa di sekolah <strong>SD Negeri, SMP Negeri, dan SMA Negeri</strong> yang dibuktikan dengan surat keterangan dari sekolah</span>
+                        <span>
+                          Terdaftar sebagai siswa di sekolah{" "}
+                          <strong>SD Negeri, SMP Negeri, dan SMA Negeri</strong>{" "}
+                          yang dibuktikan dengan surat keterangan dari sekolah
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -167,7 +219,16 @@ export default function Home() {
                         <i className="fas fa-database"></i>
                       </div>
                       <div className="requirement-text">
-                        <span>Terdaftar dalam <strong>Data Tunggal Sosial Ekonomi Nasional (DTSEN)</strong> desil 1, 2, 3, 4, dan 5 <strong>ATAU</strong> melampirkan <strong>Surat Keterangan Tidak Mampu (SKTM)</strong> dari Desa/Kelurahan</span>
+                        <span>
+                          Terdaftar dalam{" "}
+                          <strong>
+                            Data Tunggal Sosial Ekonomi Nasional (DTSEN)
+                          </strong>{" "}
+                          desil 1, 2, 3, 4, dan 5 <strong>ATAU</strong>{" "}
+                          melampirkan{" "}
+                          <strong>Surat Keterangan Tidak Mampu (SKTM)</strong>{" "}
+                          dari Desa/Kelurahan
+                        </span>
                       </div>
                     </div>
                     <div className="requirement-item">
@@ -175,7 +236,12 @@ export default function Home() {
                         <i className="fas fa-file-certificate"></i>
                       </div>
                       <div className="requirement-text">
-                        <span><strong>Akte Kematian</strong> yang diterbitkan Dinas Kependudukan dan Pencatatan Sipil <strong>ATAU</strong> <strong>Surat Kematian</strong> yang diterbitkan Desa/Kelurahan</span>
+                        <span>
+                          <strong>Akte Kematian</strong> yang diterbitkan Dinas
+                          Kependudukan dan Pencatatan Sipil{" "}
+                          <strong>ATAU</strong> <strong>Surat Kematian</strong>{" "}
+                          yang diterbitkan Desa/Kelurahan
+                        </span>
                       </div>
                     </div>
                     <div className="requirement-item">
@@ -183,7 +249,15 @@ export default function Home() {
                         <i className="fas fa-handshake"></i>
                       </div>
                       <div className="requirement-text">
-                        <span>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun dibuktikan dengan <strong>surat pernyataan tidak menerima beasiswa</strong> dari Lembaga/Donatur lainnya oleh orang tua/wali siswa yang diketahui oleh sekolah</span>
+                        <span>
+                          Tidak sedang menerima beasiswa untuk tujuan serupa
+                          dari pihak manapun dibuktikan dengan{" "}
+                          <strong>
+                            surat pernyataan tidak menerima beasiswa
+                          </strong>{" "}
+                          dari Lembaga/Donatur lainnya oleh orang tua/wali siswa
+                          yang diketahui oleh sekolah
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -207,7 +281,10 @@ export default function Home() {
                       </div>
                       <div className="info-text">
                         <h4>Dokumen Lengkap</h4>
-                        <p>Pastikan semua dokumen sudah lengkap dan valid sebelum mengajukan permohonan</p>
+                        <p>
+                          Pastikan semua dokumen sudah lengkap dan valid sebelum
+                          mengajukan permohonan
+                        </p>
                       </div>
                     </div>
                     <div className="info-item-new">
@@ -216,7 +293,10 @@ export default function Home() {
                       </div>
                       <div className="info-text">
                         <h4>Format File</h4>
-                        <p>Upload dokumen dalam format PDF dengan ukuran maksimal 2MB per file</p>
+                        <p>
+                          Upload dokumen dalam format PDF dengan ukuran maksimal
+                          2MB per file
+                        </p>
                       </div>
                     </div>
                     <div className="info-item-new">
@@ -225,7 +305,10 @@ export default function Home() {
                       </div>
                       <div className="info-text">
                         <h4>Periksa Kembali</h4>
-                        <p>Periksa kembali semua persyaratan sebelum melakukan submit pendaftaran</p>
+                        <p>
+                          Periksa kembali semua persyaratan sebelum melakukan
+                          submit pendaftaran
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -237,9 +320,15 @@ export default function Home() {
             <div className="requirements-cta">
               <div className="cta-content">
                 <h3>Siap Mengajukan Beasiswa?</h3>
-                <p>Pastikan semua persyaratan telah dipenuhi sebelum melanjutkan ke proses pendaftaran</p>
+                <p>
+                  Pastikan semua persyaratan telah dipenuhi sebelum melanjutkan
+                  ke proses pendaftaran
+                </p>
                 <div className="cta-buttons">
-                  <a href="https://beasiswa.sidoarjokab.go.id/" className="btn btn-primary">
+                  <a
+                    href="https://beasiswa.sidoarjokab.go.id/"
+                    className="btn btn-primary"
+                  >
                     <i className="fas fa-external-link-alt"></i>
                     Daftar Sekarang
                   </a>
@@ -265,7 +354,10 @@ export default function Home() {
                 </div>
                 <div className="info-text">
                   <h3>Helpdesk Khusus Penerimaan Beasiswa</h3>
-                  <p>Berikut adalah kontak helpdesk resmi untuk informasi penerimaan beasiswa SD, SMP, SMA bagi siswa yatim:</p>
+                  <p>
+                    Berikut adalah kontak helpdesk resmi untuk informasi
+                    penerimaan beasiswa SD, SMP, SMA bagi siswa yatim:
+                  </p>
                 </div>
               </div>
             </div>
@@ -278,7 +370,6 @@ export default function Home() {
               <h2>Kontak Helpdesk Resmi</h2>
             </div>
             <div className="contact-grid-vertical">
-
               {/* Card 1: Dinsos Yatim */}
               <div className="contact-card-vertical">
                 <div className="contact-card-header-vertical">
@@ -298,9 +389,15 @@ export default function Home() {
                   <div className="contact-item-vertical">
                     <div className="contact-details">
                       <span className="contact-name">Byamoga Dinsos</span>
-                      <span className="contact-role">Helpdesk Yatim Dinas Sosial</span>
+                      <span className="contact-role">
+                        Helpdesk Yatim Dinas Sosial
+                      </span>
                     </div>
-                    <a target="_blank" href={dinsosYatim} className="whatsapp-btn">
+                    <a
+                      target="_blank"
+                      href={dinsosYatim}
+                      className="whatsapp-btn"
+                    >
                       <i className="fab fa-whatsapp"></i>
                       0822-3303-8338
                     </a>
@@ -327,9 +424,15 @@ export default function Home() {
                   <div className="contact-item-vertical">
                     <div className="contact-details">
                       <span className="contact-name">Helpdesk Diknas</span>
-                      <span className="contact-role">Helpdesk Yatim Dinas Pendidikan</span>
+                      <span className="contact-role">
+                        Helpdesk Yatim Dinas Pendidikan
+                      </span>
                     </div>
-                    <a target="_blank" href={diknasYatim} className="whatsapp-btn">
+                    <a
+                      target="_blank"
+                      href={diknasYatim}
+                      className="whatsapp-btn"
+                    >
                       <i className="fab fa-whatsapp"></i>
                       0813-3676-6061
                     </a>
@@ -350,9 +453,13 @@ export default function Home() {
                 </div>
                 <div className="contact-card-content">
                   <p className="website-description-vertical">
-                    Untuk pendaftaran dan informasi lebih lanjut, kunjungi website resmi:
+                    Untuk pendaftaran dan informasi lebih lanjut, kunjungi
+                    website resmi:
                   </p>
-                  <a href="https://beasiswa.sidoarjokab.go.id/" className="website-link-vertical">
+                  <a
+                    href="https://beasiswa.sidoarjokab.go.id/"
+                    className="website-link-vertical"
+                  >
                     <i className="fas fa-external-link-alt"></i>
                     https://beasiswa.sidoarjokab.go.id/
                   </a>
@@ -362,10 +469,8 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
       </div>
 
@@ -388,7 +493,10 @@ export default function Home() {
           margin: 0 auto;
         }
 
-        .section-top, .section-bottom, .section-info, .section-requirements {
+        .section-top,
+        .section-bottom,
+        .section-info,
+        .section-requirements {
           background: white;
           border-radius: 20px;
           padding: 40px;
@@ -407,7 +515,7 @@ export default function Home() {
         }
 
         .home-hero::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
@@ -446,7 +554,7 @@ export default function Home() {
           font-size: 3rem;
           font-weight: 700;
           margin-bottom: 15px;
-          text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .hero-title .highlight {
@@ -549,7 +657,7 @@ export default function Home() {
         }
 
         .requirements-intro-card::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           right: 0;
@@ -623,7 +731,7 @@ export default function Home() {
         }
 
         .requirement-card-new::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
@@ -632,19 +740,19 @@ export default function Home() {
         }
 
         .requirement-card-new.process::before {
-          background: linear-gradient(135deg, #2196F3, #21CBF3);
+          background: linear-gradient(135deg, #2196f3, #21cbf3);
         }
 
         .requirement-card-new.general::before {
-          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+          background: linear-gradient(135deg, #4caf50, #8bc34a);
         }
 
         .requirement-card-new.special::before {
-          background: linear-gradient(135deg, #FF9800, #FF5722);
+          background: linear-gradient(135deg, #ff9800, #ff5722);
         }
 
         .requirement-card-new.info::before {
-          background: linear-gradient(135deg, #9C27B0, #E91E63);
+          background: linear-gradient(135deg, #9c27b0, #e91e63);
         }
 
         .card-header {
@@ -667,19 +775,19 @@ export default function Home() {
         }
 
         .requirement-card-new.process .card-icon {
-          background: linear-gradient(135deg, #2196F3, #21CBF3);
+          background: linear-gradient(135deg, #2196f3, #21cbf3);
         }
 
         .requirement-card-new.general .card-icon {
-          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+          background: linear-gradient(135deg, #4caf50, #8bc34a);
         }
 
         .requirement-card-new.special .card-icon {
-          background: linear-gradient(135deg, #FF9800, #FF5722);
+          background: linear-gradient(135deg, #ff9800, #ff5722);
         }
 
         .requirement-card-new.info .card-icon {
-          background: linear-gradient(135deg, #9C27B0, #E91E63);
+          background: linear-gradient(135deg, #9c27b0, #e91e63);
         }
 
         .card-header h3 {
@@ -731,7 +839,7 @@ export default function Home() {
         .step-number {
           width: 25px;
           height: 25px;
-          background: linear-gradient(135deg, #2196F3, #21CBF3);
+          background: linear-gradient(135deg, #2196f3, #21cbf3);
           color: white;
           border-radius: 50%;
           display: flex;
@@ -775,11 +883,11 @@ export default function Home() {
         }
 
         .requirement-card-new.general .requirement-check {
-          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+          background: linear-gradient(135deg, #4caf50, #8bc34a);
         }
 
         .requirement-card-new.special .requirement-check {
-          background: linear-gradient(135deg, #FF9800, #FF5722);
+          background: linear-gradient(135deg, #ff9800, #ff5722);
         }
 
         .requirement-text {
@@ -809,13 +917,13 @@ export default function Home() {
           padding: 15px;
           background: #fff8e1;
           border-radius: 10px;
-          border-left: 3px solid #FF9800;
+          border-left: 3px solid #ff9800;
         }
 
         .info-icon {
           width: 40px;
           height: 40px;
-          background: #FF9800;
+          background: #ff9800;
           color: white;
           border-radius: 8px;
           display: flex;
@@ -956,6 +1064,26 @@ export default function Home() {
           border-radius: 15px;
         }
 
+        .announcement-info-vertical {
+          background: #f8faff;
+          padding: 20px;
+          border-radius: 12px;
+          margin-top: 15px;
+        }
+
+        .announcement-info-vertical h4 {
+          color: #1e3c72;
+          font-weight: 700;
+          margin: 0 0 10px 0;
+          font-size: 1.2rem;
+        }
+
+        .announcement-info-vertical p {
+          color: #666;
+          margin: 0;
+          line-height: 1.5;
+        }
+
         .announcement-actions-vertical {
           display: flex;
           gap: 15px;
@@ -980,7 +1108,7 @@ export default function Home() {
         }
 
         .contact-card-vertical::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
@@ -1099,7 +1227,7 @@ export default function Home() {
 
         .btn:hover {
           transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn-download-announcement {
@@ -1121,7 +1249,7 @@ export default function Home() {
           display: flex;
           align-items: center;
           gap: 8px;
-          background: #25D366;
+          background: #25d366;
           color: white;
           text-decoration: none;
           padding: 8px 14px;
@@ -1133,7 +1261,7 @@ export default function Home() {
         }
 
         .whatsapp-btn:hover {
-          background: #128C7E;
+          background: #128c7e;
           transform: translateY(-2px);
           box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
         }
@@ -1180,7 +1308,7 @@ export default function Home() {
           .contact-grid-vertical {
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
           }
-          
+
           .requirements-grid-new {
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
           }
@@ -1190,71 +1318,74 @@ export default function Home() {
           .home-hero {
             padding: 40px 0;
           }
-          
+
           .hero-title {
             font-size: 2rem;
           }
-          
+
           .hero-subtitle {
             font-size: 1.1rem;
           }
-          
+
           .hero-stats {
             gap: 20px;
           }
-          
+
           .stat-item {
             padding: 15px;
           }
-          
+
           .stat-number {
             font-size: 2rem;
           }
-          
-          .section-top, .section-bottom, .section-info, .section-requirements {
+
+          .section-top,
+          .section-bottom,
+          .section-info,
+          .section-requirements {
             padding: 30px 25px;
           }
-          
+
           .contact-grid-vertical {
             grid-template-columns: 1fr;
           }
-          
+
           .requirements-grid-new {
             grid-template-columns: 1fr;
           }
-          
+
           .contact-item-vertical {
             flex-direction: column;
             gap: 10px;
             text-align: center;
           }
-          
+
           .announcement-actions-vertical {
             flex-direction: column;
             align-items: center;
           }
-          
+
           .btn {
             width: 200px;
             justify-content: center;
           }
-          
+
           .info-card {
             flex-direction: column;
             text-align: center;
             padding: 20px;
           }
-          
+
           .requirement-card-new {
             padding: 20px;
           }
-          
+
           .requirements-intro-card {
             flex-direction: column;
             text-align: center;
             padding: 25px;
           }
-          
+
           .cta-buttons {
             flex-direction: column;
             align-items: center;
@@ -1265,56 +1396,59 @@ export default function Home() {
           .home-container {
             padding: 20px 15px;
           }
-          
+
           .home-hero {
             padding: 30px 0;
           }
-          
+
           .hero-title {
             font-size: 1.8rem;
           }
-          
+
           .section-header {
             flex-direction: column;
             text-align: center;
             gap: 10px;
           }
-          
+
           .section-header h2 {
             font-size: 1.5rem;
           }
-          
-          .section-top, .section-bottom, .section-info, .section-requirements {
+
+          .section-top,
+          .section-bottom,
+          .section-info,
+          .section-requirements {
             padding: 25px 20px;
           }
-          
+
           .contact-card-vertical {
             padding: 20px;
           }
-          
+
           .contact-card-header-vertical {
             flex-direction: column;
             text-align: center;
             gap: 10px;
           }
-          
+
           .logo-image {
             width: 120px;
             height: 120px;
           }
-          
+
           .info-text h3 {
             font-size: 1.1rem;
           }
-          
+
           .requirements-intro-card h3 {
             font-size: 1.3rem;
           }
-          
+
           .requirement-item {
             padding: 12px;
           }
-          
+
           .info-item-new {
             padding: 12px;
           }
