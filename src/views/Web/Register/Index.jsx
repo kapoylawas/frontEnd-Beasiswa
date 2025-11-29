@@ -203,56 +203,7 @@ export default function Register() {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Program Information */}
-          <div className="program-info-section">
-            <div className="section-header">
-              <i className="fas fa-info-circle"></i>
-              <h2>Informasi Program Beasiswa</h2>
-            </div>
-            
-            <div className="program-grid">
-              <div className="program-card">
-                <div className="program-icon sd">
-                  <i className="fas fa-pencil-alt"></i>
-                </div>
-                <h3>Beasiswa SD</h3>
-                <p>Bantuan pendidikan untuk siswa Sekolah Dasar berprestasi dan kurang mampu</p>
-                <div className="program-features">
-                  <span><i className="fas fa-check"></i> Siswa Kelas 1-6</span>
-                  <span><i className="fas fa-check"></i> Berprestasi Akademik</span>
-                  <span><i className="fas fa-check"></i> Keluarga Kurang Mampu</span>
-                </div>
-              </div>
-
-              <div className="program-card">
-                <div className="program-icon smp">
-                  <i className="fas fa-book"></i>
-                </div>
-                <h3>Beasiswa SMP</h3>
-                <p>Program beasiswa untuk siswa Sekolah Menengah Pertama di Sidoarjo</p>
-                <div className="program-features">
-                  <span><i className="fas fa-check"></i> Siswa Kelas 7-9</span>
-                  <span><i className="fas fa-check"></i> Nilai Rapor Minimal 80</span>
-                  <span><i className="fas fa-check"></i> Aktif Berorganisasi</span>
-                </div>
-              </div>
-
-              <div className="program-card">
-                <div className="program-icon sma">
-                  <i className="fas fa-graduation-cap"></i>
-                </div>
-                <h3>Beasiswa SMA/SMK</h3>
-                <p>Dukungan pendidikan untuk siswa SMA dan SMK berprestasi</p>
-                <div className="program-features">
-                  <span><i className="fas fa-check"></i> Siswa Kelas 10-12</span>
-                  <span><i className="fas fa-check"></i> Prestasi Akademik/Non-Akademik</span>
-                  <span><i className="fas fa-check"></i> Motivasi Tinggi</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </div>          
         </div>
       </div>
 
