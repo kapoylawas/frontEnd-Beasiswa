@@ -60,7 +60,7 @@ export default function Home() {
                 </div>
                 <div className="announcement-image-preview-vertical">
                   <img
-                    src="/pendidikan.jpeg"
+                    src="/pendidikan2.png"
                     alt="Beasiswa Pendidikan Anak Yatim SD SMP SMA"
                     className="img-fluid"
                   />
