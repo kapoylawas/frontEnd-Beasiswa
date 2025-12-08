@@ -19,6 +19,7 @@ export default function YatimIndex() {
   const [deletingId, setDeletingId] = useState(null);
   const [userData, setUserData] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [pendaftaranDitutup, setPendaftaranDitutup] = useState(true); // Default true untuk ditutup
   const navigate = useNavigate();
 
   // Form state
@@ -150,6 +151,12 @@ export default function YatimIndex() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validasi jika pendaftaran ditutup
+    if (pendaftaranDitutup) {
+      toast.error("Pendaftaran sudah ditutup. Tidak dapat menambah data baru.");
+      return;
+    }
 
     // Validasi user_id
     if (!formData.user_id) {
@@ -364,11 +371,26 @@ export default function YatimIndex() {
             {/* Form Tambah Data Yatim */}
             <div className="card border-0 rounded shadow-sm mb-4">
               <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h5 className="mb-0">Tambah Data Yatim</h5>
+                <div className="d-flex align-items-center">
+                  <h5 className="mb-0">Tambah Data Yatim</h5>
+                  {pendaftaranDitutup && (
+                    <span className="badge bg-danger ms-3">
+                      <i className="fa fa-lock me-1"></i>
+                      Pendaftaran Ditutup
+                    </span>
+                  )}
+                </div>
                 <button
                   type="button"
                   className="btn btn-light btn-sm"
-                  onClick={() => setShowForm(!showForm)}
+                  onClick={() => {
+                    if (pendaftaranDitutup) {
+                      toast.error("Pendaftaran sudah ditutup");
+                      return;
+                    }
+                    setShowForm(!showForm);
+                  }}
+                  disabled={pendaftaranDitutup}
                 >
                   {showForm ? "Sembunyikan" : "Tampilkan"} Form
                 </button>
@@ -376,6 +398,26 @@ export default function YatimIndex() {
 
               {showForm && (
                 <div className="card-body">
+                  {/* Notifikasi Pendaftaran Ditutup */}
+                  {pendaftaranDitutup && (
+                    <div className="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                      <div className="d-flex align-items-center">
+                        <i className="fa fa-exclamation-triangle fa-2x me-3"></i>
+                        <div>
+                          <h5 className="alert-heading mb-1">PENDAFTARAN SUDAH DITUTUP</h5>
+                          <p className="mb-0">
+                            Masa pendaftaran beasiswa yatim telah berakhir. Anda tidak dapat menambah data baru.
+                          </p>
+                        </div>
+                      </div>
+                      <button 
+                        type="button" 
+                        className="btn-close" 
+                        onClick={() => setShowForm(false)}
+                      ></button>
+                    </div>
+                  )}
+
                   {/* Info User dan Template Dokumen */}
                   {userData && (
                     <div className="mb-4">
@@ -513,6 +555,21 @@ export default function YatimIndex() {
                   )}
 
                   <form onSubmit={handleSubmit}>
+                    {/* Overlay dan pesan jika pendaftaran ditutup */}
+                    {pendaftaranDitutup && (
+                      <div className="position-relative">
+                        <div className="form-overlay position-absolute top-0 start-0 w-100 h-100 bg-light bg-opacity-75 d-flex align-items-center justify-content-center z-3">
+                          <div className="text-center p-4 bg-white rounded shadow">
+                            <i className="fa fa-lock fa-3x text-danger mb-3"></i>
+                            <h5 className="text-danger mb-2">PENDAFTARAN DITUTUP</h5>
+                            <p className="text-muted mb-0">
+                              Masa pendaftaran telah berakhir. Formulir tidak dapat diisi.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="row">
                       <div className="col-md-6">
                         {/* Hidden user_id field */}
@@ -532,6 +589,7 @@ export default function YatimIndex() {
                             onChange={handleInputChange}
                             maxLength={16}
                             required
+                            disabled={pendaftaranDitutup}
                           />
                           <div className="form-text text-muted">
                             16 digit Nomor Induk Kependudukan
@@ -548,6 +606,7 @@ export default function YatimIndex() {
                             onChange={handleInputChange}
                             maxLength={10}
                             required
+                            disabled={pendaftaranDitutup}
                           />
                           <div className="form-text text-muted">
                             10 digit Nomor Induk Siswa Nasional
@@ -565,6 +624,7 @@ export default function YatimIndex() {
                             maxLength={8}
                             readOnly
                             style={{ backgroundColor: "#f8f9fa" }}
+                            disabled={pendaftaranDitutup}
                           />
                           <div className="form-text text-muted">
                             Nomor Pokok Sekolah Nasional (otomatis terisi)
@@ -579,6 +639,7 @@ export default function YatimIndex() {
                             value={formData.jenjang}
                             onChange={handleInputChange}
                             required
+                            disabled={pendaftaranDitutup}
                           >
                             <option value="">Pilih Jenjang</option>
                             <option value="SD">SD</option>
@@ -596,6 +657,7 @@ export default function YatimIndex() {
                             value={formData.name}
                             onChange={handleInputChange}
                             required
+                            disabled={pendaftaranDitutup}
                           />
                         </div>
                       </div>
@@ -612,6 +674,7 @@ export default function YatimIndex() {
                             readOnly
                             style={{ backgroundColor: "#f8f9fa" }}
                             required
+                            disabled={pendaftaranDitutup}
                           />
                           <div className="form-text text-muted">
                             Asal sekolah diambil otomatis dari data login Anda
@@ -627,6 +690,7 @@ export default function YatimIndex() {
                             onChange={handleInputChange}
                             rows="3"
                             required
+                            disabled={pendaftaranDitutup}
                           ></textarea>
                         </div>
 
@@ -639,6 +703,7 @@ export default function YatimIndex() {
                             value={formData.tempat_lahir}
                             onChange={handleInputChange}
                             required
+                            disabled={pendaftaranDitutup}
                           />
                         </div>
 
@@ -651,6 +716,7 @@ export default function YatimIndex() {
                             value={formData.tanggal_lahir}
                             onChange={handleInputChange}
                             required
+                            disabled={pendaftaranDitutup}
                           />
                         </div>
                       </div>
@@ -683,6 +749,7 @@ export default function YatimIndex() {
                             onChange={handleInputChange}
                             accept=".pdf"
                             required
+                            disabled={pendaftaranDitutup}
                           />
                           <div className="form-text text-muted">
                             <i className="fa fa-info-circle me-1"></i>
@@ -701,6 +768,7 @@ export default function YatimIndex() {
                             onChange={handleInputChange}
                             accept=".pdf"
                             required
+                            disabled={pendaftaranDitutup}
                           />
                           <div className="form-text text-muted">
                             <i className="fa fa-info-circle me-1"></i>
@@ -721,6 +789,7 @@ export default function YatimIndex() {
                             onChange={handleInputChange}
                             accept=".pdf"
                             required
+                            disabled={pendaftaranDitutup}
                           />
                           <div className="form-text text-muted">
                             <i className="fa fa-info-circle me-1"></i>
@@ -739,6 +808,7 @@ export default function YatimIndex() {
                             onChange={handleInputChange}
                             accept=".pdf"
                             required
+                            disabled={pendaftaranDitutup}
                           />
                           <div className="form-text text-muted">
                             <i className="fa fa-info-circle me-1"></i>
@@ -757,6 +827,7 @@ export default function YatimIndex() {
                             onChange={handleInputChange}
                             accept=".pdf"
                             required
+                            disabled={pendaftaranDitutup}
                           />
                           <div className="form-text text-muted">
                             <i className="fa fa-info-circle me-1"></i>
@@ -778,7 +849,7 @@ export default function YatimIndex() {
                       <button
                         type="submit"
                         className="btn btn-primary"
-                        disabled={submitting || !userId}
+                        disabled={submitting || !userId || pendaftaranDitutup}
                       >
                         {submitting ? (
                           <>
@@ -944,6 +1015,12 @@ export default function YatimIndex() {
                                 <div className="text-muted">
                                   <i className="fa fa-inbox fa-3x mb-3"></i>
                                   <p>Tidak ada data yatim</p>
+                                  {pendaftaranDitutup && (
+                                    <div className="alert alert-warning mt-2 small">
+                                      <i className="fa fa-info-circle me-1"></i>
+                                      Pendaftaran sudah ditutup
+                                    </div>
+                                  )}
                                 </div>
                               </td>
                             </tr>
@@ -1029,6 +1106,15 @@ export default function YatimIndex() {
         
         .template-info-section .card-header {
           border-bottom: 2px solid #ffc107;
+        }
+        
+        .form-overlay {
+          z-index: 1050;
+        }
+        
+        .form-overlay > div {
+          max-width: 400px;
+          border: 2px solid #dc3545;
         }
       `}</style>
     </LayoutAdmin>
