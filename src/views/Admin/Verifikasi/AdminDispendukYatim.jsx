@@ -569,7 +569,7 @@ export default function AdminDispendukYatim() {
                                                         <th scope="col" width="150">Status KK</th>
                                                         <th scope="col">Alasan Verifikasi KK</th>
                                                         <th scope="col" width="200">Aksi</th>
-                                                        <th scope="col" width="100">Alasan KK</th>
+                                                        {/* <th scope="col" width="100">Alasan KK</th> */}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -690,7 +690,7 @@ export default function AdminDispendukYatim() {
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                <td>
+                                                                {/* <td>
                                                                     <button
                                                                         onClick={() => handleOpenAlasanKkModal(item)}
                                                                         className="btn btn-outline-danger btn-sm w-100"
@@ -703,7 +703,7 @@ export default function AdminDispendukYatim() {
                                                                         <i className="fa fa-edit me-1"></i>
                                                                         {item.alasan_verif_kk ? 'Edit' : 'Tambah'}
                                                                     </button>
-                                                                </td>
+                                                                </td> */}
                                                             </tr>
                                                         ))
                                                     ) : (
