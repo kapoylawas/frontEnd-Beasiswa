@@ -22,7 +22,7 @@ import {
   FaGlobeAmericas,
   FaIdCard,
   FaShieldAlt,
-  FaCog
+  FaCog,
 } from "react-icons/fa";
 
 export default function Sidebar() {
@@ -48,9 +48,9 @@ export default function Sidebar() {
           name: "Dashboard",
           path: "/admin/dashboard",
           icon: <FaTachometerAlt className="sb-nav-link-icon" />,
-          permission: null
-        }
-      ]
+          permission: null,
+        },
+      ],
     },
     {
       id: "media",
@@ -65,11 +65,11 @@ export default function Sidebar() {
             {
               name: "Sliders",
               path: "/admin/sliders",
-              permission: ["sliders.index"]
-            }
-          ]
-        }
-      ]
+              permission: ["sliders.index"],
+            },
+          ],
+        },
+      ],
     },
     {
       id: "users",
@@ -85,23 +85,23 @@ export default function Sidebar() {
               name: "Roles",
               path: "/admin/roles",
               permission: ["roles.index"],
-              icon: <FaShieldAlt className="me-2" size={14} />
+              icon: <FaShieldAlt className="me-2" size={14} />,
             },
             {
               name: "Permissions",
               path: "/admin/permissions",
               permission: ["permissions.index"],
-              icon: <FaCog className="me-2" size={14} />
+              icon: <FaCog className="me-2" size={14} />,
             },
             {
               name: "Users",
               path: "/admin/usersManagement",
               permission: ["usersmanagement.index"],
-              icon: <FaUsers className="me-2" size={14} />
-            }
-          ]
-        }
-      ]
+              icon: <FaUsers className="me-2" size={14} />,
+            },
+          ],
+        },
+      ],
     },
     {
       id: "mahasiswa",
@@ -111,15 +111,15 @@ export default function Sidebar() {
           name: "Kategori Beasiswa",
           path: "/admin/mahasiswa",
           icon: <FaGraduationCap className="sb-nav-link-icon" />,
-          permission: ["mahasiswa.index"]
+          permission: ["mahasiswa.index"],
         },
         {
           name: "Riwayat Pendaftar",
           path: "/admin/riwayat",
           icon: <FaHistory className="sb-nav-link-icon" />,
-          permission: ["mahasiswa.index"]
-        }
-      ]
+          permission: ["mahasiswa.index"],
+        },
+      ],
     },
     {
       id: "dispora",
@@ -129,21 +129,21 @@ export default function Sidebar() {
           name: "Beasiswa Akademik",
           path: "/admin/adminAkademik",
           icon: <FaUniversity className="sb-nav-link-icon" />,
-          permission: ["dispora.index"]
+          permission: ["dispora.index"],
         },
         {
           name: "Non Akademik",
           path: "/admin/adminNonAkademik",
           icon: <FaUser className="sb-nav-link-icon" />,
-          permission: ["dispora.index"]
+          permission: ["dispora.index"],
         },
         {
           name: "Beasiswa Luar Negeri",
           path: "/admin/adminLuarNegeri",
           icon: <FaGlobeAmericas className="sb-nav-link-icon" />,
-          permission: ["dispora.index"]
-        }
-      ]
+          permission: ["dispora.index"],
+        },
+      ],
     },
     {
       id: "kesra",
@@ -153,27 +153,27 @@ export default function Sidebar() {
           name: "Kesra A",
           path: "/admin/adminKesra",
           icon: <FaHandsHelping className="sb-nav-link-icon" />,
-          permission: ["adminkesra.index"]
+          permission: ["adminkesra.index"],
         },
         {
           name: "Kesra B",
           path: "/admin/adminKesraB",
           icon: <FaHandsHelping className="sb-nav-link-icon" />,
-          permission: ["adminkesra.index"]
+          permission: ["adminkesra.index"],
         },
         {
           name: "Kesra C",
           path: "/admin/adminKesraC",
           icon: <FaHandsHelping className="sb-nav-link-icon" />,
-          permission: ["adminkesra.index"]
+          permission: ["adminkesra.index"],
         },
         {
           name: "Kesra D",
           path: "/admin/adminKesraD",
           icon: <FaHandsHelping className="sb-nav-link-icon" />,
-          permission: ["adminkesra.index"]
-        }
-      ]
+          permission: ["adminkesra.index"],
+        },
+      ],
     },
     {
       id: "dispenduk",
@@ -183,39 +183,45 @@ export default function Sidebar() {
           name: "Data Pendaftar",
           path: "/admin/adminDispenduk",
           icon: <FaIdCard className="sb-nav-link-icon" />,
-          permission: ["dispenduk.index"]
+          permission: ["dispenduk.index"],
         },
         {
           name: "Akademik",
           path: "/admin/adminDispendukAkademik",
           icon: <FaUniversity className="sb-nav-link-icon" />,
-          permission: ["dispenduk.index"]
+          permission: ["dispenduk.index"],
         },
         {
           name: "Non Akademik",
           path: "/admin/adminDispendukNonAkademik",
           icon: <FaUser className="sb-nav-link-icon" />,
-          permission: ["dispenduk.index"]
+          permission: ["dispenduk.index"],
         },
         {
           name: "Luar Negeri",
           path: "/admin/adminDispendukLuarNegeri",
           icon: <FaGlobeAmericas className="sb-nav-link-icon" />,
-          permission: ["dispenduk.index"]
+          permission: ["dispenduk.index"],
         },
         {
           name: "Beasiswa Kesra",
           path: "/admin/adminDispendukKesra",
           icon: <FaHandsHelping className="sb-nav-link-icon" />,
-          permission: ["dispenduk.index"]
+          permission: ["dispenduk.index"],
         },
         {
           name: "Beasiswa Dinsos",
           path: "/admin/adminDispendukDinsos",
           icon: <FaUsers className="sb-nav-link-icon" />,
-          permission: ["dispenduk.index"]
-        }
-      ]
+          permission: ["dispenduk.index"],
+        },
+        {
+          name: "Beasiswa Yatim",
+          path: "/admin/adminDispendukYatim",
+          icon: <FaUsers className="sb-nav-link-icon" />,
+          permission: ["dispenduk.index"],
+        },
+      ],
     },
     {
       id: "dinsos",
@@ -225,32 +231,35 @@ export default function Sidebar() {
           name: "Beasiswa Dinsos",
           path: "/admin/adminDinsos",
           icon: <FaUsers className="sb-nav-link-icon" />,
-          permission: ["admindinsos.index"]
+          permission: ["admindinsos.index"],
         },
         {
           name: "Beasiswa Yatim Piatu",
           path: "/admin/adminYatim",
           icon: <FaUsers className="sb-nav-link-icon" />,
-          permission: ["yatim.index"]
+          permission: ["yatim.index"],
         },
         {
           name: "Beasiswa Verifikasi Yatim Piatu",
           path: "/admin/verifYatim",
           icon: <FaUsers className="sb-nav-link-icon" />,
-          permission: ["verifyatim.index"]
-        }
-      ]
+          permission: ["verifyatim.index"],
+        },
+      ],
     },
   ];
 
   const isActive = (path) => {
-    return activeRoute[2] === path.split("/")[2] ? "nav-link active-sidebar" : "nav-link";
+    return activeRoute[2] === path.split("/")[2]
+      ? "nav-link active-sidebar"
+      : "nav-link";
   };
 
   const shouldShowSection = (section) => {
-    return section.items.some(item =>
-      item.permission === null ||
-      (Array.isArray(item.permission) && hasAnyPermission(item.permission))
+    return section.items.some(
+      (item) =>
+        item.permission === null ||
+        (Array.isArray(item.permission) && hasAnyPermission(item.permission))
     );
   };
 
@@ -260,19 +269,21 @@ export default function Sidebar() {
     }
 
     if (item.children) {
-      const isCollapsedActive = item.children.some(child =>
-        activeRoute[2] === child.path.split("/")[2]
+      const isCollapsedActive = item.children.some(
+        (child) => activeRoute[2] === child.path.split("/")[2]
       );
 
       return (
         <div key={index}>
           <a
-            className={`nav-link collapsed ${isCollapsedActive ? "active-sidebar" : ""}`}
+            className={`nav-link collapsed ${
+              isCollapsedActive ? "active-sidebar" : ""
+            }`}
             href="#"
             data-bs-toggle="collapse"
-            data-bs-target={`#collapse${item.name.replace(/\s+/g, '')}`}
+            data-bs-target={`#collapse${item.name.replace(/\s+/g, "")}`}
             aria-expanded={isCollapsedActive}
-            aria-controls={`collapse${item.name.replace(/\s+/g, '')}`}
+            aria-controls={`collapse${item.name.replace(/\s+/g, "")}`}
           >
             {item.icon}
             {item.name}
@@ -282,22 +293,24 @@ export default function Sidebar() {
           </a>
           <div
             className={`collapse ${isCollapsedActive ? "show" : ""}`}
-            id={`collapse${item.name.replace(/\s+/g, '')}`}
+            id={`collapse${item.name.replace(/\s+/g, "")}`}
             aria-labelledby="headingOne"
             data-bs-parent="#sidenavAccordion"
           >
             <nav className="sb-sidenav-menu-nested nav">
-              {item.children.map((child, childIndex) =>
-                child.permission && hasAnyPermission(child.permission) && (
-                  <Link
-                    key={childIndex}
-                    className={isActive(child.path)}
-                    to={child.path}
-                  >
-                    {child.icon}
-                    {child.name}
-                  </Link>
-                )
+              {item.children.map(
+                (child, childIndex) =>
+                  child.permission &&
+                  hasAnyPermission(child.permission) && (
+                    <Link
+                      key={childIndex}
+                      className={isActive(child.path)}
+                      to={child.path}
+                    >
+                      {child.icon}
+                      {child.name}
+                    </Link>
+                  )
               )}
             </nav>
           </div>
@@ -306,11 +319,7 @@ export default function Sidebar() {
     }
 
     return (
-      <Link
-        key={index}
-        className={isActive(item.path)}
-        to={item.path}
-      >
+      <Link key={index} className={isActive(item.path)} to={item.path}>
         {item.icon}
         {item.name}
       </Link>
@@ -318,24 +327,30 @@ export default function Sidebar() {
   };
 
   return (
-    <nav className="sb-sidenav accordion sb-sidenav-dark sb-sidenav-custom" id="sidenavAccordion">
+    <nav
+      className="sb-sidenav accordion sb-sidenav-dark sb-sidenav-custom"
+      id="sidenavAccordion"
+    >
       {/* Container dengan scroll */}
       <div className="sb-sidenav-container">
         <div className="sb-sidenav-menu">
           <div className="nav">
             <div className="sb-sidenav-menu-heading"></div>
 
-            {menuSections.map((section, index) =>
-              shouldShowSection(section) && (
-                <div key={index}>
-                  {section.heading && (
-                    <div className="sb-sidenav-menu-heading">
-                      <span className="heading-text">{section.heading}</span>
-                    </div>
-                  )}
-                  {section.items.map((item, itemIndex) => renderMenuItem(item, itemIndex))}
-                </div>
-              )
+            {menuSections.map(
+              (section, index) =>
+                shouldShowSection(section) && (
+                  <div key={index}>
+                    {section.heading && (
+                      <div className="sb-sidenav-menu-heading">
+                        <span className="heading-text">{section.heading}</span>
+                      </div>
+                    )}
+                    {section.items.map((item, itemIndex) =>
+                      renderMenuItem(item, itemIndex)
+                    )}
+                  </div>
+                )
             )}
           </div>
         </div>

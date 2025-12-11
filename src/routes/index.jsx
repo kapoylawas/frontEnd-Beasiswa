@@ -69,6 +69,7 @@ import YatimIndex from "../views/Admin/Yatim/Index";
 import YatimDetail from "../views/Admin/Yatim/YatimDetail";
 import VerifYatimIndex from "../views/Admin/VerifYatim/Index";
 import UserManagementIndex from "../views/Admin/UserManagement/Index";
+import AdminDispendukYatim from "../views/Admin/Verifikasi/AdminDispendukYatim";
 
 export default function RoutesIndex() {
   return (
@@ -588,6 +589,15 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <EditDispendukDinsos />
+          </PrivateRoutes>
+        }
+      />
+
+      <Route
+        path="/admin/adminDispendukYatim"
+        element={
+          <PrivateRoutes>
+            <AdminDispendukYatim />
           </PrivateRoutes>
         }
       />
