@@ -47,7 +47,7 @@ export default function Home() {
       <div className="container home-container mt-5 mb-5">
         <div className="home-vertical-layout">
           {/* Gambar Beasiswa Pendidikan Section */}
-          <div className="section-top">
+          {/* <div className="section-top">
             <div className="section-header">
               <i className="fas fa-graduation-cap"></i>
               <h2>Beasiswa Pendidikan Anak Yatim</h2>
@@ -74,7 +74,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Pengumuman Section */}
           <div className="section-top">
