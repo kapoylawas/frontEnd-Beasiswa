@@ -693,7 +693,7 @@ export default function AdminDispendukYatim() {
                                                                 <td>
                                                                     <button
                                                                         onClick={() => handleOpenAlasanKkModal(item)}
-                                                                        className="btn btn-outline-warning btn-sm w-100"
+                                                                        className="btn btn-outline-danger btn-sm w-100"
                                                                         title={
                                                                             item.verif_kk === 'verif' ? 'Edit Alasan Verifikasi KK' :
                                                                             item.verif_kk === 'ditolak' ? 'Edit Alasan Penolakan KK' :
