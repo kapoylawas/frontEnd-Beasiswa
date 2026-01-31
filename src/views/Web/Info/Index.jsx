@@ -561,14 +561,14 @@ export default function Info() {
                             <span>Mahasiswa aktif PTN/PTS, <strong>semester 2 sampai 8</strong></span>
                           </div>
                         </div>
-                        <div className="requirement-item">
+                        {/* <div className="requirement-item">
                           <div className="requirement-check">
                             <i className="fas fa-chart-line"></i>
                           </div>
                           <div className="requirement-text">
                             <span>IPK minimal: <strong>PTN ≥ 3,00</strong> atau <strong>PTS ≥ 3,25</strong></span>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
