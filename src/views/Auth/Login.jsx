@@ -95,10 +95,10 @@ export default function Login() {
                   }}
                 />
               </div>
-              <h1 className="app-title">Beasiswa Sidoarjo 2025</h1>
+              <h1 className="app-title">Beasiswa Sidoarjo 2026</h1>
               <p className="app-subtitle">
                 Pemerintah Kabupaten Sidoarjo mengapresiasi para mahasiswa
-                <br />Kabupaten Sidoarjo 2025
+                <br />Kabupaten Sidoarjo 2026
               </p>
             </div>
           </div>

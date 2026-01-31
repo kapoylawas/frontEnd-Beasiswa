@@ -21,10 +21,10 @@ export default function Info() {
               </div>
             </div>
             <h1 className="hero-title">
-              Persyaratan Beasiswa 2025
+              Persyaratan Beasiswa Kabupaten Sidoarjo
             </h1>
             <p className="hero-subtitle">
-              Program Beasiswa Sidoarjo 2025 telah
+              Program Beasiswa Sidoarjo telah
               <span className="highlight"> berhasil diselenggarakan</span>
             </p>
             <div className="completion-badge">
@@ -46,31 +46,24 @@ export default function Info() {
               <i className="fas fa-flag-checkered"></i>
             </div>
             <div className="notice-content">
-              <h3>Program Beasiswa 2025 Telah Berakhir</h3>
-              <p>Berikut adalah dokumentasi persyaratan yang digunakan dalam seleksi beasiswa tahun 2025. Informasi ini disimpan untuk referensi dan arsip.</p>
+              <h3>Program Beasiswa 2026 Telah Berakhir</h3>
+              <p>Berikut adalah dokumentasi persyaratan yang digunakan dalam seleksi beasiswa tahun 2026. Informasi ini disimpan untuk referensi dan arsip.</p>
             </div>
           </div>
 
-          {/* PERSYARATAN ADMINISTRASI SECTION */}
-          <div className="requirements-section">
-            <div className="section-header">
-              <i className="fas fa-file-alt"></i>
-              <h2>Persyaratan Administrasi</h2>
-            </div>
-            
-            <div className="requirements-header">
-              <div className="requirements-intro-card">
-                <div className="intro-icon">
-                  <i className="fas fa-graduation-cap"></i>
-                </div>
-                <div className="intro-content">
-                  <h3>Calon Penerima Beasiswa Anak Yatim</h3>
-                  <p>Jenjang SD Negeri, SMP Negeri, dan SMA Negeri</p>
-                  <div className="intro-badge">
-                    <i className="fas fa-info-circle"></i>
-                    Dokumentasi Persyaratan Tahun 2025
-                  </div>
-                </div>
+          {/* ============= BAGIAN BEASISWA YATIM ============= */}
+          <div className="requirements-section yatim-section">
+            <div className="program-header">
+              <div className="program-icon yatim">
+                <i className="fas fa-child"></i>
+              </div>
+              <div className="program-title">
+                <h2>Beasiswa Anak Yatim</h2>
+                <p>Untuk siswa SD Negeri, SMP Negeri, dan SMA Negeri di Kabupaten Sidoarjo</p>
+              </div>
+              <div className="program-badge yatim-badge">
+                <i className="fas fa-graduation-cap"></i>
+                Siswa
               </div>
             </div>
 
@@ -166,7 +159,7 @@ export default function Info() {
                         <i className="fas fa-handshake"></i>
                       </div>
                       <div className="requirement-text">
-                        <span>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun dibuktikan dengan <strong>surat pernyataan tidak menerima beasiswa</strong> dari Lembaga/Donatur lainnya oleh orang tua/wali siswa yang diketahui oleh sekolah</span>
+                        <span>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun dibuktikan dengan <strong>surat pernyataan tidak menerima beasiswa</strong> dari Lembaga/Donatur lainnya yang diketahui oleh sekolah</span>
                       </div>
                     </div>
                   </div>
@@ -217,13 +210,235 @@ export default function Info() {
             </div>
 
             {/* Archive Notice */}
-            <div className="archive-notice">
+            <div className="archive-notice yatim-archive">
               <div className="archive-icon">
                 <i className="fas fa-archive"></i>
               </div>
               <div className="archive-content">
-                <h3>Dokumentasi Program 2025</h3>
-                <p>Halaman ini merupakan arsip resmi persyaratan beasiswa Sidoarjo tahun 2025. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
+                <h3>Dokumentasi Beasiswa Yatim 2026</h3>
+                <p>Halaman ini merupakan arsip resmi persyaratan beasiswa yatim Sidoarjo tahun 2026. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* ============= BAGIAN BEASISWA PRESTASI ============= */}
+          <div className="requirements-section prestasi-section">
+            <div className="program-header">
+              <div className="program-icon prestasi">
+                <i className="fas fa-trophy"></i>
+              </div>
+              <div className="program-title">
+                <h2>Beasiswa Prestasi</h2>
+                <p>Untuk mahasiswa berprestasi di Perguruan Tinggi Kabupaten Sidoarjo</p>
+              </div>
+              <div className="program-badge prestasi-badge">
+                <i className="fas fa-user-graduate"></i>
+                Mahasiswa
+              </div>
+            </div>
+
+            <div className="requirements-grid">
+              {/* Proses Pendaftaran */}
+              <div className="requirement-card process">
+                <div className="card-header">
+                  <div className="card-icon">
+                    <i className="fas fa-laptop"></i>
+                  </div>
+                  <h3>Proses Pendaftaran</h3>
+                  <div className="card-number">01</div>
+                </div>
+                <div className="card-content">
+                  <p>Mahasiswa mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan.</p>
+                  <div className="process-steps">
+                    <div className="step">
+                      <div className="step-number">1</div>
+                      <span>Isi formulir online</span>
+                    </div>
+                    <div className="step">
+                      <div className="step-number">2</div>
+                      <span>Upload dokumen persyaratan</span>
+                    </div>
+                    <div className="step">
+                      <div className="step-number">3</div>
+                      <span>Submit pendaftaran</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Persyaratan Umum */}
+              <div className="requirement-card general">
+                <div className="card-header">
+                  <div className="card-icon">
+                    <i className="fas fa-users"></i>
+                  </div>
+                  <h3>Persyaratan Umum</h3>
+                  <div className="card-number">02</div>
+                </div>
+                <div className="card-content">
+                  <div className="requirements-list">
+                    <div className="requirement-item">
+                      <div className="requirement-check">
+                        <i className="fas fa-check-circle"></i>
+                      </div>
+                      <div className="requirement-text">
+                        <span>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan <strong>Kartu Keluarga (KK)</strong> dan <strong>KTP Elektronik (KTP-EL)</strong></span>
+                      </div>
+                    </div>
+                    <div className="requirement-item">
+                      <div className="requirement-check">
+                        <i className="fas fa-check-circle"></i>
+                      </div>
+                      <div className="requirement-text">
+                        <span>Terdaftar sebagai mahasiswa aktif di Perguruan Tinggi yang dibuktikan dengan <strong>Surat Keterangan Aktif Kuliah</strong> dan <strong>Kartu Identitas Kemahasiswaan</strong></span>
+                      </div>
+                    </div>
+                    <div className="requirement-item">
+                      <div className="requirement-check">
+                        <i className="fas fa-check-circle"></i>
+                      </div>
+                      <div className="requirement-text">
+                        <span>Tidak sedang menerima beasiswa untuk tujuan serupa/sejenis dari pihak manapun dibuktikan dengan <strong>Surat Pernyataan</strong> yang diketahui oleh Perguruan Tinggi</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Persyaratan Khusus */}
+              <div className="requirement-card special">
+                <div className="card-header">
+                  <div className="card-icon">
+                    <i className="fas fa-medal"></i>
+                  </div>
+                  <h3>Persyaratan Prestasi</h3>
+                  <div className="card-number">03</div>
+                </div>
+                <div className="card-content">
+                  
+                  {/* Prestasi Akademik */}
+                  <div className="achievement-section akademik">
+                    <div className="achievement-header">
+                      <i className="fas fa-graduation-cap"></i>
+                      <div>
+                        <h4>Prestasi Akademik</h4>
+                        <p>IPK minimum 3.40</p>
+                      </div>
+                      <span className="achievement-badge">Wajib</span>
+                    </div>
+                    <div className="achievement-details">
+                      <div className="detail-item">
+                        <i className="fas fa-file-alt"></i>
+                        <div>
+                          <strong>Transkrip Nilai</strong>
+                          <p>Transkrip nilai pada semester terakhir yang telah ditempuh</p>
+                        </div>
+                      </div>
+                      <div className="detail-item">
+                        <i className="fas fa-university"></i>
+                        <div>
+                          <strong>Akreditasi</strong>
+                          <p>Program studi/Perguruan Tinggi harus memiliki akreditasi</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Prestasi Non-Akademik */}
+                  <div className="achievement-section non-akademik">
+                    <div className="achievement-header">
+                      <i className="fas fa-trophy"></i>
+                      <div>
+                        <h4>Prestasi Non-Akademik</h4>
+                        <p>Prestasi dalam 4 tahun terakhir</p>
+                      </div>
+                      <span className="achievement-badge">Optional</span>
+                    </div>
+                    <div className="achievement-details">
+                      <div className="detail-item">
+                        <i className="fas fa-certificate"></i>
+                        <div>
+                          <strong>Bukti Prestasi</strong>
+                          <p>Sertifikat, piagam, surat keterangan, atau dokumen lain yang dipersamakan</p>
+                        </div>
+                      </div>
+                      <div className="detail-item">
+                        <i className="fas fa-calendar-alt"></i>
+                        <div>
+                          <strong>Waktu Pencapaian</strong>
+                          <p>Prestasi diperoleh dalam kurun waktu 4 tahun terakhir</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="achievement-fields">
+                      <strong>Bidang Prestasi:</strong>
+                      <div className="field-tags">
+                        <span className="field-tag">Ilmu Pengetahuan</span>
+                        <span className="field-tag">Teknologi</span>
+                        <span className="field-tag">Kebudayaan</span>
+                        <span className="field-tag">Olahraga</span>
+                        <span className="field-tag">Sosial</span>
+                        <span className="field-tag">Kemanusiaan</span>
+                        <span className="field-tag">Lingkungan</span>
+                        <span className="field-tag">Nasionalisme</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+              {/* Informasi Tambahan */}
+              <div className="requirement-card info">
+                <div className="card-header">
+                  <div className="card-icon">
+                    <i className="fas fa-info-circle"></i>
+                  </div>
+                  <h3>Catatan Penting</h3>
+                  <div className="card-number">04</div>
+                </div>
+                <div className="card-content">
+                  <div className="info-items">
+                    <div className="info-item">
+                      <div className="info-icon">
+                        <i className="fas fa-file-signature"></i>
+                      </div>
+                      <div className="info-text">
+                        <h4>Dokumen Resmi</h4>
+                        <p>Semua dokumen harus asli atau legalisir dari pihak berwenang</p>
+                      </div>
+                    </div>
+                    <div className="info-item">
+                      <div className="info-icon">
+                        <i className="fas fa-university"></i>
+                      </div>
+                      <div className="info-text">
+                        <h4>Validasi Kampus</h4>
+                        <p>Surat pernyataan dan keterangan aktif kuliah harus diketahui/dilegalisir oleh perguruan tinggi</p>
+                      </div>
+                    </div>
+                    <div className="info-item">
+                      <div className="info-icon">
+                        <i className="fas fa-clock"></i>
+                      </div>
+                      <div className="info-text">
+                        <h4>Masa Berlaku</h4>
+                        <p>Prestasi non-akademik maksimal 4 tahun terakhir dari tanggal pendaftaran</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Archive Notice */}
+            <div className="archive-notice prestasi-archive">
+              <div className="archive-icon">
+                <i className="fas fa-archive"></i>
+              </div>
+              <div className="archive-content">
+                <h3>Dokumentasi Beasiswa Prestasi 2026</h3>
+                <p>Halaman ini merupakan arsip resmi persyaratan beasiswa prestasi Sidoarjo tahun 2026. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
               </div>
             </div>
           </div>
@@ -302,11 +517,15 @@ export default function Info() {
                   <div className="contact-card-info">
                     <h3>Website Resmi</h3>
                     <p>Informasi dan Pendaftaran Online</p>
+                    <div className="contact-badge">
+                      <i className="fas fa-graduation-cap"></i>
+                      Semua Jenjang
+                    </div>
                   </div>
                 </div>
                 <div className="contact-card-content">
                   <p className="website-description">
-                    Untuk informasi terbaru dan pendaftaran online:
+                    Untuk informasi terbaru dan pendaftaran online semua jenis beasiswa:
                   </p>
                   <a href="https://beasiswa.sidoarjokab.go.id/" className="website-link">
                     <i className="fas fa-external-link-alt"></i>
@@ -460,108 +679,116 @@ export default function Info() {
           line-height: 1.5;
         }
 
-        /* PERSYARATAN ADMINISTRASI SECTION */
+        /* Requirements Section */
         .requirements-section {
           background: white;
           border-radius: 20px;
           padding: 40px;
           box-shadow: 0 10px 30px rgba(30, 60, 114, 0.1);
           border: 1px solid #e8f0ff;
-          margin-bottom: 30px;
-        }
-
-        .section-header {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          margin-bottom: 30px;
-          padding-bottom: 15px;
-          border-bottom: 3px solid #1e3c72;
-        }
-
-        .section-header i {
-          font-size: 2rem;
-          color: #1e3c72;
-          background: linear-gradient(135deg, #1e3c72, #2a5298);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        .section-header h2 {
-          font-size: 2rem;
-          font-weight: 700;
-          color: #1e3c72;
-          margin: 0;
-        }
-
-        .requirements-header {
           margin-bottom: 40px;
-        }
-
-        .requirements-intro-card {
-          display: flex;
-          align-items: center;
-          gap: 20px;
-          background: linear-gradient(135deg, #1e3c72, #2a5298);
-          color: white;
-          padding: 30px;
-          border-radius: 16px;
-          box-shadow: 0 10px 30px rgba(30, 60, 114, 0.2);
           position: relative;
           overflow: hidden;
         }
 
-        .requirements-intro-card::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 200px;
-          height: 200px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 50%;
-          transform: translate(30%, -30%);
+        .yatim-section {
+          border-top: 5px solid #2196F3;
         }
 
-        .intro-icon {
-          width: 70px;
-          height: 70px;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 16px;
+        .prestasi-section {
+          border-top: 5px solid #FF9800;
+        }
+
+        /* Program Header */
+        .program-header {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+          border-bottom: 3px solid;
+          position: relative;
+        }
+
+        .yatim-section .program-header {
+          border-bottom-color: #2196F3;
+        }
+
+        .prestasi-section .program-header {
+          border-bottom-color: #FF9800;
+        }
+
+        .program-icon {
+          width: 80px;
+          height: 80px;
+          border-radius: 20px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1.8rem;
+          color: white;
+          font-size: 2rem;
           flex-shrink: 0;
         }
 
-        .intro-content {
+        .program-icon.yatim {
+          background: linear-gradient(135deg, #2196F3, #21CBF3);
+          box-shadow: 0 10px 20px rgba(33, 150, 243, 0.3);
+        }
+
+        .program-icon.prestasi {
+          background: linear-gradient(135deg, #FF9800, #FF5722);
+          box-shadow: 0 10px 20px rgba(255, 152, 0, 0.3);
+        }
+
+        .program-title {
           flex: 1;
         }
 
-        .intro-content h3 {
-          font-size: 1.5rem;
+        .program-title h2 {
+          font-size: 2.2rem;
           font-weight: 700;
           margin: 0 0 10px 0;
+          color: #1e3c72;
         }
 
-        .intro-content p {
+        .yatim-section .program-title h2 {
+          color: #1565c0;
+        }
+
+        .prestasi-section .program-title h2 {
+          color: #e65100;
+        }
+
+        .program-title p {
           font-size: 1.1rem;
-          opacity: 0.9;
-          margin: 0 0 15px 0;
+          color: #666;
+          margin: 0;
         }
 
-        .intro-badge {
-          display: inline-flex;
+        .program-badge {
+          display: flex;
           align-items: center;
           gap: 8px;
-          background: rgba(255, 255, 255, 0.2);
-          padding: 8px 15px;
-          border-radius: 20px;
-          font-size: 0.9rem;
+          padding: 10px 20px;
+          border-radius: 25px;
           font-weight: 600;
+          font-size: 0.95rem;
+          white-space: nowrap;
         }
 
+        .yatim-badge {
+          background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+          color: #1565c0;
+          border: 2px solid #90caf9;
+        }
+
+        .prestasi-badge {
+          background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+          color: #e65100;
+          border: 2px solid #ffcc80;
+        }
+
+        /* Requirements Grid */
         .requirements-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -676,6 +903,7 @@ export default function Info() {
           margin-bottom: 15px;
         }
 
+        /* Process Steps */
         .process-steps {
           display: flex;
           flex-direction: column;
@@ -709,6 +937,7 @@ export default function Info() {
           font-size: 0.9rem;
         }
 
+        /* Requirements List */
         .requirements-list {
           display: flex;
           flex-direction: column;
@@ -760,6 +989,140 @@ export default function Info() {
           font-weight: 600;
         }
 
+        /* Achievement Sections */
+        .achievement-section {
+          background: #f9f9f9;
+          border-radius: 12px;
+          padding: 20px;
+          margin-bottom: 20px;
+          border: 1px solid #e8f0ff;
+        }
+
+        .achievement-section:last-child {
+          margin-bottom: 0;
+        }
+
+        .achievement-section.akademik {
+          border-left: 4px solid #4CAF50;
+        }
+
+        .achievement-section.non-akademik {
+          border-left: 4px solid #FF9800;
+        }
+
+        .achievement-header {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 15px;
+        }
+
+        .achievement-header i {
+          font-size: 1.5rem;
+          color: #1e3c72;
+        }
+
+        .achievement-header > div {
+          flex: 1;
+        }
+
+        .achievement-header h4 {
+          color: #1e3c72;
+          margin: 0 0 5px 0;
+          font-size: 1.1rem;
+        }
+
+        .achievement-header p {
+          color: #666;
+          margin: 0;
+          font-size: 0.9rem;
+        }
+
+        .achievement-badge {
+          background: #ffd700;
+          color: #8d6e00;
+          padding: 5px 12px;
+          border-radius: 15px;
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+
+        .achievement-details {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 15px;
+          margin-bottom: 15px;
+        }
+
+        @media (max-width: 576px) {
+          .achievement-details {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        .detail-item {
+          display: flex;
+          gap: 12px;
+          padding: 12px;
+          background: white;
+          border-radius: 8px;
+          border: 1px solid #e8f0ff;
+        }
+
+        .detail-item i {
+          color: #1e3c72;
+          font-size: 1rem;
+          margin-top: 3px;
+        }
+
+        .detail-item div {
+          flex: 1;
+        }
+
+        .detail-item strong {
+          display: block;
+          color: #1e3c72;
+          margin-bottom: 4px;
+          font-size: 0.95rem;
+        }
+
+        .detail-item p {
+          color: #666;
+          margin: 0;
+          font-size: 0.85rem;
+          line-height: 1.4;
+        }
+
+        .achievement-fields {
+          background: white;
+          padding: 15px;
+          border-radius: 8px;
+          border: 1px solid #e8f0ff;
+        }
+
+        .achievement-fields strong {
+          display: block;
+          color: #1e3c72;
+          margin-bottom: 10px;
+          font-size: 0.95rem;
+        }
+
+        .field-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        .field-tag {
+          background: #e3f2fd;
+          color: #1565c0;
+          padding: 5px 10px;
+          border-radius: 15px;
+          font-size: 0.8rem;
+          font-weight: 500;
+        }
+
+        /* Info Items */
         .info-items {
           display: flex;
           flex-direction: column;
@@ -814,6 +1177,16 @@ export default function Info() {
           margin-top: 30px;
         }
 
+        .yatim-archive {
+          border-color: #2196F3;
+          background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+        }
+
+        .prestasi-archive {
+          border-color: #FF9800;
+          background: linear-gradient(135deg, #fff3e0, #fff8e1);
+        }
+
         .archive-icon {
           width: 60px;
           height: 60px;
@@ -827,10 +1200,26 @@ export default function Info() {
           flex-shrink: 0;
         }
 
+        .yatim-archive .archive-icon {
+          background: #2196F3;
+        }
+
+        .prestasi-archive .archive-icon {
+          background: #FF9800;
+        }
+
         .archive-content h3 {
           color: #e65100;
           margin: 0 0 10px 0;
           font-size: 1.3rem;
+        }
+
+        .yatim-archive .archive-content h3 {
+          color: #1565c0;
+        }
+
+        .prestasi-archive .archive-content h3 {
+          color: #e65100;
         }
 
         .archive-content p {
@@ -1070,13 +1459,19 @@ export default function Info() {
           
           .completion-notice,
           .archive-notice,
-          .requirements-intro-card {
+          .program-header {
             flex-direction: column;
             text-align: center;
+            gap: 15px;
           }
           
           .requirements-section {
             padding: 30px 25px;
+          }
+          
+          .program-icon {
+            width: 70px;
+            height: 70px;
           }
         }
 
@@ -1117,18 +1512,8 @@ export default function Info() {
             font-size: 1.5rem;
           }
           
-          .section-header {
-            flex-direction: column;
-            text-align: center;
-            gap: 10px;
-          }
-          
-          .section-header h2 {
-            font-size: 1.5rem;
-          }
-          
-          .requirements-intro-card h3 {
-            font-size: 1.3rem;
+          .program-title h2 {
+            font-size: 1.8rem;
           }
           
           .requirement-item,

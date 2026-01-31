@@ -77,7 +77,7 @@ export default function App() {
             <div className="footer-bottom-content">
               <div className="copyright">
                 <i className="far fa-copyright"></i>
-                <span>2025 Beasiswa Sidoarjo. All Rights Reserved.</span>
+                <span>2026 Beasiswa Sidoarjo. All Rights Reserved.</span>
               </div>
               <div className="footer-credits">
                 <span>Dikelola oleh Pemerintah Kabupaten Sidoarjo</span>

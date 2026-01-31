@@ -22,21 +22,21 @@ export default function Home() {
             </div>
 
             <h1 className="hero-title">
-              Beasiswa <span className="highlight">Sidoarjo 2025</span>
+              Beasiswa <span className="highlight">Sidoarjo 2026 </span>
             </h1>
 
             <p className="hero-subtitle">
-              Program Beasiswa Sidoarjo 2025 telah
-              <span className="highlight-text"> berhasil diselenggarakan</span>
+              Program Beasiswa Sidoarjo  telah
+              <span className="highlight-text"> diselenggarakan</span>
             </p>
 
             {/* Stats Section */}
-            <div className="hero-stats">
+            {/* <div className="hero-stats">
               <div className="stat-item">
-                <div className="stat-number">500+</div>
+                <div className="stat-number">4000+</div>
                 <div className="stat-label">Penerima Beasiswa</div>
               </div>
-            </div>
+            </div> */}
 
             <div className="hero-divider"></div>
           </div>
@@ -77,7 +77,7 @@ export default function Home() {
           </div> */}
 
           {/* Pengumuman Section */}
-          <div className="section-top">
+          {/* <div className="section-top">
             <div className="section-header">
               <i className="fas fa-bullhorn"></i>
               <h2>Pengumuman</h2>
@@ -90,7 +90,7 @@ export default function Home() {
                 </div>
                 <div className="announcement-image-preview-vertical">
                   <img
-                    src="/2025.jpeg"
+                    src="/.jpeg"
                     alt="Pengumuman Beasiswa"
                     className="img-fluid"
                   />
@@ -107,7 +107,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Persyaratan Administrasi Section - DESAIN BARU */}
           <div className="section-requirements">

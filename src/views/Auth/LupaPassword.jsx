@@ -107,7 +107,7 @@ export default function LupaPassword() {
                                     />
                                 </div>
                                 <div className="title-container">
-                                    <h1 className="app-title">Beasiswa Sidoarjo 2025</h1>
+                                    <h1 className="app-title">Beasiswa Sidoarjo 2026</h1>
                                     <p className="app-subtitle">
                                         Reset Password Akun Anda
                                     </p>
