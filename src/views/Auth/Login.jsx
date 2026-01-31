@@ -225,7 +225,7 @@ export default function Login() {
                   <i className="fa-solid fa-hands-holding-child"></i>
                   <div>
                     <h3>Yatim</h3>
-                    <p>Login menggunakan NISN (10 digit)</p>
+                    <p>Login menggunakan NPSN (10 digit)</p>
                   </div>
                 </div>
               </div>
@@ -235,7 +235,7 @@ export default function Login() {
           <div className="login-right">
             <div className="login-card">
               <div className="card-header">
-                <p>Silakan masuk dengan NIK/NISN dan password Anda</p>
+                <p>Silakan masuk dengan NIK/NPSN dan password Anda</p>
               </div>
 
               {errors.message && (
@@ -248,7 +248,7 @@ export default function Login() {
               <form onSubmit={login} className="login-form">
                 <div className="form-row">
                   <div className="form-group">
-                    <label className="form-label">NIK / NISN</label>
+                    <label className="form-label">NIK / NPSN</label>
                     <div className="input-container">
                       <div className="input-icon">
                         <i className="fa fa-id-card"></i>
@@ -258,13 +258,13 @@ export default function Login() {
                         className={`form-input ${errors.nik || errors.nisn ? 'error' : ''}`}
                         value={nik}
                         onChange={(e) => setNik(e.target.value)}
-                        placeholder="NIK atau NISN"
+                        placeholder="NIK atau NPSN"
                       />
                     </div>
-                    {(errors.nik || errors.nisn) && (
+                    {(errors.nik || errors.npsn) && (
                       <div className="error-message">
                         <i className="fa-solid fa-circle-exclamation"></i>
-                        <span>{errors.nik?.[0] || errors.nisn?.[0]}</span>
+                        <span>{errors.nik?.[0] || errors.npsn?.[0]}</span>
                       </div>
                     )}
                   </div>
