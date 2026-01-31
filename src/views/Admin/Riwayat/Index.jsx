@@ -355,12 +355,12 @@ export default function RiwayatIndex() {
                                       </button>
                                     </div>
 
-                                    <div>
+                                    {/* <div>
                                       <button onClick={handleButtonClick} >
                                         Cek Data
                                       </button>
 
-                                    </div>
+                                    </div> */}
                                   </>
                                 ) : (
                                   <button
