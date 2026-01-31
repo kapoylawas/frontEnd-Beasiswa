@@ -1,9 +1,13 @@
 import LayoutWeb from "../../../layouts/Web";
+import { useState } from "react";
 
 export default function Info() {
   // Helpdesk Penerimaan Beasiswa Yatim
   const dinsosYatim = `https://wa.me/6282230338338`;
   const diknasYatim = `https://wa.me/6281336766061`;
+  
+  // State untuk tab aktif
+  const [activeTab, setActiveTab] = useState('yatim');
 
   return (
     <LayoutWeb>
@@ -51,489 +55,1107 @@ export default function Info() {
             </div>
           </div>
 
-          {/* ============= BAGIAN BEASISWA YATIM ============= */}
-          <div className="requirements-section yatim-section">
-            <div className="program-header">
-              <div className="program-icon yatim">
-                <i className="fas fa-child"></i>
-              </div>
-              <div className="program-title">
-                <h2>Beasiswa Anak Yatim</h2>
-                <p>Untuk siswa SD Negeri, SMP Negeri, dan SMA Negeri di Kabupaten Sidoarjo</p>
-              </div>
-              <div className="program-badge yatim-badge">
-                <i className="fas fa-graduation-cap"></i>
-                Siswa
-              </div>
-            </div>
-
-            <div className="requirements-grid">
-              {/* Proses Pendaftaran */}
-              <div className="requirement-card process">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-laptop"></i>
-                  </div>
-                  <h3>Proses Pendaftaran</h3>
-                  <div className="card-number">01</div>
-                </div>
-                <div className="card-content">
-                  <p>Sekolah mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan.</p>
-                  <div className="process-steps">
-                    <div className="step">
-                      <div className="step-number">1</div>
-                      <span>Isi formulir online</span>
-                    </div>
-                    <div className="step">
-                      <div className="step-number">2</div>
-                      <span>Upload dokumen persyaratan</span>
-                    </div>
-                    <div className="step">
-                      <div className="step-number">3</div>
-                      <span>Submit pendaftaran</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Persyaratan Umum */}
-              <div className="requirement-card general">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-users"></i>
-                  </div>
-                  <h3>Persyaratan Umum</h3>
-                  <div className="card-number">02</div>
-                </div>
-                <div className="card-content">
-                  <div className="requirements-list">
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-check-circle"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan <strong>Kartu Keluarga (KK)</strong></span>
-                      </div>
-                    </div>
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-check-circle"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>Terdaftar sebagai siswa di sekolah <strong>SD Negeri, SMP Negeri, dan SMA Negeri</strong> yang dibuktikan dengan surat keterangan dari sekolah</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Persyaratan Khusus */}
-              <div className="requirement-card special">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-user-check"></i>
-                  </div>
-                  <h3>Persyaratan Khusus</h3>
-                  <div className="card-number">03</div>
-                </div>
-                <div className="card-content">
-                  <div className="requirements-list">
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-database"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>Terdaftar dalam <strong>Data Tunggal Sosial Ekonomi Nasional (DTSEN)</strong> desil 1, 2, 3, 4, dan 5 <strong>ATAU</strong> melampirkan <strong>Surat Keterangan Tidak Mampu (SKTM)</strong> dari Desa/Kelurahan</span>
-                      </div>
-                    </div>
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-file-certificate"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span><strong>Akte Kematian</strong> yang diterbitkan Dinas Kependudukan dan Pencatatan Sipil <strong>ATAU</strong> <strong>Surat Kematian</strong> yang diterbitkan Desa/Kelurahan</span>
-                      </div>
-                    </div>
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-handshake"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun dibuktikan dengan <strong>surat pernyataan tidak menerima beasiswa</strong> dari Lembaga/Donatur lainnya yang diketahui oleh sekolah</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Informasi Tambahan */}
-              <div className="requirement-card info">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-info-circle"></i>
-                  </div>
-                  <h3>Informasi Penting</h3>
-                  <div className="card-number">04</div>
-                </div>
-                <div className="card-content">
-                  <div className="info-items">
-                    <div className="info-item">
-                      <div className="info-icon">
-                        <i className="fas fa-exclamation-triangle"></i>
-                      </div>
-                      <div className="info-text">
-                        <h4>Dokumen Lengkap</h4>
-                        <p>Pastikan semua dokumen sudah lengkap dan valid sebelum mengajukan permohonan</p>
-                      </div>
-                    </div>
-                    <div className="info-item">
-                      <div className="info-icon">
-                        <i className="fas fa-upload"></i>
-                      </div>
-                      <div className="info-text">
-                        <h4>Format File</h4>
-                        <p>Upload dokumen dalam format PDF dengan ukuran maksimal 2MB per file</p>
-                      </div>
-                    </div>
-                    <div className="info-item">
-                      <div className="info-icon">
-                        <i className="fas fa-clock"></i>
-                      </div>
-                      <div className="info-text">
-                        <h4>Periksa Kembali</h4>
-                        <p>Periksa kembali semua persyaratan sebelum melakukan submit pendaftaran</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Archive Notice */}
-            <div className="archive-notice yatim-archive">
-              <div className="archive-icon">
-                <i className="fas fa-archive"></i>
-              </div>
-              <div className="archive-content">
-                <h3>Dokumentasi Beasiswa Yatim 2026</h3>
-                <p>Halaman ini merupakan arsip resmi persyaratan beasiswa yatim Sidoarjo tahun 2026. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
-              </div>
+          {/* Tab Navigation */}
+          <div className="scholarship-tabs">
+            <div className="tabs-container">
+              <button 
+                className={`tab-button ${activeTab === 'yatim' ? 'active' : ''}`}
+                onClick={() => setActiveTab('yatim')}
+              >
+                <i className="fas fa-child tab-icon"></i>
+                <span>Beasiswa Yatim</span>
+                <div className="tab-badge">SD/SMP/SMA</div>
+              </button>
+              
+              <button 
+                className={`tab-button ${activeTab === 'prestasi' ? 'active' : ''}`}
+                onClick={() => setActiveTab('prestasi')}
+              >
+                <i className="fas fa-trophy tab-icon"></i>
+                <span>Beasiswa Prestasi</span>
+                <div className="tab-badge">Mahasiswa</div>
+              </button>
+              
+              <button 
+                className={`tab-button ${activeTab === 'kurang-mampu' ? 'active' : ''}`}
+                onClick={() => setActiveTab('kurang-mampu')}
+              >
+                <i className="fas fa-hands-helping tab-icon"></i>
+                <span>Beasiswa Kurang Mampu</span>
+                <div className="tab-badge">Mahasiswa</div>
+              </button>
+              
+              <button 
+                className={`tab-button ${activeTab === 'keagamaan' ? 'active' : ''}`}
+                onClick={() => setActiveTab('keagamaan')}
+              >
+                <i className="fas fa-mosque tab-icon"></i>
+                <span>Beasiswa Keagamaan</span>
+                <div className="tab-badge">Mahasiswa</div>
+              </button>
             </div>
           </div>
 
-          {/* ============= BAGIAN BEASISWA PRESTASI ============= */}
-          <div className="requirements-section prestasi-section">
-            <div className="program-header">
-              <div className="program-icon prestasi">
-                <i className="fas fa-trophy"></i>
-              </div>
-              <div className="program-title">
-                <h2>Beasiswa Prestasi</h2>
-                <p>Untuk mahasiswa berprestasi di Perguruan Tinggi Kabupaten Sidoarjo</p>
-              </div>
-              <div className="program-badge prestasi-badge">
-                <i className="fas fa-user-graduate"></i>
-                Mahasiswa
-              </div>
-            </div>
+          {/* Tab Content */}
+          <div className="tab-content">
+            
+            {/* ============= BAGIAN BEASISWA YATIM ============= */}
+            {activeTab === 'yatim' && (
+              <div className="requirements-section yatim-section">
+                <div className="program-header">
+                  <div className="program-icon yatim">
+                    <i className="fas fa-child"></i>
+                  </div>
+                  <div className="program-title">
+                    <h2>Beasiswa Anak Yatim</h2>
+                    <p>Untuk siswa SD Negeri, SMP Negeri, dan SMA Negeri di Kabupaten Sidoarjo</p>
+                  </div>
+                  <div className="program-badge yatim-badge">
+                    <i className="fas fa-graduation-cap"></i>
+                    Siswa
+                  </div>
+                </div>
 
-            <div className="requirements-grid">
-              {/* Proses Pendaftaran */}
-              <div className="requirement-card process">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-laptop"></i>
-                  </div>
-                  <h3>Proses Pendaftaran</h3>
-                  <div className="card-number">01</div>
-                </div>
-                <div className="card-content">
-                  <p>Mahasiswa mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan.</p>
-                  <div className="process-steps">
-                    <div className="step">
-                      <div className="step-number">1</div>
-                      <span>Isi formulir online</span>
-                    </div>
-                    <div className="step">
-                      <div className="step-number">2</div>
-                      <span>Upload dokumen persyaratan</span>
-                    </div>
-                    <div className="step">
-                      <div className="step-number">3</div>
-                      <span>Submit pendaftaran</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Persyaratan Umum */}
-              <div className="requirement-card general">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-users"></i>
-                  </div>
-                  <h3>Persyaratan Umum</h3>
-                  <div className="card-number">02</div>
-                </div>
-                <div className="card-content">
-                  <div className="requirements-list">
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-check-circle"></i>
+                <div className="requirements-grid">
+                  {/* Proses Pendaftaran */}
+                  <div className="requirement-card process">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-laptop"></i>
                       </div>
-                      <div className="requirement-text">
-                        <span>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan <strong>Kartu Keluarga (KK)</strong> dan <strong>KTP Elektronik (KTP-EL)</strong></span>
-                      </div>
+                      <h3>Proses Pendaftaran</h3>
+                      <div className="card-number">01</div>
                     </div>
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-check-circle"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>Terdaftar sebagai mahasiswa aktif di Perguruan Tinggi yang dibuktikan dengan <strong>Surat Keterangan Aktif Kuliah</strong> dan <strong>Kartu Identitas Kemahasiswaan</strong></span>
-                      </div>
-                    </div>
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-check-circle"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>Tidak sedang menerima beasiswa untuk tujuan serupa/sejenis dari pihak manapun dibuktikan dengan <strong>Surat Pernyataan</strong> yang diketahui oleh Perguruan Tinggi</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Persyaratan Khusus */}
-              <div className="requirement-card special">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-medal"></i>
-                  </div>
-                  <h3>Persyaratan Prestasi</h3>
-                  <div className="card-number">03</div>
-                </div>
-                <div className="card-content">
-                  
-                  {/* Prestasi Akademik */}
-                  <div className="achievement-section akademik">
-                    <div className="achievement-header">
-                      <i className="fas fa-graduation-cap"></i>
-                      <div>
-                        <h4>Prestasi Akademik</h4>
-                        <p>IPK minimum 3.40</p>
-                      </div>
-                      <span className="achievement-badge">Wajib</span>
-                    </div>
-                    <div className="achievement-details">
-                      <div className="detail-item">
-                        <i className="fas fa-file-alt"></i>
-                        <div>
-                          <strong>Transkrip Nilai</strong>
-                          <p>Transkrip nilai pada semester terakhir yang telah ditempuh</p>
+                    <div className="card-content">
+                      <p>Sekolah mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan.</p>
+                      <div className="process-steps">
+                        <div className="step">
+                          <div className="step-number">1</div>
+                          <span>Isi formulir online</span>
                         </div>
-                      </div>
-                      <div className="detail-item">
-                        <i className="fas fa-university"></i>
-                        <div>
-                          <strong>Akreditasi</strong>
-                          <p>Program studi/Perguruan Tinggi harus memiliki akreditasi</p>
+                        <div className="step">
+                          <div className="step-number">2</div>
+                          <span>Upload dokumen persyaratan</span>
+                        </div>
+                        <div className="step">
+                          <div className="step-number">3</div>
+                          <span>Submit pendaftaran</span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Prestasi Non-Akademik */}
-                  <div className="achievement-section non-akademik">
-                    <div className="achievement-header">
-                      <i className="fas fa-trophy"></i>
-                      <div>
-                        <h4>Prestasi Non-Akademik</h4>
-                        <p>Prestasi dalam 4 tahun terakhir</p>
+                  {/* Persyaratan Umum */}
+                  <div className="requirement-card general">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-users"></i>
                       </div>
-                      <span className="achievement-badge">Optional</span>
+                      <h3>Persyaratan Umum</h3>
+                      <div className="card-number">02</div>
                     </div>
-                    <div className="achievement-details">
-                      <div className="detail-item">
-                        <i className="fas fa-certificate"></i>
-                        <div>
-                          <strong>Bukti Prestasi</strong>
-                          <p>Sertifikat, piagam, surat keterangan, atau dokumen lain yang dipersamakan</p>
+                    <div className="card-content">
+                      <div className="requirements-list">
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-check-circle"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan <strong>Kartu Keluarga (KK)</strong></span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-check-circle"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Terdaftar sebagai siswa di sekolah <strong>SD Negeri, SMP Negeri, dan SMA Negeri</strong> yang dibuktikan dengan surat keterangan dari sekolah</span>
+                          </div>
                         </div>
                       </div>
-                      <div className="detail-item">
-                        <i className="fas fa-calendar-alt"></i>
-                        <div>
-                          <strong>Waktu Pencapaian</strong>
-                          <p>Prestasi diperoleh dalam kurun waktu 4 tahun terakhir</p>
+                    </div>
+                  </div>
+
+                  {/* Persyaratan Khusus */}
+                  <div className="requirement-card special">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-user-check"></i>
+                      </div>
+                      <h3>Persyaratan Khusus</h3>
+                      <div className="card-number">03</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="requirements-list">
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-database"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Terdaftar dalam <strong>Data Tunggal Sosial Ekonomi Nasional (DTSEN)</strong> desil 1, 2, 3, 4, dan 5 <strong>ATAU</strong> melampirkan <strong>Surat Keterangan Tidak Mampu (SKTM)</strong> dari Desa/Kelurahan</span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-file-certificate"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span><strong>Akte Kematian</strong> yang diterbitkan Dinas Kependudukan dan Pencatatan Sipil <strong>ATAU</strong> <strong>Surat Kematian</strong> yang diterbitkan Desa/Kelurahan</span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-handshake"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun dibuktikan dengan <strong>surat pernyataan tidak menerima beasiswa</strong> dari Lembaga/Donatur lainnya yang diketahui oleh sekolah</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="achievement-fields">
-                      <strong>Bidang Prestasi:</strong>
-                      <div className="field-tags">
-                        <span className="field-tag">Ilmu Pengetahuan</span>
-                        <span className="field-tag">Teknologi</span>
-                        <span className="field-tag">Kebudayaan</span>
-                        <span className="field-tag">Olahraga</span>
-                        <span className="field-tag">Sosial</span>
-                        <span className="field-tag">Kemanusiaan</span>
-                        <span className="field-tag">Lingkungan</span>
-                        <span className="field-tag">Nasionalisme</span>
-                      </div>
-                    </div>
                   </div>
-                  
-                </div>
-              </div>
 
-              {/* Informasi Tambahan */}
-              <div className="requirement-card info">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-info-circle"></i>
-                  </div>
-                  <h3>Catatan Penting</h3>
-                  <div className="card-number">04</div>
-                </div>
-                <div className="card-content">
-                  <div className="info-items">
-                    <div className="info-item">
-                      <div className="info-icon">
-                        <i className="fas fa-file-signature"></i>
+                  {/* Informasi Tambahan */}
+                  <div className="requirement-card info">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-info-circle"></i>
                       </div>
-                      <div className="info-text">
-                        <h4>Dokumen Resmi</h4>
-                        <p>Semua dokumen harus asli atau legalisir dari pihak berwenang</p>
-                      </div>
+                      <h3>Informasi Penting</h3>
+                      <div className="card-number">04</div>
                     </div>
-                    <div className="info-item">
-                      <div className="info-icon">
-                        <i className="fas fa-university"></i>
-                      </div>
-                      <div className="info-text">
-                        <h4>Validasi Kampus</h4>
-                        <p>Surat pernyataan dan keterangan aktif kuliah harus diketahui/dilegalisir oleh perguruan tinggi</p>
-                      </div>
-                    </div>
-                    <div className="info-item">
-                      <div className="info-icon">
-                        <i className="fas fa-clock"></i>
-                      </div>
-                      <div className="info-text">
-                        <h4>Masa Berlaku</h4>
-                        <p>Prestasi non-akademik maksimal 4 tahun terakhir dari tanggal pendaftaran</p>
+                    <div className="card-content">
+                      <div className="info-items">
+                        <div className="info-item">
+                          <div className="info-icon">
+                            <i className="fas fa-exclamation-triangle"></i>
+                          </div>
+                          <div className="info-text">
+                            <h4>Dokumen Lengkap</h4>
+                            <p>Pastikan semua dokumen sudah lengkap dan valid sebelum mengajukan permohonan</p>
+                          </div>
+                        </div>
+                        <div className="info-item">
+                          <div className="info-icon">
+                            <i className="fas fa-upload"></i>
+                          </div>
+                          <div className="info-text">
+                            <h4>Format File</h4>
+                            <p>Upload dokumen dalam format PDF dengan ukuran maksimal 2MB per file</p>
+                          </div>
+                        </div>
+                        <div className="info-item">
+                          <div className="info-icon">
+                            <i className="fas fa-clock"></i>
+                          </div>
+                          <div className="info-text">
+                            <h4>Periksa Kembali</h4>
+                            <p>Periksa kembali semua persyaratan sebelum melakukan submit pendaftaran</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Archive Notice */}
-            <div className="archive-notice prestasi-archive">
-              <div className="archive-icon">
-                <i className="fas fa-archive"></i>
+                {/* Archive Notice */}
+                <div className="archive-notice yatim-archive">
+                  <div className="archive-icon">
+                    <i className="fas fa-archive"></i>
+                  </div>
+                  <div className="archive-content">
+                    <h3>Dokumentasi Beasiswa Yatim 2026</h3>
+                    <p>Halaman ini merupakan arsip resmi persyaratan beasiswa yatim Sidoarjo tahun 2026. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
+                  </div>
+                </div>
               </div>
-              <div className="archive-content">
-                <h3>Dokumentasi Beasiswa Prestasi 2026</h3>
-                <p>Halaman ini merupakan arsip resmi persyaratan beasiswa prestasi Sidoarjo tahun 2026. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
-              </div>
-            </div>
-          </div>
+            )}
 
-          {/* Contact Info */}
-          <div className="contact-info-section mb-3">
-            <div className="contact-header">
-              <i className="fas fa-headset contact-main-icon"></i>
-              <h2>Informasi Lebih Lanjut</h2>
-            </div>
-            <p className="contact-description">
-              Untuk informasi mengenai program beasiswa di masa mendatang, silakan hubungi helpdesk resmi penerimaan beasiswa
-            </p>
-            <div className="contact-info-grid">
-              <div className="contact-info-card">
-                <div className="contact-card-header">
-                  <div className="contact-icon dinsos">
+            {/* ============= BAGIAN BEASISWA PRESTASI ============= */}
+            {activeTab === 'prestasi' && (
+              <div className="requirements-section prestasi-section">
+                <div className="program-header">
+                  <div className="program-icon prestasi">
+                    <i className="fas fa-trophy"></i>
+                  </div>
+                  <div className="program-title">
+                    <h2>Beasiswa Prestasi</h2>
+                    <p>Untuk mahasiswa berprestasi di Perguruan Tinggi Kabupaten Sidoarjo</p>
+                  </div>
+                  <div className="program-badge prestasi-badge">
+                    <i className="fas fa-user-graduate"></i>
+                    Mahasiswa
+                  </div>
+                </div>
+
+                <div className="requirements-grid">
+                  {/* Proses Pendaftaran */}
+                  <div className="requirement-card process">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-laptop"></i>
+                      </div>
+                      <h3>Proses Pendaftaran</h3>
+                      <div className="card-number">01</div>
+                    </div>
+                    <div className="card-content">
+                      <p>Mahasiswa mengajukan permohonan dengan mengisi formulir pendaftaran secara online dan mengunggah dokumen yang dipersyaratkan.</p>
+                      <div className="process-steps">
+                        <div className="step">
+                          <div className="step-number">1</div>
+                          <span>Isi formulir online</span>
+                        </div>
+                        <div className="step">
+                          <div className="step-number">2</div>
+                          <span>Upload dokumen persyaratan</span>
+                        </div>
+                        <div className="step">
+                          <div className="step-number">3</div>
+                          <span>Submit pendaftaran</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Persyaratan Umum */}
+                  <div className="requirement-card general">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-users"></i>
+                      </div>
+                      <h3>Persyaratan Umum</h3>
+                      <div className="card-number">02</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="requirements-list">
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-check-circle"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan <strong>Kartu Keluarga (KK)</strong> dan <strong>KTP Elektronik (KTP-EL)</strong></span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-check-circle"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Terdaftar sebagai mahasiswa aktif di Perguruan Tinggi yang dibuktikan dengan <strong>Surat Keterangan Aktif Kuliah</strong> dan <strong>Kartu Identitas Kemahasiswaan</strong></span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-check-circle"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Tidak sedang menerima beasiswa untuk tujuan serupa/sejenis dari pihak manapun dibuktikan dengan <strong>Surat Pernyataan</strong> yang diketahui oleh Perguruan Tinggi</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Persyaratan Khusus */}
+                  <div className="requirement-card special">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-medal"></i>
+                      </div>
+                      <h3>Persyaratan Prestasi</h3>
+                      <div className="card-number">03</div>
+                    </div>
+                    <div className="card-content">
+                      
+                      {/* Prestasi Akademik */}
+                      <div className="achievement-section akademik">
+                        <div className="achievement-header">
+                          <i className="fas fa-graduation-cap"></i>
+                          <div>
+                            <h4>Prestasi Akademik</h4>
+                            <p>IPK minimum 3.40</p>
+                          </div>
+                          <span className="achievement-badge">Wajib</span>
+                        </div>
+                        <div className="achievement-details">
+                          <div className="detail-item">
+                            <i className="fas fa-file-alt"></i>
+                            <div>
+                              <strong>Transkrip Nilai</strong>
+                              <p>Transkrip nilai pada semester terakhir yang telah ditempuh</p>
+                            </div>
+                          </div>
+                          <div className="detail-item">
+                            <i className="fas fa-university"></i>
+                            <div>
+                              <strong>Akreditasi</strong>
+                              <p>Program studi/Perguruan Tinggi harus memiliki akreditasi</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Prestasi Non-Akademik */}
+                      <div className="achievement-section non-akademik">
+                        <div className="achievement-header">
+                          <i className="fas fa-trophy"></i>
+                          <div>
+                            <h4>Prestasi Non-Akademik</h4>
+                            <p>Prestasi dalam 4 tahun terakhir</p>
+                          </div>
+                          <span className="achievement-badge">Optional</span>
+                        </div>
+                        <div className="achievement-details">
+                          <div className="detail-item">
+                            <i className="fas fa-certificate"></i>
+                            <div>
+                              <strong>Bukti Prestasi</strong>
+                              <p>Sertifikat, piagam, surat keterangan, atau dokumen lain yang dipersamakan</p>
+                            </div>
+                          </div>
+                          <div className="detail-item">
+                            <i className="fas fa-calendar-alt"></i>
+                            <div>
+                              <strong>Waktu Pencapaian</strong>
+                              <p>Prestasi diperoleh dalam kurun waktu 4 tahun terakhir</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="achievement-fields">
+                          <strong>Bidang Prestasi:</strong>
+                          <div className="field-tags">
+                            <span className="field-tag">Ilmu Pengetahuan</span>
+                            <span className="field-tag">Teknologi</span>
+                            <span className="field-tag">Kebudayaan</span>
+                            <span className="field-tag">Olahraga</span>
+                            <span className="field-tag">Sosial</span>
+                            <span className="field-tag">Kemanusiaan</span>
+                            <span className="field-tag">Lingkungan</span>
+                            <span className="field-tag">Nasionalisme</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                  {/* Informasi Tambahan */}
+                  <div className="requirement-card info">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-info-circle"></i>
+                      </div>
+                      <h3>Catatan Penting</h3>
+                      <div className="card-number">04</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="info-items">
+                        <div className="info-item">
+                          <div className="info-icon">
+                            <i className="fas fa-file-signature"></i>
+                          </div>
+                          <div className="info-text">
+                            <h4>Dokumen Resmi</h4>
+                            <p>Semua dokumen harus asli atau legalisir dari pihak berwenang</p>
+                          </div>
+                        </div>
+                        <div className="info-item">
+                          <div className="info-icon">
+                            <i className="fas fa-university"></i>
+                          </div>
+                          <div className="info-text">
+                            <h4>Validasi Kampus</h4>
+                            <p>Surat pernyataan dan keterangan aktif kuliah harus diketahui/dilegalisir oleh perguruan tinggi</p>
+                          </div>
+                        </div>
+                        <div className="info-item">
+                          <div className="info-icon">
+                            <i className="fas fa-clock"></i>
+                          </div>
+                          <div className="info-text">
+                            <h4>Masa Berlaku</h4>
+                            <p>Prestasi non-akademik maksimal 4 tahun terakhir dari tanggal pendaftaran</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Archive Notice */}
+                <div className="archive-notice prestasi-archive">
+                  <div className="archive-icon">
+                    <i className="fas fa-archive"></i>
+                  </div>
+                  <div className="archive-content">
+                    <h3>Dokumentasi Beasiswa Prestasi 2026</h3>
+                    <p>Halaman ini merupakan arsip resmi persyaratan beasiswa prestasi Sidoarjo tahun 2026. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ============= BAGIAN BEASISWA KURANG MAMPU ============= */}
+            {activeTab === 'kurang-mampu' && (
+              <div className="requirements-section kurang-mampu-section">
+                <div className="program-header">
+                  <div className="program-icon kurang-mampu">
                     <i className="fas fa-hands-helping"></i>
                   </div>
-                  <div className="contact-card-info">
-                    <h3>Dinas Sosial (DINSOS)</h3>
-                    <p>Beasiswa Yatim - Byamoga Dinsos</p>
-                    <div className="contact-badge">
-                      <i className="fas fa-child"></i>
-                      SD, SMP, SMA
-                    </div>
+                  <div className="program-title">
+                    <h2>Beasiswa Pendidikan Tinggi Kurang Mampu</h2>
+                    <p>Program Pemberian Beasiswa Pendidikan Tinggi Pemkab Sidoarjo TA 2026</p>
+                  </div>
+                  <div className="program-badge kurang-mampu-badge">
+                    <i className="fas fa-user-graduate"></i>
+                    Mahasiswa
                   </div>
                 </div>
-                <div className="contact-card-content">
-                  <div className="contact-item">
-                    <div className="contact-details">
-                      <span className="contact-name">Byamoga Dinsos</span>
-                      <span className="contact-role">Helpdesk Yatim Dinas Sosial</span>
-                    </div>
-                    <a target="_blank" href={dinsosYatim} className="whatsapp-btn">
-                      <i className="fab fa-whatsapp"></i>
-                      0822-3303-8338
-                    </a>
-                  </div>
-                </div>
-              </div>
 
-              <div className="contact-info-card">
-                <div className="contact-card-header">
-                  <div className="contact-icon diknas">
-                    <i className="fas fa-graduation-cap"></i>
-                  </div>
-                  <div className="contact-card-info">
-                    <h3>Dinas Pendidikan (DIKNAS)</h3>
-                    <p>Beasiswa Yatim - Dinas Pendidikan</p>
-                    <div className="contact-badge">
-                      <i className="fas fa-child"></i>
-                      SD, SMP, SMA
-                    </div>
-                  </div>
-                </div>
-                <div className="contact-card-content">
-                  <div className="contact-item">
-                    <div className="contact-details">
-                      <span className="contact-name">Helpdesk Diknas</span>
-                      <span className="contact-role">Helpdesk Yatim Dinas Pendidikan</span>
-                    </div>
-                    <a target="_blank" href={diknasYatim} className="whatsapp-btn">
-                      <i className="fab fa-whatsapp"></i>
-                      0813-3676-6061
-                    </a>
-                  </div>
-                </div>
-              </div>
+                {/* Program Info Card */}
+               
 
-              <div className="contact-info-card website">
-                <div className="contact-card-header">
-                  <div className="contact-icon website">
-                    <i className="fas fa-globe"></i>
+                <div className="requirements-grid">
+                  {/* Tujuan Program */}
+                  <div className="requirement-card tujuan">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-bullseye"></i>
+                      </div>
+                      <h3>Tujuan Program</h3>
+                      <div className="card-number">01</div>
+                    </div>
+                    <div className="card-content">
+                      <p>Mendukung mahasiswa berprestasi dan/atau kurang mampu agar dapat menyelesaikan pendidikan tinggi secara berkelanjutan.</p>
+                      <div className="highlight-box">
+                        <i className="fas fa-star"></i>
+                        <p>Diprioritaskan untuk mahasiswa tidak mampu yang terdaftar dalam DTKS (Data Terpadu Kesejahteraan Sosial)</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="contact-card-info">
-                    <h3>Website Resmi</h3>
-                    <p>Informasi dan Pendaftaran Online</p>
-                    <div className="contact-badge">
-                      <i className="fas fa-graduation-cap"></i>
-                      Semua Jenjang
+
+                  {/* Kriteria Penerima */}
+                  <div className="requirement-card kriteria">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-user-check"></i>
+                      </div>
+                      <h3>Kriteria Penerima</h3>
+                      <div className="card-number">02</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="requirements-list">
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-id-card"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Penduduk Kabupaten Sidoarjo yang dibuktikan dengan <strong>KTP & Kartu Keluarga (KK)</strong></span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-user-graduate"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Mahasiswa aktif PTN/PTS, <strong>semester 2 sampai 8</strong></span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-chart-line"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>IPK minimal: <strong>PTN ≥ 3,00</strong> atau <strong>PTS ≥ 3,25</strong></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Persyaratan Khusus */}
+                  <div className="requirement-card special">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-file-contract"></i>
+                      </div>
+                      <h3>Persyaratan Khusus</h3>
+                      <div className="card-number">03</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="requirements-list">
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-database"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Terdaftar dalam <strong>Data Tunggal Sosial Ekonomi Nasional (DTSEN)</strong> desil 1, 2, 3, 4, dan 5 <strong>ATAU</strong> melampirkan <strong>Surat Keterangan Tidak Mampu (SKTM)</strong> dari Desa/Kelurahan</span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-handshake"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Tidak sedang menerima beasiswa untuk tujuan serupa dari pihak manapun, dibuktikan dengan <strong>Surat Pernyataan</strong> tidak menerima beasiswa dari lembaga/donatur lain yang diketahui oleh orang tua/wali siswa</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Persyaratan Administrasi */}
+                  <div className="requirement-card administrasi">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-clipboard-list"></i>
+                      </div>
+                      <h3>Dokumen yang Diperlukan</h3>
+                      <div className="card-number">04</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="documents-list">
+                        <div className="document-item">
+                          <div className="doc-icon">
+                            <i className="fas fa-id-card"></i>
+                          </div>
+                          <span>Fotokopi KTP dan Kartu Keluarga (KK)</span>
+                        </div>
+                        <div className="document-item">
+                          <div className="doc-icon">
+                            <i className="fas fa-file-alt"></i>
+                          </div>
+                          <span>Surat Keterangan Aktif Kuliah dari kampus</span>
+                        </div>
+                        <div className="document-item">
+                          <div className="doc-icon">
+                            <i className="fas fa-chart-bar"></i>
+                          </div>
+                          <span>Transkrip Nilai terakhir (legalisir)</span>
+                        </div>
+                        <div className="document-item">
+                          <div className="doc-icon">
+                            <i className="fas fa-file-signature"></i>
+                          </div>
+                          <span>Surat Pernyataan tidak menerima beasiswa lain (bermaterai)</span>
+                        </div>
+                        <div className="document-item">
+                          <div className="doc-icon">
+                            <i className="fas fa-certificate"></i>
+                          </div>
+                          <span>SKTM/KIP/PKH (jika ada)</span>
+                        </div>
+                        <div className="document-item">
+                          <div className="doc-icon">
+                            <i className="fas fa-credit-card"></i>
+                          </div>
+                          <span>Rekening bank pribadi/keluarga</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Proses Pendaftaran */}
+                  <div className="requirement-card process">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-laptop"></i>
+                      </div>
+                      <h3>Proses Pendaftaran</h3>
+                      <div className="card-number">05</div>
+                    </div>
+                    <div className="card-content">
+                      <p>Kampus/orang tua/wali/mahasiswa pribadi mengajukan permohonan melalui aplikasi online Pemkab Sidoarjo.</p>
+                      <div className="process-steps">
+                        <div className="step">
+                          <div className="step-number">1</div>
+                          <span>Mengisi formulir pendaftaran online</span>
+                        </div>
+                        <div className="step">
+                          <div className="step-number">2</div>
+                          <span>Mengunggah (upload) dokumen persyaratan</span>
+                        </div>
+                        <div className="step">
+                          <div className="step-number">3</div>
+                          <span>Submit pendaftaran dan menunggu verifikasi</span>
+                        </div>
+                      </div>
+                      <div className="note-box">
+                        <i className="fas fa-info-circle"></i>
+                        <p>Pendaftaran dibuka dari <strong>1 - 28 Februari 2026</strong> melalui aplikasi yang disediakan Pemkab Sidoarjo</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Jadwal Pelaksanaan */}
+                  <div className="requirement-card jadwal">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-calendar-check"></i>
+                      </div>
+                      <h3>Jadwal Pelaksanaan</h3>
+                      <div className="card-number">06</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="timeline">
+                        <div className="timeline-item">
+                          <div className="timeline-date">Jan 2026</div>
+                          <div className="timeline-content">
+                            <h4>Regulasi & Sosialisasi</h4>
+                            <p>Penyusunan Petunjuk Teknis dan sosialisasi program</p>
+                          </div>
+                        </div>
+                        <div className="timeline-item">
+                          <div className="timeline-date">Feb 2026</div>
+                          <div className="timeline-content">
+                            <h4>Pendaftaran Online</h4>
+                            <p>1 - 28 Februari: Pendaftaran melalui aplikasi</p>
+                          </div>
+                        </div>
+                        <div className="timeline-item">
+                          <div className="timeline-date">Mar 2026</div>
+                          <div className="timeline-content">
+                            <h4>Verifikasi Administrasi</h4>
+                            <p>Verifikasi data kependudukan dan administrasi berkas</p>
+                          </div>
+                        </div>
+                        <div className="timeline-item">
+                          <div className="timeline-date">Apr 2026</div>
+                          <div className="timeline-content">
+                            <h4>Penetapan & Pengumuman</h4>
+                            <p>Penetapan SK dan pengumuman penerima beasiswa</p>
+                          </div>
+                        </div>
+                        <div className="timeline-item">
+                          <div className="timeline-date">Mei 2026</div>
+                          <div className="timeline-content">
+                            <h4>Pencairan Dana</h4>
+                            <p>5 - 30 Mei: Transfer langsung ke rekening penerima</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="contact-card-content">
-                  <p className="website-description">
-                    Untuk informasi terbaru dan pendaftaran online semua jenis beasiswa:
-                  </p>
-                  <a href="https://beasiswa.sidoarjokab.go.id/" className="website-link">
-                    <i className="fas fa-external-link-alt"></i>
-                    https://beasiswa.sidoarjokab.go.id/
-                  </a>
+
+                {/* Archive Notice */}
+                <div className="archive-notice kurang-mampu-archive">
+                  <div className="archive-icon">
+                    <i className="fas fa-archive"></i>
+                  </div>
+                  <div className="archive-content">
+                    <h3>Dokumentasi Beasiswa Kurang Mampu 2026</h3>
+                    <p>Halaman ini merupakan arsip resmi persyaratan beasiswa pendidikan tinggi kurang mampu Sidoarjo tahun 2026.</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+
+            {/* ============= BAGIAN BEASISWA KEAGAMAAN ============= */}
+            {activeTab === 'keagamaan' && (
+              <div className="requirements-section keagamaan-section">
+                <div className="program-header">
+                  <div className="program-icon keagamaan">
+                    <i className="fas fa-mosque"></i>
+                  </div>
+                  <div className="program-title">
+                    <h2>Beasiswa Bidang Keagamaan</h2>
+                    <p>Program Beasiswa Pendidikan Bidang Keagamaan Tahun 2026</p>
+                  </div>
+                  <div className="program-badge keagamaan-badge">
+                    <i className="fas fa-user-graduate"></i>
+                    Mahasiswa
+                  </div>
+                </div>
+
+                {/* Surat Resmi Info */}
+                <div className="official-letter-info">
+                  <div className="letter-header">
+                    <i className="fas fa-file-alt"></i>
+                    <div>
+                      <h3>Surat Resmi Pemerintah</h3>
+                      <p>Nomor: 400/1548/438.1.1.2/2026</p>
+                    </div>
+                  </div>
+                  <div className="letter-details">
+                    <div className="detail-item">
+                      <span className="detail-label">Tanggal:</span>
+                      <span className="detail-value">30 Januari 2026</span>
+                    </div>
+                    <div className="detail-item">
+                      <span className="detail-label">Sifat:</span>
+                      <span className="detail-value">Biasa / Terbuka</span>
+                    </div>
+                    <div className="detail-item">
+                      <span className="detail-label">Dikeluarkan oleh:</span>
+                      <span className="detail-value">Bagian Kesejahteraan Rakyat Sekretariat Daerah Kabupaten Sidoarjo</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="requirements-grid">
+                  {/* Proses Pendaftaran */}
+                  <div className="requirement-card process">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-laptop"></i>
+                      </div>
+                      <h3>Alur Pendaftaran</h3>
+                      <div className="card-number">01</div>
+                    </div>
+                    <div className="card-content">
+                      <p>Pendaftaran dilakukan secara online melalui website resmi Pemerintah Kabupaten Sidoarjo.</p>
+                      <div className="process-steps">
+                        <div className="step">
+                          <div className="step-number">1</div>
+                          <span>Mengisi formulir pendaftaran online di <strong>www.beasiswa.sidoarjo.go.id</strong></span>
+                        </div>
+                        <div className="step">
+                          <div className="step-number">2</div>
+                          <span>Berkas diverifikasi oleh Tim verifikasi beasiswa</span>
+                        </div>
+                        <div className="step">
+                          <div className="step-number">3</div>
+                          <span>Seleksi lanjutan sesuai keahlian, bakat, atau prestasi</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Persyaratan Umum */}
+                  <div className="requirement-card general">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-clipboard-check"></i>
+                      </div>
+                      <h3>Persyaratan Umum & Administrasi</h3>
+                      <div className="card-number">02</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="requirements-list">
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-id-card"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Kartu Keluarga (KK) dan Kartu Tanda Penduduk Elektronik Kabupaten Sidoarjo</span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-university"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Terdaftar sebagai mahasiswa Perguruan Tinggi (surat keterangan aktif kuliah dan kartu identitas kemahasiswaan)</span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-handshake"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Surat keterangan tidak sedang menerima beasiswa untuk tujuan serupa/sejenis dari pihak manapun yang diketahui oleh Perguruan Tinggi</span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-file-signature"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Surat pernyataan bermaterai bersedia meningkatkan prestasi, mengikuti pendidikan, dan memberikan kontribusi positif bagi pembangunan Kabupaten Sidoarjo</span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-award"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Surat keterangan akreditasi Perguruan Tinggi</span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-star"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span><strong>Diutamakan</strong> bagi yang belum pernah menerima beasiswa sejenis (dibuktikan dengan surat keterangan dari pejabat yang berwenang)</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Persyaratan Khusus - Kompetensi Keagamaan */}
+                  <div className="requirement-card special">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-star-and-crescent"></i>
+                      </div>
+                      <h3>Persyaratan Khusus - Kompetensi Keagamaan</h3>
+                      <div className="card-number">03</div>
+                    </div>
+                    <div className="card-content">
+                      
+                      {/* Hafalan Al-Qur'an */}
+                      <div className="achievement-section quran">
+                        <div className="achievement-header">
+                          <i className="fas fa-book-quran"></i>
+                          <div>
+                            <h4>Hafalan Al-Qur'an</h4>
+                            <p>Minimal 10 juz (sepuluh juz)</p>
+                          </div>
+                          <span className="achievement-badge">Wajib Muslim</span>
+                        </div>
+                        <div className="achievement-details">
+                          <div className="detail-item">
+                            <i className="fas fa-file-certificate"></i>
+                            <div>
+                              <strong>Dokumen Bukti</strong>
+                              <p>Surat keterangan hafal minimal 10 juz Al-Qur'an dari lembaga terpercaya</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Prestasi Bidang Keagamaan */}
+                      <div className="achievement-section prestasi">
+                        <div className="achievement-header">
+                          <i className="fas fa-trophy"></i>
+                          <div>
+                            <h4>Prestasi Keagamaan</h4>
+                            <p>Dalam 4 tahun terakhir</p>
+                          </div>
+                          <span className="achievement-badge">Pilihan</span>
+                        </div>
+                        <div className="achievement-details">
+                          <div className="detail-item">
+                            <i className="fas fa-award"></i>
+                            <div>
+                              <strong>Bukti Prestasi</strong>
+                              <p>Sertifikat prestasi atau surat keterangan bidang keagamaan</p>
+                            </div>
+                          </div>
+                          <div className="detail-item">
+                            <i className="fas fa-calendar-alt"></i>
+                            <div>
+                              <strong>Waktu Pencapaian</strong>
+                              <p>Prestasi diperoleh dalam kurun waktu 4 tahun terakhir</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="achievement-fields">
+                          <strong>Contoh Prestasi:</strong>
+                          <div className="field-tags">
+                            <span className="field-tag">Juara MTQ</span>
+                            <span className="field-tag">Lomba Khutbah</span>
+                            <span className="field-tag">Pidato Keagamaan</span>
+                            <span className="field-tag">Lomba Tartil</span>
+                            <span className="field-tag">Cerdas Cermat Islam</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Aktivis Keagamaan */}
+                      <div className="achievement-section aktivis">
+                        <div className="achievement-header">
+                          <i className="fas fa-users"></i>
+                          <div>
+                            <h4>Aktivis Keagamaan</h4>
+                            <p>Pengurus organisasi keagamaan</p>
+                          </div>
+                          <span className="achievement-badge">Pilihan</span>
+                        </div>
+                        <div className="achievement-details">
+                          <div className="detail-item">
+                            <i className="fas fa-home"></i>
+                            <div>
+                              <strong>Santri Pesantren</strong>
+                              <p>Surat keterangan dari pondok pesantren bagi santriwan/santriwati yang berkuliah dan menetap di Pondok Pesantren</p>
+                            </div>
+                          </div>
+                          <div className="detail-item">
+                            <i className="fas fa-chalkboard-teacher"></i>
+                            <div>
+                              <strong>Guru Ngaji</strong>
+                              <p>Surat keterangan sebagai guru ngaji di TPA/TPQ/Madin dengan rekomendasi Kepala TPQ/Madrasah Diniyah</p>
+                            </div>
+                          </div>
+                          <div className="detail-item">
+                            <i className="fas fa-user-tie"></i>
+                            <div>
+                              <strong>Pengurus Organisasi</strong>
+                              <p>Surat keterangan sebagai Ketua, Wakil, Sekretaris, Bendahara aktivis organisasi keagamaan tingkat Kecamatan/Kabupaten/Perguruan Tinggi</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Non-Muslim */}
+                      <div className="achievement-section non-muslim">
+                        <div className="achievement-header">
+                          <i className="fas fa-hands-praying"></i>
+                          <div>
+                            <h4>Mahasiswa Non-Muslim</h4>
+                            <p>Bukti kompetensi keagamaan</p>
+                          </div>
+                          <span className="achievement-badge">Wajib</span>
+                        </div>
+                        <div className="achievement-details">
+                          <div className="detail-item">
+                            <i className="fas fa-users"></i>
+                            <div>
+                              <strong>Aktivis Keagamaan</strong>
+                              <p>Tercatat sebagai pengurus/aktivis organisasi keagamaan</p>
+                            </div>
+                          </div>
+                          <div className="detail-item">
+                            <i className="fas fa-award"></i>
+                            <div>
+                              <strong>Prestasi Keagamaan</strong>
+                              <p>Mempunyai piagam kejuaraan bidang keagamaan</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="note-box">
+                          <i className="fas fa-info-circle"></i>
+                          <p><strong>Catatan:</strong> Harus melampirkan rekomendasi dari pimpinan agama masing-masing</p>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                  {/* Proses Penetapan */}
+                  <div className="requirement-card penetapan">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-gavel"></i>
+                      </div>
+                      <h3>Proses Penetapan Penerima</h3>
+                      <div className="card-number">04</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="requirements-list">
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-file-contract"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Menyusun berita acara hasil seleksi dan menetapkan dengan <strong>Surat Keputusan Sekretaris Daerah</strong> tentang Hasil Seleksi Beasiswa Keagamaan</span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-paper-plane"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Mengusulkan hasil seleksi calon penerima beasiswa ke <strong>Bappeda Kabupaten Sidoarjo</strong> untuk ditetapkan dengan <strong>Keputusan Bupati Sidoarjo</strong></span>
+                          </div>
+                        </div>
+                        <div className="requirement-item">
+                          <div className="requirement-check">
+                            <i className="fas fa-bullhorn"></i>
+                          </div>
+                          <div className="requirement-text">
+                            <span>Pengumuman kelulusan beasiswa diumumkan oleh <strong>Dinas Komunikasi dan Informatika</strong> melalui <strong>www.beasiswa.sidoarjo.go.id</strong></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Informasi Penting */}
+                  <div className="requirement-card info">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-info-circle"></i>
+                      </div>
+                      <h3>Informasi Penting</h3>
+                      <div className="card-number">05</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="info-items">
+                        <div className="info-item">
+                          <div className="info-icon">
+                            <i className="fas fa-file-upload"></i>
+                          </div>
+                          <div className="info-text">
+                            <h4>Dokumen Digital</h4>
+                            <p>Semua dokumen harus diunggah dalam format digital yang jelas dan terbaca</p>
+                          </div>
+                        </div>
+                        <div className="info-item">
+                          <div className="info-icon">
+                            <i className="fas fa-clock"></i>
+                          </div>
+                          <div className="info-text">
+                            <h4>Prestasi Terbaru</h4>
+                            <p>Prestasi keagamaan harus dalam 4 tahun terakhir dari tanggal pendaftaran</p>
+                          </div>
+                        </div>
+                        <div className="info-item">
+                          <div className="info-icon">
+                            <i className="fas fa-shield-alt"></i>
+                          </div>
+                          <div className="info-text">
+                            <h4>Keaslian Dokumen</h4>
+                            <p>Dokumen palsu atau tidak valid akan mengakibatkan pendaftaran dibatalkan</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tembusan Surat */}
+                  <div className="requirement-card tembusan">
+                    <div className="card-header">
+                      <div className="card-icon">
+                        <i className="fas fa-copy"></i>
+                      </div>
+                      <h3>Tembusan Surat</h3>
+                      <div className="card-number">06</div>
+                    </div>
+                    <div className="card-content">
+                      <div className="signature-section">
+                        <div className="signature-info">
+                          <div className="signature-title">
+                            <i className="fas fa-signature"></i>
+                            <h4>Tanda Tangan Elektronik</h4>
+                          </div>
+                          <div className="signature-details">
+                            <p><strong>Nama:</strong> Mustofi Al Mahalli, S.T.</p>
+                            <p><strong>Jabatan:</strong> Penata Tingkat I</p>
+                            <p><strong>NIP:</strong> 19680909 199003 1011</p>
+                            <p><strong>Sebagai:</strong> a.n. Sekretaris Daerah Asisten Pemerintahan Dan Kesra Ub. Kepala Bagian Kesra</p>
+                          </div>
+                        </div>
+                        <div className="copies-info">
+                          <div className="copies-title">
+                            <i className="fas fa-envelope"></i>
+                            <h4>Tembusan kepada:</h4>
+                          </div>
+                          <ul className="copies-list">
+                            <li><i className="fas fa-caret-right"></i> Kepala Bappeda Kabupaten Sidoarjo</li>
+                            <li><i className="fas fa-caret-right"></i> Kepala Dinas Komunikasi dan Informatika Kabupaten Sidoarjo</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Archive Notice */}
+                <div className="archive-notice keagamaan-archive">
+                  <div className="archive-icon">
+                    <i className="fas fa-archive"></i>
+                  </div>
+                  <div className="archive-content">
+                    <h3>Dokumentasi Beasiswa Keagamaan 2026</h3>
+                    <p>Halaman ini merupakan arsip resmi persyaratan beasiswa bidang keagamaan Sidoarjo tahun 2026 berdasarkan Surat Nomor 400/1548/438.1.1.2/2026. Program telah berakhir dan semua tahapan seleksi telah dilaksanakan.</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
         </div>
@@ -679,6 +1301,80 @@ export default function Info() {
           line-height: 1.5;
         }
 
+        /* Scholarship Tabs */
+        .scholarship-tabs {
+          margin-bottom: 30px;
+        }
+
+        .tabs-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 15px;
+        }
+
+        .tab-button {
+          background: white;
+          border: 2px solid #e8f0ff;
+          border-radius: 15px;
+          padding: 20px;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .tab-button:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 25px rgba(30, 60, 114, 0.1);
+          border-color: #1e3c72;
+        }
+
+        .tab-button.active {
+          background: linear-gradient(135deg, #1e3c72, #2a5298);
+          color: white;
+          border-color: #1e3c72;
+          box-shadow: 0 10px 25px rgba(30, 60, 114, 0.2);
+        }
+
+        .tab-button.active .tab-icon {
+          color: white;
+        }
+
+        .tab-button.active .tab-badge {
+          background: rgba(255, 255, 255, 0.2);
+          color: white;
+        }
+
+        .tab-icon {
+          font-size: 2rem;
+          color: #1e3c72;
+          transition: color 0.3s ease;
+        }
+
+        .tab-button span {
+          font-size: 1.1rem;
+          font-weight: 600;
+        }
+
+        .tab-badge {
+          background: #e8f0ff;
+          color: #1e3c72;
+          padding: 5px 12px;
+          border-radius: 15px;
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+
+        /* Tab Content */
+        .tab-content {
+          margin-bottom: 40px;
+        }
+
         /* Requirements Section */
         .requirements-section {
           background: white;
@@ -686,7 +1382,6 @@ export default function Info() {
           padding: 40px;
           box-shadow: 0 10px 30px rgba(30, 60, 114, 0.1);
           border: 1px solid #e8f0ff;
-          margin-bottom: 40px;
           position: relative;
           overflow: hidden;
         }
@@ -697,6 +1392,14 @@ export default function Info() {
 
         .prestasi-section {
           border-top: 5px solid #FF9800;
+        }
+
+        .kurang-mampu-section {
+          border-top: 5px solid #4CAF50;
+        }
+
+        .keagamaan-section {
+          border-top: 5px solid #9C27B0;
         }
 
         /* Program Header */
@@ -716,6 +1419,14 @@ export default function Info() {
 
         .prestasi-section .program-header {
           border-bottom-color: #FF9800;
+        }
+
+        .kurang-mampu-section .program-header {
+          border-bottom-color: #4CAF50;
+        }
+
+        .keagamaan-section .program-header {
+          border-bottom-color: #9C27B0;
         }
 
         .program-icon {
@@ -740,6 +1451,16 @@ export default function Info() {
           box-shadow: 0 10px 20px rgba(255, 152, 0, 0.3);
         }
 
+        .program-icon.kurang-mampu {
+          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+          box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .program-icon.keagamaan {
+          background: linear-gradient(135deg, #9C27B0, #E91E63);
+          box-shadow: 0 10px 20px rgba(156, 39, 176, 0.3);
+        }
+
         .program-title {
           flex: 1;
         }
@@ -757,6 +1478,14 @@ export default function Info() {
 
         .prestasi-section .program-title h2 {
           color: #e65100;
+        }
+
+        .kurang-mampu-section .program-title h2 {
+          color: #2e7d32;
+        }
+
+        .keagamaan-section .program-title h2 {
+          color: #7b1fa2;
         }
 
         .program-title p {
@@ -786,6 +1515,128 @@ export default function Info() {
           background: linear-gradient(135deg, #fff3e0, #ffe0b2);
           color: #e65100;
           border: 2px solid #ffcc80;
+        }
+
+        .kurang-mampu-badge {
+          background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+          color: #2e7d32;
+          border: 2px solid #81c784;
+        }
+
+        .keagamaan-badge {
+          background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+          color: #7b1fa2;
+          border: 2px solid #ba68c8;
+        }
+
+        /* Official Letter Info */
+        .official-letter-info {
+          background: linear-gradient(135deg, #f3e5f5, #f8f4ff);
+          border: 2px solid #e1bee7;
+          border-radius: 15px;
+          padding: 25px;
+          margin-bottom: 30px;
+        }
+
+        .letter-header {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 20px;
+        }
+
+        .letter-header i {
+          font-size: 2.5rem;
+          color: #9C27B0;
+        }
+
+        .letter-header h3 {
+          color: #7b1fa2;
+          margin: 0 0 5px 0;
+          font-size: 1.3rem;
+        }
+
+        .letter-header p {
+          color: #666;
+          margin: 0;
+          font-size: 0.9rem;
+        }
+
+        .letter-details {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 15px;
+          padding: 15px;
+          background: white;
+          border-radius: 10px;
+          border: 1px solid #e1bee7;
+        }
+
+        .detail-item {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .detail-label {
+          font-weight: 600;
+          color: #7b1fa2;
+          font-size: 0.9rem;
+        }
+
+        .detail-value {
+          color: #444;
+          font-size: 0.95rem;
+        }
+
+        /* Program Info Card */
+        .program-info-card {
+          background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+          border: 2px solid #c8e6c9;
+          border-radius: 15px;
+          padding: 25px;
+          margin-bottom: 30px;
+        }
+
+        .info-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 20px;
+        }
+
+        .info-item {
+          text-align: center;
+          padding: 15px;
+          background: white;
+          border-radius: 10px;
+          border: 1px solid #e8f5e9;
+        }
+
+        .info-item .info-icon {
+          width: 50px;
+          height: 50px;
+          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.3rem;
+          margin: 0 auto 15px auto;
+        }
+
+        .info-item h4 {
+          color: #666;
+          font-size: 0.9rem;
+          margin: 0 0 8px 0;
+          font-weight: 600;
+        }
+
+        .info-value {
+          color: #2e7d32;
+          font-size: 1.2rem;
+          font-weight: 700;
+          margin: 0;
         }
 
         /* Requirements Grid */
@@ -837,6 +1688,30 @@ export default function Info() {
           background: linear-gradient(135deg, #9C27B0, #E91E63);
         }
 
+        .requirement-card.tujuan::before {
+          background: linear-gradient(135deg, #FF9800, #FF5722);
+        }
+
+        .requirement-card.kriteria::before {
+          background: linear-gradient(135deg, #2196F3, #21CBF3);
+        }
+
+        .requirement-card.administrasi::before {
+          background: linear-gradient(135deg, #9C27B0, #E91E63);
+        }
+
+        .requirement-card.jadwal::before {
+          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .requirement-card.penetapan::before {
+          background: linear-gradient(135deg, #9C27B0, #E91E63);
+        }
+
+        .requirement-card.tembusan::before {
+          background: linear-gradient(135deg, #607D8B, #78909C);
+        }
+
         .card-header {
           display: flex;
           align-items: center;
@@ -872,6 +1747,30 @@ export default function Info() {
           background: linear-gradient(135deg, #9C27B0, #E91E63);
         }
 
+        .requirement-card.tujuan .card-icon {
+          background: linear-gradient(135deg, #FF9800, #FF5722);
+        }
+
+        .requirement-card.kriteria .card-icon {
+          background: linear-gradient(135deg, #2196F3, #21CBF3);
+        }
+
+        .requirement-card.administrasi .card-icon {
+          background: linear-gradient(135deg, #9C27B0, #E91E63);
+        }
+
+        .requirement-card.jadwal .card-icon {
+          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .requirement-card.penetapan .card-icon {
+          background: linear-gradient(135deg, #9C27B0, #E91E63);
+        }
+
+        .requirement-card.tembusan .card-icon {
+          background: linear-gradient(135deg, #607D8B, #78909C);
+        }
+
         .card-header h3 {
           color: #1e3c72;
           font-weight: 700;
@@ -901,6 +1800,113 @@ export default function Info() {
           color: #555;
           line-height: 1.6;
           margin-bottom: 15px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+          background: linear-gradient(135deg, #fff3e0, #fff8e1);
+          border-left: 4px solid #FF9800;
+          padding: 15px;
+          border-radius: 8px;
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        .highlight-box i {
+          color: #FF9800;
+          font-size: 1.2rem;
+          margin-top: 2px;
+        }
+
+        .highlight-box p {
+          margin: 0;
+          color: #e65100;
+          font-weight: 500;
+          font-size: 0.95rem;
+        }
+
+        /* Note Box */
+        .note-box {
+          background: #e3f2fd;
+          border-left: 4px solid #2196F3;
+          padding: 15px;
+          border-radius: 8px;
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          margin-top: 15px;
+        }
+
+        .note-box i {
+          color: #2196F3;
+          font-size: 1.2rem;
+          margin-top: 2px;
+        }
+
+        .note-box p {
+          margin: 0;
+          color: #1565c0;
+          font-size: 0.95rem;
+        }
+
+        /* Signature Section */
+        .signature-section {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .signature-info, .copies-info {
+          padding: 15px;
+          background: #f8faff;
+          border-radius: 10px;
+          border: 1px solid #e8f0ff;
+        }
+
+        .signature-title, .copies-title {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 15px;
+        }
+
+        .signature-title i, .copies-title i {
+          color: #9C27B0;
+          font-size: 1.2rem;
+        }
+
+        .signature-title h4, .copies-title h4 {
+          color: #1e3c72;
+          margin: 0;
+          font-size: 1rem;
+        }
+
+        .signature-details p {
+          margin: 8px 0;
+          color: #444;
+          font-size: 0.95rem;
+        }
+
+        .signature-details strong {
+          color: #1e3c72;
+          margin-right: 5px;
+        }
+
+        .copies-list {
+          margin: 0;
+          padding-left: 20px;
+          color: #444;
+        }
+
+        .copies-list li {
+          margin-bottom: 8px;
+          font-size: 0.95rem;
+        }
+
+        .copies-list i {
+          color: #9C27B0;
+          margin-right: 8px;
         }
 
         /* Process Steps */
@@ -974,6 +1980,10 @@ export default function Info() {
           background: linear-gradient(135deg, #FF9800, #FF5722);
         }
 
+        .requirement-card.penetapan .requirement-check {
+          background: linear-gradient(135deg, #9C27B0, #E91E63);
+        }
+
         .requirement-text {
           flex: 1;
         }
@@ -989,6 +1999,92 @@ export default function Info() {
           font-weight: 600;
         }
 
+        /* Documents List */
+        .documents-list {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .document-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px;
+          background: #f8faff;
+          border-radius: 8px;
+          transition: transform 0.2s ease;
+        }
+
+        .document-item:hover {
+          transform: translateX(5px);
+          background: #f0f7ff;
+        }
+
+        .doc-icon {
+          width: 36px;
+          height: 36px;
+          background: linear-gradient(135deg, #4CAF50, #8BC34A);
+          color: white;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.9rem;
+          flex-shrink: 0;
+        }
+
+        .document-item span {
+          color: #444;
+          font-size: 0.95rem;
+        }
+
+        /* Timeline */
+        .timeline {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .timeline-item {
+          display: flex;
+          gap: 15px;
+          align-items: flex-start;
+          padding: 15px;
+          background: #f8faff;
+          border-radius: 10px;
+          border-left: 4px solid #2196F3;
+        }
+
+        .timeline-date {
+          background: linear-gradient(135deg, #2196F3, #21CBF3);
+          color: white;
+          padding: 5px 12px;
+          border-radius: 15px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          white-space: nowrap;
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+
+        .timeline-content {
+          flex: 1;
+        }
+
+        .timeline-content h4 {
+          color: #1e3c72;
+          margin: 0 0 5px 0;
+          font-size: 1rem;
+        }
+
+        .timeline-content p {
+          color: #666;
+          margin: 0;
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+
         /* Achievement Sections */
         .achievement-section {
           background: #f9f9f9;
@@ -1002,12 +2098,20 @@ export default function Info() {
           margin-bottom: 0;
         }
 
-        .achievement-section.akademik {
+        .achievement-section.quran {
           border-left: 4px solid #4CAF50;
         }
 
-        .achievement-section.non-akademik {
+        .achievement-section.prestasi {
           border-left: 4px solid #FF9800;
+        }
+
+        .achievement-section.aktivis {
+          border-left: 4px solid #2196F3;
+        }
+
+        .achievement-section.non-muslim {
+          border-left: 4px solid #9C27B0;
         }
 
         .achievement-header {
@@ -1054,7 +2158,7 @@ export default function Info() {
           margin-bottom: 15px;
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 768px) {
           .achievement-details {
             grid-template-columns: 1fr;
           }
@@ -1187,6 +2291,16 @@ export default function Info() {
           background: linear-gradient(135deg, #fff3e0, #fff8e1);
         }
 
+        .kurang-mampu-archive {
+          border-color: #4CAF50;
+          background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+        }
+
+        .keagamaan-archive {
+          border-color: #9C27B0;
+          background: linear-gradient(135deg, #f3e5f5, #f8f4ff);
+        }
+
         .archive-icon {
           width: 60px;
           height: 60px;
@@ -1208,6 +2322,14 @@ export default function Info() {
           background: #FF9800;
         }
 
+        .kurang-mampu-archive .archive-icon {
+          background: #4CAF50;
+        }
+
+        .keagamaan-archive .archive-icon {
+          background: #9C27B0;
+        }
+
         .archive-content h3 {
           color: #e65100;
           margin: 0 0 10px 0;
@@ -1220,6 +2342,14 @@ export default function Info() {
 
         .prestasi-archive .archive-content h3 {
           color: #e65100;
+        }
+
+        .kurang-mampu-archive .archive-content h3 {
+          color: #2e7d32;
+        }
+
+        .keagamaan-archive .archive-content h3 {
+          color: #7b1fa2;
         }
 
         .archive-content p {
@@ -1434,6 +2564,12 @@ export default function Info() {
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+          .tabs-container {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
         @media (max-width: 768px) {
           .hero-title {
             font-size: 2rem;
@@ -1441,6 +2577,14 @@ export default function Info() {
           
           .hero-subtitle {
             font-size: 1.1rem;
+          }
+          
+          .tabs-container {
+            grid-template-columns: 1fr;
+          }
+          
+          .tab-button {
+            min-width: 100%;
           }
           
           .requirements-grid {
@@ -1472,6 +2616,14 @@ export default function Info() {
           .program-icon {
             width: 70px;
             height: 70px;
+          }
+          
+          .info-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          
+          .letter-details {
+            grid-template-columns: 1fr;
           }
         }
 
@@ -1517,8 +2669,26 @@ export default function Info() {
           }
           
           .requirement-item,
-          .info-item {
-            padding: 12px;
+          .info-item,
+          .timeline-item {
+            flex-direction: column;
+            gap: 10px;
+          }
+          
+          .timeline-date {
+            align-self: flex-start;
+          }
+          
+          .info-grid {
+            grid-template-columns: 1fr;
+          }
+          
+          .achievement-details {
+            grid-template-columns: 1fr;
+          }
+          
+          .signature-section {
+            flex-direction: column;
           }
         }
       `}</style>

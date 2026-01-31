@@ -4,6 +4,13 @@ export default function Home() {
   // Helpdesk Penerimaan Beasiswa Yatim
   const dinsosYatim = `https://wa.me/6282230338338`;
   const diknasYatim = `https://wa.me/6281336766061`;
+  
+  // Helpdesk tambahan yang diminta
+  const dinsos2 = `https://wa.me/6285711404090`;
+  const kesra1 = `https://wa.me/6285646151120`;
+  const kesra2 = `https://wa.me/6281230881999`;
+  const disporapar1 = `https://wa.me/6282332008658`;
+  const disporapar2 = `https://wa.me/6281235949497`;
 
   return (
     <LayoutWeb>
@@ -30,14 +37,6 @@ export default function Home() {
               <span className="highlight-text"> diselenggarakan</span>
             </p>
 
-            {/* Stats Section */}
-            {/* <div className="hero-stats">
-              <div className="stat-item">
-                <div className="stat-number">4000+</div>
-                <div className="stat-label">Penerima Beasiswa</div>
-              </div>
-            </div> */}
-
             <div className="hero-divider"></div>
           </div>
         </div>
@@ -46,36 +45,6 @@ export default function Home() {
       {/* Main Content */}
       <div className="container home-container mt-5 mb-5">
         <div className="home-vertical-layout">
-          {/* Gambar Beasiswa Pendidikan Section */}
-          {/* <div className="section-top">
-            <div className="section-header">
-              <i className="fas fa-graduation-cap"></i>
-              <h2>Beasiswa Pendidikan Anak Yatim</h2>
-            </div>
-            <div className="announcement-content-vertical">
-              <div className="announcement-card-vertical">
-                <div className="achievement-badge">
-                  <i className="fas fa-heart"></i>
-                  <span>Dukungan Pendidikan</span>
-                </div>
-                <div className="announcement-image-preview-vertical">
-                  <img
-                    src="/pendidikan2.png"
-                    alt="Beasiswa Pendidikan Anak Yatim SD SMP SMA"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="announcement-info-vertical">
-                  <h4>Program Beasiswa Khusus Anak Yatim</h4>
-                  <p>
-                    Dukungan pendidikan bagi siswa yatim jenjang SD, SMP, dan
-                    SMA Negeri di Kabupaten Sidoarjo
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
           {/* Pengumuman Section */}
           <div className="section-top">
             <div className="section-header">
@@ -95,276 +64,18 @@ export default function Home() {
                     className="img-fluid"
                   />
                 </div>
-                <div className="announcement-actions-vertical">
-                  <a
-                    href="/pengumuman_penerima.pdf"
-                    className="btn btn-download-announcement"
-                    download
-                  >
-                    <i className="fas fa-download"></i>
-                    Download PDF Pengumuman
-                  </a>
-                </div>
               </div>
             </div>
           </div>
 
-          {/* Persyaratan Administrasi Section - DESAIN BARU */}
-          <div className="section-requirements">
-            <div className="section-header">
-              <i className="fas fa-file-alt"></i>
-              <h2>Persyaratan Administrasi</h2>
-            </div>
+          {/* Persyaratan Administrasi Section */}
 
-            <div className="requirements-header">
-              <div className="requirements-intro-card">
-                <div className="intro-icon">
-                  <i className="fas fa-graduation-cap"></i>
-                </div>
-                <div className="intro-content">
-                  <h3>Calon Penerima Beasiswa Anak Yatim</h3>
-                  <p>Jenjang SD Negeri, SMP Negeri, dan SMA Negeri</p>
-                  <div className="intro-badge">
-                    <i className="fas fa-info-circle"></i>
-                    Pastikan semua dokumen lengkap dan valid
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="requirements-grid-new">
-              {/* Proses Pendaftaran */}
-              <div className="requirement-card-new process">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-laptop"></i>
-                  </div>
-                  <h3>Proses Pendaftaran</h3>
-                  <div className="card-number">01</div>
-                </div>
-                <div className="card-content">
-                  <p>
-                    Sekolah mengajukan permohonan dengan mengisi formulir
-                    pendaftaran secara online dan mengunggah dokumen yang
-                    dipersyaratkan.
-                  </p>
-                  <div className="process-steps">
-                    <div className="step">
-                      <div className="step-number">1</div>
-                      <span>Isi formulir online</span>
-                    </div>
-                    <div className="step">
-                      <div className="step-number">2</div>
-                      <span>Upload dokumen</span>
-                    </div>
-                    <div className="step">
-                      <div className="step-number">3</div>
-                      <span>Submit pendaftaran</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Persyaratan Umum */}
-              <div className="requirement-card-new general">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-users"></i>
-                  </div>
-                  <h3>Persyaratan Umum</h3>
-                  <div className="card-number">02</div>
-                </div>
-                <div className="card-content">
-                  <div className="requirements-list-new">
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-check-circle"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>
-                          Penduduk Kabupaten Sidoarjo yang dibuktikan dengan{" "}
-                          <strong>Kartu Keluarga (KK)</strong>
-                        </span>
-                      </div>
-                    </div>
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-check-circle"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>
-                          Terdaftar sebagai siswa di sekolah{" "}
-                          <strong>SD Negeri, SMP Negeri, dan SMA Negeri</strong>{" "}
-                          yang dibuktikan dengan surat keterangan dari sekolah
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Persyaratan Khusus */}
-              <div className="requirement-card-new special">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-user-check"></i>
-                  </div>
-                  <h3>Persyaratan Khusus</h3>
-                  <div className="card-number">03</div>
-                </div>
-                <div className="card-content">
-                  <div className="requirements-list-new">
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-database"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>
-                          Terdaftar dalam{" "}
-                          <strong>
-                            Data Tunggal Sosial Ekonomi Nasional (DTSEN)
-                          </strong>{" "}
-                          desil 1, 2, 3, 4, dan 5 <strong>ATAU</strong>{" "}
-                          melampirkan{" "}
-                          <strong>Surat Keterangan Tidak Mampu (SKTM)</strong>{" "}
-                          dari Desa/Kelurahan
-                        </span>
-                      </div>
-                    </div>
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-file-certificate"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>
-                          <strong>Akte Kematian</strong> yang diterbitkan Dinas
-                          Kependudukan dan Pencatatan Sipil{" "}
-                          <strong>ATAU</strong> <strong>Surat Kematian</strong>{" "}
-                          yang diterbitkan Desa/Kelurahan
-                        </span>
-                      </div>
-                    </div>
-                    <div className="requirement-item">
-                      <div className="requirement-check">
-                        <i className="fas fa-handshake"></i>
-                      </div>
-                      <div className="requirement-text">
-                        <span>
-                          Tidak sedang menerima beasiswa untuk tujuan serupa
-                          dari pihak manapun dibuktikan dengan{" "}
-                          <strong>
-                            surat pernyataan tidak menerima beasiswa
-                          </strong>{" "}
-                          dari Lembaga/Donatur lainnya oleh orang tua/wali siswa
-                          yang diketahui oleh sekolah
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Informasi Tambahan */}
-              <div className="requirement-card-new info">
-                <div className="card-header">
-                  <div className="card-icon">
-                    <i className="fas fa-info-circle"></i>
-                  </div>
-                  <h3>Informasi Penting</h3>
-                  <div className="card-number">04</div>
-                </div>
-                <div className="card-content">
-                  <div className="info-items-new">
-                    <div className="info-item-new">
-                      <div className="info-icon">
-                        <i className="fas fa-exclamation-triangle"></i>
-                      </div>
-                      <div className="info-text">
-                        <h4>Dokumen Lengkap</h4>
-                        <p>
-                          Pastikan semua dokumen sudah lengkap dan valid sebelum
-                          mengajukan permohonan
-                        </p>
-                      </div>
-                    </div>
-                    <div className="info-item-new">
-                      <div className="info-icon">
-                        <i className="fas fa-upload"></i>
-                      </div>
-                      <div className="info-text">
-                        <h4>Format File</h4>
-                        <p>
-                          Upload dokumen dalam format PDF dengan ukuran maksimal
-                          2MB per file
-                        </p>
-                      </div>
-                    </div>
-                    <div className="info-item-new">
-                      <div className="info-icon">
-                        <i className="fas fa-clock"></i>
-                      </div>
-                      <div className="info-text">
-                        <h4>Periksa Kembali</h4>
-                        <p>
-                          Periksa kembali semua persyaratan sebelum melakukan
-                          submit pendaftaran
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* CTA Section */}
-            <div className="requirements-cta">
-              <div className="cta-content">
-                <h3>Siap Mengajukan Beasiswa?</h3>
-                <p>
-                  Pastikan semua persyaratan telah dipenuhi sebelum melanjutkan
-                  ke proses pendaftaran
-                </p>
-                <div className="cta-buttons">
-                  <a
-                    href="https://beasiswa.sidoarjokab.go.id/"
-                    className="btn btn-primary"
-                  >
-                    <i className="fas fa-external-link-alt"></i>
-                    Daftar Sekarang
-                  </a>
-                  <a href="#helpdesk" className="btn btn-secondary">
-                    <i className="fas fa-question-circle"></i>
-                    Butuh Bantuan?
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Informasi Helpdesk Section */}
-          <div className="section-info">
-            <div className="section-header">
-              <i className="fas fa-info-circle"></i>
-              <h2>Informasi Helpdesk</h2>
-            </div>
-            <div className="info-content">
-              <div className="info-card">
-                <div className="info-icon">
-                  <i className="fas fa-users"></i>
-                </div>
-                <div className="info-text">
-                  <h3>Helpdesk Khusus Penerimaan Beasiswa</h3>
-                  <p>
-                    Berikut adalah kontak helpdesk resmi untuk informasi
-                    penerimaan beasiswa SD, SMP, SMA bagi siswa yatim:
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          
 
           {/* Kontak Section */}
-          <div className="section-bottom">
+          <div className="section-bottom" id="helpdesk">
             <div className="section-header">
               <i className="fas fa-headset"></i>
               <h2>Kontak Helpdesk Resmi</h2>
@@ -395,11 +106,29 @@ export default function Home() {
                     </div>
                     <a
                       target="_blank"
+                      rel="noopener noreferrer"
                       href={dinsosYatim}
                       className="whatsapp-btn"
                     >
                       <i className="fab fa-whatsapp"></i>
                       0822-3303-8338
+                    </a>
+                  </div>
+                  <div className="contact-item-vertical">
+                    <div className="contact-details">
+                      <span className="contact-name">Dinsos 2</span>
+                      <span className="contact-role">
+                        Helpdesk Tambahan Dinsos
+                      </span>
+                    </div>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={dinsos2}
+                      className="whatsapp-btn"
+                    >
+                      <i className="fab fa-whatsapp"></i>
+                      0857-1140-4090
                     </a>
                   </div>
                 </div>
@@ -430,6 +159,7 @@ export default function Home() {
                     </div>
                     <a
                       target="_blank"
+                      rel="noopener noreferrer"
                       href={diknasYatim}
                       className="whatsapp-btn"
                     >
@@ -440,7 +170,105 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Card 3: Website */}
+              {/* Card 3: KESRA */}
+              <div className="contact-card-vertical">
+                <div className="contact-card-header-vertical">
+                  <div className="contact-icon-vertical kesra">
+                    <i className="fas fa-handshake"></i>
+                  </div>
+                  <div className="contact-card-info">
+                    <h3>Kesra</h3>
+                    <p>Bidang Kesejahteraan Rakyat</p>
+                  </div>
+                </div>
+                <div className="contact-card-content">
+                  <div className="contact-item-vertical">
+                    <div className="contact-details">
+                      <span className="contact-name">KESRA 1</span>
+                      <span className="contact-role">
+                        Helpdesk Kesra
+                      </span>
+                    </div>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={kesra1}
+                      className="whatsapp-btn"
+                    >
+                      <i className="fab fa-whatsapp"></i>
+                      0856-4615-1120
+                    </a>
+                  </div>
+                  <div className="contact-item-vertical">
+                    <div className="contact-details">
+                      <span className="contact-name">KESRA 2</span>
+                      <span className="contact-role">
+                        Helpdesk Kesra
+                      </span>
+                    </div>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={kesra2}
+                      className="whatsapp-btn"
+                    >
+                      <i className="fab fa-whatsapp"></i>
+                      0812-3088-1999
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 4: Disporapar */}
+              <div className="contact-card-vertical">
+                <div className="contact-card-header-vertical">
+                  <div className="contact-icon-vertical disporapar">
+                    <i className="fas fa-running"></i>
+                  </div>
+                  <div className="contact-card-info">
+                    <h3>Disporapar</h3>
+                    <p>Dinas Pemuda Olahraga & Pariwisata</p>
+                  </div>
+                </div>
+                <div className="contact-card-content">
+                  <div className="contact-item-vertical">
+                    <div className="contact-details">
+                      <span className="contact-name">Disporapar 1</span>
+                      <span className="contact-role">
+                        Helpdesk Disporapar
+                      </span>
+                    </div>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={disporapar1}
+                      className="whatsapp-btn"
+                    >
+                      <i className="fab fa-whatsapp"></i>
+                      0823-3200-8658
+                    </a>
+                  </div>
+                  <div className="contact-item-vertical">
+                    <div className="contact-details">
+                      <span className="contact-name">Disporapar 2</span>
+                      <span className="contact-role">
+                        Helpdesk Disporapar
+                      </span>
+                    </div>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={disporapar2}
+                      className="whatsapp-btn"
+                    >
+                      <i className="fab fa-whatsapp"></i>
+                      0812-3594-9497
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 5: Website */}
               <div className="contact-card-vertical website">
                 <div className="contact-card-header-vertical">
                   <div className="contact-icon-vertical website">
@@ -458,6 +286,8 @@ export default function Home() {
                   </p>
                   <a
                     href="https://beasiswa.sidoarjokab.go.id/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="website-link-vertical"
                   >
                     <i className="fas fa-external-link-alt"></i>
@@ -581,36 +411,6 @@ export default function Home() {
           background: #ffd700;
           margin: 0 auto;
           border-radius: 2px;
-        }
-
-        /* ===== HERO STATS ===== */
-        .hero-stats {
-          display: flex;
-          justify-content: center;
-          gap: 40px;
-          margin: 30px 0;
-          flex-wrap: wrap;
-        }
-
-        .stat-item {
-          text-align: center;
-          background: rgba(255, 255, 255, 0.1);
-          padding: 20px;
-          border-radius: 15px;
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .stat-number {
-          font-size: 2.5rem;
-          font-weight: 700;
-          color: #ffd700;
-          margin-bottom: 5px;
-        }
-
-        .stat-label {
-          font-size: 0.9rem;
-          opacity: 0.9;
         }
 
         /* ===== SECTION HEADERS ===== */
@@ -1064,33 +864,6 @@ export default function Home() {
           border-radius: 15px;
         }
 
-        .announcement-info-vertical {
-          background: #f8faff;
-          padding: 20px;
-          border-radius: 12px;
-          margin-top: 15px;
-        }
-
-        .announcement-info-vertical h4 {
-          color: #1e3c72;
-          font-weight: 700;
-          margin: 0 0 10px 0;
-          font-size: 1.2rem;
-        }
-
-        .announcement-info-vertical p {
-          color: #666;
-          margin: 0;
-          line-height: 1.5;
-        }
-
-        .announcement-actions-vertical {
-          display: flex;
-          gap: 15px;
-          justify-content: center;
-          flex-wrap: wrap;
-        }
-
         /* ===== CONTACT SECTION ===== */
         .contact-grid-vertical {
           display: grid;
@@ -1114,7 +887,22 @@ export default function Home() {
           left: 0;
           width: 5px;
           height: 100%;
-          background: linear-gradient(135deg, #1e3c72, #2a5298);
+        }
+
+        .contact-card-vertical:nth-child(1)::before {
+          background: linear-gradient(135deg, #ef6c00, #ff9800);
+        }
+        .contact-card-vertical:nth-child(2)::before {
+          background: linear-gradient(135deg, #2e7d32, #4caf50);
+        }
+        .contact-card-vertical:nth-child(3)::before {
+          background: linear-gradient(135deg, #2196f3, #21cbf3);
+        }
+        .contact-card-vertical:nth-child(4)::before {
+          background: linear-gradient(135deg, #9c27b0, #e91e63);
+        }
+        .contact-card-vertical.website::before {
+          background: linear-gradient(135deg, #7b1fa2, #9c27b0);
         }
 
         .contact-card-vertical.website {
@@ -1146,6 +934,14 @@ export default function Home() {
 
         .contact-icon-vertical.diknas {
           background: linear-gradient(135deg, #2e7d32, #4caf50);
+        }
+
+        .contact-icon-vertical.kesra {
+          background: linear-gradient(135deg, #2196f3, #21cbf3);
+        }
+
+        .contact-icon-vertical.disporapar {
+          background: linear-gradient(135deg, #9c27b0, #e91e63);
         }
 
         .contact-icon-vertical.website {
@@ -1228,11 +1024,6 @@ export default function Home() {
         .btn:hover {
           transform: translateY(-2px);
           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-download-announcement {
-          background: linear-gradient(135deg, #dc3545, #c82333);
-          color: white;
         }
 
         .btn-primary {
@@ -1327,18 +1118,6 @@ export default function Home() {
             font-size: 1.1rem;
           }
 
-          .hero-stats {
-            gap: 20px;
-          }
-
-          .stat-item {
-            padding: 15px;
-          }
-
-          .stat-number {
-            font-size: 2rem;
-          }
-
           .section-top,
           .section-bottom,
           .section-info,
@@ -1358,11 +1137,6 @@ export default function Home() {
             flex-direction: column;
             gap: 10px;
             text-align: center;
-          }
-
-          .announcement-actions-vertical {
-            flex-direction: column;
-            align-items: center;
           }
 
           .btn {

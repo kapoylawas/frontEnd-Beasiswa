@@ -45,7 +45,7 @@ export default function App() {
                     <span>Jl. Jenderal Sudirman No. 50, Sidoarjo</span>
                   </div>
                 </div>
-                <div className="contact-item">
+                {/* <div className="contact-item">
                   <i className="fas fa-phone"></i>
                   <div>
                     <strong>Telepon</strong>
@@ -58,7 +58,7 @@ export default function App() {
                     <strong>Email</strong>
                     <span>beasiswa@sidoarjo.go.id</span>
                   </div>
-                </div>
+                </div> */}
                 <div className="contact-item">
                   <i className="fas fa-clock"></i>
                   <div>
