@@ -224,7 +224,7 @@ export default function Login() {
                 <div className="feature-item">
                   <i className="fa-solid fa-hands-holding-child"></i>
                   <div>
-                    <h3>Yatim</h3>
+                    <h3>Beasiswa yatim sd/smp/sma</h3>
                     <p>Login menggunakan NPSN (10 digit)</p>
                   </div>
                 </div>

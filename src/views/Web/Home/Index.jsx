@@ -89,7 +89,7 @@ export default function Home() {
                   </div>
                   <div className="contact-card-info">
                     <h3>Dinas Sosial (DINSOS)</h3>
-                    <p>Beasiswa Yatim - Byamoga Dinsos</p>
+                    <p>Beasiswa Pendidikan Tinggi Kurang Mampu</p>
                     <div className="contact-badge">
                       <i className="fas fa-child"></i>
                       SD, SMP, SMA
@@ -141,8 +141,8 @@ export default function Home() {
                     <i className="fas fa-graduation-cap"></i>
                   </div>
                   <div className="contact-card-info">
-                    <h3>Dinas Pendidikan (DIKNAS)</h3>
-                    <p>Beasiswa Yatim - Dinas Pendidikan</p>
+                    <h3>Dinas Pendidikan dan Kebudayaan (DISPENDIK)</h3>
+                    <p>Beasiswa Anak Yatim</p>
                     <div className="contact-badge">
                       <i className="fas fa-child"></i>
                       SD, SMP, SMA
@@ -178,7 +178,7 @@ export default function Home() {
                   </div>
                   <div className="contact-card-info">
                     <h3>Kesra</h3>
-                    <p>Bidang Kesejahteraan Rakyat</p>
+                    <p>Beasiswa Bidang Keagamaan</p>
                   </div>
                 </div>
                 <div className="contact-card-content">
@@ -226,8 +226,8 @@ export default function Home() {
                     <i className="fas fa-running"></i>
                   </div>
                   <div className="contact-card-info">
-                    <h3>Disporapar</h3>
-                    <p>Dinas Pemuda Olahraga & Pariwisata</p>
+                    <h3>Dinas Pemuda Olahraga dan Pariwisata(Disporapar)</h3>
+                    <p>Beasiswa Prestasi</p>
                   </div>
                 </div>
                 <div className="contact-card-content">

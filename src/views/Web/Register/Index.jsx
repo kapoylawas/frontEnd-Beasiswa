@@ -9,7 +9,7 @@ import Select from "react-select";
 export default function Register() {
   document.title = "Register - Beasiswa Sidoarjo";
 
-  const maintenance = true;
+  const maintenance = false;
 
   const navigate = useNavigate();
 
@@ -383,12 +383,12 @@ export default function Register() {
               <h1 className="hero-title">Pendaftaran Beasiswa</h1>
               <p className="hero-subtitle">
                 Daftarkan diri Anda untuk menjadi penerima beasiswa
-                <span className="highlight"> Kabupaten Sidoarjo 2025</span>
+                <span className="highlight"> Kabupaten Sidoarjo 2026</span>
               </p>
               <div className="hero-divider"></div>
 
               {/* Tombol Lihat Persyaratan */}
-              <div className="persyaratan-button-container">
+              {/* <div className="persyaratan-button-container">
                 <button
                   className="btn-persyaratan"
                   onClick={() => setShowPersyaratan(true)}
@@ -396,7 +396,7 @@ export default function Register() {
                   <i className="fas fa-list-alt"></i>
                   Lihat Persyaratan Beasiswa
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -602,7 +602,56 @@ export default function Register() {
                   <h2>Formulir Pendaftaran</h2>
                 </div>
 
-                {/* Global Error Summary - FIXED */}
+                {/* Alert Informasi Beasiswa - TAMBAHAN BARU */}
+                <div className="alert-beasiswa">
+                  <div className="alert-header">
+                    <i className="fas fa-info-circle"></i>
+                    <h3>Informasi Pendaftaran Beasiswa</h3>
+                  </div>
+                  <div className="alert-content">
+                    <div className="alert-item">
+                      <div className="alert-icon">
+                        <i className="fas fa-medal"></i>
+                      </div>
+                      <div className="alert-text">
+                        <h4>Beasiswa Prestasi</h4>
+                        <p>Untuk mahasiswa berprestasi akademik dan non-akademik </p>
+                      </div>
+                    </div>
+                    
+                    <div className="alert-item">
+                      <div className="alert-icon">
+                        <i className="fas fa-hand-holding-heart"></i>
+                      </div>
+                      <div className="alert-text">
+                        <h4>Beasiswa Kurang Mampu</h4>
+                        <p>Untuk mahasiswa dari kurang mampu</p>
+                      </div>
+                    </div>
+                    
+                    <div className="alert-item">
+                      <div className="alert-icon">
+                        <i className="fas fa-mosque"></i>
+                      </div>
+                      <div className="alert-text">
+                        <h4>Beasiswa Keagamaan</h4>
+                        <p>Untuk mahasiswa aktif berorganisasi keagamaan dengan rekomendasi dari lembaga terkait</p>
+                      </div>
+                    </div>
+                    
+                    <div className="alert-item important">
+                      <div className="alert-icon">
+                        <i className="fas fa-exclamation-triangle"></i>
+                      </div>
+                      <div className="alert-text">
+                        <h4>Catatan Penting</h4>
+                        <p><strong>Beasiswa Yatim SD/SMP/SMA</strong> didaftarkan oleh pihak sekolah masing-masing</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Global Error Summary */}
                 {getErrorMessages().length > 0 && (
                   <div className="error-summary">
                     <div className="error-header">
@@ -1108,6 +1157,113 @@ export default function Register() {
       </div>
 
       <style jsx>{`
+        /* Alert Beasiswa Styles - TAMBAHAN BARU */
+        .alert-beasiswa {
+          background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+          border: 2px solid #3b82f6;
+          border-left: 5px solid #1e40af;
+          border-radius: 15px;
+          padding: 25px;
+          margin-bottom: 25px;
+          margin-top: 10px;
+        }
+
+        .alert-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 20px;
+          padding-bottom: 15px;
+          border-bottom: 2px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .alert-header i {
+          color: #1e40af;
+          font-size: 1.8rem;
+        }
+
+        .alert-header h3 {
+          color: #1e40af;
+          margin: 0;
+          font-size: 1.4rem;
+        }
+
+        .alert-content {
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+        }
+
+        .alert-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 15px;
+          padding: 15px;
+          background: white;
+          border-radius: 12px;
+          border: 1px solid #e2e8f0;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .alert-item:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .alert-item.important {
+          background: #fffbeb;
+          border: 2px solid #f59e0b;
+        }
+
+        .alert-icon {
+          width: 45px;
+          height: 45px;
+          min-width: 45px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.2rem;
+          color: white;
+        }
+
+        .alert-item:nth-child(1) .alert-icon {
+          background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        .alert-item:nth-child(2) .alert-icon {
+          background: linear-gradient(135deg, #10b981, #34d399);
+        }
+
+        .alert-item:nth-child(3) .alert-icon {
+          background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+        }
+
+        .alert-item.important .alert-icon {
+          background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        .alert-text h4 {
+          color: #1e293b;
+          margin: 0 0 5px 0;
+          font-size: 1.1rem;
+        }
+
+        .alert-text p {
+          color: #475569;
+          margin: 0;
+          font-size: 0.95rem;
+          line-height: 1.5;
+        }
+
+        .alert-item.important .alert-text h4 {
+          color: #dc2626;
+        }
+
+        .alert-item.important .alert-text p strong {
+          color: #dc2626;
+        }
+
         /* Error Styles */
         .error-summary {
           background: #fef2f2;
@@ -1119,7 +1275,6 @@ export default function Register() {
           margin-bottom: 25px;
         }
 
- 
         .error-header {
           display: flex;
           align-items: center;
@@ -1128,15 +1283,13 @@ export default function Register() {
         }
 
         .error-header i {
-          color: #dc2626;
           color: #ef4444;
           font-size: 1.2rem;
         }
 
         .error-header h4 {
-          color: #dc2626;
-          margin: 0;
           color: #c53030;
+          margin: 0;
           font-size: 1.1rem;
         }
 
@@ -1150,7 +1303,6 @@ export default function Register() {
           display: flex;
           align-items: center;
           gap: 8px;
-          color: #dc2626;
           color: #c53030;
         }
 
@@ -1159,26 +1311,20 @@ export default function Register() {
         }
 
         .form-input.error, .form-select.error, .form-textarea.error, .upload-area.error {
-          border-color: #dc2626 !important;
-          background: #fef2f2;
           border-color: #ef4444 !important;
           background-color: #fff5f5;
         }
 
         .form-input.error:focus, .form-select.error:focus, .form-textarea.error:focus {
-          box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
           box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
         }
 
         .upload-area.error {
-          border-color: #dc2626 !important;
-          background: #fef2f2;
           border-color: #ef4444 !important;
           background-color: #fff5f5;
         }
 
         .error-message {
-          color: #dc2626;
           color: #ef4444;
           font-size: 0.875rem;
           margin-top: 5px;
@@ -1188,7 +1334,6 @@ export default function Register() {
         }
 
         .file-preview.success {
-          color: #059669;
           color: #10b981;
         }
 
@@ -1198,7 +1343,6 @@ export default function Register() {
           height: auto;
           margin-bottom: 20px;
           border-radius: 12px;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
           box-shadow: 0 8px 25px rgba(0,0,0,0.1);
           background: white;
           padding: 8px;
@@ -1210,7 +1354,6 @@ export default function Register() {
         }
 
         .btn-persyaratan {
-          background: linear-gradient(135deg, #059669, #10b981);
           background: linear-gradient(135deg, #10b981, #34d399);
           color: white;
           border: none;
@@ -1227,7 +1370,6 @@ export default function Register() {
 
         .btn-persyaratan:hover {
           transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3);
           box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
         }
 
@@ -1253,7 +1395,6 @@ export default function Register() {
           width: 100%;
           max-height: 90vh;
           overflow-y: auto;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
           box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
 
@@ -1262,7 +1403,6 @@ export default function Register() {
           justify-content: space-between;
           align-items: center;
           padding: 25px 30px;
-          border-bottom: 2px solid #f1f5f9;
           border-bottom: 1px solid #e2e8f0;
           background: linear-gradient(135deg, #1e3c72, #2a5298);
           color: white;
@@ -1340,7 +1480,6 @@ export default function Register() {
         }
 
         .persyaratan-card {
-          background: #f8fafc;
           background: #ffffff;
           border-radius: 15px;
           padding: 25px;
@@ -1393,7 +1532,6 @@ export default function Register() {
         }
 
         .requirement-item i {
-          color: #059669;
           color: #10b981;
           margin-top: 2px;
           flex-shrink: 0;
@@ -1408,14 +1546,13 @@ export default function Register() {
           color: #1e3c72;
         }
 
-        /* Rest of the styles remain the same as previous version */
+        /* Rest of the styles remain the same */
         .register-container {
           min-height: 100vh;
           background: #f8fafc;
         }
 
         .register-hero {
-          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
           background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
           color: white;
           padding: 50px 0;
@@ -1468,7 +1605,6 @@ export default function Register() {
           border-radius: 20px;
           padding: 50px;
           text-align: center;
-          text-align: center; 
           box-shadow: 0 10px 30px rgba(0,0,0,0.1);
           max-width: 500px;
           width: 100%;
@@ -1541,14 +1677,12 @@ export default function Register() {
         }
 
         .step.active .step-number {
-          background: #1e3c72;
           background: #1e40af;
           color: white;
         }
 
         .step-label {
           font-size: 0.9rem;
-          color: #64748b;
           color: #475569;
           font-weight: 600;
         }
@@ -1560,7 +1694,6 @@ export default function Register() {
         .register-card {
           background: white;
           border-radius: 20px;
-          padding: 40px;
           padding: 30px 40px;
           box-shadow: 0 10px 30px rgba(0,0,0,0.1);
           margin-bottom: 30px;
@@ -1570,8 +1703,7 @@ export default function Register() {
           display: flex;
           align-items: center;
           gap: 15px;
-          margin-bottom: 30px;
-          padding-bottom: 20px;
+          margin-bottom: 15px;
           padding-bottom: 15px;
           border-bottom: 2px solid #f1f5f9;
         }
@@ -1612,7 +1744,6 @@ export default function Register() {
         .form-label {
           display: flex;
           align-items: center;
-          gap: 8px;
           gap: 10px;
           color: #1e3c72;
           font-weight: 600;
@@ -1634,7 +1765,6 @@ export default function Register() {
 
         .form-input:focus, .form-select:focus, .form-textarea:focus {
           outline: none;
-          border-color: #1e3c72;
           border-color: #3b82f6;
           box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
         }
@@ -1674,7 +1804,6 @@ export default function Register() {
         }
 
         .upload-area:hover {
-          border-color: #1e3c72;
           border-color: #3b82f6;
           background: #f8faff;
         }
@@ -1709,9 +1838,8 @@ export default function Register() {
         .file-preview {
           display: flex;
           align-items: center;
-          gap: 8px;
           gap: 10px;
-          color: #059669;
+          color: #10b981;
           margin-top: 10px;
           font-weight: 500;
         }
@@ -1751,19 +1879,16 @@ export default function Register() {
         }
 
         .btn-next {
-          background: #1e3c72;
           background: #2563eb;
           color: white;
         }
 
         .btn-next:hover {
-          background: #2a5298;
           background: #1d4ed8;
           transform: translateY(-2px);
         }
 
         .btn-submit {
-          background: linear-gradient(135deg, #059669, #10b981);
           background: linear-gradient(135deg, #10b981, #34d399);
           color: white;
         }
@@ -1781,7 +1906,6 @@ export default function Register() {
         .info-box {
           background: white;
           border-radius: 15px;
-          padding: 25px;
           padding: 30px;
           box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
@@ -1816,7 +1940,6 @@ export default function Register() {
         }
 
         .info-item i {
-          color: #059669;
           color: #10b981;
           margin-top: 2px;
         }
@@ -1826,7 +1949,31 @@ export default function Register() {
           line-height: 1.4;
         }
 
+        /* Responsive untuk Alert */
         @media (max-width: 768px) {
+          .alert-beasiswa {
+            padding: 20px;
+          }
+          
+          .alert-item {
+            padding: 12px;
+          }
+          
+          .alert-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            font-size: 1rem;
+          }
+          
+          .alert-text h4 {
+            font-size: 1rem;
+          }
+          
+          .alert-text p {
+            font-size: 0.9rem;
+          }
+
           .hero-title {
             font-size: 2rem;
           }
@@ -1875,6 +2022,21 @@ export default function Register() {
         }
 
         @media (max-width: 576px) {
+          .alert-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 8px;
+          }
+          
+          .alert-item {
+            flex-direction: column;
+            text-align: center;
+          }
+          
+          .alert-icon {
+            align-self: center;
+          }
+
           .main-container {
             padding: 20px 15px;
           }
