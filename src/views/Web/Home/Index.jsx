@@ -77,7 +77,7 @@ export default function Home() {
           </div> */}
 
           {/* Pengumuman Section */}
-          {/* <div className="section-top">
+          <div className="section-top">
             <div className="section-header">
               <i className="fas fa-bullhorn"></i>
               <h2>Pengumuman</h2>
@@ -86,11 +86,11 @@ export default function Home() {
               <div className="announcement-card-vertical">
                 <div className="achievement-badge">
                   <i className="fas fa-star"></i>
-                  <span>Program Selesai</span>
+                  <span>Program Diselenggarakan</span>
                 </div>
                 <div className="announcement-image-preview-vertical">
                   <img
-                    src="/.jpeg"
+                    src="/2026.jpg"
                     alt="Pengumuman Beasiswa"
                     className="img-fluid"
                   />
@@ -107,7 +107,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
           {/* Persyaratan Administrasi Section - DESAIN BARU */}
           <div className="section-requirements">
