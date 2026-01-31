@@ -29,11 +29,11 @@ export default function Info() {
             </h1>
             <p className="hero-subtitle">
               Program Beasiswa Sidoarjo telah
-              <span className="highlight"> berhasil diselenggarakan</span>
+              <span className="highlight"> diselenggarakan</span>
             </p>
             <div className="completion-badge">
               <i className="fas fa-check-circle"></i>
-              <span>Program Telah Selesai</span>
+              <span>Program diselenggarakan</span>
             </div>
             <div className="hero-divider"></div>
           </div>
@@ -50,8 +50,8 @@ export default function Info() {
               <i className="fas fa-flag-checkered"></i>
             </div>
             <div className="notice-content">
-              <h3>Program Beasiswa 2026 Telah Berakhir</h3>
-              <p>Berikut adalah dokumentasi persyaratan yang digunakan dalam seleksi beasiswa tahun 2026. Informasi ini disimpan untuk referensi dan arsip.</p>
+              <h3>Program Beasiswa 2026 diselenggarakan</h3>
+              <p>Berikut  persyaratan yang digunakan dalam seleksi beasiswa tahun 2026.</p>
             </div>
           </div>
 
@@ -265,7 +265,7 @@ export default function Info() {
                   </div>
                   <div className="archive-content">
                     <h3>Dokumentasi Beasiswa Yatim 2026</h3>
-                    <p>Halaman ini merupakan arsip resmi persyaratan beasiswa yatim Sidoarjo tahun 2026. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
+                    <p>Halaman ini merupakan arsip resmi persyaratan beasiswa yatim Sidoarjo tahun 2026. Program ini di daftarkan oleh pihak admin sekolah masing masing.</p>
                   </div>
                 </div>
               </div>
@@ -489,7 +489,7 @@ export default function Info() {
                   </div>
                   <div className="archive-content">
                     <h3>Dokumentasi Beasiswa Prestasi 2026</h3>
-                    <p>Halaman ini merupakan arsip resmi persyaratan beasiswa prestasi Sidoarjo tahun 2026. Program telah berakhir dan semua persyaratan telah diverifikasi.</p>
+                    <p>Halaman ini merupakan arsip resmi persyaratan beasiswa prestasi Sidoarjo tahun 2026.</p>
                   </div>
                 </div>
               </div>
@@ -1151,7 +1151,7 @@ export default function Info() {
                   </div>
                   <div className="archive-content">
                     <h3>Dokumentasi Beasiswa Keagamaan 2026</h3>
-                    <p>Halaman ini merupakan arsip resmi persyaratan beasiswa bidang keagamaan Sidoarjo tahun 2026 berdasarkan Surat Nomor 400/1548/438.1.1.2/2026. Program telah berakhir dan semua tahapan seleksi telah dilaksanakan.</p>
+                    <p>Halaman ini merupakan arsip resmi persyaratan beasiswa bidang keagamaan Sidoarjo tahun 2026 berdasarkan Surat Nomor 400/1548/438.1.1.2/2026.</p>
                   </div>
                 </div>
               </div>

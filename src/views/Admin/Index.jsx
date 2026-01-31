@@ -700,11 +700,10 @@ export default function Dashboard() {
                                   onChange={handleshowhidePilih}
                                 >
                                   <option value="">
-                                    -- Pilih Universitas Dalam Negeri / Luar
-                                    Negeri --
+                                    -- Pilih Universitas --
                                   </option>
                                   <option value="Dalam">Dalam Negeri</option>
-                                  <option value="Luar">Luar Negeri</option>
+                                  {/* <option value="Luar">Luar Negeri</option> */}
                                 </select>
                               </div>
                               {errors.pilih_universitas && (

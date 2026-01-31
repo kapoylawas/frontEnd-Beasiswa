@@ -22,8 +22,8 @@ export default function Navbar() {
         <div className="container-fluid">
           <div className="top-nav-content">
             <div className="contact-info">
-              <i className="fas fa-envelope me-2"></i>
-              <span>beasiswa@sidoarjo.go.id</span>
+              {/* <i className="fas fa-envelope me-2"></i>
+              <span>beasiswa@sidoarjo.go.id</span> */}
             </div>
             <div className="social-links">
               <span className="me-2">IKUTI KAMI:</span>
