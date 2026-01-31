@@ -609,7 +609,7 @@ export default function YatimIndex() {
                             disabled={pendaftaranDitutup}
                           />
                           <div className="form-text text-muted">
-                            10 digit Nomor Induk Siswa Nasional
+                           Nomor Pokok Sekolah Nasional
                           </div>
                         </div>
 
