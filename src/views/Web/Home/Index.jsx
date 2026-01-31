@@ -59,7 +59,7 @@ export default function Home() {
                 </div>
                 <div className="announcement-image-preview-vertical">
                   <img
-                    src="/2026.jpg"
+                    src="/2026_fix.png"
                     alt="Pengumuman Beasiswa"
                     className="img-fluid"
                   />
