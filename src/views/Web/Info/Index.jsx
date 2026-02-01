@@ -169,7 +169,7 @@ export default function Info() {
                             <i className="fas fa-check-circle"></i>
                           </div>
                           <div className="requirement-text">
-                            <span>Terdaftar sebagai siswa di sekolah <strong>SD Negeri, SMP Negeri, dan SMA Negeri</strong> yang dibuktikan dengan surat keterangan dari sekolah</span>
+                            <span>Terdaftar sebagai siswa di sekolah <strong>SD Negeri, SMP Negeri, dan SMA Negeri dan Swasta Sederajat</strong> yang dibuktikan dengan surat keterangan dari sekolah</span>
                           </div>
                         </div>
                       </div>
