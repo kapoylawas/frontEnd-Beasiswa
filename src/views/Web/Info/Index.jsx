@@ -108,7 +108,7 @@ export default function Info() {
                   </div>
                   <div className="program-title">
                     <h2>Beasiswa Anak Yatim</h2>
-                    <p>Untuk siswa SD Negeri, SMP Negeri, dan SMA Negeri di Kabupaten Sidoarjo</p>
+                    <p>Untuk siswa SD Negeri, SMP Negeri, dan SMA Negeri dan Swasta Sederajat di Kabupaten Sidoarjo</p>
                   </div>
                   <div className="program-badge yatim-badge">
                     <i className="fas fa-graduation-cap"></i>
