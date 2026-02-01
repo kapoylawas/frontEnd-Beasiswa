@@ -674,7 +674,7 @@ export default function Dashboard() {
                                       download
                                       target="_blank"
                                     >
-                                      Contoh Surat Pernyataan Kesra
+                                      Contoh Surat Pernyataan Kesra Beasiswa Bidang Keagamaan
                                     </a>
                                   </div>
 
