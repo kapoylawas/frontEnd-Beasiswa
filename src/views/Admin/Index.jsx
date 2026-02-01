@@ -699,7 +699,7 @@ export default function Dashboard() {
                                               style={{ fontSize: "2rem" }}
                                             ></i>
                                             <h6 className="card-title">
-                                              Surat Pernyataan Kesra
+                                              Surat Pernyataan Keagamaan
                                             </h6>
                                             <p className="card-text small text-muted">
                                               Untuk Beasiswa Bidang Keagamaan 
