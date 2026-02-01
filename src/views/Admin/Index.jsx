@@ -654,23 +654,30 @@ export default function Dashboard() {
                                 <div className="mb-3">
                                   <label className="form-label">
                                     Upload Surat Pernyataan Bermaterai pdf dan
-                                    maksimal 2MB{" "}
-                                    <a
-                                      href="/surat.pdf" // Link to the file in the public folder
-                                      download
-                                      target="_blank"
-                                    >
-                                      (Contoh Surat Pernyataan)
-                                    </a>{" "}
-                                    atau{" "}
-                                    <a
-                                      href="/surat_kesra.pdf" // Link to file Kesra in the public folder
-                                      download
-                                      target="_blank"
-                                    >
-                                      (Contoh Surat Pernyataan Kesra)
-                                    </a>
+                                    maksimal 2MB
                                   </label>
+
+                                  <div className="mb-2">
+                                    <span className="text-muted">
+                                      Contoh Surat:{" "}
+                                    </span>
+                                    <a
+                                      href="/surat.pdf"
+                                      download
+                                      target="_blank"
+                                      className="me-3"
+                                    >
+                                      Contoh Surat Pernyataan Umum
+                                    </a>
+                                    <a
+                                      href="/surat_kesra.pdf"
+                                      download
+                                      target="_blank"
+                                    >
+                                      Contoh Surat Pernyataan Kesra
+                                    </a>
+                                  </div>
+
                                   <div className="upload-area">
                                     <input
                                       type="file"
