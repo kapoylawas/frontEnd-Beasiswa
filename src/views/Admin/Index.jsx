@@ -10,8 +10,6 @@ import toast from "react-hot-toast";
 //import Surat from "../../../public/images/surat.docx";
 import Logo from "../../../public/images/lock.svg";
 
-
-
 export default function Dashboard() {
   document.title = "Dashboard - Beasiswa";
 
@@ -68,7 +66,6 @@ export default function Dashboard() {
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
-
       //set data
       setDashboard(response.data.data);
       setUsers(response.data.data.users);
@@ -77,7 +74,7 @@ export default function Dashboard() {
       setKesras(response.data.data.kesras);
       setLuarNegeris(response.data.data.luarNegeris);
       setNonAkademiks(response.data.data.nonAkademiks);
-      setTerdaftars(response.data.terdaftar)
+      setTerdaftars(response.data.terdaftar);
     });
   }, []);
 
@@ -114,10 +111,10 @@ export default function Dashboard() {
 
   // Function to simulate upload progress
   const simulateUploadProgress = (fileType) => {
-    setUploadProgress(prev => ({ ...prev, [fileType]: 0 }));
+    setUploadProgress((prev) => ({ ...prev, [fileType]: 0 }));
 
     const interval = setInterval(() => {
-      setUploadProgress(prev => {
+      setUploadProgress((prev) => {
         const newProgress = prev[fileType] + Math.floor(Math.random() * 10) + 5;
         if (newProgress >= 100) {
           clearInterval(interval);
@@ -146,7 +143,7 @@ export default function Dashboard() {
         });
       } else {
         setKtm(imageData);
-        simulateUploadProgress('ktm');
+        simulateUploadProgress("ktm");
       }
     }
 
@@ -165,7 +162,7 @@ export default function Dashboard() {
       return;
     }
     setKtm(imageData);
-    simulateUploadProgress('ktm');
+    simulateUploadProgress("ktm");
   };
 
   const handleFileAktifKuliah = (e) => {
@@ -186,7 +183,7 @@ export default function Dashboard() {
         });
       } else {
         setImageaktifkampus(imageData);
-        simulateUploadProgress('aktifKuliah');
+        simulateUploadProgress("aktifKuliah");
       }
     }
 
@@ -205,7 +202,7 @@ export default function Dashboard() {
       return;
     }
     setImageaktifkampus(imageData);
-    simulateUploadProgress('aktifKuliah');
+    simulateUploadProgress("aktifKuliah");
   };
 
   const handleFileSuratPernyataan = (e) => {
@@ -226,7 +223,7 @@ export default function Dashboard() {
         });
       } else {
         setImagesuratpernyataan(imageData);
-        simulateUploadProgress('suratPernyataan');
+        simulateUploadProgress("suratPernyataan");
       }
     }
 
@@ -245,7 +242,7 @@ export default function Dashboard() {
       return;
     }
     setImagesuratpernyataan(imageData);
-    simulateUploadProgress('suratPernyataan');
+    simulateUploadProgress("suratPernyataan");
   };
 
   const handleFileAkre = (e) => {
@@ -266,7 +263,7 @@ export default function Dashboard() {
         });
       } else {
         setImageakrekampus(imageData);
-        simulateUploadProgress('akreKampus');
+        simulateUploadProgress("akreKampus");
       }
     }
 
@@ -283,12 +280,12 @@ export default function Dashboard() {
             background: "#333",
             color: "#fff",
           },
-        }
+        },
       );
       return;
     }
     setImageakrekampus(imageData);
-    simulateUploadProgress('akreKampus');
+    simulateUploadProgress("akreKampus");
   };
 
   const handleFileSuratBeasiswa = (e) => {
@@ -309,7 +306,7 @@ export default function Dashboard() {
         });
       } else {
         setImagesuratbeasiswa(imageData);
-        simulateUploadProgress('suratBeasiswa');
+        simulateUploadProgress("suratBeasiswa");
       }
     }
 
@@ -326,12 +323,12 @@ export default function Dashboard() {
             background: "#333",
             color: "#fff",
           },
-        }
+        },
       );
       return;
     }
     setImagesuratbeasiswa(imageData);
-    simulateUploadProgress('suratBeasiswa');
+    simulateUploadProgress("suratBeasiswa");
   };
 
   // pilih univ negeri/luarnegeri
@@ -357,14 +354,16 @@ export default function Dashboard() {
     const alphanumericValue = inputValue.replace(/[^a-zA-Z0-9]/g, "");
 
     setNim(alphanumericValue);
-  }
+  };
 
   const updateUsers = async (e) => {
     e.preventDefault();
 
     // Lakukan validasi di sini sebelum mengirim form
     if (pilihuniversitas === "Dalam" && !imagesuratbeasiswa) {
-      toast.error("Mohon Upload Surat Tidak Menerima Beasiswa Lain dan maksimal 2MB");
+      toast.error(
+        "Mohon Upload Surat Tidak Menerima Beasiswa Lain dan maksimal 2MB",
+      );
       return;
     }
 
@@ -392,7 +391,7 @@ export default function Dashboard() {
         },
       }),
       {
-        loading: 'Saving...',
+        loading: "Saving...",
         success: (response) => {
           navigate("/admin/mahasiswa");
           return <b>Submit Telah Berhasil!</b>;
@@ -402,7 +401,7 @@ export default function Dashboard() {
           setErros(error.response.data);
           return <b>Lengkapi Data Anda!!</b>;
         },
-      }
+      },
     );
   };
 
@@ -417,10 +416,7 @@ export default function Dashboard() {
         <div className="progress-percentage">{progress}%</div>
       </div>
       <div className="progress-bar">
-        <div
-          className="progress-fill"
-          style={{ width: `${progress}%` }}
-        ></div>
+        <div className="progress-fill" style={{ width: `${progress}%` }}></div>
       </div>
       {progress === 100 && (
         <div className="upload-success">
@@ -441,7 +437,11 @@ export default function Dashboard() {
             </div>
             <div className="welcome-text">
               <h4>Selamat Datang, {user.name}!</h4>
-              <p>{terdaftar ? terdaftar : "Anda belum terdaftar sebagai penerima beasiswa tahun 2024. Silakan lengkapi data Anda untuk mendaftar."}</p>
+              <p>
+                {terdaftar
+                  ? terdaftar
+                  : "Anda belum terdaftar sebagai penerima beasiswa tahun 2024. Silakan lengkapi data Anda untuk mendaftar."}
+              </p>
             </div>
           </div>
 
@@ -452,13 +452,16 @@ export default function Dashboard() {
                   <div className="maintenance-icon">
                     <i className="fas fa-calendar-times"></i>
                   </div>
-                  <h2 className="maintenance-title">Pendaftaran Telah Ditutup</h2>
+                  <h2 className="maintenance-title">
+                    Pendaftaran Telah Ditutup
+                  </h2>
                   <p className="maintenance-text">
-                    Mohon maaf, periode pendaftaran beasiswa untuk saat ini telah berakhir.
-                    Terima kasih atas antusiasme Anda.
+                    Mohon maaf, periode pendaftaran beasiswa untuk saat ini
+                    telah berakhir. Terima kasih atas antusiasme Anda.
                   </p>
                   <p className="maintenance-subtext">
-                    Nantikan informasi pendaftaran periode selanjutnya di website ini.
+                    Nantikan informasi pendaftaran periode selanjutnya di
+                    website ini.
                   </p>
                 </div>
               </div>
@@ -476,7 +479,10 @@ export default function Dashboard() {
                             <i className="fas fa-university"></i> Lengkapi Data
                             Perguruan Tinggi Anda
                           </h2>
-                          <p>Pastikan semua data diisi dengan benar untuk melanjutkan ke tahap selanjutnya.</p>
+                          <p>
+                            Pastikan semua data diisi dengan benar untuk
+                            melanjutkan ke tahap selanjutnya.
+                          </p>
                           <hr />
                         </div>
                         <div className="form-card-body">
@@ -508,10 +514,19 @@ export default function Dashboard() {
                                     maksimal 2MB
                                   </label>
                                   <div className="upload-area">
-                                    <input type="file" className="upload-input" onChange={handleFileKtm} accept=".pdf" />
+                                    <input
+                                      type="file"
+                                      className="upload-input"
+                                      onChange={handleFileKtm}
+                                      accept=".pdf"
+                                    />
                                     <div className="upload-content">
                                       <i className="fas fa-cloud-upload-alt"></i>
-                                      <p>{ktm ? ktm.name : 'Klik atau seret file ke sini'}</p>
+                                      <p>
+                                        {ktm
+                                          ? ktm.name
+                                          : "Klik atau seret file ke sini"}
+                                      </p>
                                       <span>Format: PDF, Maks: 2MB</span>
                                     </div>
                                   </div>
@@ -554,9 +569,7 @@ export default function Dashboard() {
                               </div>
                               <div className="col-md-6">
                                 <div className="mb-3">
-                                  <label className="form-label">
-                                    Jurusan
-                                  </label>
+                                  <label className="form-label">Jurusan</label>
                                   <input
                                     type="text"
                                     className="form-input"
@@ -605,20 +618,31 @@ export default function Dashboard() {
                                     2MB
                                   </label>
                                   <div className="upload-area">
-                                    <input type="file" className="upload-input" onChange={handleFileAktifKuliah} accept=".pdf" />
+                                    <input
+                                      type="file"
+                                      className="upload-input"
+                                      onChange={handleFileAktifKuliah}
+                                      accept=".pdf"
+                                    />
                                     <div className="upload-content">
                                       <i className="fas fa-cloud-upload-alt"></i>
-                                      <p>{imageaktifkampus ? imageaktifkampus.name : 'Klik atau seret file ke sini'}</p>
+                                      <p>
+                                        {imageaktifkampus
+                                          ? imageaktifkampus.name
+                                          : "Klik atau seret file ke sini"}
+                                      </p>
                                       <span>Format: PDF, Maks: 2MB</span>
                                     </div>
                                   </div>
-                                  {imageaktifkampus && uploadProgress.aktifKuliah !== undefined && (
-                                    <UploadProgressBar
-                                      progress={uploadProgress.aktifKuliah}
-                                      fileName={imageaktifkampus.name}
-                                      fileType="aktifKuliah"
-                                    />
-                                  )}
+                                  {imageaktifkampus &&
+                                    uploadProgress.aktifKuliah !==
+                                      undefined && (
+                                      <UploadProgressBar
+                                        progress={uploadProgress.aktifKuliah}
+                                        fileName={imageaktifkampus.name}
+                                        fileType="aktifKuliah"
+                                      />
+                                    )}
                                 </div>
                                 {errors.imageaktifkampus && (
                                   <div className="alert alert-danger">
@@ -629,30 +653,52 @@ export default function Dashboard() {
                               <div className="col-md-12">
                                 <div className="mb-3">
                                   <label className="form-label">
-                                    Upload Surat Pernyataan Bermaterai pdf dan maksimal 2MB{" "}
+                                    Upload Surat Pernyataan Bermaterai pdf dan
+                                    maksimal 2MB{" "}
                                     <a
                                       href="/surat.pdf" // Link to the file in the public folder
                                       download
                                       target="_blank"
                                     >
                                       (Contoh Surat Pernyataan)
+                                    </a>{" "}
+                                    atau{" "}
+                                    <a
+                                      href="/surat_kesra.pdf" // Link to file Kesra in the public folder
+                                      download
+                                      target="_blank"
+                                    >
+                                      (Contoh Surat Pernyataan Kesra)
                                     </a>
                                   </label>
                                   <div className="upload-area">
-                                    <input type="file" className="upload-input" onChange={handleFileSuratPernyataan} accept=".pdf" />
+                                    <input
+                                      type="file"
+                                      className="upload-input"
+                                      onChange={handleFileSuratPernyataan}
+                                      accept=".pdf"
+                                    />
                                     <div className="upload-content">
                                       <i className="fas fa-cloud-upload-alt"></i>
-                                      <p>{imagesuratpernyataan ? imagesuratpernyataan.name : 'Klik atau seret file ke sini'}</p>
+                                      <p>
+                                        {imagesuratpernyataan
+                                          ? imagesuratpernyataan.name
+                                          : "Klik atau seret file ke sini"}
+                                      </p>
                                       <span>Format: PDF, Maks: 2MB</span>
                                     </div>
                                   </div>
-                                  {imagesuratpernyataan && uploadProgress.suratPernyataan !== undefined && (
-                                    <UploadProgressBar
-                                      progress={uploadProgress.suratPernyataan}
-                                      fileName={imagesuratpernyataan.name}
-                                      fileType="suratPernyataan"
-                                    />
-                                  )}
+                                  {imagesuratpernyataan &&
+                                    uploadProgress.suratPernyataan !==
+                                      undefined && (
+                                      <UploadProgressBar
+                                        progress={
+                                          uploadProgress.suratPernyataan
+                                        }
+                                        fileName={imagesuratpernyataan.name}
+                                        fileType="suratPernyataan"
+                                      />
+                                    )}
                                 </div>
                                 {errors.imagesuratpernyataan && (
                                   <div className="alert alert-danger">
@@ -668,20 +714,30 @@ export default function Dashboard() {
                                   dan maksimal 2MB
                                 </label>
                                 <div className="upload-area">
-                                  <input type="file" className="upload-input" onChange={handleFileAkre} accept=".pdf" />
+                                  <input
+                                    type="file"
+                                    className="upload-input"
+                                    onChange={handleFileAkre}
+                                    accept=".pdf"
+                                  />
                                   <div className="upload-content">
                                     <i className="fas fa-cloud-upload-alt"></i>
-                                    <p>{imageakrekampus ? imageakrekampus.name : 'Klik atau seret file ke sini'}</p>
+                                    <p>
+                                      {imageakrekampus
+                                        ? imageakrekampus.name
+                                        : "Klik atau seret file ke sini"}
+                                    </p>
                                     <span>Format: PDF, Maks: 2MB</span>
                                   </div>
                                 </div>
-                                {imageakrekampus && uploadProgress.akreKampus !== undefined && (
-                                  <UploadProgressBar
-                                    progress={uploadProgress.akreKampus}
-                                    fileName={imageakrekampus.name}
-                                    fileType="akreKampus"
-                                  />
-                                )}
+                                {imageakrekampus &&
+                                  uploadProgress.akreKampus !== undefined && (
+                                    <UploadProgressBar
+                                      progress={uploadProgress.akreKampus}
+                                      fileName={imageakrekampus.name}
+                                      fileType="akreKampus"
+                                    />
+                                  )}
                               </div>
                               {errors.imageakrekampus && (
                                 <div className="alert alert-danger">
@@ -721,20 +777,33 @@ export default function Dashboard() {
                                       dan maksimal 2MB
                                     </label>
                                     <div className="upload-area">
-                                      <input type="file" className="upload-input" onChange={handleFileSuratBeasiswa} accept=".pdf" />
+                                      <input
+                                        type="file"
+                                        className="upload-input"
+                                        onChange={handleFileSuratBeasiswa}
+                                        accept=".pdf"
+                                      />
                                       <div className="upload-content">
                                         <i className="fas fa-cloud-upload-alt"></i>
-                                        <p>{imagesuratbeasiswa ? imagesuratbeasiswa.name : 'Klik atau seret file ke sini'}</p>
+                                        <p>
+                                          {imagesuratbeasiswa
+                                            ? imagesuratbeasiswa.name
+                                            : "Klik atau seret file ke sini"}
+                                        </p>
                                         <span>Format: PDF, Maks: 2MB</span>
                                       </div>
                                     </div>
-                                    {imagesuratbeasiswa && uploadProgress.suratBeasiswa !== undefined && (
-                                      <UploadProgressBar
-                                        progress={uploadProgress.suratBeasiswa}
-                                        fileName={imagesuratbeasiswa.name}
-                                        fileType="suratBeasiswa"
-                                      />
-                                    )}
+                                    {imagesuratbeasiswa &&
+                                      uploadProgress.suratBeasiswa !==
+                                        undefined && (
+                                        <UploadProgressBar
+                                          progress={
+                                            uploadProgress.suratBeasiswa
+                                          }
+                                          fileName={imagesuratbeasiswa.name}
+                                          fileType="suratBeasiswa"
+                                        />
+                                      )}
                                   </div>
                                   {errors.imagesuratbeasiswa && (
                                     <div className="alert alert-danger">
@@ -805,10 +874,7 @@ export default function Dashboard() {
                               >
                                 {isLoading ? "LOADING..." : "SIMPAN"}{" "}
                               </button>
-                              <button
-                                type="reset"
-                                className="btn-reset"
-                              >
+                              <button type="reset" className="btn-reset">
                                 <i className="fas fa-sync-alt"></i> Reset
                               </button>
                             </div>
@@ -1024,7 +1090,7 @@ export default function Dashboard() {
           border-radius: 20px;
           padding: 50px;
           text-align: center;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
           max-width: 600px;
           width: 100%;
           border: 1px solid #e8f0ff;
@@ -1081,7 +1147,7 @@ export default function Dashboard() {
           align-items: center;
           justify-content: center;
           font-size: 1.8rem;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
         .welcome-text h4 {
@@ -1115,7 +1181,7 @@ export default function Dashboard() {
           align-items: center;
           gap: 10px;
         }
-        
+
         .form-card-header p {
           color: #64748b;
           font-size: 1rem;
@@ -1128,7 +1194,8 @@ export default function Dashboard() {
           font-size: 0.95rem;
         }
 
-        .form-input, .form-textarea {
+        .form-input,
+        .form-textarea {
           width: 100%;
           padding: 12px 16px;
           border: 2px solid #e2e8f0;
@@ -1138,7 +1205,8 @@ export default function Dashboard() {
           background-color: #f8fafc;
         }
 
-        .form-input:focus, .form-textarea:focus {
+        .form-input:focus,
+        .form-textarea:focus {
           outline: none;
           border-color: #3b82f6;
           background-color: white;
@@ -1203,7 +1271,8 @@ export default function Dashboard() {
           border-top: 1px solid #e2e8f0;
         }
 
-        .btn-submit, .btn-reset {
+        .btn-submit,
+        .btn-reset {
           padding: 12px 24px;
           border: none;
           border-radius: 10px;
@@ -1293,7 +1362,7 @@ export default function Dashboard() {
         }
 
         .progress-fill::after {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
