@@ -652,64 +652,124 @@ export default function Dashboard() {
                               </div>
                               <div className="col-md-12">
                                 <div className="mb-3">
-                                  <label className="form-label">
-                                    Upload Surat Pernyataan Bermaterai pdf dan
-                                    maksimal 2MB
+                                  <label className="form-label fw-bold">
+                                    Upload Surat Pernyataan Bermaterai
+                                    <span className="text-danger">*</span>
                                   </label>
 
-                                  <div className="mb-2">
-                                    <span className="text-muted">
-                                      Contoh Surat:{" "}
-                                    </span>
-                                    <a
-                                      href="/surat.pdf"
-                                      download
-                                      target="_blank"
-                                      className="me-3"
-                                    >
-                                      Contoh Surat Pernyataan Umum
-                                    </a>
-                                    <a
-                                      href="/surat_kesra.pdf"
-                                      download
-                                      target="_blank"
-                                    >
-                                      Contoh Surat Pernyataan Kesra Beasiswa Bidang Keagamaan
-                                    </a>
+                                  <div className="mb-3">
+                                    <p className="text-muted mb-2">
+                                      <i className="fas fa-info-circle me-1"></i>{" "}
+                                      Format: PDF, Maksimal: 2MB
+                                    </p>
+
+                                    <div className="row g-3">
+                                      <div className="col-md-6">
+                                        <div className="card border-primary h-100">
+                                          <div className="card-body text-center">
+                                            <i
+                                              className="fas fa-file-alt text-primary mb-2"
+                                              style={{ fontSize: "2rem" }}
+                                            ></i>
+                                            <h6 className="card-title">
+                                              Surat Pernyataan Umum
+                                            </h6>
+                                            <p className="card-text small text-muted">
+                                              Untuk keperluan umum
+                                            </p>
+                                            <a
+                                              href="/surat.pdf"
+                                              download
+                                              target="_blank"
+                                              rel="noreferrer"
+                                              className="btn btn-outline-primary btn-sm"
+                                            >
+                                              <i className="fas fa-download me-1"></i>{" "}
+                                              Unduh Contoh
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div className="col-md-6">
+                                        <div className="card border-success h-100">
+                                          <div className="card-body text-center">
+                                            <i
+                                              className="fas fa-handshake text-success mb-2"
+                                              style={{ fontSize: "2rem" }}
+                                            ></i>
+                                            <h6 className="card-title">
+                                              Surat Pernyataan Kesra
+                                            </h6>
+                                            <p className="card-text small text-muted">
+                                              Untuk Beasiswa Bidang Keagamaan 
+                                            </p>
+                                            <a
+                                              href="/surat_kesra.pdf"
+                                              download
+                                              target="_blank"
+                                              rel="noreferrer"
+                                              className="btn btn-outline-success btn-sm"
+                                            >
+                                              <i className="fas fa-download me-1"></i>{" "}
+                                              Unduh Contoh
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
 
-                                  <div className="upload-area">
+                                  <div className="upload-area border-2 border-dashed rounded-3 p-4 text-center bg-light">
                                     <input
                                       type="file"
                                       className="upload-input"
                                       onChange={handleFileSuratPernyataan}
                                       accept=".pdf"
+                                      id="suratPernyataan"
                                     />
-                                    <div className="upload-content">
-                                      <i className="fas fa-cloud-upload-alt"></i>
-                                      <p>
-                                        {imagesuratpernyataan
-                                          ? imagesuratpernyataan.name
-                                          : "Klik atau seret file ke sini"}
-                                      </p>
-                                      <span>Format: PDF, Maks: 2MB</span>
-                                    </div>
+                                    <label
+                                      htmlFor="suratPernyataan"
+                                      className="cursor-pointer"
+                                    >
+                                      <div className="upload-content">
+                                        <i className="fas fa-cloud-upload-alt fa-2x text-muted mb-3"></i>
+                                        <h5 className="mb-2">
+                                          {imagesuratpernyataan ? (
+                                            <span className="text-success">
+                                              <i className="fas fa-check-circle me-2"></i>
+                                              {imagesuratpernyataan.name}
+                                            </span>
+                                          ) : (
+                                            "Klik atau seret file ke sini"
+                                          )}
+                                        </h5>
+                                        <p className="text-muted mb-0">
+                                          Format: PDF | Maksimal: 2MB
+                                        </p>
+                                      </div>
+                                    </label>
                                   </div>
+
                                   {imagesuratpernyataan &&
                                     uploadProgress.suratPernyataan !==
                                       undefined && (
-                                      <UploadProgressBar
-                                        progress={
-                                          uploadProgress.suratPernyataan
-                                        }
-                                        fileName={imagesuratpernyataan.name}
-                                        fileType="suratPernyataan"
-                                      />
+                                      <div className="mt-3">
+                                        <UploadProgressBar
+                                          progress={
+                                            uploadProgress.suratPernyataan
+                                          }
+                                          fileName={imagesuratpernyataan.name}
+                                          fileType="suratPernyataan"
+                                        />
+                                      </div>
                                     )}
                                 </div>
+
                                 {errors.imagesuratpernyataan && (
-                                  <div className="alert alert-danger">
-                                    {errors.imagesuratpernyataan[0]}
+                                  <div className="alert alert-danger d-flex align-items-center mt-2">
+                                    <i className="fas fa-exclamation-circle me-2"></i>
+                                    <div>{errors.imagesuratpernyataan[0]}</div>
                                   </div>
                                 )}
                               </div>
