@@ -37,6 +37,10 @@ export default function Register() {
   const [currentStep, setCurrentStep] = useState(1);
   const [showPersyaratan, setShowPersyaratan] = useState(false);
 
+  // State untuk tracking duplikasi
+  const [duplicateNik, setDuplicateNik] = useState(false);
+  const [duplicateEmail, setDuplicateEmail] = useState(false);
+
   useEffect(() => {
     Api.get("/api/tanggalBatas", {}).then((response) => {
       setTanggalBatas(response.data.data);
@@ -46,9 +50,9 @@ export default function Register() {
   // get data kecamatan
   useEffect(() => {
     Api.get("/api/kecamatan/all", {}).then((response) => {
-      const formattedKecamatan = response.data.data.map(kecamatan => ({
+      const formattedKecamatan = response.data.data.map((kecamatan) => ({
         value: kecamatan.id,
-        label: kecamatan.name
+        label: kecamatan.name,
       }));
       setKecamatanList(formattedKecamatan);
     });
@@ -57,24 +61,26 @@ export default function Register() {
   const handleKecamatanChange = (selectedOption) => {
     setSelectedKecamatan(selectedOption.value);
     setSelectedKelurahan("");
-    setErrors(prev => ({ ...prev, id_kecamatan: null, id_kelurahan: null }));
+    setErrors((prev) => ({ ...prev, id_kecamatan: null, id_kelurahan: null }));
   };
 
   const handleKelurahanChange = (selectedOption) => {
     setSelectedKelurahan(selectedOption.value);
-    setErrors(prev => ({ ...prev, id_kelurahan: null }));
+    setErrors((prev) => ({ ...prev, id_kelurahan: null }));
   };
 
   // hook data kelurahan by id kecamatan
   useEffect(() => {
     if (selectedKecamatan) {
-      Api.get(`/api/kelurahan/byid?kecamatan_id=${selectedKecamatan}`).then((response) => {
-        const formattedKelurahan = response.data.data.map(kelurahan => ({
-          value: kelurahan.id,
-          label: kelurahan.name
-        }));
-        setKelurahanList(formattedKelurahan);
-      });
+      Api.get(`/api/kelurahan/byid?kecamatan_id=${selectedKecamatan}`).then(
+        (response) => {
+          const formattedKelurahan = response.data.data.map((kelurahan) => ({
+            value: kelurahan.id,
+            label: kelurahan.name,
+          }));
+          setKelurahanList(formattedKelurahan);
+        },
+      );
     }
   }, [selectedKecamatan]);
 
@@ -82,16 +88,29 @@ export default function Register() {
     const newErrors = {};
 
     if (!name.trim()) newErrors.name = ["Nama lengkap tidak boleh kosong"];
-    if (!nik.trim()) newErrors.nik = ["NIK tidak boleh kosong"];
-    else if (nik.length !== 16) newErrors.nik = ["NIK harus 16 digit"];
-    if (!nokk.trim()) newErrors.nokk = ["Nomor Kartu Keluarga tidak boleh kosong"];
+
+    if (!nik.trim()) {
+      newErrors.nik = ["NIK tidak boleh kosong"];
+    } else if (nik.length !== 16) {
+      newErrors.nik = ["NIK harus 16 digit"];
+    }
+
+    if (!nokk.trim())
+      newErrors.nokk = ["Nomor Kartu Keluarga tidak boleh kosong"];
     else if (nokk.length !== 16) newErrors.nokk = ["Nomor KK harus 16 digit"];
+
     if (!nohp.trim()) newErrors.nohp = ["Nomor HP/WhatsApp tidak boleh kosong"];
     else if (nohp.length < 10) newErrors.nohp = ["Nomor HP minimal 10 digit"];
-    if (!email.trim()) newErrors.email = ["Email tidak boleh kosong"];
-    else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = ["Format email tidak valid"];
+
+    if (!email.trim()) {
+      newErrors.email = ["Email tidak boleh kosong"];
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = ["Format email tidak valid"];
+    }
+
     if (!gender) newErrors.gender = ["Pilih jenis kelamin terlebih dahulu"];
 
+    // Jangan cek duplikasi di validateStep1, karena akan ditangani saat submit
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -99,14 +118,19 @@ export default function Register() {
   const validateStep2 = () => {
     const newErrors = {};
 
-    if (!selectedKecamatan) newErrors.id_kecamatan = ["Pilih kecamatan terlebih dahulu"];
-    if (!selectedKelurahan) newErrors.id_kelurahan = ["Pilih kelurahan terlebih dahulu"];
+    if (!selectedKecamatan)
+      newErrors.id_kecamatan = ["Pilih kecamatan terlebih dahulu"];
+    if (!selectedKelurahan)
+      newErrors.id_kelurahan = ["Pilih kelurahan terlebih dahulu"];
     if (!codepos.trim()) newErrors.codepos = ["Kode POS tidak boleh kosong"];
-    else if (codepos.length !== 5) newErrors.codepos = ["Kode POS harus 5 digit"];
+    else if (codepos.length !== 5)
+      newErrors.codepos = ["Kode POS harus 5 digit"];
     if (!rt.trim()) newErrors.rt = ["RT tidak boleh kosong"];
     if (!rw.trim()) newErrors.rw = ["RW tidak boleh kosong"];
-    if (!alamat.trim()) newErrors.alamat = ["Alamat lengkap tidak boleh kosong"];
-    else if (alamat.length < 10) newErrors.alamat = ["Alamat terlalu pendek, minimal 10 karakter"];
+    if (!alamat.trim())
+      newErrors.alamat = ["Alamat lengkap tidak boleh kosong"];
+    else if (alamat.length < 10)
+      newErrors.alamat = ["Alamat terlalu pendek, minimal 10 karakter"];
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -126,9 +150,14 @@ export default function Register() {
     const newErrors = {};
 
     if (!password) newErrors.password = ["Password tidak boleh kosong"];
-    else if (password.length < 8) newErrors.password = ["Password minimal 8 karakter"];
-    if (!passwordConfirmation) newErrors.password_confirmation = ["Konfirmasi password tidak boleh kosong"];
-    else if (password !== passwordConfirmation) newErrors.password_confirmation = ["Konfirmasi password tidak cocok"];
+    else if (password.length < 8)
+      newErrors.password = ["Password minimal 8 karakter"];
+    if (!passwordConfirmation)
+      newErrors.password_confirmation = [
+        "Konfirmasi password tidak boleh kosong",
+      ];
+    else if (password !== passwordConfirmation)
+      newErrors.password_confirmation = ["Konfirmasi password tidak cocok"];
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -157,9 +186,12 @@ export default function Register() {
       setErrors({});
     } else {
       // Scroll to first error
-      const firstErrorElement = document.querySelector('.error-message');
+      const firstErrorElement = document.querySelector(".error-message");
       if (firstErrorElement) {
-        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstErrorElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
       }
     }
   };
@@ -172,7 +204,7 @@ export default function Register() {
 
   const handleFileKtp = (e) => {
     const imageData = e.target.files[0];
-    setErrors(prev => ({ ...prev, imagektp: null }));
+    setErrors((prev) => ({ ...prev, imagektp: null }));
 
     if (!imageData) return;
 
@@ -203,7 +235,7 @@ export default function Register() {
 
   const handleFileKk = (e) => {
     const imageData = e.target.files[0];
-    setErrors(prev => ({ ...prev, imagekk: null }));
+    setErrors((prev) => ({ ...prev, imagekk: null }));
 
     if (!imageData) return;
 
@@ -235,48 +267,64 @@ export default function Register() {
   const handleChangeNik = (event) => {
     const inputValue = event.target.value.replace(/\D/g, "").slice(0, 16);
     setNik(inputValue);
-    setErrors(prev => ({ ...prev, nik: null }));
+    setErrors((prev) => ({ ...prev, nik: null }));
+    // Reset duplicate flag saat user mengubah NIK
+    setDuplicateNik(false);
   };
 
   const handleChangeKartuKeluarga = (event) => {
     const inputValue = event.target.value.replace(/\D/g, "").slice(0, 16);
     setNokk(inputValue);
-    setErrors(prev => ({ ...prev, nokk: null }));
+    setErrors((prev) => ({ ...prev, nokk: null }));
   };
 
   const handleChangeNoHp = (event) => {
     const inputValue = event.target.value.replace(/\D/g, "");
     setNohp(inputValue);
-    setErrors(prev => ({ ...prev, nohp: null }));
+    setErrors((prev) => ({ ...prev, nohp: null }));
+  };
+
+  const handleChangeEmail = (event) => {
+    const inputValue = event.target.value;
+    setEmail(inputValue);
+    setErrors((prev) => ({ ...prev, email: null }));
+    // Reset duplicate flag saat user mengubah email
+    setDuplicateEmail(false);
   };
 
   const handleChangeKodePos = (event) => {
     const inputValue = event.target.value.replace(/\D/g, "");
     setCodepos(inputValue);
-    setErrors(prev => ({ ...prev, codepos: null }));
+    setErrors((prev) => ({ ...prev, codepos: null }));
   };
 
   const handleChangeRT = (event) => {
     const inputValue = event.target.value.replace(/\D/g, "");
     setRt(inputValue);
-    setErrors(prev => ({ ...prev, rt: null }));
+    setErrors((prev) => ({ ...prev, rt: null }));
   };
 
   const handleChangeRW = (event) => {
     const inputValue = event.target.value.replace(/\D/g, "");
     setRw(inputValue);
-    setErrors(prev => ({ ...prev, rw: null }));
+    setErrors((prev) => ({ ...prev, rw: null }));
   };
 
-  //function "storeRegister"
+  //function "storeRegister" - SOLUSI FE ONLY
   const storeRegister = async (e) => {
     e.preventDefault();
 
-    if (!validateStep4()) {
-      const firstErrorElement = document.querySelector('.error-message');
-      if (firstErrorElement) {
-        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+    // Validasi semua step sebelum submit
+    if (
+      !validateStep1() ||
+      !validateStep2() ||
+      !validateStep3() ||
+      !validateStep4()
+    ) {
+      toast.error("Harap perbaiki semua data sebelum mendaftar", {
+        duration: 4000,
+        position: "top-center",
+      });
       return;
     }
 
@@ -300,65 +348,213 @@ export default function Register() {
     formData.append("password", password);
     formData.append("password_confirmation", passwordConfirmation);
 
-    toast.promise(
-      Api.post("/api/users", formData, {
+    try {
+      const response = await Api.post("/api/users", formData, {
         headers: {
           "content-type": "multipart/form-data",
         },
-      }),
-      {
-        loading: 'Menyimpan data...',
-        success: (response) => {
-          setLoading(false);
-          navigate("/login");
-          toast.success(response.data.message, {
-            duration: 4000,
-          });
-          return "Pendaftaran berhasil! Silakan login.";
-        },
-        error: (error) => {
-          setLoading(false);
-          if (error.response && error.response.data) {
-            setErrors(error.response.data);
-            // Scroll to first error
-            setTimeout(() => {
-              const firstErrorElement = document.querySelector('.error-message');
-              if (firstErrorElement) {
-                firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }
-            }, 100);
-          }
-          return "Terjadi kesalahan. Periksa kembali data Anda.";
-        },
+      });
+
+      setLoading(false);
+
+      if (response.data.success) {
+        toast.success(response.data.message, {
+          duration: 4000,
+          position: "top-center",
+        });
+        navigate("/login");
+      } else {
+        toast.error(response.data.message || "Gagal mendaftar", {
+          duration: 4000,
+          position: "top-center",
+        });
       }
-    );
+    } catch (error) {
+      setLoading(false);
+
+      console.error("Registration error:", error);
+
+      if (error.response && error.response.data) {
+        const responseData = error.response.data;
+
+        // Reset error state
+        setErrors({});
+        setDuplicateNik(false);
+        setDuplicateEmail(false);
+
+        // Jika ada errors dalam format Laravel
+        if (responseData.errors) {
+          const newErrors = {};
+
+          // Map errors ke state
+          Object.keys(responseData.errors).forEach((key) => {
+            newErrors[key] = responseData.errors[key];
+          });
+
+          setErrors(newErrors);
+
+          // Cek duplikasi berdasarkan error message
+          if (responseData.errors.nik) {
+            setDuplicateNik(true);
+            // Set pesan error khusus untuk duplikasi NIK
+            newErrors.nik = [
+              "NIK sudah terdaftar. Silakan gunakan NIK lain atau login dengan akun yang sudah ada.",
+            ];
+          }
+
+          if (responseData.errors.email) {
+            setDuplicateEmail(true);
+            // Set pesan error khusus untuk duplikasi email
+            newErrors.email = [
+              "Email sudah terdaftar. Silakan gunakan email lain atau login dengan akun yang sudah ada.",
+            ];
+          }
+
+          // Update errors dengan pesan khusus
+          setErrors(newErrors);
+
+          // Tentukan step mana yang harus ditampilkan berdasarkan error
+          let errorStep = 1;
+
+          // Cari field error pertama untuk menentukan step
+          const errorFields = Object.keys(responseData.errors);
+          if (errorFields.length > 0) {
+            const firstError = errorFields[0];
+
+            if (
+              ["nik", "email", "name", "nohp", "gender", "nokk"].includes(
+                firstError,
+              )
+            ) {
+              errorStep = 1; // Data pribadi
+            } else if (
+              [
+                "id_kecamatan",
+                "id_kelurahan",
+                "codepos",
+                "rt",
+                "rw",
+                "alamat",
+              ].includes(firstError)
+            ) {
+              errorStep = 2; // Alamat
+            } else if (["imagektp", "imagekk"].includes(firstError)) {
+              errorStep = 3; // Dokumen
+            } else if (
+              ["password", "password_confirmation"].includes(firstError)
+            ) {
+              errorStep = 4; // Akun
+            }
+          }
+
+          setCurrentStep(errorStep);
+
+          // Tampilkan toast error khusus untuk duplikasi
+          if (responseData.errors.nik || responseData.errors.email) {
+            toast.error(
+              "Data duplikasi ditemukan. Silakan periksa NIK/Email Anda.",
+              {
+                duration: 5000,
+                position: "top-center",
+              },
+            );
+          } else {
+            toast.error("Harap perbaiki data yang salah", {
+              duration: 4000,
+              position: "top-center",
+            });
+          }
+        } else if (responseData.message) {
+          // Jika hanya ada message tanpa errors array
+          // Coba deteksi duplikasi dari message
+          if (
+            responseData.message.toLowerCase().includes("duplicate") ||
+            responseData.message.toLowerCase().includes("already exists") ||
+            responseData.message.toLowerCase().includes("nik") ||
+            responseData.message.toLowerCase().includes("email")
+          ) {
+            // Deteksi apakah error karena NIK atau Email
+            if (
+              responseData.message.toLowerCase().includes("nik") ||
+              responseData.message.includes("3515")
+            ) {
+              setDuplicateNik(true);
+              setErrors({
+                nik: [
+                  "NIK sudah terdaftar. Silakan gunakan NIK lain atau login dengan akun yang sudah ada.",
+                ],
+              });
+            } else if (responseData.message.toLowerCase().includes("email")) {
+              setDuplicateEmail(true);
+              setErrors({
+                email: [
+                  "Email sudah terdaftar. Silakan gunakan email lain atau login dengan akun yang sudah ada.",
+                ],
+              });
+            } else {
+              // Generic duplicate error
+              toast.error(responseData.message, {
+                duration: 5000,
+                position: "top-center",
+              });
+            }
+
+            setCurrentStep(1);
+          } else {
+            toast.error(responseData.message, {
+              duration: 4000,
+              position: "top-center",
+            });
+          }
+        }
+
+        // Scroll to error setelah state diupdate
+        setTimeout(() => {
+          const firstErrorElement = document.querySelector(".error-message");
+          if (firstErrorElement) {
+            firstErrorElement.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }
+        }, 100);
+      } else if (error.request) {
+        // Error network
+        toast.error("Koneksi jaringan bermasalah. Silakan coba lagi.", {
+          duration: 4000,
+          position: "top-center",
+        });
+      } else {
+        // Error lainnya
+        toast.error("Terjadi kesalahan. Silakan coba lagi.", {
+          duration: 4000,
+          position: "top-center",
+        });
+      }
+    }
   };
 
   const customSelectStyles = {
     control: (base, state) => ({
       ...base,
-      border: `2px solid ${errors.id_kecamatan || errors.id_kelurahan ? '#dc2626' : '#e2e8f0'}`,
-      borderRadius: '10px',
-      padding: '4px 8px',
-      boxShadow: 'none',
-      '&:hover': {
-        borderColor: errors.id_kecamatan || errors.id_kelurahan ? '#dc2626' : '#3b82f6',
+      border: `2px solid ${errors.id_kecamatan || errors.id_kelurahan ? "#dc2626" : "#e2e8f0"}`,
+      borderRadius: "10px",
+      padding: "4px 8px",
+      boxShadow: "none",
+      "&:hover": {
+        borderColor:
+          errors.id_kecamatan || errors.id_kelurahan ? "#dc2626" : "#3b82f6",
       },
     }),
     option: (base, state) => ({
       ...base,
-      backgroundColor: state.isSelected ? '#1e3c72' : state.isFocused ? '#f1f5f9' : 'white',
-      color: state.isSelected ? 'white' : '#1f2937',
+      backgroundColor: state.isSelected
+        ? "#1e3c72"
+        : state.isFocused
+          ? "#f1f5f9"
+          : "white",
+      color: state.isSelected ? "white" : "#1f2937",
     }),
-  };
-
-  // Fungsi untuk mendapatkan error messages yang aman
-  const getErrorMessages = () => {
-    const errorEntries = Object.entries(errors);
-    const validErrors = errorEntries.filter(([field, messages]) =>
-      messages && Array.isArray(messages) && messages.length > 0
-    );
-    return validErrors;
   };
 
   return (
@@ -375,7 +571,8 @@ export default function Register() {
                   onError={(e) => {
                     e.target.src = "/sidoarjo.png";
                     e.target.onerror = () => {
-                      e.target.src = "https://via.placeholder.com/100x100?text=Logo+Sidoarjo";
+                      e.target.src =
+                        "https://via.placeholder.com/100x100?text=Logo+Sidoarjo";
                     };
                   }}
                 />
@@ -388,7 +585,7 @@ export default function Register() {
               <div className="hero-divider"></div>
 
               {/* Tombol Lihat Persyaratan */}
-              {/* <div className="persyaratan-button-container">
+              <div className="persyaratan-button-container">
                 <button
                   className="btn-persyaratan"
                   onClick={() => setShowPersyaratan(true)}
@@ -396,7 +593,7 @@ export default function Register() {
                   <i className="fas fa-list-alt"></i>
                   Lihat Persyaratan Beasiswa
                 </button>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
@@ -405,7 +602,6 @@ export default function Register() {
         {showPersyaratan && (
           <div className="modal-overlay">
             <div className="modal-content">
-              {/* Modal Header dihilangkan */}
               <div className="modal-body">
                 <div className="persyaratan-section">
                   <p className="persyaratan-description">
@@ -429,19 +625,28 @@ export default function Register() {
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-check-circle"></i>
-                            <span>Berdomisili di Kabupaten Sidoarjo minimal 2 tahun</span>
+                            <span>
+                              Berdomisili di Kabupaten Sidoarjo minimal 2 tahun
+                            </span>
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-check-circle"></i>
-                            <span>Usia maksimal 25 tahun pada saat pendaftaran</span>
+                            <span>
+                              Usia maksimal 25 tahun pada saat pendaftaran
+                            </span>
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-check-circle"></i>
-                            <span>Tidak sedang menerima beasiswa lain dari pemerintah</span>
+                            <span>
+                              Tidak sedang menerima beasiswa lain dari
+                              pemerintah
+                            </span>
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-check-circle"></i>
-                            <span>Memiliki Kartu Keluarga (KK) Kabupaten Sidoarjo</span>
+                            <span>
+                              Memiliki Kartu Keluarga (KK) Kabupaten Sidoarjo
+                            </span>
                           </li>
                         </ul>
                       </div>
@@ -462,11 +667,17 @@ export default function Register() {
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-check-circle"></i>
-                            <span>Nilai rata-rata rapor minimal 80 untuk siswa SMA/SMK</span>
+                            <span>
+                              Nilai rata-rata rapor minimal 80 untuk siswa
+                              SMA/SMK
+                            </span>
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-check-circle"></i>
-                            <span>Terdaftar aktif di sekolah/universitas terakreditasi</span>
+                            <span>
+                              Terdaftar aktif di sekolah/universitas
+                              terakreditasi
+                            </span>
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-check-circle"></i>
@@ -474,7 +685,9 @@ export default function Register() {
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-check-circle"></i>
-                            <span>Surat rekomendasi dari institusi pendidikan</span>
+                            <span>
+                              Surat rekomendasi dari institusi pendidikan
+                            </span>
                           </li>
                         </ul>
                       </div>
@@ -511,7 +724,9 @@ export default function Register() {
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-check-circle"></i>
-                            <span>Surat pernyataan tidak menerima beasiswa lain</span>
+                            <span>
+                              Surat pernyataan tidak menerima beasiswa lain
+                            </span>
                           </li>
                         </ul>
                       </div>
@@ -528,19 +743,30 @@ export default function Register() {
                         <ul className="requirements-list">
                           <li className="requirement-item">
                             <i className="fas fa-calendar-day"></i>
-                            <span><strong>Pendaftaran:</strong> 1 Januari - 31 Maret 2025</span>
+                            <span>
+                              <strong>Pendaftaran:</strong> 1 Januari - 31 Maret
+                              2025
+                            </span>
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-file-upload"></i>
-                            <span><strong>Upload Dokumen:</strong> 1 Januari - 5 April 2025</span>
+                            <span>
+                              <strong>Upload Dokumen:</strong> 1 Januari - 5
+                              April 2025
+                            </span>
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-clipboard-check"></i>
-                            <span><strong>Seleksi Administrasi:</strong> 6 - 20 April 2025</span>
+                            <span>
+                              <strong>Seleksi Administrasi:</strong> 6 - 20
+                              April 2025
+                            </span>
                           </li>
                           <li className="requirement-item">
                             <i className="fas fa-user-check"></i>
-                            <span><strong>Pengumuman:</strong> 1 Mei 2025</span>
+                            <span>
+                              <strong>Pengumuman:</strong> 1 Mei 2025
+                            </span>
                           </li>
                         </ul>
                       </div>
@@ -568,7 +794,10 @@ export default function Register() {
                   <i className="fas fa-tools"></i>
                 </div>
                 <h2>Pendaftaran Sudah Ditutup</h2>
-                <p>Masa pendaftaran beasiswa telah berakhir. Terima kasih atas minat Anda.</p>
+                <p>
+                  Masa pendaftaran beasiswa telah berakhir. Terima kasih atas
+                  minat Anda.
+                </p>
                 <div className="maintenance-image">
                   <img src={Logo} alt="Maintenance" />
                 </div>
@@ -578,19 +807,19 @@ export default function Register() {
             <div className="register-section">
               {/* Progress Steps */}
               <div className="progress-steps">
-                <div className={`step ${currentStep >= 1 ? 'active' : ''}`}>
+                <div className={`step ${currentStep >= 1 ? "active" : ""}`}>
                   <div className="step-number">1</div>
                   <div className="step-label">Data Pribadi</div>
                 </div>
-                <div className={`step ${currentStep >= 2 ? 'active' : ''}`}>
+                <div className={`step ${currentStep >= 2 ? "active" : ""}`}>
                   <div className="step-number">2</div>
                   <div className="step-label">Alamat</div>
                 </div>
-                <div className={`step ${currentStep >= 3 ? 'active' : ''}`}>
+                <div className={`step ${currentStep >= 3 ? "active" : ""}`}>
                   <div className="step-number">3</div>
                   <div className="step-label">Dokumen</div>
                 </div>
-                <div className={`step ${currentStep >= 4 ? 'active' : ''}`}>
+                <div className={`step ${currentStep >= 4 ? "active" : ""}`}>
                   <div className="step-number">4</div>
                   <div className="step-label">Akun</div>
                 </div>
@@ -602,7 +831,7 @@ export default function Register() {
                   <h2>Formulir Pendaftaran</h2>
                 </div>
 
-                {/* Alert Informasi Beasiswa - TAMBAHAN BARU */}
+                {/* Alert Informasi Beasiswa */}
                 <div className="alert-beasiswa">
                   <div className="alert-header">
                     <i className="fas fa-info-circle"></i>
@@ -615,10 +844,13 @@ export default function Register() {
                       </div>
                       <div className="alert-text">
                         <h4>Beasiswa Prestasi</h4>
-                        <p>Untuk mahasiswa berprestasi akademik dan non-akademik </p>
+                        <p>
+                          Untuk mahasiswa berprestasi akademik dan
+                          non-akademik{" "}
+                        </p>
                       </div>
                     </div>
-                    
+
                     <div className="alert-item">
                       <div className="alert-icon">
                         <i className="fas fa-hand-holding-heart"></i>
@@ -628,53 +860,119 @@ export default function Register() {
                         <p>Untuk mahasiswa dari kurang mampu</p>
                       </div>
                     </div>
-                    
+
                     <div className="alert-item">
                       <div className="alert-icon">
                         <i className="fas fa-mosque"></i>
                       </div>
                       <div className="alert-text">
                         <h4>Beasiswa Keagamaan</h4>
-                        <p>Untuk mahasiswa aktif berorganisasi keagamaan dengan rekomendasi dari lembaga terkait</p>
+                        <p>
+                          Untuk mahasiswa aktif berorganisasi keagamaan dengan
+                          rekomendasi dari lembaga terkait
+                        </p>
                       </div>
                     </div>
-                    
+
                     <div className="alert-item important">
                       <div className="alert-icon">
                         <i className="fas fa-exclamation-triangle"></i>
                       </div>
                       <div className="alert-text">
                         <h4>Catatan Penting</h4>
-                        <p><strong>Beasiswa Yatim SD/SMP/SMA</strong> didaftarkan oleh pihak sekolah masing-masing</p>
+                        <p>
+                          <strong>Beasiswa Yatim SD/SMP/SMA</strong> didaftarkan
+                          oleh pihak sekolah masing-masing
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
 
+                {/* Notification untuk data duplikasi - HANYA saat submit error */}
+                {(duplicateNik || duplicateEmail) && (
+                  <div className="duplicate-notification">
+                    <div className="duplicate-notification-header">
+                      <i className="fas fa-exclamation-triangle"></i>
+                      <h4>Data Duplikasi Ditemukan</h4>
+                    </div>
+                    <div className="duplicate-notification-content">
+                      {duplicateNik && (
+                        <p>
+                          <strong>NIK {nik}</strong> sudah terdaftar dalam
+                          sistem. Jika Anda sudah memiliki akun, silakan login.
+                        </p>
+                      )}
+                      {duplicateEmail && (
+                        <p>
+                          <strong>Email {email}</strong> sudah terdaftar dalam
+                          sistem. Jika Anda sudah memiliki akun, silakan login.
+                        </p>
+                      )}
+                    </div>
+                    <div className="duplicate-notification-actions">
+                      <button
+                        type="button"
+                        className="btn-login"
+                        onClick={() => navigate("/login")}
+                      >
+                        <i className="fas fa-sign-in-alt"></i> Login Sekarang
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-change"
+                        onClick={() => {
+                          setDuplicateNik(false);
+                          setDuplicateEmail(false);
+                          setErrors({});
+                        }}
+                      >
+                        <i className="fas fa-edit"></i> Ubah Data
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {/* Global Error Summary */}
-                {getErrorMessages().length > 0 && (
+                {/* {Object.keys(errors).length > 0 && (
                   <div className="error-summary">
                     <div className="error-header">
                       <i className="fas fa-exclamation-triangle"></i>
                       <h4>Perbaiki data berikut:</h4>
                     </div>
                     <div className="error-list">
-                      {getErrorMessages().map(([field, messages]) => (
-                        <div key={field} className="error-item">
-                          <i className="fas fa-times-circle"></i>
-                          <span>{messages[0]}</span>
-                        </div>
-                      ))}
+                      {Object.entries(errors)
+                        .filter(
+                          ([field, messages]) =>
+                            messages &&
+                            Array.isArray(messages) &&
+                            messages.length > 0 &&
+                            messages[0] !== "Terjadi kesalahan",
+                        )
+                        .map(([field, messages]) => (
+                          <div key={field} className="error-item">
+                            <i className="fas fa-times-circle"></i>
+                            <span>
+                              {messages &&
+                              Array.isArray(messages) &&
+                              messages.length > 0
+                                ? messages[0].replace(field + " ", "") // Hapus nama field dari pesan jika ada
+                                : ""}
+                            </span>
+                          </div>
+                        ))}
                     </div>
                   </div>
-                )}
+                )} */}
 
                 <form onSubmit={storeRegister}>
                   {/* Step 1: Data Pribadi */}
                   {currentStep === 1 && (
                     <div className="step-content">
                       <h3 className="step-title">Data Pribadi</h3>
-                      <p className="step-description">Isi data pribadi Anda dengan benar sesuai dokumen resmi</p>
+                      <p className="step-description">
+                        Isi data pribadi Anda dengan benar sesuai dokumen resmi
+                      </p>
 
                       <div className="form-grid">
                         <div className="form-group">
@@ -684,11 +982,11 @@ export default function Register() {
                           </label>
                           <input
                             type="text"
-                            className={`form-input ${errors.name ? 'error' : ''}`}
+                            className={`form-input ${errors.name ? "error" : ""}`}
                             value={name}
                             onChange={(e) => {
                               setName(e.target.value);
-                              setErrors(prev => ({ ...prev, name: null }));
+                              setErrors((prev) => ({ ...prev, name: null }));
                             }}
                             placeholder="Masukkan Nama Lengkap"
                           />
@@ -705,20 +1003,35 @@ export default function Register() {
                             <i className="fas fa-id-card"></i>
                             NIK Sesuai KTP-EL
                           </label>
-                          <input
-                            type="text"
-                            className={`form-input ${errors.nik ? 'error' : ''}`}
-                            value={nik}
-                            onChange={handleChangeNik}
-                            placeholder="Masukkan No Induk Kependudukan (16 digit)"
-                            maxLength={16}
-                          />
+                          <div className="input-with-indicator">
+                            <input
+                              type="text"
+                              className={`form-input ${errors.nik ? "error" : ""} ${duplicateNik ? "duplicate-border" : ""}`}
+                              value={nik}
+                              onChange={handleChangeNik}
+                              placeholder="Masukkan No Induk Kependudukan (16 digit)"
+                              maxLength={16}
+                            />
+                            {/* Indicator hanya muncul saat submit error */}
+                            {duplicateNik && (
+                              <div className="input-indicator duplicate">
+                                <i className="fas fa-exclamation-triangle"></i>
+                                <span>Sudah Terdaftar!</span>
+                              </div>
+                            )}
+                          </div>
                           {errors.nik && errors.nik[0] && (
                             <div className="error-message">
                               <i className="fas fa-exclamation-circle"></i>
                               {errors.nik[0]}
                             </div>
                           )}
+                          <div className="input-hint">
+                            <i className="fas fa-info-circle"></i>
+                            <span>
+                              Pastikan NIK belum pernah terdaftar sebelumnya
+                            </span>
+                          </div>
                         </div>
 
                         <div className="form-group">
@@ -728,7 +1041,7 @@ export default function Register() {
                           </label>
                           <input
                             type="text"
-                            className={`form-input ${errors.nokk ? 'error' : ''}`}
+                            className={`form-input ${errors.nokk ? "error" : ""}`}
                             value={nokk}
                             onChange={handleChangeKartuKeluarga}
                             placeholder="Masukkan No Kartu Keluarga (16 digit)"
@@ -749,7 +1062,7 @@ export default function Register() {
                           </label>
                           <input
                             type="text"
-                            className={`form-input ${errors.nohp ? 'error' : ''}`}
+                            className={`form-input ${errors.nohp ? "error" : ""}`}
                             value={nohp}
                             onChange={handleChangeNoHp}
                             placeholder="Masukkan No Hp atau Whatsapp"
@@ -767,16 +1080,22 @@ export default function Register() {
                             <i className="fas fa-envelope"></i>
                             Email
                           </label>
-                          <input
-                            type="email"
-                            className={`form-input ${errors.email ? 'error' : ''}`}
-                            value={email}
-                            onChange={(e) => {
-                              setEmail(e.target.value);
-                              setErrors(prev => ({ ...prev, email: null }));
-                            }}
-                            placeholder="Masukkan Email"
-                          />
+                          <div className="input-with-indicator">
+                            <input
+                              type="email"
+                              className={`form-input ${errors.email ? "error" : ""} ${duplicateEmail ? "duplicate-border" : ""}`}
+                              value={email}
+                              onChange={handleChangeEmail}
+                              placeholder="Masukkan Email"
+                            />
+                            {/* Indicator hanya muncul saat submit error */}
+                            {duplicateEmail && (
+                              <div className="input-indicator duplicate">
+                                <i className="fas fa-exclamation-triangle"></i>
+                                <span>Sudah Terdaftar!</span>
+                              </div>
+                            )}
+                          </div>
                           {errors.email && errors.email[0] && (
                             <div className="error-message">
                               <i className="fas fa-exclamation-circle"></i>
@@ -791,11 +1110,11 @@ export default function Register() {
                             Jenis Kelamin
                           </label>
                           <select
-                            className={`form-select ${errors.gender ? 'error' : ''}`}
+                            className={`form-select ${errors.gender ? "error" : ""}`}
                             value={gender}
                             onChange={(e) => {
                               setGender(e.target.value);
-                              setErrors(prev => ({ ...prev, gender: null }));
+                              setErrors((prev) => ({ ...prev, gender: null }));
                             }}
                           >
                             <option value="">-- Pilih Jenis Kelamin --</option>
@@ -812,7 +1131,11 @@ export default function Register() {
                       </div>
 
                       <div className="step-actions">
-                        <button type="button" className="btn-next" onClick={nextStep}>
+                        <button
+                          type="button"
+                          className="btn-next"
+                          onClick={nextStep}
+                        >
                           Selanjutnya <i className="fas fa-arrow-right"></i>
                         </button>
                       </div>
@@ -823,7 +1146,9 @@ export default function Register() {
                   {currentStep === 2 && (
                     <div className="step-content">
                       <h3 className="step-title">Data Alamat</h3>
-                      <p className="step-description">Isi alamat lengkap sesuai KTP</p>
+                      <p className="step-description">
+                        Isi alamat lengkap sesuai KTP
+                      </p>
 
                       <div className="form-grid">
                         <div className="form-group">
@@ -833,7 +1158,12 @@ export default function Register() {
                           </label>
                           <Select
                             options={kecamatanList}
-                            value={kecamatanList.find(kecamatan => kecamatan.value === selectedKecamatan) || null}
+                            value={
+                              kecamatanList.find(
+                                (kecamatan) =>
+                                  kecamatan.value === selectedKecamatan,
+                              ) || null
+                            }
                             onChange={handleKecamatanChange}
                             placeholder="Pilih Kecamatan"
                             styles={customSelectStyles}
@@ -853,7 +1183,12 @@ export default function Register() {
                           </label>
                           <Select
                             options={kelurahanList}
-                            value={kelurahanList.find(kelurahan => kelurahan.value === selectedKelurahan) || null}
+                            value={
+                              kelurahanList.find(
+                                (kelurahan) =>
+                                  kelurahan.value === selectedKelurahan,
+                              ) || null
+                            }
                             onChange={handleKelurahanChange}
                             placeholder="Pilih Kelurahan"
                             styles={customSelectStyles}
@@ -874,7 +1209,7 @@ export default function Register() {
                           </label>
                           <input
                             type="text"
-                            className={`form-input ${errors.codepos ? 'error' : ''}`}
+                            className={`form-input ${errors.codepos ? "error" : ""}`}
                             value={codepos}
                             onChange={handleChangeKodePos}
                             placeholder="Masukkan Kode POS (5 digit)"
@@ -895,7 +1230,7 @@ export default function Register() {
                           </label>
                           <input
                             type="text"
-                            className={`form-input ${errors.rt ? 'error' : ''}`}
+                            className={`form-input ${errors.rt ? "error" : ""}`}
                             value={rt}
                             onChange={handleChangeRT}
                             placeholder="Isi 0 jika belum ada"
@@ -915,7 +1250,7 @@ export default function Register() {
                           </label>
                           <input
                             type="text"
-                            className={`form-input ${errors.rw ? 'error' : ''}`}
+                            className={`form-input ${errors.rw ? "error" : ""}`}
                             value={rw}
                             onChange={handleChangeRW}
                             placeholder="Isi 0 jika belum ada"
@@ -935,11 +1270,11 @@ export default function Register() {
                           </label>
                           <textarea
                             rows="4"
-                            className={`form-textarea ${errors.alamat ? 'error' : ''}`}
+                            className={`form-textarea ${errors.alamat ? "error" : ""}`}
                             value={alamat}
                             onChange={(e) => {
                               setAlamat(e.target.value);
-                              setErrors(prev => ({ ...prev, alamat: null }));
+                              setErrors((prev) => ({ ...prev, alamat: null }));
                             }}
                             placeholder="Tulis alamat lengkap sesuai KTP"
                           />
@@ -953,10 +1288,18 @@ export default function Register() {
                       </div>
 
                       <div className="step-actions">
-                        <button type="button" className="btn-prev" onClick={prevStep}>
+                        <button
+                          type="button"
+                          className="btn-prev"
+                          onClick={prevStep}
+                        >
                           <i className="fas fa-arrow-left"></i> Sebelumnya
                         </button>
-                        <button type="button" className="btn-next" onClick={nextStep}>
+                        <button
+                          type="button"
+                          className="btn-next"
+                          onClick={nextStep}
+                        >
                           Selanjutnya <i className="fas fa-arrow-right"></i>
                         </button>
                       </div>
@@ -967,7 +1310,9 @@ export default function Register() {
                   {currentStep === 3 && (
                     <div className="step-content">
                       <h3 className="step-title">Upload Dokumen</h3>
-                      <p className="step-description">Upload dokumen dalam format PDF (maksimal 2MB)</p>
+                      <p className="step-description">
+                        Upload dokumen dalam format PDF (maksimal 2MB)
+                      </p>
 
                       <div className="document-upload">
                         <div className="upload-group">
@@ -975,7 +1320,9 @@ export default function Register() {
                             <i className="fas fa-file-pdf"></i>
                             Upload KTP (PDF)
                           </label>
-                          <div className={`upload-area ${errors.imagektp ? 'error' : ''}`}>
+                          <div
+                            className={`upload-area ${errors.imagektp ? "error" : ""}`}
+                          >
                             <input
                               type="file"
                               className="upload-input"
@@ -1007,7 +1354,9 @@ export default function Register() {
                             <i className="fas fa-file-pdf"></i>
                             Upload Kartu Keluarga (PDF)
                           </label>
-                          <div className={`upload-area ${errors.imagekk ? 'error' : ''}`}>
+                          <div
+                            className={`upload-area ${errors.imagekk ? "error" : ""}`}
+                          >
                             <input
                               type="file"
                               className="upload-input"
@@ -1036,10 +1385,18 @@ export default function Register() {
                       </div>
 
                       <div className="step-actions">
-                        <button type="button" className="btn-prev" onClick={prevStep}>
+                        <button
+                          type="button"
+                          className="btn-prev"
+                          onClick={prevStep}
+                        >
                           <i className="fas fa-arrow-left"></i> Sebelumnya
                         </button>
-                        <button type="button" className="btn-next" onClick={nextStep}>
+                        <button
+                          type="button"
+                          className="btn-next"
+                          onClick={nextStep}
+                        >
                           Selanjutnya <i className="fas fa-arrow-right"></i>
                         </button>
                       </div>
@@ -1050,7 +1407,9 @@ export default function Register() {
                   {currentStep === 4 && (
                     <div className="step-content">
                       <h3 className="step-title">Buat Akun</h3>
-                      <p className="step-description">Buat password untuk akun Anda</p>
+                      <p className="step-description">
+                        Buat password untuk akun Anda
+                      </p>
 
                       <div className="form-grid">
                         <div className="form-group">
@@ -1060,11 +1419,14 @@ export default function Register() {
                           </label>
                           <input
                             type="password"
-                            className={`form-input ${errors.password ? 'error' : ''}`}
+                            className={`form-input ${errors.password ? "error" : ""}`}
                             value={password}
                             onChange={(e) => {
                               setPassword(e.target.value);
-                              setErrors(prev => ({ ...prev, password: null }));
+                              setErrors((prev) => ({
+                                ...prev,
+                                password: null,
+                              }));
                             }}
                             placeholder="Buat password (minimal 8 karakter)"
                           />
@@ -1083,36 +1445,45 @@ export default function Register() {
                           </label>
                           <input
                             type="password"
-                            className={`form-input ${errors.password_confirmation ? 'error' : ''}`}
+                            className={`form-input ${errors.password_confirmation ? "error" : ""}`}
                             value={passwordConfirmation}
                             onChange={(e) => {
                               setPasswordConfirmation(e.target.value);
-                              setErrors(prev => ({ ...prev, password_confirmation: null }));
+                              setErrors((prev) => ({
+                                ...prev,
+                                password_confirmation: null,
+                              }));
                             }}
                             placeholder="Ulangi password"
                           />
-                          {errors.password_confirmation && errors.password_confirmation[0] && (
-                            <div className="error-message">
-                              <i className="fas fa-exclamation-circle"></i>
-                              {errors.password_confirmation[0]}
-                            </div>
-                          )}
+                          {errors.password_confirmation &&
+                            errors.password_confirmation[0] && (
+                              <div className="error-message">
+                                <i className="fas fa-exclamation-circle"></i>
+                                {errors.password_confirmation[0]}
+                              </div>
+                            )}
                         </div>
                       </div>
 
                       <div className="step-actions">
-                        <button type="button" className="btn-prev" onClick={prevStep}>
+                        <button
+                          type="button"
+                          className="btn-prev"
+                          onClick={prevStep}
+                        >
                           <i className="fas fa-arrow-left"></i> Sebelumnya
                         </button>
 
                         <button
                           type="submit"
                           className="btn-submit"
-                          disabled={isLoading}
+                          disabled={isLoading || duplicateNik || duplicateEmail}
                         >
                           {isLoading ? (
                             <>
-                              <i className="fas fa-spinner fa-spin"></i> MENYIMPAN...
+                              <i className="fas fa-spinner fa-spin"></i>{" "}
+                              MENYIMPAN...
                             </>
                           ) : (
                             <>
@@ -1135,11 +1506,23 @@ export default function Register() {
                 <div className="info-content">
                   <div className="info-item">
                     <i className="fas fa-check"></i>
-                    <span>Pastikan semua data diisi dengan benar sesuai dokumen resmi</span>
+                    <span>
+                      Pastikan semua data diisi dengan benar sesuai dokumen
+                      resmi
+                    </span>
                   </div>
                   <div className="info-item">
                     <i className="fas fa-check"></i>
-                    <span>Dokumen harus dalam format PDF dengan ukuran maksimal 2MB</span>
+                    <span>
+                      Dokumen harus dalam format PDF dengan ukuran maksimal 2MB
+                    </span>
+                  </div>
+                  <div className="info-item important-info">
+                    <i className="fas fa-exclamation-triangle"></i>
+                    <span>
+                      <strong>NIK dan Email harus unik:</strong> Jika sudah
+                      terdaftar, Anda tidak dapat melanjutkan
+                    </span>
                   </div>
                   <div className="info-item">
                     <i className="fas fa-check"></i>
@@ -1157,7 +1540,77 @@ export default function Register() {
       </div>
 
       <style jsx>{`
-        /* Alert Beasiswa Styles - TAMBAHAN BARU */
+        /* Input with Indicator Styles */
+        .input-with-indicator {
+          position: relative;
+        }
+
+        .input-indicator {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 0.75rem;
+          padding: 4px 8px;
+          border-radius: 4px;
+          background: white;
+          z-index: 10;
+          font-weight: 600;
+        }
+
+        .input-indicator.duplicate {
+          color: #dc2626;
+          border: 1px solid #dc2626;
+          background: #fef2f2;
+        }
+
+        .input-indicator i {
+          font-size: 0.7rem;
+        }
+
+        .input-hint {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          margin-top: 5px;
+          font-size: 0.75rem;
+          color: #6b7280;
+        }
+
+        .input-hint i {
+          font-size: 0.7rem;
+        }
+
+        /* Border Styles for Input */
+        .duplicate-border {
+          border-color: #dc2626 !important;
+          background-color: #fef2f2;
+        }
+
+        .form-input {
+          padding-right: 120px !important;
+        }
+
+        /* Info Box Important Item */
+        .info-item.important-info {
+          background: #fef3c7;
+          padding: 10px;
+          border-radius: 8px;
+          border-left: 4px solid #f59e0b;
+        }
+
+        .info-item.important-info i {
+          color: #d97706;
+        }
+
+        .info-item.important-info span {
+          color: #92400e;
+        }
+
+        /* Alert Beasiswa Styles */
         .alert-beasiswa {
           background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
           border: 2px solid #3b82f6;
@@ -1202,7 +1655,9 @@ export default function Register() {
           background: white;
           border-radius: 12px;
           border: 1px solid #e2e8f0;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
         }
 
         .alert-item:hover {
@@ -1264,6 +1719,86 @@ export default function Register() {
           color: #dc2626;
         }
 
+        /* Duplicate Notification Styles */
+        .duplicate-notification {
+          background: #fef2f2;
+          border: 2px solid #ef4444;
+          border-radius: 10px;
+          padding: 20px;
+          margin-bottom: 20px;
+          animation: slideDown 0.3s ease;
+        }
+
+        .duplicate-notification-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 10px;
+          color: #dc2626;
+        }
+
+        .duplicate-notification-header i {
+          font-size: 1.2rem;
+        }
+
+        .duplicate-notification-header h4 {
+          margin: 0;
+          font-size: 1.1rem;
+        }
+
+        .duplicate-notification-content {
+          color: #991b1b;
+          line-height: 1.5;
+        }
+
+        .duplicate-notification-actions {
+          display: flex;
+          gap: 10px;
+          margin-top: 15px;
+        }
+
+        .duplicate-notification-actions button {
+          padding: 8px 16px;
+          border-radius: 6px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border: none;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .duplicate-notification-actions .btn-login {
+          background: #3b82f6;
+          color: white;
+        }
+
+        .duplicate-notification-actions .btn-login:hover {
+          background: #2563eb;
+        }
+
+        .duplicate-notification-actions .btn-change {
+          background: #f3f4f6;
+          color: #374151;
+          border: 1px solid #d1d5db;
+        }
+
+        .duplicate-notification-actions .btn-change:hover {
+          background: #e5e7eb;
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
         /* Error Styles */
         .error-summary {
           background: #fef2f2;
@@ -1310,12 +1845,17 @@ export default function Register() {
           font-size: 0.9rem;
         }
 
-        .form-input.error, .form-select.error, .form-textarea.error, .upload-area.error {
+        .form-input.error,
+        .form-select.error,
+        .form-textarea.error,
+        .upload-area.error {
           border-color: #ef4444 !important;
           background-color: #fff5f5;
         }
 
-        .form-input.error:focus, .form-select.error:focus, .form-textarea.error:focus {
+        .form-input.error:focus,
+        .form-select.error:focus,
+        .form-textarea.error:focus {
           box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
         }
 
@@ -1343,7 +1883,7 @@ export default function Register() {
           height: auto;
           margin-bottom: 20px;
           border-radius: 12px;
-          box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
           background: white;
           padding: 8px;
         }
@@ -1395,7 +1935,7 @@ export default function Register() {
           width: 100%;
           max-height: 90vh;
           overflow-y: auto;
-          box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
         .modal-header {
@@ -1431,7 +1971,7 @@ export default function Register() {
         }
 
         .modal-close:hover {
-          background: rgba(255,255,255,0.1);
+          background: rgba(255, 255, 255, 0.1);
         }
 
         .modal-body {
@@ -1484,12 +2024,14 @@ export default function Register() {
           border-radius: 15px;
           padding: 25px;
           border: 1px solid #e2e8f0;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
         }
 
         .persyaratan-card:hover {
           transform: translateY(-5px);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .card-header {
@@ -1605,7 +2147,7 @@ export default function Register() {
           border-radius: 20px;
           padding: 50px;
           text-align: center;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
           max-width: 500px;
           width: 100%;
         }
@@ -1644,7 +2186,7 @@ export default function Register() {
         }
 
         .progress-steps::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 20px;
           left: 0;
@@ -1695,7 +2237,7 @@ export default function Register() {
           background: white;
           border-radius: 20px;
           padding: 30px 40px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
           margin-bottom: 30px;
         }
 
@@ -1754,7 +2296,9 @@ export default function Register() {
           color: #64748b;
         }
 
-        .form-input, .form-select, .form-textarea {
+        .form-input,
+        .form-select,
+        .form-textarea {
           width: 100%;
           padding: 12px 16px;
           border: 2px solid #e2e8f0;
@@ -1763,7 +2307,9 @@ export default function Register() {
           transition: all 0.3s ease;
         }
 
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
           outline: none;
           border-color: #3b82f6;
           box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
@@ -1857,7 +2403,9 @@ export default function Register() {
           justify-content: flex-end;
         }
 
-        .btn-prev, .btn-next, .btn-submit {
+        .btn-prev,
+        .btn-next,
+        .btn-submit {
           padding: 12px 24px;
           border: none;
           border-radius: 10px;
@@ -1901,13 +2449,14 @@ export default function Register() {
         .btn-submit:disabled {
           opacity: 0.7;
           cursor: not-allowed;
+          background: #9ca3af;
         }
 
         .info-box {
           background: white;
           border-radius: 15px;
           padding: 30px;
-          box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         .info-header {
@@ -1949,27 +2498,44 @@ export default function Register() {
           line-height: 1.4;
         }
 
-        /* Responsive untuk Alert */
+        .info-item.important-info i {
+          color: #d97706;
+        }
+
+        .info-item.important-info span {
+          color: #92400e;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
+          .duplicate-notification-actions {
+            flex-direction: column;
+          }
+
+          .duplicate-notification-actions button {
+            width: 100%;
+            justify-content: center;
+          }
+
           .alert-beasiswa {
             padding: 20px;
           }
-          
+
           .alert-item {
             padding: 12px;
           }
-          
+
           .alert-icon {
             width: 40px;
             height: 40px;
             min-width: 40px;
             font-size: 1rem;
           }
-          
+
           .alert-text h4 {
             font-size: 1rem;
           }
-          
+
           .alert-text p {
             font-size: 0.9rem;
           }
@@ -1999,7 +2565,9 @@ export default function Register() {
             gap: 15px;
           }
 
-          .btn-prev, .btn-next, .btn-submit {
+          .btn-prev,
+          .btn-next,
+          .btn-submit {
             width: 100%;
             justify-content: center;
           }
@@ -2019,6 +2587,18 @@ export default function Register() {
           .modal-body {
             padding: 20px;
           }
+
+          /* Adjust input indicators for mobile */
+          .input-indicator {
+            font-size: 0.65rem;
+            padding: 3px 6px;
+          }
+
+          .form-input,
+          .form-select,
+          .form-textarea {
+            padding-right: 90px !important;
+          }
         }
 
         @media (max-width: 576px) {
@@ -2027,12 +2607,12 @@ export default function Register() {
             text-align: center;
             gap: 8px;
           }
-          
+
           .alert-item {
             flex-direction: column;
             text-align: center;
           }
-          
+
           .alert-icon {
             align-self: center;
           }
@@ -2059,6 +2639,33 @@ export default function Register() {
           .step {
             flex: 1;
             min-width: 80px;
+          }
+
+          .input-indicator span {
+            display: none;
+          }
+
+          .input-indicator {
+            padding: 4px;
+            right: 5px;
+          }
+
+          .form-input,
+          .form-select,
+          .form-textarea {
+            padding-right: 40px !important;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .input-indicator {
+            display: none;
+          }
+
+          .form-input,
+          .form-select,
+          .form-textarea {
+            padding-right: 16px !important;
           }
         }
       `}</style>
