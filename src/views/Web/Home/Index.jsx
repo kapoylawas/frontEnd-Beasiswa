@@ -90,10 +90,7 @@ export default function Home() {
                   <div className="contact-card-info">
                     <h3>Dinas Sosial (DINSOS)</h3>
                     <p>Beasiswa Pendidikan Tinggi Kurang Mampu</p>
-                    <div className="contact-badge">
-                      <i className="fas fa-child"></i>
-                      SD, SMP, SMA
-                    </div>
+                    
                   </div>
                 </div>
                 <div className="contact-card-content">
