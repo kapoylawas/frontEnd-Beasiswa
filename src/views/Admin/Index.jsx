@@ -431,7 +431,9 @@ export default function Dashboard() {
     <LayoutAdmin>
       <main>
         <div className="container-fluid px-4 mt-4 mb-4">
-          {terdaftar && (
+
+          
+          {hasAnyPermission(["mahasiswa.index"]) && (
             <div className="registration-guide mt-3">
               <div className="card border-0 shadow-sm">
                 <div className="card-header bg-primary text-white">
@@ -467,10 +469,7 @@ export default function Dashboard() {
                               <p className="small mb-2">
                                 Download template untuk beasiswa reguler (beasiswa prestasi dan beasiswa kurang mampu)
                               </p>
-                              <button className="btn btn-outline-primary btn-sm">
-                                <i className="fas fa-download me-1"></i>
-                                Download Surat Pernyataan Umum
-                              </button>
+                             
                             </div>
                           </div>
 
@@ -488,10 +487,7 @@ export default function Dashboard() {
                               <p className="small mb-2">
                                 Download template khusus beasiswa keagamaan
                               </p>
-                              <button className="btn btn-outline-primary btn-sm">
-                                <i className="fas fa-download me-1"></i>
-                                Download Surat Pernyataan Keagamaan
-                              </button>
+                              
                             </div>
                           </div>
                         </div>
