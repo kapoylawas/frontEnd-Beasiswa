@@ -943,7 +943,7 @@ export default function AdminDispendukYatim() {
                                             </div>
 
                                             {/* Alasan Verifikasi Card */}
-                                            <div className="card border-warning mb-4 shadow">
+                                            {/* <div className="card border-warning mb-4 shadow">
                                                 <div className="card-header bg-warning text-white py-3 d-flex justify-content-between align-items-center">
                                                     <h5 className="mb-0">
                                                         <i className="fa fa-comment-dots me-2"></i>
@@ -983,10 +983,10 @@ export default function AdminDispendukYatim() {
                                                         </div>
                                                     )}
                                                 </div>
-                                            </div>
+                                            </div> */}
 
                                             {/* Aksi Card */}
-                                            <div className="card border-warning shadow">
+                                            {/* <div className="card border-warning shadow">
                                                 <div className="card-header bg-warning text-white py-3">
                                                     <h5 className="mb-0">
                                                         <i className="fa fa-cogs me-2"></i>
@@ -1034,44 +1034,44 @@ export default function AdminDispendukYatim() {
                                                                 )}
                                                             </button>
                                                         ) : (
-                                                            <>
-                                                                <button
-                                                                    onClick={() => handleVerifKk(detailData)}
-                                                                    className="btn btn-success btn-lg py-3"
-                                                                    disabled={verifyingKkId === detailData.id}
-                                                                    style={{ fontSize: '1.1rem' }}
-                                                                >
-                                                                    {verifyingKkId === detailData.id ? (
-                                                                        <>
-                                                                            <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                                                                            MEMPROSES...
-                                                                        </>
-                                                                    ) : (
-                                                                        <>
-                                                                            <i className="fa fa-check-circle me-2"></i>
-                                                                            VERIFIKASI KARTU KELUARGA
-                                                                        </>
-                                                                    )}
-                                                                </button>
-                                                                <button
-                                                                    onClick={() => handleRejectKk(detailData)}
-                                                                    className="btn btn-danger btn-lg py-3"
-                                                                    disabled={verifyingKkId === detailData.id}
-                                                                    style={{ fontSize: '1.1rem' }}
-                                                                >
-                                                                    {verifyingKkId === detailData.id ? (
-                                                                        <>
-                                                                            <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                                                                            MEMPROSES...
-                                                                        </>
-                                                                    ) : (
-                                                                        <>
-                                                                            <i className="fa fa-times-circle me-2"></i>
-                                                                            TOLAK KARTU KELUARGA
-                                                                        </>
-                                                                    )}
-                                                                </button>
-                                                            </>
+                                                            // <>
+                                                            //     <button
+                                                            //         onClick={() => handleVerifKk(detailData)}
+                                                            //         className="btn btn-success btn-lg py-3"
+                                                            //         disabled={verifyingKkId === detailData.id}
+                                                            //         style={{ fontSize: '1.1rem' }}
+                                                            //     >
+                                                            //         {verifyingKkId === detailData.id ? (
+                                                            //             <>
+                                                            //                 <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                                                            //                 MEMPROSES...
+                                                            //             </>
+                                                            //         ) : (
+                                                            //             <>
+                                                            //                 <i className="fa fa-check-circle me-2"></i>
+                                                            //                 VERIFIKASI KARTU KELUARGA
+                                                            //             </>
+                                                            //         )}
+                                                            //     </button>
+                                                            //     <button
+                                                            //         onClick={() => handleRejectKk(detailData)}
+                                                            //         className="btn btn-danger btn-lg py-3"
+                                                            //         disabled={verifyingKkId === detailData.id}
+                                                            //         style={{ fontSize: '1.1rem' }}
+                                                            //     >
+                                                            //         {verifyingKkId === detailData.id ? (
+                                                            //             <>
+                                                            //                 <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                                                            //                 MEMPROSES...
+                                                            //             </>
+                                                            //         ) : (
+                                                            //             <>
+                                                            //                 <i className="fa fa-times-circle me-2"></i>
+                                                            //                 TOLAK KARTU KELUARGA
+                                                            //             </>
+                                                            //         )}
+                                                            //     </button>
+                                                            // </>
                                                         )}
                                                         
                                                         <div className="row g-2">
@@ -1100,7 +1100,7 @@ export default function AdminDispendukYatim() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
 
                                         {/* PDF Viewer Area */}
