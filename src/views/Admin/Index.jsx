@@ -431,19 +431,153 @@ export default function Dashboard() {
     <LayoutAdmin>
       <main>
         <div className="container-fluid px-4 mt-4 mb-4">
-          <div className="welcome-banner">
-            <div className="welcome-icon-container">
-              <i className="fas fa-bullhorn"></i>
+          {terdaftar && (
+            <div className="registration-guide mt-3">
+              <div className="card border-0 shadow-sm">
+                <div className="card-header bg-primary text-white">
+                  <h6 className="mb-0">
+                    <i className="fas fa-graduation-cap me-2"></i>
+                    Proses Pendaftaran Beasiswa 2026
+                  </h6>
+                </div>
+                <div className="card-body">
+                  {/* Step 2 dengan visual yang lebih jelas */}
+                  <div className="step-card mb-3 p-3 border rounded">
+                    <div className="d-flex align-items-start">
+                      <span className="badge bg-primary rounded-pill me-3">
+                        Step 2
+                      </span>
+                      <div className="flex-grow-1">
+                        <h6 className="text-primary mb-2">
+                          Menyiapkan Surat Pernyataan Yang Akan Di Upload Surat Pernyataan Bermaterai
+                        </h6>
+
+                        <div className="row mt-2">
+                          <div className="col-md-6 mb-2">
+                            <div className="p-3 border rounded h-100 bg-light">
+                              <div className="d-flex align-items-center mb-2">
+                                <i className="fas fa-file-contract text-primary fs-4 me-3"></i>
+                                <div>
+                                  <h6 className="mb-0">Beasiswa Umum</h6>
+                                  <small className="text-muted">
+                                    Non-keagamaan
+                                  </small>
+                                </div>
+                              </div>
+                              <p className="small mb-2">
+                                Download template untuk beasiswa reguler (beasiswa prestasi dan beasiswa kurang mampu)
+                              </p>
+                              <button className="btn btn-outline-primary btn-sm">
+                                <i className="fas fa-download me-1"></i>
+                                Download Surat Pernyataan Umum
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="col-md-6 mb-2">
+                            <div className="p-3 border rounded h-100 bg-light">
+                              <div className="d-flex align-items-center mb-2">
+                                <i className="fas fa-pray text-primary fs-4 me-3"></i>
+                                <div>
+                                  <h6 className="mb-0">Beasiswa Keagamaan</h6>
+                                  <small className="text-muted">
+                                    Agama tertentu
+                                  </small>
+                                </div>
+                              </div>
+                              <p className="small mb-2">
+                                Download template khusus beasiswa keagamaan
+                              </p>
+                              <button className="btn btn-outline-primary btn-sm">
+                                <i className="fas fa-download me-1"></i>
+                                Download Surat Pernyataan Keagamaan
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="alert alert-warning mt-3 mb-0 p-2 small">
+                          <i className="fas fa-exclamation-triangle me-1"></i>
+                          <strong>Perhatian:</strong> Pilih surat pernyataan
+                          sesuai jenis beasiswa yang Anda daftar. Setelah
+                          download, isi form dengan lengkap dan klik{" "}
+                          <strong>Simpan</strong>.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Steps lainnya dalam bentuk list */}
+                  <div className="mt-4">
+                    <h6 className="mb-3">Langkah Selanjutnya:</h6>
+                    <div className="list-group list-group-flush">
+                      <div className="list-group-item d-flex align-items-center">
+                        <div className="me-3">
+                          <span className="badge bg-secondary rounded-circle">
+                            1
+                          </span>
+                        </div>
+                        <div>
+                          <h6 className="mb-0 small">
+                            Lengkapi Data Perguruan Tinggi
+                          </h6>
+                          <p className="mb-0 text-muted small">
+                            Informasi institusi pendidikan
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="list-group-item d-flex align-items-center">
+                        <div className="me-3">
+                          <span className="badge bg-secondary rounded-circle">
+                            3
+                          </span>
+                        </div>
+                        <div>
+                          <h6 className="mb-0 small">
+                            Pilih Kategori Beasiswa di MENU KATEGORI BEASISWA
+                          </h6>
+                          <p className="mb-0 text-muted small">
+                            Tentukan bidang yang sesuai
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="list-group-item d-flex align-items-center">
+                        <div className="me-3">
+                          <span className="badge bg-secondary rounded-circle">
+                            4
+                          </span>
+                        </div>
+                        <div>
+                          <h6 className="mb-0 small">Verifikasi Dokumen di MENU RIWAYAT PENDAFTAR</h6>
+                          <p className="mb-0 text-muted small">
+                            Pastikan semua dokumen sudah lengkap
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="list-group-item d-flex align-items-center">
+                        <div className="me-3">
+                          <span className="badge bg-success rounded-circle">
+                            5
+                          </span>
+                        </div>
+                        <div>
+                          <h6 className="mb-0 small">
+                            Verifikasi Akhir & Simpan di MENU RIWAYAT PENDAFTAR
+                          </h6>
+                          <p className="mb-0 text-muted small">
+                            Centang verifikasi dan simpan pendaftaran
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="welcome-text">
-              <h4>Selamat Datang, {user.name}!</h4>
-              <p>
-                {terdaftar
-                  ? terdaftar
-                  : "Anda belum terdaftar sebagai penerima beasiswa tahun 2024. Silakan lengkapi data Anda untuk mendaftar."}
-              </p>
-            </div>
-          </div>
+          )}
 
           {maintenance ? (
             <>
@@ -702,7 +836,7 @@ export default function Dashboard() {
                                               Surat Pernyataan Keagamaan
                                             </h6>
                                             <p className="card-text small text-muted">
-                                              Untuk Beasiswa Bidang Keagamaan 
+                                              Untuk Beasiswa Bidang Keagamaan
                                             </p>
                                             <a
                                               href="/surat_kesra.pdf"
