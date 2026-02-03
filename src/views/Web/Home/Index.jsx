@@ -4,7 +4,7 @@ export default function Home() {
   // Helpdesk Penerimaan Beasiswa Yatim
   const dinsosYatim = `https://wa.me/6282230338338`;
   const diknasYatim = `https://wa.me/6281336766061`;
-  
+
   // Helpdesk tambahan yang diminta
   const dinsos2 = `https://wa.me/6285711404090`;
   const kesra1 = `https://wa.me/6285646151120`;
@@ -33,7 +33,7 @@ export default function Home() {
             </h1>
 
             <p className="hero-subtitle">
-              Program Beasiswa Sidoarjo  telah
+              Program Beasiswa Sidoarjo telah
               <span className="highlight-text"> diselenggarakan</span>
             </p>
 
@@ -70,9 +70,7 @@ export default function Home() {
 
           {/* Persyaratan Administrasi Section */}
 
-
           {/* Informasi Helpdesk Section */}
-          
 
           {/* Kontak Section */}
           <div className="section-bottom" id="helpdesk">
@@ -90,7 +88,10 @@ export default function Home() {
                   <div className="contact-card-info">
                     <h3>Dinas Sosial (DINSOS)</h3>
                     <p>Beasiswa Pendidikan Tinggi Kurang Mampu</p>
-                    
+                    <div className="contact-badge">
+                      <i className="fas fa-child"></i>
+                      SMA dan PERGURUAN TINGGI
+                    </div>
                   </div>
                 </div>
                 <div className="contact-card-content">
@@ -176,15 +177,17 @@ export default function Home() {
                   <div className="contact-card-info">
                     <h3>Kesra</h3>
                     <p>Beasiswa Bidang Keagamaan</p>
+                    <div className="contact-badge">
+                      <i className="fas fa-child"></i>
+                      PERGURUAN TINGGI
+                    </div>
                   </div>
                 </div>
                 <div className="contact-card-content">
                   <div className="contact-item-vertical">
                     <div className="contact-details">
                       <span className="contact-name">KESRA 1</span>
-                      <span className="contact-role">
-                        Helpdesk Kesra
-                      </span>
+                      <span className="contact-role">Helpdesk Kesra</span>
                     </div>
                     <a
                       target="_blank"
@@ -199,9 +202,7 @@ export default function Home() {
                   <div className="contact-item-vertical">
                     <div className="contact-details">
                       <span className="contact-name">KESRA 2</span>
-                      <span className="contact-role">
-                        Helpdesk Kesra
-                      </span>
+                      <span className="contact-role">Helpdesk Kesra</span>
                     </div>
                     <a
                       target="_blank"
@@ -225,15 +226,17 @@ export default function Home() {
                   <div className="contact-card-info">
                     <h3>Dinas Pemuda Olahraga dan Pariwisata(Disporapar)</h3>
                     <p>Beasiswa Prestasi</p>
+                    <div className="contact-badge">
+                      <i className="fas fa-child"></i>
+                      PERGURUAN TINGGI
+                    </div>
                   </div>
                 </div>
                 <div className="contact-card-content">
                   <div className="contact-item-vertical">
                     <div className="contact-details">
                       <span className="contact-name">Disporapar 1</span>
-                      <span className="contact-role">
-                        Helpdesk Disporapar
-                      </span>
+                      <span className="contact-role">Helpdesk Disporapar</span>
                     </div>
                     <a
                       target="_blank"
@@ -248,9 +251,7 @@ export default function Home() {
                   <div className="contact-item-vertical">
                     <div className="contact-details">
                       <span className="contact-name">Disporapar 2</span>
-                      <span className="contact-role">
-                        Helpdesk Disporapar
-                      </span>
+                      <span className="contact-role">Helpdesk Disporapar</span>
                     </div>
                     <a
                       target="_blank"
@@ -519,7 +520,9 @@ export default function Home() {
           border: 1px solid #e8f0ff;
           position: relative;
           overflow: hidden;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
         }
 
         .requirement-card-new:hover {
