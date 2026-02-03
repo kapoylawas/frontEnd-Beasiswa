@@ -143,7 +143,7 @@ export default function Home() {
                     <p>Beasiswa Anak Yatim</p>
                     <div className="contact-badge">
                       <i className="fas fa-child"></i>
-                      SD, SMP, SMA
+                      SD, SMP
                     </div>
                   </div>
                 </div>
