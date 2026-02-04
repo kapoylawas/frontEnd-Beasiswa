@@ -37,9 +37,68 @@ export default function Register() {
   const [currentStep, setCurrentStep] = useState(1);
   const [showPersyaratan, setShowPersyaratan] = useState(false);
 
-  // State untuk tracking duplikasi
+  // State baru yang ditambahkan
   const [duplicateNik, setDuplicateNik] = useState(false);
   const [duplicateEmail, setDuplicateEmail] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [submissionAttempts, setSubmissionAttempts] = useState(0);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [hasError, setHasError] = useState(false); // State untuk error handling
+
+  // Simple error handling dengan useEffect
+  useEffect(() => {
+    const handleGlobalError = (event) => {
+      console.error("Global error caught:", event.error);
+      setHasError(true);
+      // Mencegah error ditampilkan di console
+      event.preventDefault();
+    };
+
+    const handleUnhandledRejection = (event) => {
+      console.error("Unhandled rejection:", event.reason);
+      setHasError(true);
+      // Mencegah error ditampilkan di console
+      event.preventDefault();
+    };
+
+    window.addEventListener("error", handleGlobalError);
+    window.addEventListener("unhandledrejection", handleUnhandledRejection);
+
+    // Cek koneksi online/offline
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    // Browser compatibility check
+    if (typeof FileReader === "undefined") {
+      toast.error(
+        "Browser Anda tidak mendukung fitur upload file. Silakan gunakan browser terbaru.",
+        {
+          duration: 10000,
+        },
+      );
+    }
+
+    // Cek cookies/localStorage
+    try {
+      localStorage.setItem("test", "test");
+      localStorage.removeItem("test");
+    } catch (e) {
+      console.warn("LocalStorage mungkin dinonaktifkan");
+    }
+
+    return () => {
+      window.removeEventListener("error", handleGlobalError);
+      window.removeEventListener(
+        "unhandledrejection",
+        handleUnhandledRejection,
+      );
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
   useEffect(() => {
     Api.get("/api/tanggalBatas", {}).then((response) => {
@@ -84,6 +143,225 @@ export default function Register() {
     }
   }, [selectedKecamatan]);
 
+  // Fungsi bantu baru
+  const scrollToFirstError = () => {
+    const firstErrorElement = document.querySelector(".error-message");
+    if (firstErrorElement) {
+      firstErrorElement.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  const determineErrorStep = (errors) => {
+    const errorFields = Object.keys(errors);
+    if (errorFields.length === 0) return 1;
+
+    const firstError = errorFields[0];
+    const stepMap = {
+      nik: 1,
+      email: 1,
+      name: 1,
+      nohp: 1,
+      gender: 1,
+      nokk: 1,
+      id_kecamatan: 2,
+      id_kelurahan: 2,
+      codepos: 2,
+      rt: 2,
+      rw: 2,
+      alamat: 2,
+      imagektp: 3,
+      imagekk: 3,
+      password: 4,
+      password_confirmation: 4,
+    };
+
+    return stepMap[firstError] || 1;
+  };
+
+  const prepareFormData = () => {
+    const formData = new FormData();
+
+    const fields = {
+      nik,
+      nokk,
+      name,
+      nohp,
+      email,
+      gender,
+      id_kecamatan: selectedKecamatan,
+      id_kelurahan: selectedKelurahan,
+      codepos,
+      rt,
+      rw,
+      alamat,
+      password,
+      password_confirmation: passwordConfirmation,
+    };
+
+    Object.entries(fields).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== "") {
+        formData.append(key, value);
+      }
+    });
+
+    if (ktp instanceof File) {
+      formData.append("imagektp", ktp);
+    }
+
+    if (kk instanceof File) {
+      formData.append("imagekk", kk);
+    }
+
+    return formData;
+  };
+
+  const resetForm = () => {
+    setName("");
+    setNik("");
+    setNokk("");
+    setNohp("");
+    setEmail("");
+    setGender("");
+    setCodepos("");
+    setRt("");
+    setRw("");
+    setAlamat("");
+    setKtp("");
+    setKk("");
+    setPassword("");
+    setPasswordConfirmation("");
+    setSelectedKecamatan("");
+    setSelectedKelurahan("");
+    setErrors({});
+    setDuplicateNik(false);
+    setDuplicateEmail(false);
+    setCurrentStep(1);
+    setUploadProgress(0);
+    setSubmissionAttempts(0);
+  };
+
+  const logRegistrationAttempt = (success, error = null) => {
+    const logData = {
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent,
+      online: navigator.onLine,
+      success,
+      step: currentStep,
+      error: error
+        ? {
+            message: error.message,
+            type: error.constructor.name,
+            status: error.response?.status,
+          }
+        : null,
+      fieldsPresent: {
+        name: !!name,
+        nik: !!nik,
+        email: !!email,
+        hasKtp: !!ktp,
+        hasKk: !!kk,
+      },
+    };
+
+    try {
+      const logs = JSON.parse(localStorage.getItem("registrationLogs") || "[]");
+      logs.unshift(logData);
+      if (logs.length > 50) logs.pop();
+      localStorage.setItem("registrationLogs", JSON.stringify(logs));
+    } catch (e) {
+      console.log("Failed to save logs:", e);
+    }
+  };
+
+  // Fungsi retry dengan exponential backoff
+  const retryApiCall = async (apiCall, maxRetries = 2, delay = 1000) => {
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        return await apiCall();
+      } catch (error) {
+        // Hanya retry untuk network/timeout errors, bukan validation errors
+        if (
+          i === maxRetries - 1 ||
+          (error.response && error.response.status !== 500) ||
+          (!error.response && !error.request)
+        ) {
+          throw error;
+        }
+
+        // Exponential backoff
+        await new Promise((resolve) =>
+          setTimeout(resolve, delay * Math.pow(2, i)),
+        );
+
+        console.log(`Retry attempt ${i + 1}/${maxRetries}`);
+      }
+    }
+  };
+
+  // Fungsi validasi semua step
+  const validateAllSteps = () => {
+    const newErrors = {};
+
+    // Step 1 validations
+    if (!name.trim()) newErrors.name = ["Nama lengkap tidak boleh kosong"];
+
+    if (!nik.trim()) {
+      newErrors.nik = ["NIK tidak boleh kosong"];
+    } else if (nik.length !== 16) {
+      newErrors.nik = ["NIK harus 16 digit"];
+    }
+
+    if (!nokk.trim())
+      newErrors.nokk = ["Nomor Kartu Keluarga tidak boleh kosong"];
+    else if (nokk.length !== 16) newErrors.nokk = ["Nomor KK harus 16 digit"];
+
+    if (!nohp.trim()) newErrors.nohp = ["Nomor HP/WhatsApp tidak boleh kosong"];
+    else if (nohp.length < 10) newErrors.nohp = ["Nomor HP minimal 10 digit"];
+
+    if (!email.trim()) {
+      newErrors.email = ["Email tidak boleh kosong"];
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = ["Format email tidak valid"];
+    }
+
+    if (!gender) newErrors.gender = ["Pilih jenis kelamin terlebih dahulu"];
+
+    // Step 2 validations
+    if (!selectedKecamatan)
+      newErrors.id_kecamatan = ["Pilih kecamatan terlebih dahulu"];
+    if (!selectedKelurahan)
+      newErrors.id_kelurahan = ["Pilih kelurahan terlebih dahulu"];
+    if (!codepos.trim()) newErrors.codepos = ["Kode POS tidak boleh kosong"];
+    else if (codepos.length !== 5)
+      newErrors.codepos = ["Kode POS harus 5 digit"];
+    if (!rt.trim()) newErrors.rt = ["RT tidak boleh kosong"];
+    if (!rw.trim()) newErrors.rw = ["RW tidak boleh kosong"];
+    if (!alamat.trim())
+      newErrors.alamat = ["Alamat lengkap tidak boleh kosong"];
+    else if (alamat.length < 10)
+      newErrors.alamat = ["Alamat terlalu pendek, minimal 10 karakter"];
+
+    // Step 3 validations
+    if (!ktp) newErrors.imagektp = ["File KTP harus diupload"];
+    if (!kk) newErrors.imagekk = ["File Kartu Keluarga harus diupload"];
+
+    // Step 4 validations
+    if (!password) newErrors.password = ["Password tidak boleh kosong"];
+    else if (password.length < 8)
+      newErrors.password = ["Password minimal 8 karakter"];
+    if (!passwordConfirmation)
+      newErrors.password_confirmation = [
+        "Konfirmasi password tidak boleh kosong",
+      ];
+    else if (password !== passwordConfirmation)
+      newErrors.password_confirmation = ["Konfirmasi password tidak cocok"];
+
+    return newErrors;
+  };
+
   const validateStep1 = () => {
     const newErrors = {};
 
@@ -110,7 +388,6 @@ export default function Register() {
 
     if (!gender) newErrors.gender = ["Pilih jenis kelamin terlebih dahulu"];
 
-    // Jangan cek duplikasi di validateStep1, karena akan ditangani saat submit
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -185,14 +462,7 @@ export default function Register() {
       window.scrollTo(0, 0);
       setErrors({});
     } else {
-      // Scroll to first error
-      const firstErrorElement = document.querySelector(".error-message");
-      if (firstErrorElement) {
-        firstErrorElement.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
+      setTimeout(scrollToFirstError, 100);
     }
   };
 
@@ -208,7 +478,21 @@ export default function Register() {
 
     if (!imageData) return;
 
-    if (!imageData.type.match("pdf.*")) {
+    // Improved PDF validation
+    const allowedTypes = [
+      "application/pdf",
+      "application/x-pdf",
+      "application/acrobat",
+      "application/vnd.pdf",
+      "text/pdf",
+      "application/octet-stream",
+    ];
+
+    const fileExtension = imageData.name.split(".").pop().toLowerCase();
+    const isPDF =
+      allowedTypes.includes(imageData.type) || fileExtension === "pdf";
+
+    if (!isPDF) {
       setKtp("");
       toast.error("Format File KTP harus PDF", {
         duration: 5000,
@@ -239,7 +523,20 @@ export default function Register() {
 
     if (!imageData) return;
 
-    if (!imageData.type.match("pdf.*")) {
+    const allowedTypes = [
+      "application/pdf",
+      "application/x-pdf",
+      "application/acrobat",
+      "application/vnd.pdf",
+      "text/pdf",
+      "application/octet-stream",
+    ];
+
+    const fileExtension = imageData.name.split(".").pop().toLowerCase();
+    const isPDF =
+      allowedTypes.includes(imageData.type) || fileExtension === "pdf";
+
+    if (!isPDF) {
       setKk("");
       toast.error("Format File Kartu Keluarga harus PDF", {
         duration: 5000,
@@ -268,7 +565,6 @@ export default function Register() {
     const inputValue = event.target.value.replace(/\D/g, "").slice(0, 16);
     setNik(inputValue);
     setErrors((prev) => ({ ...prev, nik: null }));
-    // Reset duplicate flag saat user mengubah NIK
     setDuplicateNik(false);
   };
 
@@ -288,7 +584,6 @@ export default function Register() {
     const inputValue = event.target.value;
     setEmail(inputValue);
     setErrors((prev) => ({ ...prev, email: null }));
-    // Reset duplicate flag saat user mengubah email
     setDuplicateEmail(false);
   };
 
@@ -310,230 +605,439 @@ export default function Register() {
     setErrors((prev) => ({ ...prev, rw: null }));
   };
 
-  //function "storeRegister" - SOLUSI FE ONLY
+  // Improved error handling functions
+  const handleApiError = (error) => {
+    console.group("API Error Debug");
+    console.error("Error type:", error.constructor.name);
+    console.error("Error message:", error.message);
+
+    // Network error (no response)
+    if (!error.response) {
+      if (!isOnline) {
+        toast.error("Anda sedang offline. Periksa koneksi internet Anda.", {
+          duration: 5000,
+          position: "top-center",
+        });
+        console.groupEnd();
+        return;
+      }
+
+      if (error.code === "ECONNABORTED" || error.message.includes("timeout")) {
+        toast.error("Waktu koneksi habis. Silakan coba lagi.", {
+          duration: 5000,
+          position: "top-center",
+        });
+        console.groupEnd();
+        return;
+      }
+
+      toast.error(
+        "Gagal terhubung ke server. Silakan coba beberapa saat lagi.",
+        {
+          duration: 5000,
+          position: "top-center",
+        },
+      );
+      console.groupEnd();
+      return;
+    }
+
+    // Server responded with error
+    const { status, data } = error.response;
+
+    console.log("Status code:", status);
+    console.log("Response data:", data);
+    console.groupEnd();
+
+    switch (status) {
+      case 400:
+        toast.error("Permintaan tidak valid. Harap periksa data Anda.", {
+          duration: 5000,
+        });
+        break;
+
+      case 422:
+        handleValidationErrors(data.errors || {});
+        break;
+
+      case 429:
+        toast.error("Terlalu banyak percobaan. Silakan tunggu beberapa saat.", {
+          duration: 5000,
+        });
+        break;
+
+      case 413:
+        toast.error("Ukuran file terlalu besar. Maksimal 2MB per file.", {
+          duration: 5000,
+        });
+        break;
+
+      case 500:
+      case 502:
+      case 503:
+      case 504:
+        toast.error(
+          "Server sedang sibuk. Silakan coba lagi dalam beberapa menit.",
+          {
+            duration: 5000,
+          },
+        );
+        break;
+
+      default:
+        const message = data?.message || `Error ${status}. Silakan coba lagi.`;
+        toast.error(message, {
+          duration: 5000,
+          position: "top-center",
+        });
+    }
+  };
+
+  const handleValidationErrors = (errors) => {
+    const newErrors = {};
+    let hasDuplicate = false;
+
+    Object.entries(errors).forEach(([field, messages]) => {
+      if (Array.isArray(messages)) {
+        newErrors[field] = messages;
+
+        if (field === "nik" || field === "email") {
+          hasDuplicate = true;
+          if (field === "nik") setDuplicateNik(true);
+          if (field === "email") setDuplicateEmail(true);
+
+          newErrors[field] = [
+            `${field === "nik" ? "NIK" : "Email"} sudah terdaftar. ` +
+              `Silakan gunakan ${field === "nik" ? "NIK" : "email"} lain atau login.`,
+          ];
+        }
+      }
+    });
+
+    setErrors(newErrors);
+
+    const errorStep = determineErrorStep(newErrors);
+    setCurrentStep(errorStep);
+
+    if (hasDuplicate) {
+      toast.error("Data duplikasi ditemukan. Silakan periksa NIK/Email Anda.", {
+        duration: 5000,
+      });
+    } else {
+      toast.error("Harap perbaiki data yang salah.", {
+        duration: 4000,
+      });
+    }
+
+    setTimeout(scrollToFirstError, 100);
+  };
+
+  // Tampilkan fallback UI jika ada error global
+  if (hasError) {
+    return (
+      <div className="container mt-5">
+        <div className="row justify-content-center">
+          <div className="col-md-8">
+            <div className="card shadow">
+              <div className="card-header bg-danger text-white">
+                <div className="d-flex align-items-center">
+                  <i className="fas fa-exclamation-triangle fa-2x me-3"></i>
+                  <div>
+                    <h4 className="mb-0">Terjadi Kesalahan</h4>
+                    <p className="mb-0 opacity-75">
+                      Maaf, proses pendaftaran mengalami gangguan
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-md-6 mb-4">
+                    <div className="card h-100">
+                      <div className="card-header bg-light">
+                        <h5 className="mb-0">Penyebab mungkin:</h5>
+                      </div>
+                      <div className="card-body">
+                        <ul className="list-group list-group-flush">
+                          <li className="list-group-item">
+                            <i className="fas fa-wifi text-danger me-2"></i>
+                            Koneksi internet tidak stabil
+                          </li>
+                          <li className="list-group-item">
+                            <i className="fas fa-browser text-danger me-2"></i>
+                            Browser perlu diperbarui
+                          </li>
+                          <li className="list-group-item">
+                            <i className="fas fa-file-alt text-danger me-2"></i>
+                            Data yang dimasukkan tidak valid
+                          </li>
+                          <li className="list-group-item">
+                            <i className="fas fa-server text-danger me-2"></i>
+                            Server sedang dalam perawatan
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-md-6 mb-4">
+                    <div className="card h-100">
+                      <div className="card-header bg-light">
+                        <h5 className="mb-0">Solusi yang bisa dicoba:</h5>
+                      </div>
+                      <div className="card-body">
+                        <ol className="mb-0">
+                          <li className="mb-2">Refresh halaman ini</li>
+                          <li className="mb-2">
+                            Periksa koneksi internet Anda
+                          </li>
+                          <li className="mb-2">Clear cache browser</li>
+                          <li className="mb-2">Coba gunakan browser lain</li>
+                          <li>Hubungi tim support jika masalah berlanjut</li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="alert alert-info mt-3">
+                  <h5 className="alert-heading">
+                    <i className="fas fa-headset me-2"></i>
+                    Butuh Bantuan?
+                  </h5>
+                  <p className="mb-2">Hubungi tim support beasiswa:</p>
+                  <div className="row">
+                    <div className="col-md-4 mb-2">
+                      <div className="d-flex align-items-center">
+                        <i className="fas fa-envelope text-primary me-2"></i>
+                        <span>beasiswa@sidoarjo.go.id</span>
+                      </div>
+                    </div>
+                    <div className="col-md-4 mb-2">
+                      <div className="d-flex align-items-center">
+                        <i className="fas fa-phone text-primary me-2"></i>
+                        <span>(031) 896-1234</span>
+                      </div>
+                    </div>
+                    <div className="col-md-4 mb-2">
+                      <div className="d-flex align-items-center">
+                        <i className="fab fa-whatsapp text-success me-2"></i>
+                        <span>0812-3456-7890</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row mt-4">
+                  <div className="col-md-4 mb-2">
+                    <button
+                      className="btn btn-primary w-100"
+                      onClick={() => window.location.reload()}
+                    >
+                      <i className="fas fa-redo me-2"></i>
+                      Refresh Halaman
+                    </button>
+                  </div>
+                  <div className="col-md-4 mb-2">
+                    <button
+                      className="btn btn-outline-secondary w-100"
+                      onClick={() => navigate("/")}
+                    >
+                      <i className="fas fa-home me-2"></i>
+                      Kembali ke Beranda
+                    </button>
+                  </div>
+                  <div className="col-md-4 mb-2">
+                    <button
+                      className="btn btn-warning w-100"
+                      onClick={() => {
+                        const logs = localStorage.getItem("registrationLogs");
+                        const errorData = {
+                          timestamp: new Date().toISOString(),
+                          userAgent: navigator.userAgent,
+                          url: window.location.href,
+                          logs: logs ? JSON.parse(logs)[0] : null,
+                        };
+                        console.log("Error Report:", errorData);
+                        toast.success("Laporan error telah disimpan", {
+                          duration: 3000,
+                          position: "top-center",
+                        });
+                      }}
+                    >
+                      <i className="fas fa-bug me-2"></i>
+                      Laporkan Error
+                    </button>
+                  </div>
+                </div>
+
+                <div className="alert alert-warning mt-3 mb-0">
+                  <i className="fas fa-lightbulb me-2"></i>
+                  <strong>Tips:</strong> Screenshot halaman ini untuk
+                  mempermudah troubleshooting
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  //function "storeRegister" - IMPROVED VERSION
   const storeRegister = async (e) => {
     e.preventDefault();
 
-    // Validasi semua step sebelum submit
-    if (
-      !validateStep1() ||
-      !validateStep2() ||
-      !validateStep3() ||
-      !validateStep4()
-    ) {
-      toast.error("Harap perbaiki semua data sebelum mendaftar", {
-        duration: 4000,
+    // Cek koneksi internet
+    if (!isOnline) {
+      toast.error("Anda sedang offline. Periksa koneksi internet Anda.", {
+        duration: 5000,
         position: "top-center",
       });
       return;
     }
 
-    setLoading(true);
+    // Prevent multiple submissions
+    if (isLoading) {
+      toast.error("Sedang memproses pendaftaran, harap tunggu...", {
+        duration: 3000,
+        position: "top-center",
+      });
+      return;
+    }
 
-    const formData = new FormData();
-    formData.append("nik", nik);
-    formData.append("nokk", nokk);
-    formData.append("name", name);
-    formData.append("nohp", nohp);
-    formData.append("email", email);
-    formData.append("gender", gender);
-    formData.append("id_kecamatan", selectedKecamatan);
-    formData.append("id_kelurahan", selectedKelurahan);
-    formData.append("codepos", codepos);
-    formData.append("rt", rt);
-    formData.append("rw", rw);
-    formData.append("alamat", alamat);
-    formData.append("imagektp", ktp);
-    formData.append("imagekk", kk);
-    formData.append("password", password);
-    formData.append("password_confirmation", passwordConfirmation);
+    // Validasi semua step sebelum submit
+    const allErrors = validateAllSteps();
 
-    try {
-      const response = await Api.post("/api/users", formData, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
+    if (Object.keys(allErrors).length > 0) {
+      setErrors(allErrors);
+      const errorStep = determineErrorStep(allErrors);
+      setCurrentStep(errorStep);
+
+      toast.error("Harap perbaiki semua data sebelum mendaftar", {
+        duration: 4000,
+        position: "top-center",
       });
 
+      setTimeout(scrollToFirstError, 100);
+      return;
+    }
+
+    setLoading(true);
+    setSubmissionAttempts((prev) => prev + 1);
+
+    // Log attempt
+    logRegistrationAttempt(false, null);
+
+    // Timeout handler
+    const timeoutId = setTimeout(() => {
+      if (isLoading) {
+        toast.warning(
+          "Proses memakan waktu lebih lama dari biasanya. Harap tunggu...",
+          {
+            duration: 5000,
+            position: "top-center",
+          },
+        );
+      }
+    }, 15000); // 15 detik
+
+    const formData = prepareFormData();
+
+    // Konfigurasi upload
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      timeout: 45000, // 45 detik
+      onUploadProgress: (progressEvent) => {
+        if (progressEvent.lengthComputable) {
+          const progress = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total,
+          );
+          setUploadProgress(progress);
+        }
+      },
+    };
+
+    try {
+      // Menggunakan retry logic
+      const response = await retryApiCall(
+        () => Api.post("/api/users", formData, config),
+        2, // Maksimal 2 retry
+      );
+
+      clearTimeout(timeoutId);
       setLoading(false);
+      setUploadProgress(0);
 
       if (response.data.success) {
+        // Log success
+        logRegistrationAttempt(true, null);
+
         toast.success(response.data.message, {
           duration: 4000,
           position: "top-center",
         });
-        navigate("/login");
+
+        // Reset form
+        resetForm();
+
+        // Navigate setelah delay
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
       } else {
+        logRegistrationAttempt(false, { message: response.data.message });
         toast.error(response.data.message || "Gagal mendaftar", {
           duration: 4000,
           position: "top-center",
         });
       }
     } catch (error) {
+      clearTimeout(timeoutId);
       setLoading(false);
+      setUploadProgress(0);
 
       console.error("Registration error:", error);
 
-      if (error.response && error.response.data) {
-        const responseData = error.response.data;
+      // Log error
+      logRegistrationAttempt(false, error);
 
-        // Reset error state
-        setErrors({});
-        setDuplicateNik(false);
-        setDuplicateEmail(false);
-
-        // Jika ada errors dalam format Laravel
-        if (responseData.errors) {
-          const newErrors = {};
-
-          // Map errors ke state
-          Object.keys(responseData.errors).forEach((key) => {
-            newErrors[key] = responseData.errors[key];
-          });
-
-          setErrors(newErrors);
-
-          // Cek duplikasi berdasarkan error message
-          if (responseData.errors.nik) {
-            setDuplicateNik(true);
-            // Set pesan error khusus untuk duplikasi NIK
-            newErrors.nik = [
-              "NIK sudah terdaftar. Silakan gunakan NIK lain atau login dengan akun yang sudah ada.",
-            ];
-          }
-
-          if (responseData.errors.email) {
-            setDuplicateEmail(true);
-            // Set pesan error khusus untuk duplikasi email
-            newErrors.email = [
-              "Email sudah terdaftar. Silakan gunakan email lain atau login dengan akun yang sudah ada.",
-            ];
-          }
-
-          // Update errors dengan pesan khusus
-          setErrors(newErrors);
-
-          // Tentukan step mana yang harus ditampilkan berdasarkan error
-          let errorStep = 1;
-
-          // Cari field error pertama untuk menentukan step
-          const errorFields = Object.keys(responseData.errors);
-          if (errorFields.length > 0) {
-            const firstError = errorFields[0];
-
-            if (
-              ["nik", "email", "name", "nohp", "gender", "nokk"].includes(
-                firstError,
-              )
-            ) {
-              errorStep = 1; // Data pribadi
-            } else if (
-              [
-                "id_kecamatan",
-                "id_kelurahan",
-                "codepos",
-                "rt",
-                "rw",
-                "alamat",
-              ].includes(firstError)
-            ) {
-              errorStep = 2; // Alamat
-            } else if (["imagektp", "imagekk"].includes(firstError)) {
-              errorStep = 3; // Dokumen
-            } else if (
-              ["password", "password_confirmation"].includes(firstError)
-            ) {
-              errorStep = 4; // Akun
-            }
-          }
-
-          setCurrentStep(errorStep);
-
-          // Tampilkan toast error khusus untuk duplikasi
-          if (responseData.errors.nik || responseData.errors.email) {
-            toast.error(
-              "Data duplikasi ditemukan. Silakan periksa NIK/Email Anda.",
-              {
-                duration: 5000,
-                position: "top-center",
-              },
-            );
-          } else {
-            toast.error("Harap perbaiki data yang salah", {
-              duration: 4000,
-              position: "top-center",
-            });
-          }
-        } else if (responseData.message) {
-          // Jika hanya ada message tanpa errors array
-          // Coba deteksi duplikasi dari message
-          if (
-            responseData.message.toLowerCase().includes("duplicate") ||
-            responseData.message.toLowerCase().includes("already exists") ||
-            responseData.message.toLowerCase().includes("nik") ||
-            responseData.message.toLowerCase().includes("email")
-          ) {
-            // Deteksi apakah error karena NIK atau Email
-            if (
-              responseData.message.toLowerCase().includes("nik") ||
-              responseData.message.includes("3515")
-            ) {
-              setDuplicateNik(true);
-              setErrors({
-                nik: [
-                  "NIK sudah terdaftar. Silakan gunakan NIK lain atau login dengan akun yang sudah ada.",
-                ],
-              });
-            } else if (responseData.message.toLowerCase().includes("email")) {
-              setDuplicateEmail(true);
-              setErrors({
-                email: [
-                  "Email sudah terdaftar. Silakan gunakan email lain atau login dengan akun yang sudah ada.",
-                ],
-              });
-            } else {
-              // Generic duplicate error
-              toast.error(responseData.message, {
-                duration: 5000,
-                position: "top-center",
-              });
-            }
-
-            setCurrentStep(1);
-          } else {
-            toast.error(responseData.message, {
-              duration: 4000,
-              position: "top-center",
-            });
-          }
-        }
-
-        // Scroll to error setelah state diupdate
-        setTimeout(() => {
-          const firstErrorElement = document.querySelector(".error-message");
-          if (firstErrorElement) {
-            firstErrorElement.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-            });
-          }
-        }, 100);
-      } else if (error.request) {
-        // Error network
-        toast.error("Koneksi jaringan bermasalah. Silakan coba lagi.", {
-          duration: 4000,
-          position: "top-center",
-        });
-      } else {
-        // Error lainnya
-        toast.error("Terjadi kesalahan. Silakan coba lagi.", {
-          duration: 4000,
-          position: "top-center",
-        });
+      if (submissionAttempts >= 2) {
+        toast.info(
+          <div>
+            <p>
+              <strong>Tips jika terus mengalami masalah:</strong>
+            </p>
+            <ul
+              style={{
+                marginLeft: "20px",
+                textAlign: "left",
+                fontSize: "0.9rem",
+              }}
+            >
+              <li>Gunakan koneksi internet stabil</li>
+              <li>Pastikan ukuran file maksimal 2MB</li>
+              <li>Format file harus PDF</li>
+              <li>Coba refresh halaman</li>
+              <li>Hubungi admin jika masalah berlanjut</li>
+            </ul>
+          </div>,
+          {
+            duration: 10000,
+            position: "top-center",
+          },
+        );
       }
+
+      handleApiError(error);
     }
   };
 
+  // Custom styles untuk react-select
   const customSelectStyles = {
     control: (base, state) => ({
       ...base,
@@ -583,15 +1087,9 @@ export default function Register() {
                 <span className="highlight"> Kabupaten Sidoarjo 2026</span>
               </p>
               <div className="hero-divider"></div>
-
-              {/* Tombol Lihat Persyaratan */}
-              
             </div>
           </div>
         </div>
-
-        {/* Modal Persyaratan Beasiswa */}
-        
 
         <div className="container main-container mt-5 mb-5">
           {maintenance ? (
@@ -612,6 +1110,16 @@ export default function Register() {
             </div>
           ) : (
             <div className="register-section">
+              {/* Online/Offline Indicator */}
+              {!isOnline && (
+                <div className="offline-indicator">
+                  <i className="fas fa-wifi-slash"></i>
+                  <span>
+                    Anda sedang offline. Periksa koneksi internet Anda.
+                  </span>
+                </div>
+              )}
+
               {/* Progress Steps */}
               <div className="progress-steps">
                 <div className={`step ${currentStep >= 1 ? "active" : ""}`}>
@@ -696,7 +1204,7 @@ export default function Register() {
                   </div>
                 </div>
 
-                {/* Notification untuk data duplikasi - HANYA saat submit error */}
+                {/* Notification untuk data duplikasi */}
                 {(duplicateNik || duplicateEmail) && (
                   <div className="duplicate-notification">
                     <div className="duplicate-notification-header">
@@ -740,37 +1248,23 @@ export default function Register() {
                   </div>
                 )}
 
-                {/* Global Error Summary */}
-                {/* {Object.keys(errors).length > 0 && (
-                  <div className="error-summary">
-                    <div className="error-header">
-                      <i className="fas fa-exclamation-triangle"></i>
-                      <h4>Perbaiki data berikut:</h4>
+                {/* Upload Progress Indicator */}
+                {isLoading && uploadProgress > 0 && (
+                  <div className="upload-progress-container">
+                    <div className="upload-progress-header">
+                      <i className="fas fa-cloud-upload-alt"></i>
+                      <span>Mengunggah file...</span>
                     </div>
-                    <div className="error-list">
-                      {Object.entries(errors)
-                        .filter(
-                          ([field, messages]) =>
-                            messages &&
-                            Array.isArray(messages) &&
-                            messages.length > 0 &&
-                            messages[0] !== "Terjadi kesalahan",
-                        )
-                        .map(([field, messages]) => (
-                          <div key={field} className="error-item">
-                            <i className="fas fa-times-circle"></i>
-                            <span>
-                              {messages &&
-                              Array.isArray(messages) &&
-                              messages.length > 0
-                                ? messages[0].replace(field + " ", "") // Hapus nama field dari pesan jika ada
-                                : ""}
-                            </span>
-                          </div>
-                        ))}
+                    <div className="upload-progress-bar">
+                      <div
+                        className="upload-progress-fill"
+                        style={{ width: `${uploadProgress}%` }}
+                      >
+                        {uploadProgress}%
+                      </div>
                     </div>
                   </div>
-                )} */}
+                )}
 
                 <form onSubmit={storeRegister}>
                   {/* Step 1: Data Pribadi */}
@@ -819,7 +1313,6 @@ export default function Register() {
                               placeholder="Masukkan No Induk Kependudukan (16 digit)"
                               maxLength={16}
                             />
-                            {/* Indicator hanya muncul saat submit error */}
                             {duplicateNik && (
                               <div className="input-indicator duplicate">
                                 <i className="fas fa-exclamation-triangle"></i>
@@ -895,7 +1388,6 @@ export default function Register() {
                               onChange={handleChangeEmail}
                               placeholder="Masukkan Email"
                             />
-                            {/* Indicator hanya muncul saat submit error */}
                             {duplicateEmail && (
                               <div className="input-indicator duplicate">
                                 <i className="fas fa-exclamation-triangle"></i>
@@ -942,6 +1434,7 @@ export default function Register() {
                           type="button"
                           className="btn-next"
                           onClick={nextStep}
+                          disabled={isLoading}
                         >
                           Selanjutnya <i className="fas fa-arrow-right"></i>
                         </button>
@@ -1099,6 +1592,7 @@ export default function Register() {
                           type="button"
                           className="btn-prev"
                           onClick={prevStep}
+                          disabled={isLoading}
                         >
                           <i className="fas fa-arrow-left"></i> Sebelumnya
                         </button>
@@ -1106,6 +1600,7 @@ export default function Register() {
                           type="button"
                           className="btn-next"
                           onClick={nextStep}
+                          disabled={isLoading}
                         >
                           Selanjutnya <i className="fas fa-arrow-right"></i>
                         </button>
@@ -1134,7 +1629,8 @@ export default function Register() {
                               type="file"
                               className="upload-input"
                               onChange={handleFileKtp}
-                              accept=".pdf"
+                              accept=".pdf,application/pdf"
+                              disabled={isLoading}
                             />
                             <div className="upload-content">
                               <i className="fas fa-cloud-upload-alt"></i>
@@ -1168,7 +1664,8 @@ export default function Register() {
                               type="file"
                               className="upload-input"
                               onChange={handleFileKk}
-                              accept=".pdf"
+                              accept=".pdf,application/pdf"
+                              disabled={isLoading}
                             />
                             <div className="upload-content">
                               <i className="fas fa-cloud-upload-alt"></i>
@@ -1196,6 +1693,7 @@ export default function Register() {
                           type="button"
                           className="btn-prev"
                           onClick={prevStep}
+                          disabled={isLoading}
                         >
                           <i className="fas fa-arrow-left"></i> Sebelumnya
                         </button>
@@ -1203,6 +1701,7 @@ export default function Register() {
                           type="button"
                           className="btn-next"
                           onClick={nextStep}
+                          disabled={isLoading}
                         >
                           Selanjutnya <i className="fas fa-arrow-right"></i>
                         </button>
@@ -1236,6 +1735,7 @@ export default function Register() {
                               }));
                             }}
                             placeholder="Buat password (minimal 8 karakter)"
+                            disabled={isLoading}
                           />
                           {errors.password && errors.password[0] && (
                             <div className="error-message">
@@ -1262,6 +1762,7 @@ export default function Register() {
                               }));
                             }}
                             placeholder="Ulangi password"
+                            disabled={isLoading}
                           />
                           {errors.password_confirmation &&
                             errors.password_confirmation[0] && (
@@ -1273,11 +1774,12 @@ export default function Register() {
                         </div>
                       </div>
 
-                      <div className="step-actions">
+                      <div className="step-actions final-actions">
                         <button
                           type="button"
                           className="btn-prev"
                           onClick={prevStep}
+                          disabled={isLoading}
                         >
                           <i className="fas fa-arrow-left"></i> Sebelumnya
                         </button>
@@ -1285,12 +1787,20 @@ export default function Register() {
                         <button
                           type="submit"
                           className="btn-submit"
-                          disabled={isLoading || duplicateNik || duplicateEmail}
+                          disabled={
+                            isLoading ||
+                            duplicateNik ||
+                            duplicateEmail ||
+                            !ktp ||
+                            !kk
+                          }
                         >
                           {isLoading ? (
                             <>
                               <i className="fas fa-spinner fa-spin"></i>{" "}
-                              MENYIMPAN...
+                              {uploadProgress > 0
+                                ? `MENGUPLOAD ${uploadProgress}%`
+                                : "MEMPROSES..."}
                             </>
                           ) : (
                             <>
@@ -1333,11 +1843,11 @@ export default function Register() {
                   </div>
                   <div className="info-item">
                     <i className="fas fa-check"></i>
-                    <span>Data yang sudah terkirim tidak dapat diubah</span>
+                    <span>Gunakan koneksi internet stabil saat submit</span>
                   </div>
                   <div className="info-item">
                     <i className="fas fa-check"></i>
-                    <span>Simpan password Anda dengan aman</span>
+                    <span>Jika mengalami error, coba refresh halaman</span>
                   </div>
                 </div>
               </div>
@@ -1347,6 +1857,145 @@ export default function Register() {
       </div>
 
       <style jsx>{`
+        /* Error Fallback Styles */
+        .btn-refresh {
+          background: #3b82f6;
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 0 auto;
+        }
+
+        .btn-refresh:hover {
+          background: #2563eb;
+        }
+
+        /* Online/Offline Indicator */
+        .offline-indicator {
+          background: #fef3c7;
+          border: 2px solid #f59e0b;
+          border-radius: 10px;
+          padding: 12px 20px;
+          margin-bottom: 20px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: #92400e;
+          animation: slideDown 0.3s ease;
+        }
+
+        .offline-indicator i {
+          font-size: 1.2rem;
+        }
+
+        /* Upload Progress Indicator */
+        .upload-progress-container {
+          background: #f0f9ff;
+          border: 2px solid #0ea5e9;
+          border-radius: 10px;
+          padding: 15px;
+          margin-bottom: 20px;
+          animation: slideDown 0.3s ease;
+        }
+
+        .upload-progress-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 10px;
+          color: #0369a1;
+        }
+
+        .upload-progress-header i {
+          font-size: 1.2rem;
+        }
+
+        .upload-progress-header span {
+          font-weight: 600;
+        }
+
+        .upload-progress-bar {
+          width: 100%;
+          height: 20px;
+          background: #e0f2fe;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+
+        .upload-progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+          border-radius: 10px;
+          color: white;
+          font-size: 0.75rem;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: width 0.3s ease;
+        }
+
+        /* Disabled States */
+        .btn-prev:disabled,
+        .btn-next:disabled,
+        .btn-submit:disabled {
+          opacity: 0.6;
+          cursor: not-allowed !important;
+          transform: none !important;
+        }
+
+        .upload-input:disabled {
+          cursor: not-allowed;
+        }
+
+        .upload-area.disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          background: #f3f4f6;
+        }
+
+        .upload-area.disabled:hover {
+          border-color: #cbd5e1 !important;
+          background: #f3f4f6 !important;
+        }
+
+        /* Loading States */
+        .fa-spinner {
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Final Actions */
+        .final-actions {
+          justify-content: flex-end;
+        }
+
         /* Input with Indicator Styles */
         .input-with-indicator {
           position: relative;
@@ -1593,17 +2242,6 @@ export default function Register() {
 
         .duplicate-notification-actions .btn-change:hover {
           background: #e5e7eb;
-        }
-
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
         }
 
         /* Error Styles */
@@ -2206,10 +2844,6 @@ export default function Register() {
           border-top: 1px solid #e2e8f0;
         }
 
-        .final-actions {
-          justify-content: flex-end;
-        }
-
         .btn-prev,
         .btn-next,
         .btn-submit {
@@ -2229,7 +2863,7 @@ export default function Register() {
           color: white;
         }
 
-        .btn-prev:hover {
+        .btn-prev:hover:not(:disabled) {
           background: #475569;
         }
 
@@ -2238,7 +2872,7 @@ export default function Register() {
           color: white;
         }
 
-        .btn-next:hover {
+        .btn-next:hover:not(:disabled) {
           background: #1d4ed8;
           transform: translateY(-2px);
         }
@@ -2305,14 +2939,6 @@ export default function Register() {
           line-height: 1.4;
         }
 
-        .info-item.important-info i {
-          color: #d97706;
-        }
-
-        .info-item.important-info span {
-          color: #92400e;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
           .duplicate-notification-actions {
@@ -2322,6 +2948,14 @@ export default function Register() {
           .duplicate-notification-actions button {
             width: 100%;
             justify-content: center;
+          }
+
+          .upload-progress-container {
+            padding: 12px;
+          }
+
+          .upload-progress-fill {
+            font-size: 0.7rem;
           }
 
           .alert-beasiswa {
@@ -2409,6 +3043,15 @@ export default function Register() {
         }
 
         @media (max-width: 576px) {
+          .error-fallback-content {
+            padding: 30px 20px;
+          }
+
+          .offline-indicator {
+            padding: 10px 15px;
+            font-size: 0.9rem;
+          }
+
           .alert-header {
             flex-direction: column;
             text-align: center;
