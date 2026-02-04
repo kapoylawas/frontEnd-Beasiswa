@@ -1523,7 +1523,7 @@ export default function Dashboard() {
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <h5 className="fw-bold text-dark mb-0">
                       <i className="fas fa-hands-helping me-2 text-primary"></i>
-                      Beasiswa Pendidikan Tinggi Kurang Mampu dan Yatim
+                      Beasiswa Pendidikan Tinggi Kurang Mampu dan Beasiswa Yatim SD, SMP dan SMA
                     </h5>
                   </div>
                 </div>
