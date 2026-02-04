@@ -44,6 +44,7 @@ export default function Dashboard() {
   const [users, setUsers] = useState(0);
 
   const [akademiks, setAkademiks] = useState(0);
+  const [yatims, setYatims] = useState(0);
   const [dinsoses, setDinsoses] = useState(0);
   const [kesras, setKesras] = useState(0);
   const [luarNegeris, setLuarNegeris] = useState(0);
@@ -70,6 +71,7 @@ export default function Dashboard() {
       setDashboard(response.data.data);
       setUsers(response.data.data.users);
       setAkademiks(response.data.data.akademiks);
+      setYatims(response.data.data.yatims);
       setDinsoses(response.data.data.dinsoses);
       setKesras(response.data.data.kesras);
       setLuarNegeris(response.data.data.luarNegeris);
@@ -431,8 +433,6 @@ export default function Dashboard() {
     <LayoutAdmin>
       <main>
         <div className="container-fluid px-4 mt-4 mb-4">
-
-          
           {hasAnyPermission(["mahasiswa.index"]) && (
             <div className="registration-guide mt-3">
               <div className="card border-0 shadow-sm">
@@ -451,7 +451,8 @@ export default function Dashboard() {
                       </span>
                       <div className="flex-grow-1">
                         <h6 className="text-primary mb-2">
-                          Menyiapkan Surat Pernyataan Yang Akan Di Upload Surat Pernyataan Bermaterai
+                          Menyiapkan Surat Pernyataan Yang Akan Di Upload Surat
+                          Pernyataan Bermaterai
                         </h6>
 
                         <div className="row mt-2">
@@ -467,9 +468,9 @@ export default function Dashboard() {
                                 </div>
                               </div>
                               <p className="small mb-2">
-                                Download template untuk beasiswa reguler (beasiswa prestasi dan beasiswa kurang mampu)
+                                Download template untuk beasiswa reguler
+                                (beasiswa prestasi dan beasiswa kurang mampu)
                               </p>
-                             
                             </div>
                           </div>
 
@@ -487,7 +488,6 @@ export default function Dashboard() {
                               <p className="small mb-2">
                                 Download template khusus beasiswa keagamaan
                               </p>
-                              
                             </div>
                           </div>
                         </div>
@@ -546,7 +546,9 @@ export default function Dashboard() {
                           </span>
                         </div>
                         <div>
-                          <h6 className="mb-0 small">Verifikasi Dokumen di MENU RIWAYAT PENDAFTAR</h6>
+                          <h6 className="mb-0 small">
+                            Verifikasi Dokumen di MENU RIWAYAT PENDAFTAR
+                          </h6>
                           <p className="mb-0 text-muted small">
                             Pastikan semua dokumen sudah lengkap
                           </p>
@@ -1093,21 +1095,33 @@ export default function Dashboard() {
 
           {hasAnyPermission(["dispenduk.index"]) && (
             <div className="row">
-              <div className="col-xl-3 col-md-6">
-                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
+              <div className="col-xl-3 col-md-6 mb-4">
+                <div className="card dashboard-card dashboard-card-primary border-0 shadow-lg">
                   <div className="card-body">
-                    <strong>{users}</strong> Users
+                    <div className="d-flex align-items-center">
+                      <div className="dashboard-icon-wrapper bg-primary bg-opacity-10">
+                        <i className="fas fa-users text-primary"></i>
+                      </div>
+                      <div className="ms-3">
+                        <div className="text-muted small text-uppercase fw-semibold">
+                          Total Pendaftar Mahasiswa
+                        </div>
+                        <div className="h3 fw-bold mb-0">{users}</div>
+                        <div className="text-success small mt-1">
+                          <i className="fas fa-arrow-up me-1"></i> Active
+                          Accounts
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="card-footer d-flex align-items-center justify-content-between">
+                  <div className="card-footer bg-transparent border-top-0 py-3">
                     <Link
-                      className="small text-white stretched-link"
+                      className="text-primary fw-medium stretched-link d-flex align-items-center"
                       to="/admin/users"
                     >
                       View Details
+                      <i className="fas fa-arrow-right ms-2 small"></i>
                     </Link>
-                    <div className="small text-white">
-                      <i className="fas fa-angle-right"></i>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -1115,159 +1129,693 @@ export default function Dashboard() {
           )}
 
           {hasAnyPermission(["dashboard.index"]) && (
-            <div className="row">
-              <div className="col-xl-3 col-md-6">
-                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
-                  <div className="card-header d-flex bg-danger align-items-center justify-content-between">
-                    AKADEMIK
-                  </div>
-                  <div className="card-body">
-                    <strong>{akademiks}</strong> Pendaftar
-                    <hr />
-                    <strong>{dashboard.jumlahSudahVerifAkademik}</strong> Sudah
-                    Di Verif
-                    <hr />
-                    <strong>{dashboard.jumlahSudahVerifNikAkademik}</strong> NIK
-                    Yang Sudah Di Verif
-                  </div>
-                  <div className="card-footer d-flex align-items-center justify-content-between">
-                    <Link
-                      className="small text-white stretched-link"
-                      to="/admin/users"
-                    >
-                      View Details
-                    </Link>
-                    <div className="small text-white">
-                      <i className="fas fa-angle-right"></i>
+            <>
+              {/* Row 1: Akademik, Non-Akademik, Luar Negeri */}
+              <div className="row mb-4">
+                <div className="col-12">
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h5 className="fw-bold text-dark mb-0">
+                      <i className="fas fa-file-alt me-2 text-primary"></i>
+                      Beasiswa Prestasi
+                    </h5>
+                    <div className="text-muted small">
+                      <i className="fas fa-sync-alt me-1"></i> Real-time Data
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-xl-3 col-md-6">
-                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
-                  <div className="card-header d-flex bg-danger align-items-center justify-content-between">
-                    NON AKADEMIK
-                  </div>
-                  <div className="card-body">
-                    <strong>{nonAkademiks}</strong> Pendaftar
-                    <hr />
-                    <strong>
-                      {dashboard.jumlahSudahVerifNonAkademik}
-                    </strong>{" "}
-                    Sudah Di Verif
-                    <hr />
-                    <strong>
-                      {dashboard.jumlahSudahVerifNikNonAkademik}
-                    </strong>{" "}
-                    NIK Yang Sudah Di Verif
-                  </div>
-                  <div className="card-footer d-flex align-items-center justify-content-between">
-                    <Link
-                      className="small text-white stretched-link"
-                      to="/admin/users"
-                    >
-                      View Details
-                    </Link>
-                    <div className="small text-white">
-                      <i className="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-xl-3 col-md-6">
-                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
-                  <div className="card-header d-flex bg-danger align-items-center justify-content-between">
-                    LUAR NEGERI
-                  </div>
-                  <div className="card-body">
-                    <strong>{luarNegeris}</strong> Pendaftar
-                    <hr />
-                    <strong>{dashboard.jumlahSudahVerifLuarNegeri}</strong>{" "}
-                    Sudah Di Verif
-                    <hr />
-                    <strong>
-                      {dashboard.jumlahSudahVerifNikLuarNegeri}
-                    </strong>{" "}
-                    NIK Yang Sudah Di Verif
-                  </div>
-                  <div className="card-footer d-flex align-items-center justify-content-between">
-                    <Link
-                      className="small text-white stretched-link"
-                      to="/admin/users"
-                    >
-                      View Details
-                    </Link>
-                    <div className="small text-white">
-                      <i className="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
-          {hasAnyPermission(["dashboard.index"]) && (
-            <div className="row">
-              <div className="col-xl-3 col-md-6">
-                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
-                  <div className="card-header d-flex bg-danger align-items-center justify-content-between">
-                    DINSOS
-                  </div>
-                  <div className="card-body">
-                    <strong>{dinsoses}</strong> Pendaftar
-                    <hr />
-                    <strong>{dashboard.jumlahSudahVerifDinsos}</strong> Sudah Di
-                    Verif
-                    <hr />
-                    <strong>{dashboard.jumlahSudahVerifNikDinsos}</strong> NIK
-                    Yang Sudah Di Verif
-                  </div>
-                  <div className="card-footer d-flex align-items-center justify-content-between">
-                    <Link
-                      className="small text-white stretched-link"
-                      to="/admin/users"
-                    >
-                      View Details
-                    </Link>
-                    <div className="small text-white">
-                      <i className="fas fa-angle-right"></i>
+                <div className="col-xl-4 col-md-6 mb-4">
+                  <div className="card dashboard-card dashboard-card-success border-0 shadow-sm h-100">
+                    <div className="card-header bg-transparent border-0 d-flex justify-content-between align-items-center py-3">
+                      <h6 className="fw-bold mb-0">
+                        <i className="fas fa-graduation-cap me-2"></i>
+                        AKADEMIK
+                      </h6>
+                      
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+                    <div className="card-body py-3">
+                      <div className="row">
+                        <div className="col-8">
+                          <div className="dashboard-stat-item mb-3">
+                            <div className="d-flex align-items-center mb-1">
+                              <i className="fas fa-user-check fa-sm text-success me-2"></i>
+                              <span className="text-muted small">
+                                Pendaftar
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="h4 fw-bold text-dark">
+                                {akademiks}
+                              </div>
+                              <div className="text-success fw-bold small">
+                                100%
+                              </div>
+                            </div>
+                          </div>
 
-          {hasAnyPermission(["dashboard.index"]) && (
-            <div className="row">
-              <div className="col-xl-3 col-md-6">
-                <div className="card bg-primary text-white mb-4 border-0 shadow-sm">
-                  <div className="card-header d-flex bg-danger align-items-center justify-content-between">
-                    KESRA
+                          <div className="dashboard-stat-item mb-3">
+                            <div className="d-flex align-items-center mb-1">
+                              <i className="fas fa-check-circle fa-sm text-success me-2"></i>
+                              <span className="text-muted small">
+                                Sudah Verif
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="h5 fw-bold text-dark">
+                                {dashboard.jumlahSudahVerifAkademik}
+                              </div>
+                              <div className="text-success fw-bold small">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifAkademik /
+                                    akademiks) *
+                                    100 || 0,
+                                )}
+                                %
+                              </div>
+                            </div>
+                            <div
+                              className="progress mt-2"
+                              style={{ height: "4px" }}
+                            >
+                              <div
+                                className="progress-bar bg-success"
+                                style={{
+                                  width: `${(dashboard.jumlahSudahVerifAkademik / akademiks) * 100 || 0}%`,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+
+                          <div className="dashboard-stat-item">
+                            <div className="d-flex align-items-center mb-1">
+                              <i className="fas fa-id-card fa-sm text-success me-2"></i>
+                              <span className="text-muted small">
+                                NIK Verif
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="h5 fw-bold text-dark">
+                                {dashboard.jumlahSudahVerifNikAkademik}
+                              </div>
+                              <div className="text-info fw-bold small">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifNikAkademik /
+                                    akademiks) *
+                                    100 || 0,
+                                )}
+                                %
+                              </div>
+                            </div>
+                            <div
+                              className="progress mt-2"
+                              style={{ height: "4px" }}
+                            >
+                              <div
+                                className="progress-bar bg-info"
+                                style={{
+                                  width: `${(dashboard.jumlahSudahVerifNikAkademik / akademiks) * 100 || 0}%`,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-4 d-flex align-items-center justify-content-center">
+                          <div className="dashboard-chart-circle">
+                            <div className="text-center">
+                              <div className="h3 fw-bold text-success">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifAkademik /
+                                    akademiks) *
+                                    100 || 0,
+                                )}
+                                %
+                              </div>
+                              <div className="text-muted small">Verified</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-footer bg-transparent border-top py-3">
+                      <Link
+                        className="text-success fw-medium stretched-link d-flex align-items-center justify-content-between"
+                        to="/admin/users"
+                      >
+                        <span>Detail Analytics</span>
+                        <i className="fas fa-chart-line"></i>
+                      </Link>
+                    </div>
                   </div>
-                  <div className="card-body">
-                    <strong>{kesras}</strong> Pendaftar
-                    <hr />
-                    <strong>{dashboard.jumlahSudahVerifKesra}</strong> Sudah Di
-                    Verif
-                    <hr />
-                    <strong>{dashboard.jumlahSudahVerifNikKesra}</strong> NIK
-                    Yang Sudah Di Verif
+                </div>
+
+                <div className="col-xl-4 col-md-6 mb-4">
+                  <div className="card dashboard-card dashboard-card-warning border-0 shadow-sm h-100">
+                    <div className="card-header bg-transparent border-0 d-flex justify-content-between align-items-center py-3">
+                      <h6 className="fw-bold mb-0">
+                        <i className="fas fa-briefcase me-2"></i>
+                        NON AKADEMIK
+                      </h6>
+                      
+                    </div>
+                    <div className="card-body py-3">
+                      <div className="row">
+                        <div className="col-8">
+                          <div className="dashboard-stat-item mb-3">
+                            <div className="d-flex align-items-center mb-1">
+                              <i className="fas fa-user-check fa-sm text-warning me-2"></i>
+                              <span className="text-muted small">
+                                Pendaftar
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="h4 fw-bold text-dark">
+                                {nonAkademiks}
+                              </div>
+                              <div className="text-warning fw-bold small">
+                                100%
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="dashboard-stat-item mb-3">
+                            <div className="d-flex align-items-center mb-1">
+                              <i className="fas fa-check-circle fa-sm text-warning me-2"></i>
+                              <span className="text-muted small">
+                                Sudah Verif
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="h5 fw-bold text-dark">
+                                {dashboard.jumlahSudahVerifNonAkademik}
+                              </div>
+                              <div className="text-warning fw-bold small">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifNonAkademik /
+                                    nonAkademiks) *
+                                    100 || 0,
+                                )}
+                                %
+                              </div>
+                            </div>
+                            <div
+                              className="progress mt-2"
+                              style={{ height: "4px" }}
+                            >
+                              <div
+                                className="progress-bar bg-warning"
+                                style={{
+                                  width: `${(dashboard.jumlahSudahVerifNonAkademik / nonAkademiks) * 100 || 0}%`,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+
+                          <div className="dashboard-stat-item">
+                            <div className="d-flex align-items-center mb-1">
+                              <i className="fas fa-id-card fa-sm text-warning me-2"></i>
+                              <span className="text-muted small">
+                                NIK Verif
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="h5 fw-bold text-dark">
+                                {dashboard.jumlahSudahVerifNikNonAkademik}
+                              </div>
+                              <div className="text-info fw-bold small">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifNikNonAkademik /
+                                    nonAkademiks) *
+                                    100 || 0,
+                                )}
+                                %
+                              </div>
+                            </div>
+                            <div
+                              className="progress mt-2"
+                              style={{ height: "4px" }}
+                            >
+                              <div
+                                className="progress-bar bg-info"
+                                style={{
+                                  width: `${(dashboard.jumlahSudahVerifNikNonAkademik / nonAkademiks) * 100 || 0}%`,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-4 d-flex align-items-center justify-content-center">
+                          <div className="dashboard-chart-circle">
+                            <div className="text-center">
+                              <div className="h3 fw-bold text-warning">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifNonAkademik /
+                                    nonAkademiks) *
+                                    100 || 0,
+                                )}
+                                %
+                              </div>
+                              <div className="text-muted small">Verified</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-footer bg-transparent border-top py-3">
+                      <Link
+                        className="text-warning fw-medium stretched-link d-flex align-items-center justify-content-between"
+                        to="/admin/users"
+                      >
+                        <span>Detail Analytics</span>
+                        <i className="fas fa-chart-line"></i>
+                      </Link>
+                    </div>
                   </div>
-                  <div className="card-footer d-flex align-items-center justify-content-between">
-                    <Link
-                      className="small text-white stretched-link"
-                      to="/admin/users"
-                    >
-                      View Details
-                    </Link>
-                    <div className="small text-white">
-                      <i className="fas fa-angle-right"></i>
+                </div>
+
+                <div className="col-xl-4 col-md-6 mb-4">
+                  <div className="card dashboard-card dashboard-card-info border-0 shadow-sm h-100">
+                    <div className="card-header bg-transparent border-0 d-flex justify-content-between align-items-center py-3">
+                      <h6 className="fw-bold mb-0">
+                        <i className="fas fa-globe-americas me-2"></i>
+                        LUAR NEGERI
+                      </h6>
+                      
+                    </div>
+                    <div className="card-body py-3">
+                      <div className="row">
+                        <div className="col-8">
+                          <div className="dashboard-stat-item mb-3">
+                            <div className="d-flex align-items-center mb-1">
+                              <i className="fas fa-user-check fa-sm text-info me-2"></i>
+                              <span className="text-muted small">
+                                Pendaftar
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="h4 fw-bold text-dark">
+                                {luarNegeris}
+                              </div>
+                              <div className="text-info fw-bold small">
+                                100%
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="dashboard-stat-item mb-3">
+                            <div className="d-flex align-items-center mb-1">
+                              <i className="fas fa-check-circle fa-sm text-info me-2"></i>
+                              <span className="text-muted small">
+                                Sudah Verif
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="h5 fw-bold text-dark">
+                                {dashboard.jumlahSudahVerifLuarNegeri}
+                              </div>
+                              <div className="text-info fw-bold small">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifLuarNegeri /
+                                    luarNegeris) *
+                                    100 || 0,
+                                )}
+                                %
+                              </div>
+                            </div>
+                            <div
+                              className="progress mt-2"
+                              style={{ height: "4px" }}
+                            >
+                              <div
+                                className="progress-bar bg-info"
+                                style={{
+                                  width: `${(dashboard.jumlahSudahVerifLuarNegeri / luarNegeris) * 100 || 0}%`,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+
+                          <div className="dashboard-stat-item">
+                            <div className="d-flex align-items-center mb-1">
+                              <i className="fas fa-id-card fa-sm text-info me-2"></i>
+                              <span className="text-muted small">
+                                NIK Verif
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="h5 fw-bold text-dark">
+                                {dashboard.jumlahSudahVerifNikLuarNegeri}
+                              </div>
+                              <div className="text-success fw-bold small">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifNikLuarNegeri /
+                                    luarNegeris) *
+                                    100 || 0,
+                                )}
+                                %
+                              </div>
+                            </div>
+                            <div
+                              className="progress mt-2"
+                              style={{ height: "4px" }}
+                            >
+                              <div
+                                className="progress-bar bg-success"
+                                style={{
+                                  width: `${(dashboard.jumlahSudahVerifNikLuarNegeri / luarNegeris) * 100 || 0}%`,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-4 d-flex align-items-center justify-content-center">
+                          <div className="dashboard-chart-circle">
+                            <div className="text-center">
+                              <div className="h3 fw-bold text-info">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifLuarNegeri /
+                                    luarNegeris) *
+                                    100 || 0,
+                                )}
+                                %
+                              </div>
+                              <div className="text-muted small">Verified</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-footer bg-transparent border-top py-3">
+                      <Link
+                        className="text-info fw-medium stretched-link d-flex align-items-center justify-content-between"
+                        to="/admin/users"
+                      >
+                        <span>Detail Analytics</span>
+                        <i className="fas fa-chart-line"></i>
+                      </Link>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+
+              {/* Row 2: Dinsos dan Yatim */}
+              <div className="row mb-4">
+                <div className="col-12">
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h5 className="fw-bold text-dark mb-0">
+                      <i className="fas fa-hands-helping me-2 text-primary"></i>
+                      Beasiswa Pendidikan Tinggi Kurang Mampu dan Yatim
+                    </h5>
+                  </div>
+                </div>
+
+                <div className="col-xl-6 col-md-6 mb-4">
+                  <div className="card dashboard-card dashboard-card-primary border-0 shadow-sm h-100">
+                    <div className="card-header bg-transparent border-0 d-flex justify-content-between align-items-center py-3">
+                      <h6 className="fw-bold mb-0">
+                        <i className="fas fa-hands-helping me-2"></i>
+                        DINSOS
+                      </h6>
+                      
+                    </div>
+                    <div className="card-body py-3">
+                      <div className="dashboard-stat-grid">
+                        <div className="stat-box">
+                          <div className="d-flex align-items-center mb-1">
+                            <div className="dashboard-icon-sm bg-primary bg-opacity-10 text-primary me-2">
+                              <i className="fas fa-users fa-sm"></i>
+                            </div>
+                            <div className="flex-grow-1">
+                              <div className="text-muted small">Pendaftar</div>
+                              <div className="d-flex justify-content-between align-items-center">
+                                <div className="h3 fw-bold text-dark">
+                                  {dinsoses}
+                                </div>
+                                <div className="text-primary fw-bold small">
+                                  100%
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="stat-box">
+                          <div className="d-flex align-items-center mb-1">
+                            <div className="dashboard-icon-sm bg-success bg-opacity-10 text-success me-2">
+                              <i className="fas fa-check-circle fa-sm"></i>
+                            </div>
+                            <div className="flex-grow-1">
+                              <div className="text-muted small">
+                                Sudah Verif
+                              </div>
+                              <div className="d-flex justify-content-between align-items-center">
+                                <div className="h4 fw-bold text-dark">
+                                  {dashboard.jumlahSudahVerifDinsos}
+                                </div>
+                                <div className="text-success fw-bold small">
+                                  {Math.round(
+                                    (dashboard.jumlahSudahVerifDinsos /
+                                      dinsoses) *
+                                      100 || 0,
+                                  )}
+                                  %
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-2">
+                            <div className="text-muted small mb-1">
+                              Progress Verifikasi
+                            </div>
+                            <div className="progress" style={{ height: "6px" }}>
+                              <div
+                                className="progress-bar bg-success"
+                                style={{
+                                  width: `${(dashboard.jumlahSudahVerifDinsos / dinsoses) * 100 || 0}%`,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="stat-box">
+                          <div className="d-flex align-items-center mb-1">
+                            <div className="dashboard-icon-sm bg-info bg-opacity-10 text-info me-2">
+                              <i className="fas fa-id-card fa-sm"></i>
+                            </div>
+                            <div className="flex-grow-1">
+                              <div className="text-muted small">NIK Verif</div>
+                              <div className="d-flex justify-content-between align-items-center">
+                                <div className="h4 fw-bold text-dark">
+                                  {dashboard.jumlahSudahVerifNikDinsos}
+                                </div>
+                                <div className="text-info fw-bold small">
+                                  {Math.round(
+                                    (dashboard.jumlahSudahVerifNikDinsos /
+                                      dinsoses) *
+                                      100 || 0,
+                                  )}
+                                  %
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-2">
+                            <div className="text-muted small mb-1">
+                              Progress NIK
+                            </div>
+                            <div className="progress" style={{ height: "6px" }}>
+                              <div
+                                className="progress-bar bg-info"
+                                style={{
+                                  width: `${(dashboard.jumlahSudahVerifNikDinsos / dinsoses) * 100 || 0}%`,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-footer bg-transparent border-top py-3">
+                      <Link
+                        className="text-primary fw-medium stretched-link d-flex align-items-center"
+                        to="/admin/users"
+                      >
+                        <i className="fas fa-chart-pie me-2"></i>
+                        View Detailed Report
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-xl-6 col-md-6 mb-4">
+                  <div className="card dashboard-card dashboard-card-danger border-0 shadow-sm h-100">
+                    <div className="card-header bg-transparent border-0 d-flex justify-content-between align-items-center py-3">
+                      <h6 className="fw-bold mb-0">
+                        <i className="fas fa-child me-2"></i>
+                        YATIM (SD, SMP, SMA)
+                      </h6>
+                     
+                    </div>
+                    <div className="card-body py-3 d-flex align-items-center justify-content-center">
+                      <div className="text-center">
+                        <div className="dashboard-large-number">
+                          <div className="d-flex justify-content-center align-items-baseline mb-2">
+                            <div className="h1 fw-bold text-danger me-2">
+                              {yatims}
+                            </div>
+                          </div>
+                          <div className="text-muted mb-3">Total Pendaftar</div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-footer bg-transparent border-top py-3">
+                      <Link
+                        className="text-danger fw-medium stretched-link d-flex align-items-center"
+                        to="/admin/users"
+                      >
+                        <i className="fas fa-user-friends me-2"></i>
+                        Manage Yatim Data
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Row 3: Kesra */}
+              <div className="row mb-4">
+                <div className="col-12">
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h5 className="fw-bold text-dark mb-0">
+                      <i className="fas fa-heart me-2 text-primary"></i>
+                      Beasiswa Bidang Keagamaan
+                    </h5>
+                  </div>
+                </div>
+
+                <div className="col-xl-4 col-md-6 mb-4">
+                  <div className="card dashboard-card dashboard-card-purple border-0 shadow-sm h-100">
+                    <div className="card-header bg-transparent border-0 d-flex justify-content-between align-items-center py-3">
+                      <h6 className="fw-bold mb-0">
+                        <i className="fas fa-heart me-2"></i>
+                        KESRA
+                      </h6>
+                      
+                    </div>
+                    <div className="card-body py-3">
+                      <div className="dashboard-stat-vertical">
+                        <div className="stat-item-with-progress mb-4">
+                          <div className="d-flex justify-content-between align-items-center mb-1">
+                            <span className="text-muted">
+                              <i className="fas fa-user-plus me-1"></i>
+                              Pendaftar
+                            </span>
+                            <div className="d-flex align-items-center">
+                              <span className="h5 fw-bold text-dark me-2">
+                                {kesras}
+                              </span>
+                              <span className="text-purple fw-bold small">
+                                100%
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="stat-item-with-progress mb-4">
+                          <div className="d-flex justify-content-between align-items-center mb-1">
+                            <span className="text-muted">
+                              <i className="fas fa-check-circle me-1"></i>
+                              Sudah Verif
+                            </span>
+                            <div className="d-flex align-items-center">
+                              <span className="h5 fw-bold text-dark me-2">
+                                {dashboard.jumlahSudahVerifKesra}
+                              </span>
+                              <span className="text-success fw-bold small">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifKesra / kesras) *
+                                    100 || 0,
+                                )}
+                                %
+                              </span>
+                            </div>
+                          </div>
+                          <div
+                            className="progress mt-2"
+                            style={{ height: "5px" }}
+                          >
+                            <div
+                              className="progress-bar bg-success"
+                              style={{
+                                width: `${(dashboard.jumlahSudahVerifKesra / kesras) * 100 || 0}%`,
+                              }}
+                            ></div>
+                          </div>
+                        </div>
+
+                        <div className="stat-item-with-progress">
+                          <div className="d-flex justify-content-between align-items-center mb-1">
+                            <span className="text-muted">
+                              <i className="fas fa-id-card me-1"></i>
+                              NIK Verif
+                            </span>
+                            <div className="d-flex align-items-center">
+                              <span className="h5 fw-bold text-dark me-2">
+                                {dashboard.jumlahSudahVerifNikKesra}
+                              </span>
+                              <span className="text-info fw-bold small">
+                                {Math.round(
+                                  (dashboard.jumlahSudahVerifNikKesra /
+                                    kesras) *
+                                    100 || 0,
+                                )}
+                                %
+                              </span>
+                            </div>
+                          </div>
+                          <div
+                            className="progress mt-2"
+                            style={{ height: "5px" }}
+                          >
+                            <div
+                              className="progress-bar bg-info"
+                              style={{
+                                width: `${(dashboard.jumlahSudahVerifNikKesra / kesras) * 100 || 0}%`,
+                              }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-4 pt-3 border-top">
+                        <div className="text-center">
+                          <div className="h4 fw-bold text-purple mb-1">
+                            {Math.round(
+                              ((dashboard.jumlahSudahVerifKesra +
+                                dashboard.jumlahSudahVerifNikKesra) /
+                                (kesras * 2)) *
+                                100 || 0,
+                            )}
+                            %
+                          </div>
+                          <div className="text-muted small">
+                            Overall Progress
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-footer bg-transparent border-top py-3">
+                      <Link
+                        className="text-purple fw-medium stretched-link d-flex align-items-center justify-content-between"
+                        to="/admin/users"
+                      >
+                        <span>Kesra Analytics</span>
+                        <i className="fas fa-external-link-alt"></i>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
           )}
 
           {/* KUSUS ADMIN */}
@@ -1600,6 +2148,133 @@ export default function Dashboard() {
 
         .upload-success i {
           font-size: 1rem;
+        }
+
+        /* Dashboard Custom Styles */
+        .dashboard-card {
+          border-radius: 12px;
+          transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+          overflow: hidden;
+        }
+
+        .dashboard-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .dashboard-card-primary {
+          border-left: 4px solid #4e73df;
+        }
+
+        .dashboard-card-success {
+          border-left: 4px solid #1cc88a;
+        }
+
+        .dashboard-card-warning {
+          border-left: 4px solid #f6c23e;
+        }
+
+        .dashboard-card-info {
+          border-left: 4px solid #36b9cc;
+        }
+
+        .dashboard-card-danger {
+          border-left: 4px solid #e74a3b;
+        }
+
+        .dashboard-card-purple {
+          border-left: 4px solid #6f42c1;
+        }
+
+        .dashboard-icon-wrapper {
+          width: 60px;
+          height: 60px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+        }
+
+        .dashboard-icon-sm {
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .dashboard-stat-item {
+          padding: 12px 0;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dashboard-stat-item:last-child {
+          border-bottom: none;
+        }
+
+        .dashboard-chart-circle {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background: linear-gradient(
+            135deg,
+            rgba(28, 200, 138, 0.1) 0%,
+            rgba(255, 255, 255, 0) 100%
+          );
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .dashboard-stat-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .dashboard-stat-vertical .stat-item-with-progress {
+          padding: 15px;
+          background: rgba(0, 0, 0, 0.02);
+          border-radius: 8px;
+        }
+
+        .dashboard-large-number {
+          padding: 20px;
+        }
+
+        .dashboard-stats-breakdown {
+          margin-top: 20px;
+          padding-top: 20px;
+          border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .dashboard-stat-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .dashboard-chart-circle {
+            width: 80px;
+            height: 80px;
+          }
+        }
+
+        /* Color utilities */
+        .bg-opacity-10 {
+          background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
+        }
+
+        .text-purple {
+          color: #6f42c1 !important;
+        }
+
+        .bg-purple {
+          background-color: #6f42c1 !important;
         }
       `}</style>
     </LayoutAdmin>
