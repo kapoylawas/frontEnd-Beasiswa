@@ -27,7 +27,6 @@ export default function AdminDispendukYatim() {
     const [detailData, setDetailData] = useState(null);
     const [loadingDetail, setLoadingDetail] = useState(false);
     const [activePdf, setActivePdf] = useState(null);
-    const [pdfLoaded, setPdfLoaded] = useState(false);
 
     // State untuk modal alasan verifikasi KK
     const [showAlasanKkModal, setShowAlasanKkModal] = useState(false);
@@ -128,13 +127,12 @@ export default function AdminDispendukYatim() {
     };
 
     // ==============================================
-    // FUNGSI UNTUK KK SAJA
+    // FUNGSI UNTUK KK SAJA - DISESUAIKAN DENGAN POLA VerifYatimIndex
     // ==============================================
 
-    // View detail KK (hanya file KK)
+    // View detail KK
     const handleViewDetail = async (item) => {
         setLoadingDetail(true);
-        setPdfLoaded(false);
         try {
             const response = await Api.get(`/api/admin/yatim/${item.id}`, {
                 headers: {
@@ -146,15 +144,11 @@ export default function AdminDispendukYatim() {
                 const data = response.data.data;
                 setDetailData(data);
                 
-                // Tampilkan langsung file KK
                 if (data.imageskartukeluarga) {
                     setActivePdf({
                         url: data.imageskartukeluarga,
-                        title: 'KARTU KELUARGA',
-                        type: 'kk'
+                        title: 'Kartu Keluarga'
                     });
-                } else {
-                    toast.error('File Kartu Keluarga tidak tersedia');
                 }
                 
                 setShowDetailModal(true);
@@ -171,18 +165,13 @@ export default function AdminDispendukYatim() {
 
     const handleCloseDetailModal = () => {
         setShowDetailModal(false);
-        setPdfLoaded(false);
         setTimeout(() => {
             setDetailData(null);
             setActivePdf(null);
         }, 300);
     };
 
-    const handlePdfLoad = () => {
-        setPdfLoaded(true);
-    };
-
-    // Verifikasi Kartu Keluarga
+    // Verifikasi Kartu Keluarga - SEDERHANA SEPERTI handleVerif
     const handleVerifKk = async (item) => {
         setVerifyingKkId(item.id);
         try {
@@ -211,7 +200,7 @@ export default function AdminDispendukYatim() {
         }
     };
 
-    // Batalkan Verifikasi KK
+    // Batalkan Verifikasi KK - SEDERHANA SEPERTI handleUnverif
     const handleUnverifKk = async (item) => {
         setVerifyingKkId(item.id);
         try {
@@ -222,7 +211,7 @@ export default function AdminDispendukYatim() {
             });
 
             if (response.data.success) {
-                toast.success('Verifikasi Kartu Keluarga berhasil dibatalkan');
+                toast.success('Status Kartu Keluarga berhasil dibatalkan');
                 setYatim(prev => prev.map(y =>
                     y.id === item.id ? { ...y, verif_kk: null } : y
                 ));
@@ -230,75 +219,48 @@ export default function AdminDispendukYatim() {
                     setDetailData(prev => ({ ...prev, verif_kk: null }));
                 }
             } else {
-                toast.error(response.data.message || 'Gagal membatalkan verifikasi Kartu Keluarga');
+                toast.error(response.data.message || 'Gagal membatalkan status Kartu Keluarga');
             }
         } catch (error) {
             console.error('Error unverifying KK:', error);
-            toast.error(error.response?.data?.message || 'Terjadi kesalahan saat membatalkan verifikasi Kartu Keluarga');
+            toast.error(error.response?.data?.message || 'Terjadi kesalahan saat membatalkan status Kartu Keluarga');
         } finally {
             setVerifyingKkId(null);
         }
     };
 
-    // Tolak KK
+    // Tolak KK - SEDERHANA SEPERTI handleReject
     const handleRejectKk = async (item) => {
-        const result = await Swal.fire({
-            title: 'Tolak Kartu Keluarga?',
-            html: `
-                <div class="text-start">
-                    <p>Apakah Anda yakin ingin menolak Kartu Keluarga ini?</p>
-                    <div class="alert alert-warning mt-3 p-2">
-                        <small>
-                            <strong>Data yang akan ditolak:</strong><br/>
-                            <strong>${item.name}</strong><br/>
-                            File: Kartu Keluarga<br/>
-                            NIK: ${item.nik}
-                        </small>
-                    </div>
-                </div>
-            `,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#6c757d',
-            confirmButtonText: 'Ya, Tolak KK!',
-            cancelButtonText: 'Batal',
-            reverseButtons: true,
-        });
+        setVerifyingKkId(item.id);
+        try {
+            const response = await Api.post(`/api/admin/yatim/${item.id}/reject-kk`, {}, {
+                headers: {
+                    Authorization: `Bearer ${Cookies.get("token")}`,
+                },
+            });
 
-        if (result.isConfirmed) {
-            setVerifyingKkId(item.id);
-            try {
-                const response = await Api.post(`/api/admin/yatim/${item.id}/reject-kk`, {}, {
-                    headers: {
-                        Authorization: `Bearer ${Cookies.get("token")}`,
-                    },
-                });
-
-                if (response.data.success) {
-                    toast.success('Kartu Keluarga berhasil ditolak');
-                    setYatim(prev => prev.map(y =>
-                        y.id === item.id ? { ...y, verif_kk: 'ditolak' } : y
-                    ));
-                    if (detailData && detailData.id === item.id) {
-                        setDetailData(prev => ({ ...prev, verif_kk: 'ditolak' }));
-                    }
-                } else {
-                    toast.error(response.data.message || 'Gagal menolak Kartu Keluarga');
+            if (response.data.success) {
+                toast.success('Kartu Keluarga berhasil ditolak');
+                setYatim(prev => prev.map(y =>
+                    y.id === item.id ? { ...y, verif_kk: 'ditolak' } : y
+                ));
+                if (detailData && detailData.id === item.id) {
+                    setDetailData(prev => ({ ...prev, verif_kk: 'ditolak' }));
                 }
-            } catch (error) {
-                console.error('Error rejecting KK:', error);
-                toast.error(error.response?.data?.message || 'Terjadi kesalahan saat menolak Kartu Keluarga');
-            } finally {
-                setVerifyingKkId(null);
+            } else {
+                toast.error(response.data.message || 'Gagal menolak Kartu Keluarga');
             }
+        } catch (error) {
+            console.error('Error rejecting KK:', error);
+            toast.error(error.response?.data?.message || 'Terjadi kesalahan saat menolak Kartu Keluarga');
+        } finally {
+            setVerifyingKkId(null);
         }
     };
 
     // Download file KK
     const handleDownloadKk = async (item) => {
         try {
-            // Menggunakan route download yang sudah ada
             window.open(`/api/admin/yatim/${item.id}/download/imageskartukeluarga`, '_blank');
         } catch (error) {
             console.error('Error downloading KK:', error);
@@ -306,10 +268,10 @@ export default function AdminDispendukYatim() {
         }
     };
 
-    // Modal Alasan Verifikasi KK
+    // Modal Alasan Verifikasi KK - SEDERHANA SEPERTI handleOpenAlasanModal
     const handleOpenAlasanKkModal = (item) => {
         setSelectedItem(item);
-        setAlasanVerifKk(item.alasan_verif_kk || "");
+        setAlasanVerifKk(item.alasan_kk || "");
         setShowAlasanKkModal(true);
     };
 
@@ -332,8 +294,8 @@ export default function AdminDispendukYatim() {
 
         setSavingAlasanKk(true);
         try {
-            const response = await Api.put(`/api/admin/yatim/${selectedItem.id}/alasan-verif-kk`, {
-                alasan_verif_kk: alasanVerifKk
+            const response = await Api.put(`/api/admin/${selectedItem.id}/update-alasan-kk`, {
+                alasan_kk: alasanVerifKk
             }, {
                 headers: {
                     Authorization: `Bearer ${Cookies.get("token")}`,
@@ -343,10 +305,10 @@ export default function AdminDispendukYatim() {
             if (response.data.success) {
                 toast.success('Alasan verifikasi KK berhasil disimpan');
                 setYatim(prev => prev.map(y =>
-                    y.id === selectedItem.id ? { ...y, alasan_verif_kk: alasanVerifKk } : y
+                    y.id === selectedItem.id ? { ...y, alasan_kk: alasanVerifKk } : y
                 ));
                 if (detailData && detailData.id === selectedItem.id) {
-                    setDetailData(prev => ({ ...prev, alasan_verif_kk: alasanVerifKk }));
+                    setDetailData(prev => ({ ...prev, alasan_kk: alasanVerifKk }));
                 }
                 handleCloseAlasanKkModal();
             } else {
@@ -360,7 +322,7 @@ export default function AdminDispendukYatim() {
         }
     };
 
-    // Helper functions untuk KK
+    // Helper functions untuk KK - DIPERBAIKI SEPERTI DI VerifYatimIndex
     const getKkStatusClass = (status) => {
         switch (status) {
             case 'verif':
@@ -375,11 +337,11 @@ export default function AdminDispendukYatim() {
     const getKkStatusBadge = (status) => {
         switch (status) {
             case 'verif':
-                return <span className="badge bg-success"><i className="fa fa-check-circle me-1"></i>KK Terverifikasi</span>;
+                return <span className="badge bg-success">KK Terverifikasi</span>;
             case 'ditolak':
-                return <span className="badge bg-danger"><i className="fa fa-times-circle me-1"></i>KK Ditolak</span>;
+                return <span className="badge bg-danger">KK Ditolak</span>;
             default:
-                return <span className="badge bg-warning"><i className="fa fa-clock me-1"></i>KK Belum Diverifikasi</span>;
+                return <span className="badge bg-warning">KK Belum Diverifikasi</span>;
         }
     };
 
@@ -394,7 +356,7 @@ export default function AdminDispendukYatim() {
         }
     };
 
-    // Pagination
+    // Pagination - SAMA DENGAN VerifYatimIndex
     const handlePageChange = (page) => {
         if (page < 1 || page > lastPage) return;
         setCurrentPage(page);
@@ -436,6 +398,16 @@ export default function AdminDispendukYatim() {
         return pages;
     };
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("id-ID", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+        });
+    };
+
+    // JSX - DISESUAIKAN DENGAN POLA VerifYatimIndex TAPI FOKUS KE KK SAJA
     return (
         <LayoutAdmin>
             <div className="container-fluid mb-5 mt-5">
@@ -446,7 +418,6 @@ export default function AdminDispendukYatim() {
                                 <div className="row mb-3">
                                     <div className="col-md-7">
                                         <h5 className="mb-0">Verifikasi Kartu Keluarga (KK) - Yatim Piatu</h5>
-                                        <small className="text-muted">Verifikasi dokumen Kartu Keluarga peserta yatim piatu</small>
                                     </div>
                                     <div className="col-md-5 text-end">
                                         <div className="text-muted">
@@ -455,7 +426,6 @@ export default function AdminDispendukYatim() {
                                     </div>
                                 </div>
 
-                                {/* Search Filters */}
                                 <div className="row mb-3">
                                     <div className="col-md-5 col-12 mb-2">
                                         <div className="input-group">
@@ -500,37 +470,18 @@ export default function AdminDispendukYatim() {
                                             Filter berdasarkan jenjang
                                         </small>
                                     </div>
-                                    <div className="col-md-4 col-12 mb-2">
-                                        <div className="d-flex gap-2">
-                                            <button
-                                                className="btn btn-outline-primary btn-sm"
-                                                onClick={() => fetchYatim(currentPage)}
-                                                title="Refresh data"
-                                            >
-                                                <i className="fa fa-refresh"></i> Refresh
-                                            </button>
-                                            <div className="flex-grow-1"></div>
-                                        </div>
-                                    </div>
                                 </div>
 
-                                {/* User Info */}
                                 {userData && (
                                     <div className="alert alert-info mb-4">
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <strong><i className="fa fa-user me-1"></i> Admin:</strong> {userData.name}
-                                                {userData.role && ` (${userData.role})`}
-                                            </div>
-                                            <small>Halaman khusus verifikasi Kartu Keluarga</small>
-                                        </div>
+                                        <strong>Info Admin:</strong> {userData.name}
+                                        {userData.role && ` (${userData.role})`}
                                     </div>
                                 )}
 
-                                {/* Status Legend */}
                                 <div className="row mb-3">
                                     <div className="col-md-12">
-                                        <div className="d-flex flex-wrap gap-3 mb-2">
+                                        <div className="d-flex flex-wrap gap-3">
                                             <div className="d-flex align-items-center">
                                                 <div className="status-indicator bg-success me-2" style={{ width: '15px', height: '15px', borderRadius: '3px' }}></div>
                                                 <small>KK Terverifikasi</small>
@@ -547,7 +498,6 @@ export default function AdminDispendukYatim() {
                                     </div>
                                 </div>
 
-                                {/* Main Table */}
                                 {loading ? (
                                     <div className="text-center py-4">
                                         <div className="spinner-border text-primary" role="status">
@@ -558,92 +508,76 @@ export default function AdminDispendukYatim() {
                                 ) : (
                                     <>
                                         <div className="table-responsive">
-                                            <table className="table table-bordered table-striped table-hover">
+                                            <table className="table table-bordered table-striped">
                                                 <thead className="bg-warning text-white">
                                                     <tr>
-                                                        <th scope="col" width="50">No</th>
-                                                        <th scope="col">Nama Peserta</th>
-                                                        <th scope="col" width="120">NIK</th>
-                                                        <th scope="col" width="100">Jenjang</th>
-                                                        <th scope="col" width="120">Status Data</th>
-                                                        <th scope="col" width="150">Status KK</th>
+                                                        <th scope="col">No</th>
+                                                        <th scope="col">Status KK</th>
+                                                        <th scope="col">Nama</th>
+                                                        <th scope="col">NIK</th>
+                                                        <th scope="col">NISN</th>
+                                                        <th scope="col">Jenjang</th>
+                                                        <th scope="col">Asal Sekolah</th>
                                                         <th scope="col">Alasan Verifikasi KK</th>
                                                         <th scope="col" width="200">Aksi</th>
-                                                        {/* <th scope="col" width="100">Alasan KK</th> */}
+                                                        <th scope="col" width="100">Alasan</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     {yatim && yatim.length > 0 ? (
                                                         yatim.map((item, index) => (
                                                             <tr key={item.id} className={getKkStatusClass(item.verif_kk)}>
-                                                                <td className="text-center">{from + index + 1}</td>
+                                                                <td>{from + index}</td>
+                                                                <td>{getKkStatusBadge(item.verif_kk)}</td>
+                                                                <td>{item.name}</td>
+                                                                <td>{item.nik}</td>
+                                                                <td>{item.nisn}</td>
                                                                 <td>
-                                                                    <div>
-                                                                        <strong>{item.name}</strong>
-                                                                        <div className="small text-muted">
-                                                                            {item.asal_sekolah}
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <code>{item.nik}</code>
-                                                                </td>
-                                                                <td className="text-center">
                                                                     <span className="badge bg-info">{item.jenjang}</span>
                                                                 </td>
-                                                                <td className="text-center">
-                                                                    {getStatusDataBadge(item.status_data)}
-                                                                </td>
-                                                                <td className="text-center">
-                                                                    {getKkStatusBadge(item.verif_kk)}
-                                                                </td>
+                                                                <td>{item.asal_sekolah}</td>
                                                                 <td>
-                                                                    {item.alasan_verif_kk ? (
+                                                                    {item.alasan_kk ? (
                                                                         <div
                                                                             className="text-truncate"
-                                                                            style={{ maxWidth: '250px' }}
-                                                                            title={item.alasan_verif_kk}
+                                                                            style={{ maxWidth: '200px' }}
+                                                                            title={item.alasan_kk}
                                                                         >
-                                                                            <i className="fa fa-file-text-o me-1 text-muted"></i>
-                                                                            {item.alasan_verif_kk}
+                                                                            {item.alasan_kk}
                                                                         </div>
                                                                     ) : (
-                                                                        <span className="text-muted fst-italic">Belum ada alasan</span>
+                                                                        <span className="text-muted">-</span>
                                                                     )}
                                                                 </td>
                                                                 <td>
-                                                                    <div className="d-flex flex-wrap gap-1">
-                                                                        {/* Tombol Lihat KK */}
-                                                                        <button
-                                                                            onClick={() => handleViewDetail(item)}
-                                                                            className="btn btn-primary btn-sm"
-                                                                            title="Lihat Kartu Keluarga"
-                                                                        >
-                                                                            <i className="fa fa-eye me-1"></i> Lihat KK
-                                                                        </button>
-
-                                                                        {/* Tombol Download KK */}
-                                                                        <button
-                                                                            onClick={() => handleDownloadKk(item)}
-                                                                            className="btn btn-info btn-sm"
-                                                                            title="Download Kartu Keluarga"
-                                                                        >
-                                                                            <i className="fa fa-download me-1"></i> Download
-                                                                        </button>
-
-                                                                        {/* Tombol Aksi Verifikasi KK */}
+                                                                    <div className="btn-group-vertical btn-group-sm" role="group">
                                                                         <div className="btn-group">
+                                                                            <button
+                                                                                onClick={() => handleViewDetail(item)}
+                                                                                className="btn btn-primary btn-sm"
+                                                                                title="Lihat Kartu Keluarga"
+                                                                            >
+                                                                                <i className="fa fa-eye me-1"></i> Lihat KK
+                                                                            </button>
+                                                                            <button
+                                                                                onClick={() => handleDownloadKk(item)}
+                                                                                className="btn btn-info btn-sm"
+                                                                                title="Download Kartu Keluarga"
+                                                                            >
+                                                                                <i className="fa fa-download me-1"></i> Download
+                                                                            </button>
+                                                                        </div>
+                                                                        <div className="btn-group mt-1">
                                                                             {item.verif_kk === 'verif' ? (
                                                                                 <button
                                                                                     onClick={() => handleUnverifKk(item)}
                                                                                     className="btn btn-warning btn-sm"
                                                                                     disabled={verifyingKkId === item.id}
-                                                                                    title="Batalkan Verifikasi KK"
                                                                                 >
                                                                                     {verifyingKkId === item.id ? (
                                                                                         <span className="spinner-border spinner-border-sm" role="status"></span>
                                                                                     ) : (
-                                                                                        'Batal'
+                                                                                        'Batal Verif'
                                                                                     )}
                                                                                 </button>
                                                                             ) : item.verif_kk === 'ditolak' ? (
@@ -651,12 +585,11 @@ export default function AdminDispendukYatim() {
                                                                                     onClick={() => handleUnverifKk(item)}
                                                                                     className="btn btn-info btn-sm"
                                                                                     disabled={verifyingKkId === item.id}
-                                                                                    title="Batalkan Penolakan KK"
                                                                                 >
                                                                                     {verifyingKkId === item.id ? (
                                                                                         <span className="spinner-border spinner-border-sm" role="status"></span>
                                                                                     ) : (
-                                                                                        'Batal'
+                                                                                        'Batal Tolak'
                                                                                     )}
                                                                                 </button>
                                                                             ) : (
@@ -665,7 +598,6 @@ export default function AdminDispendukYatim() {
                                                                                         onClick={() => handleVerifKk(item)}
                                                                                         className="btn btn-success btn-sm"
                                                                                         disabled={verifyingKkId === item.id}
-                                                                                        title="Verifikasi Kartu Keluarga"
                                                                                     >
                                                                                         {verifyingKkId === item.id ? (
                                                                                             <span className="spinner-border spinner-border-sm" role="status"></span>
@@ -677,7 +609,6 @@ export default function AdminDispendukYatim() {
                                                                                         onClick={() => handleRejectKk(item)}
                                                                                         className="btn btn-danger btn-sm"
                                                                                         disabled={verifyingKkId === item.id}
-                                                                                        title="Tolak Kartu Keluarga"
                                                                                     >
                                                                                         {verifyingKkId === item.id ? (
                                                                                             <span className="spinner-border spinner-border-sm" role="status"></span>
@@ -690,28 +621,27 @@ export default function AdminDispendukYatim() {
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                {/* <td>
+                                                                <td>
                                                                     <button
                                                                         onClick={() => handleOpenAlasanKkModal(item)}
-                                                                        className="btn btn-outline-danger btn-sm w-100"
+                                                                        className="btn btn-info btn-sm w-100"
                                                                         title={
                                                                             item.verif_kk === 'verif' ? 'Edit Alasan Verifikasi KK' :
-                                                                            item.verif_kk === 'ditolak' ? 'Edit Alasan Penolakan KK' :
-                                                                            'Tambah Alasan Verifikasi KK'
+                                                                                item.verif_kk === 'ditolak' ? 'Edit Alasan Penolakan KK' :
+                                                                                    'Tambah Alasan Verifikasi KK'
                                                                         }
                                                                     >
                                                                         <i className="fa fa-edit me-1"></i>
-                                                                        {item.alasan_verif_kk ? 'Edit' : 'Tambah'}
+                                                                        {item.alasan_kk ? 'Edit' : 'Tambah'}
                                                                     </button>
-                                                                </td> */}
+                                                                </td>
                                                             </tr>
                                                         ))
                                                     ) : (
                                                         <tr>
-                                                            <td colSpan="9" className="text-center py-5">
+                                                            <td colSpan="10" className="text-center py-4">
                                                                 <div className="text-muted">
                                                                     <i className="fa fa-file-pdf-o fa-3x mb-3"></i>
-                                                                    <h5>Tidak Ada Data Kartu Keluarga</h5>
                                                                     <p>
                                                                         {searchQuery || selectedJenjang
                                                                             ? `Tidak ditemukan data dengan filter yang dipilih`
@@ -723,7 +653,7 @@ export default function AdminDispendukYatim() {
                                                                             className="btn btn-primary btn-sm mt-2"
                                                                             onClick={clearFilters}
                                                                         >
-                                                                            <i className="fa fa-filter me-1"></i> Tampilkan Semua Data
+                                                                            Tampilkan Semua Data
                                                                         </button>
                                                                     )}
                                                                 </div>
@@ -734,7 +664,6 @@ export default function AdminDispendukYatim() {
                                             </table>
                                         </div>
 
-                                        {/* Pagination */}
                                         {total > 0 && lastPage > 1 && (
                                             <div className="d-flex justify-content-between align-items-center mt-4">
                                                 <div>
@@ -794,503 +723,305 @@ export default function AdminDispendukYatim() {
                 </div>
             </div>
 
-            {/* MODAL BESAR UNTUK KK - SEPERTI VERSI AWAL */}
+            {/* Modal Detail KK - SEDERHANA SEPERTI DI VerifYatimIndex */}
             {showDetailModal && (
-                <div className="modal fade show" style={{ 
-                    display: 'block', 
-                    backgroundColor: 'rgba(0,0,0,0.7)' 
-                }}>
-                    {/* Modal XL Besar dengan custom styling */}
-                    <div className="modal-dialog modal-xl" style={{
-                        maxWidth: '95%',
-                        width: '95%',
-                        height: '90vh',
-                        margin: '5vh auto',
-                        maxHeight: '90vh'
-                    }}>
-                        <div className="modal-content h-100" style={{
-                            borderRadius: '10px',
-                            border: '3px solid #ffc107',
-                            boxShadow: '0 10px 50px rgba(0,0,0,0.3)'
-                        }}>
-                            {/* Header Modal */}
-                            <div className="modal-header bg-warning text-white" style={{
-                                padding: '20px 30px',
-                                borderBottom: '2px solid #e0a800',
-                                borderTopLeftRadius: '7px',
-                                borderTopRightRadius: '7px'
-                            }}>
-                                <div className="d-flex align-items-center w-100">
-                                    <div className="flex-grow-1">
-                                        <h3 className="modal-title mb-2">
-                                            <i className="fa fa-id-card me-3"></i>
-                                            <strong>KARTU KELUARGA</strong> - {detailData?.name || 'Peserta'}
-                                            <span className="ms-4">
-                                                {detailData && getKkStatusBadge(detailData.verif_kk)}
-                                            </span>
-                                        </h3>
-                                        <div className="d-flex align-items-center">
-                                            <div className="me-4">
-                                                <small className="d-block">
-                                                    <strong>NIK:</strong> <code className="fs-6">{detailData?.nik}</code>
-                                                </small>
-                                            </div>
-                                            <div className="me-4">
-                                                <small className="d-block">
-                                                    <strong>Jenjang:</strong> <span className="badge bg-info ms-1">{detailData?.jenjang}</span>
-                                                </small>
-                                            </div>
-                                            <div>
-                                                <small className="d-block">
-                                                    <strong>Sekolah:</strong> {detailData?.asal_sekolah}
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button
-                                        type="button"
-                                        className="btn-close btn-close-white"
-                                        onClick={handleCloseDetailModal}
-                                        style={{
-                                            fontSize: '1.5rem',
-                                            opacity: 1,
-                                            width: '40px',
-                                            height: '40px'
-                                        }}
-                                    ></button>
-                                </div>
+                <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <div className="modal-dialog modal-xl" style={{ maxWidth: '95%' }}>
+                        <div className="modal-content">
+                            <div className="modal-header bg-warning text-white">
+                                <h5 className="modal-title">
+                                    Kartu Keluarga - {detailData?.name || 'Peserta'}
+                                    <span className="ms-2">
+                                        {detailData && getKkStatusBadge(detailData.verif_kk)}
+                                    </span>
+                                </h5>
+                                <button
+                                    type="button"
+                                    className="btn-close btn-close-white"
+                                    onClick={handleCloseDetailModal}
+                                ></button>
                             </div>
-
-                            {/* Body Modal */}
-                            <div className="modal-body p-0" style={{
-                                height: 'calc(100% - 120px)',
-                                overflow: 'hidden'
-                            }}>
+                            <div className="modal-body" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
                                 {loadingDetail ? (
-                                    <div className="d-flex justify-content-center align-items-center h-100">
-                                        <div className="text-center">
-                                            <div className="spinner-border text-warning" style={{ width: '4rem', height: '4rem' }} role="status">
-                                                <span className="visually-hidden">Loading...</span>
-                                            </div>
-                                            <h4 className="mt-4 text-warning">Memuat Kartu Keluarga...</h4>
-                                            <p className="text-muted">Mohon tunggu sebentar</p>
+                                    <div className="text-center py-4">
+                                        <div className="spinner-border text-warning" role="status">
+                                            <span className="visually-hidden">Loading...</span>
                                         </div>
+                                        <p className="mt-2">Memuat Kartu Keluarga...</p>
                                     </div>
                                 ) : detailData ? (
-                                    <div className="row h-100 m-0">
-                                        {/* Sidebar Info */}
-                                        <div className="col-md-4 p-4" style={{
-                                            backgroundColor: '#fffaf0',
-                                            height: '100%',
-                                            overflowY: 'auto',
-                                            borderRight: '2px solid #ffc107'
-                                        }}>
-                                            {/* Info Peserta Card */}
-                                            <div className="card border-warning mb-4 shadow">
-                                                <div className="card-header bg-warning text-white py-3">
-                                                    <h5 className="mb-0">
-                                                        <i className="fa fa-user-circle me-2"></i>
-                                                        INFORMASI PESERTA
-                                                    </h5>
+                                    <div className="row">
+                                        {/* Data Pribadi & Info */}
+                                        <div className="col-md-4">
+                                            {/* Data Pribadi */}
+                                            <div className="card mb-3">
+                                                <div className="card-header bg-light">
+                                                    <h6 className="mb-0">Data Peserta</h6>
                                                 </div>
                                                 <div className="card-body">
-                                                    <div className="mb-3">
-                                                        <label className="form-label fw-bold mb-2 text-warning">
-                                                            <i className="fa fa-user me-2"></i>
-                                                            Nama Lengkap
-                                                        </label>
-                                                        <div className="fs-5 fw-bold">{detailData.name}</div>
-                                                    </div>
-                                                    
-                                                    <div className="row g-3">
-                                                        <div className="col-12">
-                                                            <label className="form-label fw-bold mb-2">
-                                                                <i className="fa fa-id-card me-2"></i>
-                                                                NIK
-                                                            </label>
-                                                            <div className="alert alert-light">
-                                                                <code className="fs-5">{detailData.nik}</code>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div className="col-6">
-                                                            <label className="form-label fw-bold mb-2">
-                                                                <i className="fa fa-graduation-cap me-2"></i>
-                                                                NISN
-                                                            </label>
-                                                            <div className="fs-6">{detailData.nisn || '-'}</div>
-                                                        </div>
-                                                        
-                                                        <div className="col-6">
-                                                            <label className="form-label fw-bold mb-2">
-                                                                <i className="fa fa-school me-2"></i>
-                                                                Jenjang
-                                                            </label>
-                                                            <div>
-                                                                <span className="badge bg-info fs-6 px-3 py-2">{detailData.jenjang}</span>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div className="col-12">
-                                                            <label className="form-label fw-bold mb-2">
-                                                                <i className="fa fa-university me-2"></i>
-                                                                Asal Sekolah
-                                                            </label>
-                                                            <div className="fs-6">{detailData.asal_sekolah}</div>
-                                                        </div>
-                                                    </div>
+                                                    <table className="table table-sm table-borderless">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="40%"><strong>Nama</strong></td>
+                                                                <td>{detailData.name}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>NIK</strong></td>
+                                                                <td>{detailData.nik}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>NISN</strong></td>
+                                                                <td>{detailData.nisn}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Jenjang</strong></td>
+                                                                <td>
+                                                                    <span className="badge bg-info">{detailData.jenjang}</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Asal Sekolah</strong></td>
+                                                                <td>{detailData.asal_sekolah}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Status Data</strong></td>
+                                                                <td>{getStatusDataBadge(detailData.status_data)}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Status KK</strong></td>
+                                                                <td>{getKkStatusBadge(detailData.verif_kk)}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
 
-                                            {/* Alasan Verifikasi Card */}
-                                            {/* <div className="card border-warning mb-4 shadow">
-                                                <div className="card-header bg-warning text-white py-3 d-flex justify-content-between align-items-center">
-                                                    <h5 className="mb-0">
-                                                        <i className="fa fa-comment-dots me-2"></i>
-                                                        ALASAN VERIFIKASI KK
-                                                    </h5>
+                                            {/* Alasan Verifikasi KK */}
+                                            <div className="card mb-3">
+                                                <div className="card-header bg-light d-flex justify-content-between align-items-center">
+                                                    <h6 className="mb-0">
+                                                        Alasan Verifikasi KK
+                                                    </h6>
                                                     <button
                                                         onClick={() => handleOpenAlasanKkModal(detailData)}
-                                                        className="btn btn-sm btn-outline-light"
+                                                        className="btn btn-sm btn-outline-primary"
                                                         title="Edit Alasan"
                                                     >
-                                                        <i className="fa fa-edit"></i>
+                                                        <i className="fa fa-edit"></i> Edit
                                                     </button>
                                                 </div>
-                                                <div className="card-body" style={{ minHeight: '150px' }}>
-                                                    {detailData.alasan_verif_kk ? (
+                                                <div className="card-body">
+                                                    {detailData.alasan_kk ? (
                                                         <div className="alert alert-warning mb-0">
-                                                            <div className="d-flex">
-                                                                <i className="fa fa-quote-left me-3 mt-1 text-warning fs-4"></i>
-                                                                <div className="flex-grow-1">
-                                                                    <p className="mb-0" style={{ lineHeight: '1.6' }}>
-                                                                        {detailData.alasan_verif_kk}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
+                                                            {detailData.alasan_kk}
                                                         </div>
                                                     ) : (
-                                                        <div className="text-center py-4">
-                                                            <i className="fa fa-comment-slash fa-3x text-muted mb-3"></i>
-                                                            <p className="text-muted mb-0 fs-5">Belum ada alasan verifikasi KK</p>
-                                                            <button
-                                                                onClick={() => handleOpenAlasanKkModal(detailData)}
-                                                                className="btn btn-outline-warning mt-3"
-                                                            >
-                                                                <i className="fa fa-plus me-2"></i>
-                                                                Tambah Alasan
-                                                            </button>
+                                                        <div className="text-muted">
+                                                            <i>Belum ada alasan verifikasi KK</i>
                                                         </div>
                                                     )}
                                                 </div>
-                                            </div> */}
+                                            </div>
 
-                                            {/* Aksi Card */}
-                                            {/* <div className="card border-warning shadow">
-                                                <div className="card-header bg-warning text-white py-3">
-                                                    <h5 className="mb-0">
-                                                        <i className="fa fa-cogs me-2"></i>
-                                                        AKSI VERIFIKASI
-                                                    </h5>
+                                            {/* Aksi */}
+                                            <div className="card">
+                                                <div className="card-header bg-light">
+                                                    <h6 className="mb-0">Aksi Verifikasi</h6>
                                                 </div>
                                                 <div className="card-body">
-                                                    <div className="d-grid gap-3">
+                                                    <div className="d-grid gap-2">
                                                         {detailData.verif_kk === 'verif' ? (
                                                             <button
                                                                 onClick={() => handleUnverifKk(detailData)}
-                                                                className="btn btn-warning btn-lg py-3"
+                                                                className="btn btn-warning"
                                                                 disabled={verifyingKkId === detailData.id}
-                                                                style={{ fontSize: '1.1rem' }}
                                                             >
                                                                 {verifyingKkId === detailData.id ? (
-                                                                    <>
-                                                                        <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                                                                        MEMPROSES...
-                                                                    </>
+                                                                    <span className="spinner-border spinner-border-sm me-2" role="status"></span>
                                                                 ) : (
-                                                                    <>
-                                                                        <i className="fa fa-ban me-2"></i>
-                                                                        BATALKAN VERIFIKASI KK
-                                                                    </>
+                                                                    <i className="fa fa-ban me-2"></i>
                                                                 )}
+                                                                Batalkan Verifikasi
                                                             </button>
                                                         ) : detailData.verif_kk === 'ditolak' ? (
                                                             <button
                                                                 onClick={() => handleUnverifKk(detailData)}
-                                                                className="btn btn-info btn-lg py-3"
+                                                                className="btn btn-info"
                                                                 disabled={verifyingKkId === detailData.id}
-                                                                style={{ fontSize: '1.1rem' }}
                                                             >
                                                                 {verifyingKkId === detailData.id ? (
-                                                                    <>
-                                                                        <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                                                                        MEMPROSES...
-                                                                    </>
+                                                                    <span className="spinner-border spinner-border-sm me-2" role="status"></span>
                                                                 ) : (
-                                                                    <>
-                                                                        <i className="fa fa-undo me-2"></i>
-                                                                        BATALKAN PENOLAKAN KK
-                                                                    </>
+                                                                    <i className="fa fa-undo me-2"></i>
                                                                 )}
+                                                                Batalkan Penolakan
                                                             </button>
                                                         ) : (
-                                                            // <>
-                                                            //     <button
-                                                            //         onClick={() => handleVerifKk(detailData)}
-                                                            //         className="btn btn-success btn-lg py-3"
-                                                            //         disabled={verifyingKkId === detailData.id}
-                                                            //         style={{ fontSize: '1.1rem' }}
-                                                            //     >
-                                                            //         {verifyingKkId === detailData.id ? (
-                                                            //             <>
-                                                            //                 <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                                                            //                 MEMPROSES...
-                                                            //             </>
-                                                            //         ) : (
-                                                            //             <>
-                                                            //                 <i className="fa fa-check-circle me-2"></i>
-                                                            //                 VERIFIKASI KARTU KELUARGA
-                                                            //             </>
-                                                            //         )}
-                                                            //     </button>
-                                                            //     <button
-                                                            //         onClick={() => handleRejectKk(detailData)}
-                                                            //         className="btn btn-danger btn-lg py-3"
-                                                            //         disabled={verifyingKkId === detailData.id}
-                                                            //         style={{ fontSize: '1.1rem' }}
-                                                            //     >
-                                                            //         {verifyingKkId === detailData.id ? (
-                                                            //             <>
-                                                            //                 <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                                                            //                 MEMPROSES...
-                                                            //             </>
-                                                            //         ) : (
-                                                            //             <>
-                                                            //                 <i className="fa fa-times-circle me-2"></i>
-                                                            //                 TOLAK KARTU KELUARGA
-                                                            //             </>
-                                                            //         )}
-                                                            //     </button>
-                                                            // </>
+                                                            <>
+                                                                <button
+                                                                    onClick={() => handleVerifKk(detailData)}
+                                                                    className="btn btn-success"
+                                                                    disabled={verifyingKkId === detailData.id}
+                                                                >
+                                                                    {verifyingKkId === detailData.id ? (
+                                                                        <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                                                                    ) : (
+                                                                        <i className="fa fa-check me-2"></i>
+                                                                    )}
+                                                                    Verifikasi KK
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => handleRejectKk(detailData)}
+                                                                    className="btn btn-danger"
+                                                                    disabled={verifyingKkId === detailData.id}
+                                                                >
+                                                                    {verifyingKkId === detailData.id ? (
+                                                                        <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                                                                    ) : (
+                                                                        <i className="fa fa-times me-2"></i>
+                                                                    )}
+                                                                    Tolak KK
+                                                                </button>
+                                                            </>
                                                         )}
                                                         
-                                                        <div className="row g-2">
-                                                            <div className="col-6">
-                                                                <button
-                                                                    onClick={() => handleDownloadKk(detailData)}
-                                                                    className="btn btn-outline-primary btn-lg w-100 py-3"
-                                                                    style={{ fontSize: '1rem' }}
-                                                                >
-                                                                    <i className="fa fa-download me-2"></i>
-                                                                    DOWNLOAD
-                                                                </button>
-                                                            </div>
-                                                            <div className="col-6">
-                                                                <a
-                                                                    href={activePdf?.url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="btn btn-outline-secondary btn-lg w-100 py-3"
-                                                                    style={{ fontSize: '1rem' }}
-                                                                >
-                                                                    <i className="fa fa-external-link me-2"></i>
-                                                                    TAB BARU
-                                                                </a>
-                                                            </div>
-                                                        </div>
+                                                        <button
+                                                            onClick={() => handleDownloadKk(detailData)}
+                                                            className="btn btn-outline-primary"
+                                                        >
+                                                            <i className="fa fa-download me-2"></i>
+                                                            Download KK
+                                                        </button>
                                                     </div>
                                                 </div>
-                                            </div> */}
+                                            </div>
                                         </div>
 
-                                        {/* PDF Viewer Area */}
-                                        <div className="col-md-8 p-0" style={{ height: '100%' }}>
-                                            <div className="d-flex flex-column h-100">
-                                                {/* PDF Viewer Header */}
-                                                <div className="bg-light p-4 border-bottom d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <h4 className="mb-1 text-warning">
-                                                            <i className="fa fa-file-pdf-o me-3 text-danger"></i>
-                                                            <strong>PREVIEW DOKUMEN KARTU KELUARGA</strong>
-                                                        </h4>
-                                                        <small className="text-muted">
-                                                            <i className="fa fa-info-circle me-1"></i>
-                                                            Gunakan scroll mouse untuk zoom in/out
-                                                        </small>
-                                                    </div>
-                                                    <div>
-                                                        <span className="badge bg-warning me-3 fs-6 px-3 py-2">
-                                                            <i className="fa fa-eye me-1"></i>
-                                                            PDF VIEWER
-                                                        </span>
-                                                        <button
-                                                            className="btn btn-outline-secondary me-2"
-                                                            onClick={() => {
-                                                                const iframe = document.querySelector('iframe');
-                                                                if (iframe && iframe.contentWindow) {
-                                                                    iframe.contentWindow.postMessage({ type: 'zoom', value: 'in' }, '*');
-                                                                }
-                                                            }}
-                                                            title="Zoom In"
+                                        {/* PDF Viewer */}
+                                        <div className="col-md-8">
+                                            <div className="card h-100">
+                                                <div className="card-header bg-light d-flex justify-content-between align-items-center">
+                                                    <h6 className="mb-0">
+                                                        Preview Kartu Keluarga
+                                                    </h6>
+                                                    {activePdf && (
+                                                        <a
+                                                            href={activePdf.url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="btn btn-sm btn-outline-primary"
                                                         >
-                                                            <i className="fa fa-search-plus"></i>
-                                                        </button>
-                                                        <button
-                                                            className="btn btn-outline-secondary"
-                                                            onClick={() => {
-                                                                const iframe = document.querySelector('iframe');
-                                                                if (iframe && iframe.contentWindow) {
-                                                                    iframe.contentWindow.postMessage({ type: 'zoom', value: 'out' }, '*');
-                                                                }
-                                                            }}
-                                                            title="Zoom Out"
-                                                        >
-                                                            <i className="fa fa-search-minus"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                {/* PDF Container */}
-                                                <div className="flex-grow-1 position-relative bg-dark">
-                                                    {!pdfLoaded && (
-                                                        <div className="position-absolute top-50 start-50 translate-middle text-center">
-                                                            <div className="spinner-border text-warning" style={{ width: '5rem', height: '5rem' }} role="status">
-                                                                <span className="visually-hidden">Memuat PDF...</span>
-                                                            </div>
-                                                            <h4 className="mt-4 text-white">Memuat dokumen Kartu Keluarga...</h4>
-                                                            <p className="text-light">Mohon tunggu sebentar</p>
-                                                        </div>
+                                                            Buka di Tab Baru
+                                                        </a>
                                                     )}
-                                                    
-                                                    {activePdf?.url ? (
+                                                </div>
+                                                <div className="card-body p-0">
+                                                    {activePdf ? (
                                                         <iframe
                                                             src={activePdf.url}
                                                             width="100%"
-                                                            height="100%"
-                                                            style={{ 
-                                                                border: 'none',
-                                                                display: pdfLoaded ? 'block' : 'none'
-                                                            }}
+                                                            height="600"
+                                                            style={{ border: 'none' }}
                                                             title="Kartu Keluarga"
-                                                            onLoad={handlePdfLoad}
-                                                            allowFullScreen
                                                         />
                                                     ) : (
-                                                        <div className="d-flex justify-content-center align-items-center h-100">
-                                                            <div className="text-center text-white">
-                                                                <i className="fa fa-file-pdf-o fa-6x text-muted mb-4"></i>
-                                                                <h3 className="text-muted">Dokumen Kartu Keluarga Tidak Tersedia</h3>
-                                                                <p className="text-muted">File tidak dapat ditampilkan</p>
-                                                                <button 
-                                                                    className="btn btn-warning mt-3"
-                                                                    onClick={handleCloseDetailModal}
-                                                                >
-                                                                    <i className="fa fa-times me-2"></i> Tutup
-                                                                </button>
-                                                            </div>
+                                                        <div className="text-center py-5">
+                                                            <i className="fa fa-file-pdf-o fa-3x text-muted mb-3"></i>
+                                                            <p className="text-muted">Dokumen Kartu Keluarga Tidak Tersedia</p>
                                                         </div>
                                                     )}
-                                                </div>
-
-                                                {/* PDF Controls Footer */}
-                                                <div className="bg-light p-3 border-top">
-                                                    <div className="d-flex justify-content-between align-items-center">
-                                                        <div>
-                                                            <small className="text-muted">
-                                                                <i className="fa fa-clock me-1"></i>
-                                                                Dokumen diproses: {new Date().toLocaleTimeString('id-ID')}
-                                                            </small>
-                                                        </div>
-                                                        <div className="btn-group">
-                                                            <button 
-                                                                className="btn btn-sm btn-outline-primary"
-                                                                onClick={() => window.open(activePdf?.url, '_blank')}
-                                                                disabled={!activePdf?.url}
-                                                            >
-                                                                <i className="fa fa-expand me-1"></i> Fullscreen
-                                                            </button>
-                                                            <button 
-                                                                className="btn btn-sm btn-outline-success"
-                                                                onClick={() => handleDownloadKk(detailData)}
-                                                                disabled={!activePdf?.url}
-                                                            >
-                                                                <i className="fa fa-save me-1"></i> Simpan
-                                                            </button>
-                                                            <button 
-                                                                className="btn btn-sm btn-outline-warning"
-                                                                onClick={() => window.print()}
-                                                            >
-                                                                <i className="fa fa-print me-1"></i> Print
-                                                            </button>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="d-flex justify-content-center align-items-center h-100">
-                                        <div className="text-center">
-                                            <i className="fa fa-exclamation-triangle fa-6x text-danger mb-4"></i>
-                                            <h3 className="text-danger">Gagal Memuat Data</h3>
-                                            <p className="text-muted">Data Kartu Keluarga tidak dapat ditampilkan</p>
-                                            <button 
-                                                className="btn btn-warning btn-lg mt-3"
-                                                onClick={handleCloseDetailModal}
-                                            >
-                                                <i className="fa fa-times me-2"></i> Tutup
-                                            </button>
+                                    <div className="text-center py-4">
+                                        <div className="text-danger">
+                                            <i className="fa fa-exclamation-triangle fa-2x mb-3"></i>
+                                            <p>Gagal memuat detail data</p>
                                         </div>
                                     </div>
                                 )}
                             </div>
-
-                            {/* Footer Modal */}
-                            <div className="modal-footer py-3 bg-light" style={{ borderTop: '2px solid #ffc107' }}>
-                                <div className="d-flex justify-content-between w-100 align-items-center">
-                                    <div>
-                                        <small className="text-muted">| 
-                                            <i className="fa fa-calendar ms-3 me-2"></i>
-                                            Dibuat: {detailData?.created_at ? 
-                                                new Date(detailData.created_at).toLocaleDateString('id-ID') : 
-                                                '-'} | 
-                                            <i className="fa fa-sync ms-3 me-2"></i>
-                                            Update: {detailData?.updated_at ? 
-                                                new Date(detailData.updated_at).toLocaleDateString('id-ID') : 
-                                                '-'}
-                                        </small>
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    onClick={handleCloseDetailModal}
+                                >
+                                    Tutup
+                                </button>
+                                {detailData && (
+                                    <div className="btn-group">
+                                        {detailData.verif_kk === 'verif' ? (
+                                            <button
+                                                onClick={() => handleUnverifKk(detailData)}
+                                                className="btn btn-warning"
+                                                disabled={verifyingKkId === detailData.id}
+                                            >
+                                                {verifyingKkId === detailData.id ? (
+                                                    <span className="spinner-border spinner-border-sm" role="status"></span>
+                                                ) : (
+                                                    'Batal Verif'
+                                                )}
+                                            </button>
+                                        ) : detailData.verif_kk === 'ditolak' ? (
+                                            <button
+                                                onClick={() => handleUnverifKk(detailData)}
+                                                className="btn btn-info"
+                                                disabled={verifyingKkId === detailData.id}
+                                            >
+                                                {verifyingKkId === detailData.id ? (
+                                                    <span className="spinner-border spinner-border-sm" role="status"></span>
+                                                ) : (
+                                                    'Batal Tolak'
+                                                )}
+                                            </button>
+                                        ) : (
+                                            <>
+                                                <button
+                                                    onClick={() => handleVerifKk(detailData)}
+                                                    className="btn btn-success"
+                                                    disabled={verifyingKkId === detailData.id}
+                                                >
+                                                    {verifyingKkId === detailData.id ? (
+                                                        <span className="spinner-border spinner-border-sm" role="status"></span>
+                                                    ) : (
+                                                        'Verif'
+                                                    )}
+                                                </button>
+                                                <button
+                                                    onClick={() => handleRejectKk(detailData)}
+                                                    className="btn btn-danger"
+                                                    disabled={verifyingKkId === detailData.id}
+                                                >
+                                                    {verifyingKkId === detailData.id ? (
+                                                        <span className="spinner-border spinner-border-sm" role="status"></span>
+                                                    ) : (
+                                                        'Tolak'
+                                                    )}
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
-                                    <div>
-                                        <button
-                                            type="button"
-                                            className="btn btn-secondary btn-lg"
-                                            onClick={handleCloseDetailModal}
-                                        >
-                                            <i className="fa fa-times me-2"></i> TUTUP
-                                        </button>
-                                    </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* Modal Alasan Verifikasi KK */}
+            {/* Modal Alasan Verifikasi KK - SEDERHANA SEPERTI DI VerifYatimIndex */}
             {showAlasanKkModal && (
-                <div className="modal fade show" style={{ 
-                    display: 'block', 
-                    backgroundColor: 'rgba(0,0,0,0.7)' 
-                }}>
-                    <div className="modal-dialog modal-lg" style={{ maxWidth: '800px' }}>
+                <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <div className="modal-dialog modal-lg">
                         <div className="modal-content">
-                            <div className="modal-header bg-warning text-white">
-                                <h4 className="modal-title">
-                                    <i className="fa fa-comment me-2"></i>
-                                    {selectedItem?.verif_kk === 'verif' ? 'Alasan Verifikasi Kartu Keluarga' :
-                                        selectedItem?.verif_kk === 'ditolak' ? 'Alasan Penolakan Kartu Keluarga' :
-                                            'Alasan Verifikasi Kartu Keluarga'}
-                                </h4>
+                            <div className="modal-header bg-primary text-white">
+                                <h5 className="modal-title">
+                                    {selectedItem?.verif_kk === 'verif' ? 'Alasan Verifikasi KK' :
+                                     selectedItem?.verif_kk === 'ditolak' ? 'Alasan Penolakan KK' :
+                                     'Alasan Verifikasi KK'}
+                                </h5>
                                 <button
                                     type="button"
                                     className="btn-close btn-close-white"
@@ -1301,25 +1032,19 @@ export default function AdminDispendukYatim() {
                                 {selectedItem && (
                                     <div className="mb-3">
                                         <div className="alert alert-light">
-                                            <div className="row">
-                                                <div className="col-md-8">
-                                                    <strong>Data Peserta:</strong><br />
-                                                    <strong>{selectedItem.name}</strong><br />
-                                                    NIK: {selectedItem.nik} | Jenjang: {selectedItem.jenjang}
-                                                </div>
-                                                <div className="col-md-4 text-end">
-                                                    {getKkStatusBadge(selectedItem.verif_kk)}
-                                                </div>
-                                            </div>
+                                            <strong>Data Peserta:</strong><br />
+                                            Nama: <strong>{selectedItem.name}</strong><br />
+                                            NIK: {selectedItem.nik} | NISN: {selectedItem.nisn}<br />
+                                            Status KK: {getKkStatusBadge(selectedItem.verif_kk)}
                                         </div>
                                     </div>
                                 )}
 
                                 <div className="mb-3">
-                                    <label htmlFor="alasanVerifKk" className="form-label fw-bold">
-                                        {selectedItem?.verif_kk === 'verif' ? 'Alasan Verifikasi:' :
-                                            selectedItem?.verif_kk === 'ditolak' ? 'Alasan Penolakan:' :
-                                                'Alasan Verifikasi:'}
+                                    <label htmlFor="alasanVerifKk" className="form-label">
+                                        {selectedItem?.verif_kk === 'verif' ? 'Alasan Verifikasi' :
+                                         selectedItem?.verif_kk === 'ditolak' ? 'Alasan Penolakan' :
+                                         'Alasan Verifikasi'}
                                         <span className="text-danger">*</span>
                                     </label>
                                     <textarea
@@ -1330,16 +1055,12 @@ export default function AdminDispendukYatim() {
                                         onChange={(e) => setAlasanVerifKk(e.target.value)}
                                         placeholder="Masukkan alasan verifikasi atau penolakan Kartu Keluarga..."
                                         maxLength={1000}
-                                        style={{ resize: 'vertical' }}
                                     />
-                                    <div className="form-text d-flex justify-content-between">
-                                        <span>
-                                            {alasanVerifKk.length}/1000 karakter
-                                            {alasanVerifKk.length >= 1000 && (
-                                                <span className="text-danger ms-2"> - Maksimal karakter tercapai</span>
-                                            )}
-                                        </span>
-                                        <span className="text-muted">Wajib diisi</span>
+                                    <div className="form-text">
+                                        {alasanVerifKk.length}/1000 karakter
+                                        {alasanVerifKk.length >= 1000 && (
+                                            <span className="text-danger"> - Maksimal 1000 karakter</span>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -1350,13 +1071,13 @@ export default function AdminDispendukYatim() {
                                     onClick={handleCloseAlasanKkModal}
                                     disabled={savingAlasanKk}
                                 >
-                                    <i className="fa fa-times me-2"></i> Batal
+                                    Batal
                                 </button>
                                 <button
                                     type="button"
                                     className="btn btn-warning"
                                     onClick={handleSaveAlasanVerifKk}
-                                    disabled={savingAlasanKk || alasanVerifKk.length > 1000 || !alasanVerifKk.trim()}
+                                    disabled={savingAlasanKk || alasanVerifKk.length > 1000}
                                 >
                                     {savingAlasanKk ? (
                                         <>
@@ -1364,10 +1085,7 @@ export default function AdminDispendukYatim() {
                                             Menyimpan...
                                         </>
                                     ) : (
-                                        <>
-                                            <i className="fa fa-save me-2"></i>
-                                            Simpan Alasan KK
-                                        </>
+                                        'Simpan Alasan'
                                     )}
                                 </button>
                             </div>
