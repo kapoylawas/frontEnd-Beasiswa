@@ -222,7 +222,7 @@ export default function AdminKesraB() {
                                     </td>
                                     <td className="text-center">
                                       <Link
-                                        to={`/admin/editKesraB/${kesraB.uuid}`}
+                                        to={`/admin/editKesraB/${kesraB.id}`}
                                         className="btn btn-primary btn-sm me-2"
                                       >
                                         <a>DETAIL</a>
