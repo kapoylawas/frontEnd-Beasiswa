@@ -41,8 +41,7 @@ export default function Dashboard() {
 
   const [errors, setErros] = useState([]);
   const [dashboard, setDashboard] = useState("");
-  console.log(dashboard);
-  
+
   const [users, setUsers] = useState(0);
 
   const [akademiks, setAkademiks] = useState(0);
@@ -56,6 +55,9 @@ export default function Dashboard() {
 
   const [usersbyid, setUsersByid] = useState("");
   const [step, setStep] = useState("");
+  const [modal, setModal] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  console.log(modal);
 
   //token from cookies
   const token = Cookies.get("token");
@@ -98,8 +100,19 @@ export default function Dashboard() {
       //set data
       setUsersByid(response.data.data.id);
       setStep(response.data.data.step);
+      setShowModal(response.data.data.modal);
+
+      // Jika modal true, tampilkan modal
+      if (response.data.data.modal === true) {
+        (true);
+      }
     });
   }, []);
+
+  // Fungsi untuk menutup modal
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   //get data user from cookies
   const user = JSON.parse(Cookies.get("user"));
@@ -438,6 +451,188 @@ export default function Dashboard() {
     <LayoutAdmin>
       <main>
         <div className="container-fluid px-4 mt-4 mb-4">
+          {/* Modal Pengumuman - Bootstrap */}
+          {showModal && (
+            <div
+              className="modal fade show"
+              style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
+              tabIndex="-1"
+              aria-labelledby="pengumumanModalLabel"
+              aria-hidden="true"
+            >
+              <div className="modal-dialog modal-dialog-centered modal-lg">
+                <div className="modal-content border-0 shadow-lg">
+                  {/* Modal Header */}
+                  <div
+                    className="modal-header bg-warning text-dark border-0"
+                    style={{
+                      borderTopLeftRadius: "15px",
+                      borderTopRightRadius: "15px",
+                    }}
+                  >
+                    <div className="d-flex align-items-center w-100">
+                      <div
+                        className="bg-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                        style={{ width: "40px", height: "40px" }}
+                      >
+                        <i className="fas fa-exclamation-triangle text-warning fs-5"></i>
+                      </div>
+                      <div className="flex-grow-1">
+                        <h5
+                          className="modal-title fw-bold mb-0"
+                          id="pengumumanModalLabel"
+                        >
+                          PENGUMUMAN PENTING
+                        </h5>
+                        <small className="text-dark opacity-75">
+                          Perhatian Khusus Untuk Semua Pendaftar
+                        </small>
+                      </div>
+                      <button
+                        type="button"
+                        className="btn-close btn-close-dark"
+                        onClick={closeModal}
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                  </div>
+
+                  {/* Modal Body */}
+                  <div className="modal-body p-4">
+                    {/* Alert Warning */}
+                    <div className="alert alert-warning border-warning bg-warning bg-opacity-10 d-flex align-items-start mb-4">
+                      <i className="fas fa-info-circle me-3 mt-1 fs-4 text-warning"></i>
+                      <div className="flex-grow-1">
+                        <h6 className="alert-heading fw-bold text-dark">
+                          PERIKSA DATA YATIM YANG ANDA INPUT!
+                        </h6>
+                        <p className="mb-0 text-dark">
+                          Barangkali data tidak terinput dengan benar. Mohon
+                          periksa kembali kelengkapan data yang telah Anda
+                          submit.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Checklist */}
+                    {/* <div className="mb-4">
+                      <h6 className="fw-bold text-dark mb-3">
+                        <i className="fas fa-clipboard-check me-2 text-primary"></i>
+                        Hal-hal yang perlu diperiksa:
+                      </h6>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="d-flex align-items-start mb-3">
+                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
+                            <span>Data identitas lengkap dan valid</span>
+                          </div>
+                          <div className="d-flex align-items-start mb-3">
+                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
+                            <span>Dokumen pendukung sudah terupload</span>
+                          </div>
+                          <div className="d-flex align-items-start mb-3">
+                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
+                            <span>Semua kolom wajib telah diisi</span>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="d-flex align-items-start mb-3">
+                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
+                            <span>Data tidak ada duplikasi</span>
+                          </div>
+                          <div className="d-flex align-items-start mb-3">
+                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
+                            <span>Format file sesuai persyaratan</span>
+                          </div>
+                          <div className="d-flex align-items-start mb-3">
+                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
+                            <span>Data yatim sesuai dengan kategori</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div> */}
+
+                    {/* Additional Information */}
+                    <div className="bg-light rounded p-3 mb-3">
+                      <div className="d-flex align-items-start">
+                        <i className="fas fa-exclamation-circle text-danger me-2 mt-1"></i>
+                        <div>
+                          <h6 className="fw-bold text-dark mb-2">PENTING:</h6>
+                          <p className="mb-2 text-dark">
+                            Data yatim yang tidak sesuai atau tidak lengkap
+                            dapat menyebabkan{" "}
+                            <span className="fw-bold text-danger">
+                              penolakan pendaftaran
+                            </span>
+                            . Pastikan semua informasi sudah benar sebelum
+                            melanjutkan.
+                          </p>
+                          <small className="text-muted">
+                            <i className="fas fa-clock me-1"></i>
+                            Mohon segera periksa dan perbaiki jika ada
+                            kalau tidak ada mohon input kembali.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Contact Info */}
+                    <div className="bg-primary bg-opacity-10 rounded p-3">
+                      <h6 className="fw-bold text-primary mb-2">
+                        <i className="fas fa-headset me-2"></i>
+                        Butuh Bantuan?
+                      </h6>
+                      <p className="mb-0 text-dark">
+                        Jika Anda menemui kendala atau perlu bantuan dalam
+                        memperbaiki data, silakan hubungi tim administrator
+                        
+                      </p>
+                      {/* <div className="mt-2">
+                        <span className="badge bg-info me-2">
+                          <i className="fas fa-envelope me-1"></i>{" "}
+                          admin@beasiswa.id
+                        </span>
+                        <span className="badge bg-success">
+                          <i className="fas fa-phone me-1"></i> (031) 123-4567
+                        </span>
+                      </div> */}
+                    </div>
+                  </div>
+
+                  {/* Modal Footer */}
+                  <div
+                    className="modal-footer border-0 bg-light"
+                    style={{
+                      borderBottomLeftRadius: "15px",
+                      borderBottomRightRadius: "15px",
+                    }}
+                  >
+                    <button
+                      type="button"
+                      className="btn btn-outline-secondary"
+                      onClick={closeModal}
+                    >
+                      <i className="fas fa-times me-2"></i>
+                      Tutup Saja
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-success fw-bold"
+                      onClick={() => {
+                        // Anda bisa menambahkan fungsi untuk menandai bahwa data sudah diperiksa
+                        // Misalnya: update status di database atau cookies
+                        closeModal();
+                      }}
+                    >
+                      <i className="fas fa-check-double me-2"></i>
+                      Data Sudah Benar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          
           {hasAnyPermission(["mahasiswa.index"]) && (
             <div className="registration-guide mt-3">
               <div className="card border-0 shadow-sm">
@@ -1153,7 +1348,8 @@ export default function Dashboard() {
                       </div>
                       <div className="mt-3">
                         <span className="badge bg-success bg-opacity-10 text-success">
-                          <i className="fas fa-arrow-up me-1"></i> Telah Regristasi
+                          <i className="fas fa-arrow-up me-1"></i> Telah
+                          Regristasi
                         </span>
                       </div>
                     </div>
