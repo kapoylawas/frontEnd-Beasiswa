@@ -25,8 +25,8 @@ export default function AdminDispendukYatim() {
     // State untuk modal detail KK
     const [showDetailModal, setShowDetailModal] = useState(false);
     const [detailData, setDetailData] = useState(null);
+    
     const [loadingDetail, setLoadingDetail] = useState(false);
-    const [activePdf, setActivePdf] = useState(null);
 
     // State untuk modal alasan verifikasi KK
     const [showAlasanKkModal, setShowAlasanKkModal] = useState(false);
@@ -130,7 +130,7 @@ export default function AdminDispendukYatim() {
     // FUNGSI UNTUK KK SAJA - DISESUAIKAN DENGAN POLA VerifYatimIndex
     // ==============================================
 
-    // View detail KK
+    // View detail KK dengan Surat Kematian
     const handleViewDetail = async (item) => {
         setLoadingDetail(true);
         try {
@@ -143,14 +143,6 @@ export default function AdminDispendukYatim() {
             if (response.data.success) {
                 const data = response.data.data;
                 setDetailData(data);
-                
-                if (data.imageskartukeluarga) {
-                    setActivePdf({
-                        url: data.imageskartukeluarga,
-                        title: 'Kartu Keluarga'
-                    });
-                }
-                
                 setShowDetailModal(true);
             } else {
                 toast.error(response.data.message || 'Gagal mengambil detail data');
@@ -167,7 +159,6 @@ export default function AdminDispendukYatim() {
         setShowDetailModal(false);
         setTimeout(() => {
             setDetailData(null);
-            setActivePdf(null);
         }, 300);
     };
 
@@ -268,6 +259,16 @@ export default function AdminDispendukYatim() {
         }
     };
 
+    // Download file Surat Kematian
+    const handleDownloadSk = async (item) => {
+        try {
+            window.open(`/api/admin/yatim/${item.id}/download/imagesuratkematian`, '_blank');
+        } catch (error) {
+            console.error('Error downloading SK:', error);
+            toast.error('Gagal mendownload file Surat Kematian');
+        }
+    };
+
     // Modal Alasan Verifikasi KK - SEDERHANA SEPERTI handleOpenAlasanModal
     const handleOpenAlasanKkModal = (item) => {
         setSelectedItem(item);
@@ -337,11 +338,11 @@ export default function AdminDispendukYatim() {
     const getKkStatusBadge = (status) => {
         switch (status) {
             case 'verif':
-                return <span className="badge bg-success">KK Terverifikasi</span>;
+                return <span className="badge bg-success">KK dan Surat Kematian Terverifikasi</span>;
             case 'ditolak':
-                return <span className="badge bg-danger">KK Ditolak</span>;
+                return <span className="badge bg-danger">KK dan Surat Kematian Ditolak</span>;
             default:
-                return <span className="badge bg-warning">KK Belum Diverifikasi</span>;
+                return <span className="badge bg-warning">KK dan Surat Kematian Belum Diverifikasi</span>;
         }
     };
 
@@ -519,7 +520,7 @@ export default function AdminDispendukYatim() {
                                                         <th scope="col">Jenjang</th>
                                                         <th scope="col">Asal Sekolah</th>
                                                         <th scope="col">Alasan Verifikasi KK</th>
-                                                        <th scope="col" width="200">Aksi</th>
+                                                        <th scope="col" width="250">Aksi Dokumen</th>
                                                         <th scope="col" width="100">Alasan</th>
                                                     </tr>
                                                 </thead>
@@ -555,17 +556,11 @@ export default function AdminDispendukYatim() {
                                                                             <button
                                                                                 onClick={() => handleViewDetail(item)}
                                                                                 className="btn btn-primary btn-sm"
-                                                                                title="Lihat Kartu Keluarga"
+                                                                                title="Lihat Dokumen (KK & Surat Kematian)"
                                                                             >
-                                                                                <i className="fa fa-eye me-1"></i> Lihat KK
+                                                                                <i className="fa fa-eye me-1"></i> Lihat Dokumen
                                                                             </button>
-                                                                            <button
-                                                                                onClick={() => handleDownloadKk(item)}
-                                                                                className="btn btn-info btn-sm"
-                                                                                title="Download Kartu Keluarga"
-                                                                            >
-                                                                                <i className="fa fa-download me-1"></i> Download
-                                                                            </button>
+                                                                            
                                                                         </div>
                                                                         <div className="btn-group mt-1">
                                                                             {item.verif_kk === 'verif' ? (
@@ -723,14 +718,15 @@ export default function AdminDispendukYatim() {
                 </div>
             </div>
 
-            {/* Modal Detail KK - SEDERHANA SEPERTI DI VerifYatimIndex */}
+            {/* Modal Detail KK dengan Surat Kematian - MODIFIKASI */}
             {showDetailModal && (
                 <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                     <div className="modal-dialog modal-xl" style={{ maxWidth: '95%' }}>
                         <div className="modal-content">
                             <div className="modal-header bg-warning text-white">
                                 <h5 className="modal-title">
-                                    Kartu Keluarga - {detailData?.name || 'Peserta'}
+                                    <i className="fa fa-id-card me-2"></i>
+                                    Dokumen Peserta - {detailData?.name || 'Peserta'}
                                     <span className="ms-2">
                                         {detailData && getKkStatusBadge(detailData.verif_kk)}
                                     </span>
@@ -747,7 +743,7 @@ export default function AdminDispendukYatim() {
                                         <div className="spinner-border text-warning" role="status">
                                             <span className="visually-hidden">Loading...</span>
                                         </div>
-                                        <p className="mt-2">Memuat Kartu Keluarga...</p>
+                                        <p className="mt-2">Memuat dokumen peserta...</p>
                                     </div>
                                 ) : detailData ? (
                                     <div className="row">
@@ -791,45 +787,191 @@ export default function AdminDispendukYatim() {
                                                                 <td><strong>Status KK</strong></td>
                                                                 <td>{getKkStatusBadge(detailData.verif_kk)}</td>
                                                             </tr>
+                                                            {/* Tambah info ketersediaan dokumen */}
+                                                            <tr>
+                                                                <td><strong>Dokumen Tersedia</strong></td>
+                                                                <td>
+                                                                    <div className="d-flex flex-wrap gap-2">
+                                                                        {detailData.imageskartukeluarga && (
+                                                                            <span className="badge bg-success">
+                                                                                <i className="fa fa-id-card me-1"></i> Kartu Keluarga
+                                                                            </span>
+                                                                        )}
+                                                                        {detailData.imagesuratkematian && (
+                                                                            <span className="badge bg-info">
+                                                                                <i className="fa fa-file-text me-1"></i> Surat Kematian
+                                                                            </span>
+                                                                        )}
+                                                                        {!detailData.imageskartukeluarga && !detailData.imagesuratkematian && (
+                                                                            <span className="badge bg-warning">Tidak ada dokumen</span>
+                                                                        )}
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>                            
-                                        </div>
-
-                                        {/* PDF Viewer */}
-                                        <div className="col-md-8">
-                                            <div className="card h-100">
-                                                <div className="card-header bg-light d-flex justify-content-between align-items-center">
-                                                    <h6 className="mb-0">
-                                                        Preview Kartu Keluarga
-                                                    </h6>
-                                                    {activePdf && (
-                                                        <a
-                                                            href={activePdf.url}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="btn btn-sm btn-outline-primary"
-                                                        >
-                                                            Buka di Tab Baru
-                                                        </a>
+                                            </div>
+                                            
+                                            {/* Alasan Verifikasi */}
+                                            <div className="card mb-3">
+                                                <div className="card-header bg-light">
+                                                    <h6 className="mb-0">Alasan Verifikasi KK</h6>
+                                                </div>
+                                                <div className="card-body">
+                                                    {detailData.alasan_kk ? (
+                                                        <div className="alert alert-light">
+                                                            {detailData.alasan_kk}
+                                                        </div>
+                                                    ) : (
+                                                        <p className="text-muted mb-0">Belum ada alasan verifikasi</p>
                                                     )}
                                                 </div>
+                                            </div>
+                                            
+                                            {/* Tombol Download */}
+                                            <div className="card mb-3">
+                                                <div className="card-header bg-light">
+                                                    <h6 className="mb-0">Download Dokumen</h6>
+                                                </div>
+                                                <div className="card-body">
+                                                    <div className="d-grid gap-2">
+                                                        <button
+                                                            onClick={() => handleDownloadKk(detailData)}
+                                                            className={`btn ${detailData.imageskartukeluarga ? 'btn-success' : 'btn-secondary disabled'}`}
+                                                            disabled={!detailData.imageskartukeluarga}
+                                                        >
+                                                            <i className="fa fa-download me-2"></i>
+                                                            Download Kartu Keluarga
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleDownloadSk(detailData)}
+                                                            className={`btn ${detailData.imagesuratkematian ? 'btn-info' : 'btn-secondary disabled'}`}
+                                                            disabled={!detailData.imagesuratkematian}
+                                                        >
+                                                            <i className="fa fa-download me-2"></i>
+                                                            Download Surat Kematian
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Preview Dokumen Berdampingan */}
+                                        <div className="col-md-8">
+                                            <div className="card h-100">
+                                                <div className="card-header bg-light">
+                                                    <h6 className="mb-0">Preview Dokumen</h6>
+                                                </div>
                                                 <div className="card-body p-0">
-                                                    {activePdf ? (
-                                                        <iframe
-                                                            src={activePdf.url}
-                                                            width="100%"
-                                                            height="600"
-                                                            style={{ border: 'none' }}
-                                                            title="Kartu Keluarga"
-                                                        />
-                                                    ) : (
-                                                        <div className="text-center py-5">
-                                                            <i className="fa fa-file-pdf-o fa-3x text-muted mb-3"></i>
-                                                            <p className="text-muted">Dokumen Kartu Keluarga Tidak Tersedia</p>
+                                                    <div className="row g-0" style={{ height: '600px' }}>
+                                                        {/* Kartu Keluarga - Kiri */}
+                                                        <div className="col-md-6 border-end">
+                                                            <div className="h-100 d-flex flex-column">
+                                                                <div className="p-3 border-bottom bg-success text-white">
+                                                                    <h6 className="mb-0">
+                                                                        <i className="fa fa-id-card me-2"></i>
+                                                                        Kartu Keluarga
+                                                                        <span className="ms-2">
+                                                                            {getKkStatusBadge(detailData.verif_kk)}
+                                                                        </span>
+                                                                    </h6>
+                                                                </div>
+                                                                <div className="flex-grow-1">
+                                                                    {detailData.imageskartukeluarga ? (
+                                                                        <iframe
+                                                                            src={detailData.imageskartukeluarga}
+                                                                            width="100%"
+                                                                            height="100%"
+                                                                            style={{ border: 'none' }}
+                                                                            title="Kartu Keluarga"
+                                                                        />
+                                                                    ) : (
+                                                                        <div className="h-100 d-flex flex-column justify-content-center align-items-center p-4">
+                                                                            <i className="fa fa-file-pdf-o fa-3x text-muted mb-3"></i>
+                                                                            <p className="text-muted text-center">
+                                                                                Dokumen Kartu Keluarga Tidak Tersedia
+                                                                            </p>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                                {detailData.imageskartukeluarga && (
+                                                                    <div className="p-2 border-top">
+                                                                        <a
+                                                                            href={detailData.imageskartukeluarga}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="btn btn-sm btn-outline-success w-100"
+                                                                        >
+                                                                            <i className="fa fa-external-link me-1"></i> Buka di Tab Baru
+                                                                        </a>
+                                                                    </div>
+                                                                )}
+                                                            </div>
                                                         </div>
-                                                    )}
+
+                                                        {/* Surat Kematian - Kanan */}
+                                                        <div className="col-md-6">
+                                                            <div className="h-100 d-flex flex-column">
+                                                                <div className="p-3 border-bottom bg-info text-white">
+                                                                    <h6 className="mb-0">
+                                                                        <i className="fa fa-file-text me-2"></i>
+                                                                        Surat Kematian
+                                                                    </h6>
+                                                                </div>
+                                                                <div className="flex-grow-1">
+                                                                    {detailData.imagessuratkematian ? (
+                                                                        <iframe
+                                                                            src={detailData.imagessuratkematian}
+                                                                            width="100%"
+                                                                            height="100%"
+                                                                            style={{ border: 'none' }}
+                                                                            title="Surat Kematian"
+                                                                        />
+                                                                    ) : (
+                                                                        <div className="h-100 d-flex flex-column justify-content-center align-items-center p-4">
+                                                                            <i className="fa fa-file-pdf-o fa-3x text-muted mb-3"></i>
+                                                                            <p className="text-muted text-center">
+                                                                                Dokumen Surat Kematian Tidak Tersedia
+                                                                            </p>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                                {detailData.imagessuratkematian && (
+                                                                    <div className="p-2 border-top">
+                                                                        <a
+                                                                            href={detailData.imagessuratkematian}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="btn btn-sm btn-outline-info w-100"
+                                                                        >
+                                                                            <i className="fa fa-external-link me-1"></i> Buka di Tab Baru
+                                                                        </a>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="card-footer">
+                                                    <div className="row">
+                                                        <div className="col-md-12">
+                                                            <div className="d-flex justify-content-between">
+                                                                <div>
+                                                                    <small className="text-muted">
+                                                                        <strong>Status KK:</strong> {detailData.verif_kk === 'verif' ? 'Terverifikasi' : 
+                                                                         detailData.verif_kk === 'ditolak' ? 'Ditolak' : 'Belum Diverifikasi'}
+                                                                    </small>
+                                                                </div>
+                                                                <div>
+                                                                    <small className="text-muted">
+                                                                        <strong>Total Dokumen:</strong> 
+                                                                        {(detailData.imageskartukeluarga ? 1 : 0) + (detailData.imagesuratkematian ? 1 : 0)}/2
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -849,16 +991,23 @@ export default function AdminDispendukYatim() {
                                     className="btn btn-secondary"
                                     onClick={handleCloseDetailModal}
                                 >
-                                    Tutup
+                                    <i className="fa fa-times me-1"></i> Tutup
                                 </button>
-                                
+                                {detailData && (
+                                    <button
+                                        onClick={() => handleOpenAlasanKkModal(detailData)}
+                                        className="btn btn-warning"
+                                    >
+                                        <i className="fa fa-edit me-1"></i> Edit Alasan Verifikasi
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* Modal Alasan Verifikasi KK - SEDERHANA SEPERTI DI VerifYatimIndex */}
+            {/* Modal Alasan Verifikasi KK */}
             {showAlasanKkModal && (
                 <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                     <div className="modal-dialog modal-lg">
