@@ -516,6 +516,7 @@ export default function AdminDispendukYatim() {
                                                         <th scope="col">Status KK</th>
                                                         <th scope="col">Nama</th>
                                                         <th scope="col">NIK</th>
+                                                        <th scope="col">NO KK</th>
                                                         <th scope="col">NISN</th>
                                                         <th scope="col">Jenjang</th>
                                                         <th scope="col">Asal Sekolah</th>
@@ -532,6 +533,7 @@ export default function AdminDispendukYatim() {
                                                                 <td>{getKkStatusBadge(item.verif_kk)}</td>
                                                                 <td>{item.name}</td>
                                                                 <td>{item.nik}</td>
+                                                                <td>{item.nokk}</td>
                                                                 <td>{item.nisn}</td>
                                                                 <td>
                                                                     <span className="badge bg-info">{item.jenjang}</span>
