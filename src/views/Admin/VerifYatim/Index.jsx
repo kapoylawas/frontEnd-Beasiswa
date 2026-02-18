@@ -580,6 +580,7 @@ export default function VerifYatimIndex() {
                                                     <tr>
                                                         <th scope="col">No</th>
                                                         <th scope="col">Status</th>
+                                                        <th scope="col">Status verif KK</th>
                                                         <th scope="col">Nama</th>
                                                         <th scope="col">NIK</th>
                                                         <th scope="col">NISN</th>
@@ -596,6 +597,7 @@ export default function VerifYatimIndex() {
                                                             <tr key={item.id} className={getStatusClass(item.status_data)}>
                                                                 <td>{from + index}</td>
                                                                 <td>{getStatusBadge(item.status_data)}</td>
+                                                                <td>{getStatusBadge(item.verif_kk)}</td>
                                                                 <td>{item.name}</td>
                                                                 <td>{item.nik}</td>
                                                                 <td>{item.nisn}</td>
