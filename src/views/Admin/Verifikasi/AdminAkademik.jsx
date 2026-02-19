@@ -236,7 +236,7 @@ export default function AdminAkademik() {
                                     </td>
                                     <td className="text-center">
                                       <Link
-                                        to={`/admin/editAkademik/${akademik.uuid}`}
+                                        to={`/admin/editAkademik/${akademik.id}`}
                                         className="btn btn-primary btn-sm me-2"
                                       >
                                         <a>DETAIL</a>
