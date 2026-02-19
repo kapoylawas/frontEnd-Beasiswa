@@ -100,7 +100,7 @@ export default function KeagamanD() {
     const currentYear = new Date().getFullYear();
     const inputYear = parseInt(tahunpiagam, 10);
 
-    if (isNaN(inputYear) || inputYear < currentYear - 4) {
+    if (isNaN(inputYear) || inputYear < currentYear - 10) {
       // Display toast message
       toast.error(
         "Masa Sertifikat Anda Telah Expired Dalam kurun waktu 4 Tahun Terakhir ",
