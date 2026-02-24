@@ -203,7 +203,7 @@ export default function EditBeasiswaKesra() {
                             <div className="col-md-12">
                               <div className="mb-3">
                                 <label className="form-label fw-bold">
-                                  Sertifikat yang pernah diperoleh dalam kurun
+                                  Tahun Sertifikat yang pernah diperoleh dalam kurun
                                   waktu 4 tahun terakhir (YANG TERBARU)
                                 </label>
                                 <input
