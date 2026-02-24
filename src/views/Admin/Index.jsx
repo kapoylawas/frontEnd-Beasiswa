@@ -1147,7 +1147,7 @@ export default function Dashboard() {
                             <div className="col-md-12">
                               <div className="mb-3">
                                 <label className="form-label">
-                                  Pilih Universitas Dalam Negeri / Luar Negeri
+                                  Pilih Universitas Dalam Negeri
                                 </label>
                                 <select
                                   className="form-input"
