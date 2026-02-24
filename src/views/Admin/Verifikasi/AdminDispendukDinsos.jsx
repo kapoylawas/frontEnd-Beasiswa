@@ -170,6 +170,7 @@ export default function AdminDispendukDinsos() {
                                         <p>
                                           <button className="btn btn-md btn-danger me-2">
                                             NIK Tidak Lolos verifikasi
+                                            {user.verifikator_nik ? ` oleh ${user.verifikator_nik}` : ''}
                                           </button>
                                         </p>
                                       )}
@@ -183,6 +184,7 @@ export default function AdminDispendukDinsos() {
                                       {user.jenis_verif_nik === "lolos" && (
                                         <button className="btn btn-md btn-success me-2">
                                           NIK Lolos verifikasi
+                                          {user.verifikator_nik ? ` oleh ${user.verifikator_nik}` : ''}
                                         </button>
                                       )}
                                     </td>
