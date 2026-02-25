@@ -587,6 +587,7 @@ export default function VerifYatimIndex() {
                                                         <th scope="col">Jenjang</th>
                                                         <th scope="col">Asal Sekolah</th>
                                                         <th scope="col">Alasan Verifikasi</th>
+                                                        <th scope="col">Alasan Verif KK</th>
                                                         <th scope="col" width="150">Aksi</th>
                                                         <th scope="col" width="100">Alasan</th>
                                                     </tr>
@@ -618,6 +619,7 @@ export default function VerifYatimIndex() {
                                                                         <span className="text-muted">-</span>
                                                                     )}
                                                                 </td>
+                                                                <td>{item.alasan_kk}</td>
                                                                 <td>
                                                                     <div className="btn-group-vertical btn-group-sm" role="group">
                                                                         <div className="btn-group">
