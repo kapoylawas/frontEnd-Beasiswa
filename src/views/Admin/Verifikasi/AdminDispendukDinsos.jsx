@@ -51,15 +51,11 @@ export default function AdminDispendukDinsos() {
         url += `&status=${encodeURIComponent(status)}`;
       }
 
-      console.log("Fetching URL:", url); // Untuk debugging
-
       const response = await Api.get(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      console.log("Response data:", response.data); // Untuk debugging
 
       if (response.data.success) {
         const responseData = response.data.data;
@@ -126,7 +122,6 @@ export default function AdminDispendukDinsos() {
 
   //function untuk handle page change - untuk react-js-pagination
   const handlePageChange = (pageNumber) => {
-    console.log("Page changed to:", pageNumber); // Untuk debugging
     // Panggil fetchData dengan page number yang baru
     fetchData(pageNumber, keywords, filterStatus);
   };

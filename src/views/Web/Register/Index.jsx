@@ -645,8 +645,7 @@ export default function Register() {
     // Server responded with error
     const { status, data } = error.response;
 
-    console.log("Status code:", status);
-    console.log("Response data:", data);
+
     console.groupEnd();
 
     switch (status) {
@@ -859,7 +858,6 @@ export default function Register() {
                           url: window.location.href,
                           logs: logs ? JSON.parse(logs)[0] : null,
                         };
-                        console.log("Error Report:", errorData);
                         toast.success("Laporan error telah disimpan", {
                           duration: 3000,
                           position: "top-center",

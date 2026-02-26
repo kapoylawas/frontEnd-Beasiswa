@@ -22,6 +22,14 @@ export default function AdminDispendukYatim() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedJenjang, setSelectedJenjang] = useState("");
 
+    // State untuk counts dari backend
+    const [counts, setCounts] = useState({
+        total: 0,
+        verif: 0,
+        ditolak: 0,
+        belum: 0
+    });
+
     // State untuk modal detail KK
     const [showDetailModal, setShowDetailModal] = useState(false);
     const [detailData, setDetailData] = useState(null);
@@ -78,6 +86,16 @@ export default function AdminDispendukYatim() {
                 setPerPage(pagination.per_page || 10);
                 setFrom(pagination.from || 0);
                 setTo(pagination.to || 0);
+
+                // Set counts dari response jika tersedia
+                if (pagination.counts) {
+                    setCounts({
+                        total: pagination.counts.total || 0,
+                        verif: pagination.counts.verif || 0,
+                        ditolak: pagination.counts.ditolak || 0,
+                        belum: pagination.counts.belum || 0
+                    });
+                }
             } else {
                 toast.error(response.data.message || "Gagal mengambil data yatim");
                 setYatim([]);
@@ -465,7 +483,6 @@ export default function AdminDispendukYatim() {
                                             <option value="SD">SD</option>
                                             <option value="SMP">SMP</option>
                                             <option value="SMA">SMA</option>
-                                            <option value="SMK">SMK</option>
                                         </select>
                                         <small className="text-muted mt-1">
                                             Filter berdasarkan jenjang
@@ -480,20 +497,113 @@ export default function AdminDispendukYatim() {
                                     </div>
                                 )}
 
+                                {/* Status Cards dengan Jumlah TOTAL */}
+                                <div className="row mt-3">
+                                    <div className="col-md-12">
+                                        <div className="row">
+                                            {/* Card Total Semua Data */}
+                                            <div className="col-md-3 col-6 mb-3">
+                                                <div className="card border-0 bg-primary text-white shadow-sm">
+                                                    <div className="card-body">
+                                                        <div className="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <h6 className="mb-0">Total Peserta</h6>
+                                                                <h3 className="mt-2 mb-0">{counts.total}</h3>
+                                                                <small>Semua data</small>
+                                                            </div>
+                                                            <i className="fa fa-users fa-2x opacity-50"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Card Terverifikasi */}
+                                            <div className="col-md-3 col-6 mb-3">
+                                                <div className="card border-0 bg-success text-white shadow-sm">
+                                                    <div className="card-body">
+                                                        <div className="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <h6 className="mb-0">Terverifikasi</h6>
+                                                                <h3 className="mt-2 mb-0">{counts.verif}</h3>
+                                                                <small>
+                                                                    {counts.total > 0
+                                                                        ? `${((counts.verif / counts.total) * 100).toFixed(1)}%`
+                                                                        : '0%'}
+                                                                </small>
+                                                            </div>
+                                                            <i className="fa fa-check-circle fa-2x opacity-50"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Card Ditolak */}
+                                            <div className="col-md-3 col-6 mb-3">
+                                                <div className="card border-0 bg-danger text-white shadow-sm">
+                                                    <div className="card-body">
+                                                        <div className="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <h6 className="mb-0">Ditolak</h6>
+                                                                <h3 className="mt-2 mb-0">{counts.ditolak}</h3>
+                                                                <small>
+                                                                    {counts.total > 0
+                                                                        ? `${((counts.ditolak / counts.total) * 100).toFixed(1)}%`
+                                                                        : '0%'}
+                                                                </small>
+                                                            </div>
+                                                            <i className="fa fa-times-circle fa-2x opacity-50"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Card Belum Verifikasi */}
+                                            <div className="col-md-3 col-6 mb-3">
+                                                <div className="card border-0 bg-warning text-white shadow-sm">
+                                                    <div className="card-body">
+                                                        <div className="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <h6 className="mb-0">Belum Verifikasi</h6>
+                                                                <h3 className="mt-2 mb-0">{counts.belum}</h3>
+                                                                <small>
+                                                                    {counts.total > 0
+                                                                        ? `${((counts.belum / counts.total) * 100).toFixed(1)}%`
+                                                                        : '0%'}
+                                                                </small>
+                                                            </div>
+                                                            <i className="fa fa-clock-o fa-2x opacity-50"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Status Indicators dengan jumlah TOTAL dan Per Halaman */}
                                 <div className="row mb-3">
                                     <div className="col-md-12">
-                                        <div className="d-flex flex-wrap gap-3">
+                                        <div className="d-flex flex-wrap gap-4">
                                             <div className="d-flex align-items-center">
                                                 <div className="status-indicator bg-success me-2" style={{ width: '15px', height: '15px', borderRadius: '3px' }}></div>
-                                                <small>KK Terverifikasi</small>
+                                                <small>
+                                                    KK Terverifikasi: <strong>{counts.verif}</strong> total
+                                                    <span className="text-muted ms-2">({yatim.filter(y => y.verif_kk === 'verif').length} di halaman ini)</span>
+                                                </small>
                                             </div>
                                             <div className="d-flex align-items-center">
                                                 <div className="status-indicator bg-danger me-2" style={{ width: '15px', height: '15px', borderRadius: '3px' }}></div>
-                                                <small>KK Ditolak</small>
+                                                <small>
+                                                    KK Ditolak: <strong>{counts.ditolak}</strong> total
+                                                    <span className="text-muted ms-2">({yatim.filter(y => y.verif_kk === 'ditolak').length} di halaman ini)</span>
+                                                </small>
                                             </div>
                                             <div className="d-flex align-items-center">
                                                 <div className="status-indicator bg-warning me-2" style={{ width: '15px', height: '15px', borderRadius: '3px' }}></div>
-                                                <small>KK Belum Diverifikasi</small>
+                                                <small>
+                                                    KK Belum Diverifikasi: <strong>{counts.belum}</strong> total
+                                                    <span className="text-muted ms-2">({yatim.filter(y => !y.verif_kk).length} di halaman ini)</span>
+                                                </small>
                                             </div>
                                         </div>
                                     </div>

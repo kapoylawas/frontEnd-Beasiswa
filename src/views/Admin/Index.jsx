@@ -57,7 +57,6 @@ export default function Dashboard() {
   const [step, setStep] = useState("");
   const [modal, setModal] = useState("");
   const [showModal, setShowModal] = useState(false);
-  console.log(modal);
 
   //token from cookies
   const token = Cookies.get("token");
@@ -72,7 +71,6 @@ export default function Dashboard() {
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
-      console.log(response);
 
       //set data
       setDashboard(response.data.data);

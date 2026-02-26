@@ -160,7 +160,6 @@ export default function RiwayatIndex() {
           "content-type": "multipart/form-data",
         },
       });
-      console.log(response);
 
       navigate("/admin/riwayat");
       // Handle success scenario, e.g., set a success message in state if needed

@@ -56,9 +56,7 @@ export default function EditNonAkademik() {
     imageSuratpernyataan: "",
     imageAkrekampus: "",
     imageSuratBeasiswa: "",
-  });
-  console.log(dataUsers);
-  
+  });  
 
   const [idUser, setIdUser] = useState("");
   const [alasan, setAlasan] = useState("");

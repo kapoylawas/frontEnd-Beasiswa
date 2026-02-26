@@ -301,10 +301,6 @@ export default function YatimIndex() {
     }
   };
 
-  const handlePageChange = (page) => {
-    // Karena endpoint baru tidak support pagination, kita tidak bisa pindah halaman
-    console.log("Pagination tidak didukung oleh endpoint ini");
-  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
