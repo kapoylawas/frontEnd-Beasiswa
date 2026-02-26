@@ -264,7 +264,7 @@ export default function AdminDinsos() {
                                     </td>
                                     <td className="text-center">
                                       <Link
-                                        to={`/admin/editDinsosDtks/${dinsosDtks.uuid}`}
+                                        to={`/admin/editDinsosDtks/${dinsosDtks.id}`}
                                         className="btn btn-primary btn-sm me-2"
                                       >
                                         <a>DETAIL</a>
@@ -428,7 +428,7 @@ export default function AdminDinsos() {
                                     </td>
                                     <td className="text-center">
                                       <Link
-                                        to={`/admin/editDinsosNoDtks/${dinsosNoDtks.uuid}`}
+                                        to={`/admin/editDinsosNoDtks/${dinsosNoDtks.id}`}
                                         className="btn btn-primary btn-sm me-2"
                                       >
                                         <a>DETAIL</a>
