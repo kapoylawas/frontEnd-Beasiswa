@@ -21,6 +21,7 @@ export default function AdminDispendukYatim() {
     const [userData, setUserData] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedJenjang, setSelectedJenjang] = useState("");
+    const [filterStatusKk, setFilterStatusKk] = useState("");
 
     // State untuk counts dari backend
     const [counts, setCounts] = useState({
@@ -58,7 +59,7 @@ export default function AdminDispendukYatim() {
         }
     }, []);
 
-    const fetchYatim = useCallback(async (page = 1, search = "", jenjang = "") => {
+    const fetchYatim = useCallback(async (page = 1, search = "", jenjang = "", statusKk = "") => {
         setLoading(true);
         try {
             let url = `/api/admin/yatim?page=${page}`;
@@ -67,6 +68,9 @@ export default function AdminDispendukYatim() {
             }
             if (jenjang) {
                 url += `&jenjang=${encodeURIComponent(jenjang)}`;
+            }
+            if (statusKk) {
+                url += `&status_kk=${encodeURIComponent(statusKk)}`;
             }
 
             const response = await Api.get(url, {
@@ -125,7 +129,7 @@ export default function AdminDispendukYatim() {
         setSearchQuery(query);
         setCurrentPage(1);
         const timeoutId = setTimeout(() => {
-            fetchYatim(1, query, selectedJenjang);
+            fetchYatim(1, query, selectedJenjang, filterStatusKk);
         }, 500);
         return () => clearTimeout(timeoutId);
     };
@@ -134,12 +138,20 @@ export default function AdminDispendukYatim() {
         const jenjang = e.target.value;
         setSelectedJenjang(jenjang);
         setCurrentPage(1);
-        fetchYatim(1, searchQuery, jenjang);
+        fetchYatim(1, searchQuery, jenjang, filterStatusKk);
+    };
+
+    const handleStatusKkChange = (e) => {
+        const status = e.target.value;
+        setFilterStatusKk(status);
+        setCurrentPage(1);
+        fetchYatim(1, searchQuery, selectedJenjang, status);
     };
 
     const clearFilters = () => {
         setSearchQuery("");
         setSelectedJenjang("");
+        setFilterStatusKk("");
         setCurrentPage(1);
         fetchYatim(1);
     };
@@ -356,11 +368,23 @@ export default function AdminDispendukYatim() {
     const getKkStatusBadge = (status) => {
         switch (status) {
             case 'verif':
-                return <span className="badge bg-success">KK dan Surat Kematian Terverifikasi</span>;
+                return <span className="badge bg-success">Terverifikasi</span>;
             case 'ditolak':
-                return <span className="badge bg-danger">KK dan Surat Kematian Ditolak</span>;
+                return <span className="badge bg-danger">Ditolak</span>;
             default:
-                return <span className="badge bg-warning">KK dan Surat Kematian Belum Diverifikasi</span>;
+                return <span className="badge bg-warning text-dark">Belum Diverifikasi</span>;
+        }
+    };
+
+    // Helper function untuk Status Data
+    const getStatusDataClass = (status) => {
+        switch (status) {
+            case 'verif':
+                return 'table-success';
+            case 'ditolak':
+                return 'table-danger';
+            default:
+                return '';
         }
     };
 
@@ -371,7 +395,7 @@ export default function AdminDispendukYatim() {
             case 'ditolak':
                 return <span className="badge bg-danger">Ditolak</span>;
             default:
-                return <span className="badge bg-secondary">Belum</span>;
+                return <span className="badge bg-warning text-dark">Belum</span>;
         }
     };
 
@@ -379,7 +403,7 @@ export default function AdminDispendukYatim() {
     const handlePageChange = (page) => {
         if (page < 1 || page > lastPage) return;
         setCurrentPage(page);
-        fetchYatim(page, searchQuery, selectedJenjang);
+        fetchYatim(page, searchQuery, selectedJenjang, filterStatusKk);
     };
 
     const generatePaginationNumbers = () => {
@@ -458,7 +482,7 @@ export default function AdminDispendukYatim() {
                                             <span className="input-group-text border-0 shadow-sm">
                                                 <i className="fa fa-search"></i>
                                             </span>
-                                            {(searchQuery || selectedJenjang) && (
+                                            {(searchQuery || selectedJenjang || filterStatusKk) && (
                                                 <button
                                                     className="btn btn-outline-secondary border-0 shadow-sm"
                                                     type="button"
@@ -486,6 +510,21 @@ export default function AdminDispendukYatim() {
                                         </select>
                                         <small className="text-muted mt-1">
                                             Filter berdasarkan jenjang
+                                        </small>
+                                    </div>
+                                    <div className="col-md-3 col-12 mb-2">
+                                        <select
+                                            className="form-select border-1 shadow-sm"
+                                            value={filterStatusKk}
+                                            onChange={handleStatusKkChange}
+                                        >
+                                            <option value="">Semua Status KK</option>
+                                            <option value="verif">Terverifikasi</option>
+                                            <option value="ditolak">Ditolak</option>
+                                            <option value="null">Belum Diverifikasi</option>
+                                        </select>
+                                        <small className="text-muted mt-1">
+                                            Filter berdasarkan status KK
                                         </small>
                                     </div>
                                 </div>
@@ -623,6 +662,7 @@ export default function AdminDispendukYatim() {
                                                 <thead className="bg-warning text-white">
                                                     <tr>
                                                         <th scope="col">No</th>
+                                                        <th scope="col">Status Data</th>
                                                         <th scope="col">Status KK</th>
                                                         <th scope="col">Nama</th>
                                                         <th scope="col">NIK</th>
@@ -639,6 +679,7 @@ export default function AdminDispendukYatim() {
                                                         yatim.map((item, index) => (
                                                             <tr key={item.id} className={getKkStatusClass(item.verif_kk)}>
                                                                 <td>{from + index}</td>
+                                                                <td>{getStatusDataBadge(item.status_data)}</td>
                                                                 <td>{getKkStatusBadge(item.verif_kk)}</td>
                                                                 <td>{item.name}</td>
                                                                 <td>{item.nik}</td>

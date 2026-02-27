@@ -21,6 +21,7 @@ export default function VerifYatimIndex() {
     const [userData, setUserData] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedJenjang, setSelectedJenjang] = useState("");
+    const [filterStatus, setFilterStatus] = useState("");
 
     // State untuk modal detail
     const [showDetailModal, setShowDetailModal] = useState(false);
@@ -50,7 +51,7 @@ export default function VerifYatimIndex() {
         }
     }, []);
 
-    const fetchYatim = useCallback(async (page = 1, search = "", jenjang = "") => {
+    const fetchYatim = useCallback(async (page = 1, search = "", jenjang = "", status = "") => {
         setLoading(true);
         try {
             let url = `/api/admin/yatim?page=${page}`;
@@ -59,6 +60,9 @@ export default function VerifYatimIndex() {
             }
             if (jenjang) {
                 url += `&jenjang=${encodeURIComponent(jenjang)}`;
+            }
+            if (status) {
+                url += `&status=${encodeURIComponent(status)}`;
             }
 
             const response = await Api.get(url, {
@@ -107,7 +111,7 @@ export default function VerifYatimIndex() {
         setSearchQuery(query);
         setCurrentPage(1);
         const timeoutId = setTimeout(() => {
-            fetchYatim(1, query, selectedJenjang);
+            fetchYatim(1, query, selectedJenjang, filterStatus);
         }, 500);
         return () => clearTimeout(timeoutId);
     };
@@ -116,12 +120,20 @@ export default function VerifYatimIndex() {
         const jenjang = e.target.value;
         setSelectedJenjang(jenjang);
         setCurrentPage(1);
-        fetchYatim(1, searchQuery, jenjang);
+        fetchYatim(1, searchQuery, jenjang, filterStatus);
+    };
+
+    const handleStatusChange = (e) => {
+        const status = e.target.value;
+        setFilterStatus(status);
+        setCurrentPage(1);
+        fetchYatim(1, searchQuery, selectedJenjang, status);
     };
 
     const clearSearch = () => {
         setSearchQuery("");
         setSelectedJenjang("");
+        setFilterStatus("");
         setCurrentPage(1);
         fetchYatim(1);
     };
@@ -129,6 +141,7 @@ export default function VerifYatimIndex() {
     const clearFilters = () => {
         setSearchQuery("");
         setSelectedJenjang("");
+        setFilterStatus("");
         setCurrentPage(1);
         fetchYatim(1);
     };
@@ -396,7 +409,7 @@ export default function VerifYatimIndex() {
     const handlePageChange = (page) => {
         if (page < 1 || page > lastPage) return;
         setCurrentPage(page);
-        fetchYatim(page, searchQuery, selectedJenjang);
+        fetchYatim(page, searchQuery, selectedJenjang, filterStatus);
     };
 
     const formatDate = (dateString) => {
@@ -507,7 +520,7 @@ export default function VerifYatimIndex() {
                                             <span className="input-group-text border-0 shadow-sm">
                                                 <i className="fa fa-search"></i>
                                             </span>
-                                            {(searchQuery || selectedJenjang) && (
+                                            {(searchQuery || selectedJenjang || filterStatus) && (
                                                 <button
                                                     className="btn btn-outline-secondary border-0 shadow-sm"
                                                     type="button"
@@ -535,6 +548,21 @@ export default function VerifYatimIndex() {
                                         </select>
                                         <small className="text-muted mt-1">
                                             Filter berdasarkan jenjang
+                                        </small>
+                                    </div>
+                                    <div className="col-md-3 col-12 mb-2">
+                                        <select
+                                            className="form-select border-1 shadow-sm"
+                                            value={filterStatus}
+                                            onChange={handleStatusChange}
+                                        >
+                                            <option value="">Semua Status</option>
+                                            <option value="verif">Terverifikasi</option>
+                                            <option value="ditolak">Ditolak</option>
+                                            <option value="null">Belum Diverifikasi</option>
+                                        </select>
+                                        <small className="text-muted mt-1">
+                                            Filter berdasarkan status verifikasi
                                         </small>
                                     </div>
                                 </div>
@@ -707,12 +735,12 @@ export default function VerifYatimIndex() {
                                                                 <div className="text-muted">
                                                                     <i className="fa fa-inbox fa-3x mb-3"></i>
                                                                     <p>
-                                                                        {searchQuery || selectedJenjang
+                                                                        {searchQuery || selectedJenjang || filterStatus
                                                                             ? `Tidak ditemukan data dengan filter yang dipilih`
                                                                             : "Tidak ada data yatim untuk diverifikasi"
                                                                         }
                                                                     </p>
-                                                                    {(searchQuery || selectedJenjang) && (
+                                                                    {(searchQuery || selectedJenjang || filterStatus) && (
                                                                         <button
                                                                             className="btn btn-primary btn-sm mt-2"
                                                                             onClick={clearFilters}
@@ -735,6 +763,7 @@ export default function VerifYatimIndex() {
                                                         Menampilkan {from} sampai {to} dari {total} data
                                                         {searchQuery && ` untuk pencarian "${searchQuery}"`}
                                                         {selectedJenjang && ` dengan jenjang ${selectedJenjang}`}
+                                                        {filterStatus && ` dengan status ${filterStatus === 'verif' ? 'Terverifikasi' : filterStatus === 'ditolak' ? 'Ditolak' : 'Belum Diverifikasi'}`}
                                                     </small>
                                                 </div>
                                                 <nav>
