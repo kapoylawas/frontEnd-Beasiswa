@@ -1021,7 +1021,7 @@ export default function YatimIndex() {
                                     >
                                       Detail
                                     </button>
-                                    {/* <button
+                                    <button
                                       onClick={() => handleDelete(item)}
                                       className="btn btn-sm btn-danger"
                                       disabled={deletingId === item.id}
@@ -1034,7 +1034,7 @@ export default function YatimIndex() {
                                       ) : (
                                         "Hapus"
                                       )}
-                                    </button> */}
+                                    </button>
                                   </div>
                                 </td>
                               </tr>
