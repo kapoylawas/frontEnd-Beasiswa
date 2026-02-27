@@ -943,6 +943,9 @@ export default function YatimIndex() {
                             <th scope="col">Jenjang</th>
                             <th scope="col">Asal Sekolah</th>
                             <th scope="col">Alasan Verifikasi</th>
+                            <th scope="col">Alasan Verif KK</th>
+                            <th scope="col">Status Verifikasi</th>
+                            <th scope="col"> Verifikasi KK</th>
                             <th scope="col" width="150">
                               Aksi
                             </th>
@@ -980,6 +983,37 @@ export default function YatimIndex() {
                                   )}
                                 </td>
                                 <td>
+                                  {item.alasan_kk ? (
+                                    <div
+                                      className="text-truncate"
+                                      style={{ maxWidth: "200px" }}
+                                      title={item.alasan_kk}
+                                    >
+                                      {item.alasan_kk}
+                                    </div>
+                                  ) : (
+                                    <span className="text-muted">-</span>
+                                  )}
+                                </td>
+                                <td>
+                                  {item.status_data === 'ditolak' ? (
+                                    <span className="badge bg-danger">Ditolak</span>
+                                  ) : item.status_data === 'verif' ? (
+                                    <span className="badge bg-success">Terverifikasi</span>
+                                  ) : (
+                                    <span className="badge bg-warning text-dark">{item.status_data || 'Belum'}</span>
+                                  )}
+                                </td>
+                                <td>
+                                  {item.verif_kk === 'ditolak' ? (
+                                    <span className="badge bg-danger">Ditolak</span>
+                                  ) : item.verif_kk === 'verif' ? (
+                                    <span className="badge bg-success">Terverifikasi</span>
+                                  ) : (
+                                    <span className="badge bg-warning text-dark">{item.verif_kk || 'Belum'}</span>
+                                  )}
+                                </td>
+                                <td>
                                   <div className="btn-group" role="group">
                                     <button
                                       onClick={() => handleViewDetail(item.id)}
@@ -987,7 +1021,7 @@ export default function YatimIndex() {
                                     >
                                       Detail
                                     </button>
-                                    <button
+                                    {/* <button
                                       onClick={() => handleDelete(item)}
                                       className="btn btn-sm btn-danger"
                                       disabled={deletingId === item.id}
@@ -1000,7 +1034,7 @@ export default function YatimIndex() {
                                       ) : (
                                         "Hapus"
                                       )}
-                                    </button>
+                                    </button> */}
                                   </div>
                                 </td>
                               </tr>
