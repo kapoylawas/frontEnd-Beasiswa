@@ -19,7 +19,7 @@ export default function YatimIndex() {
   const [deletingId, setDeletingId] = useState(null);
   const [userData, setUserData] = useState(null);
   const [userId, setUserId] = useState(null);
-  const [pendaftaranDitutup, setPendaftaranDitutup] = useState(false); // Default true untuk ditutup
+  const [pendaftaranDitutup, setPendaftaranDitutup] = useState(true); // Default true untuk ditutup
   const navigate = useNavigate();
 
   // Form state

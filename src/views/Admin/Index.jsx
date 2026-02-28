@@ -16,7 +16,7 @@ export default function Dashboard() {
   //navigata
   const navigate = useNavigate();
 
-  const maintenance = false;
+  const maintenance = true;
 
   const [nim, setNim] = useState("");
   const [ktm, setKtm] = useState("");
