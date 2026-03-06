@@ -259,64 +259,64 @@ export default function RoutesIndex() {
       />
 
       {/* private route "/admin/biodata" */}
-      <Route
+      {/* <Route
         path="/admin/biodata"
         element={
           <PrivateRoutes>
             <UserIndex />
           </PrivateRoutes>
         }
-      />
+      /> */}
 
       {/* edit akademik */}
-      <Route
+      {/* <Route
         path="/admin/editBeasiswaAkademik"
         element={
           <PrivateRoutes>
             <EditBeasiswa />
           </PrivateRoutes>
         }
-      />
+      /> */}
 
       {/* edit non akademik */}
-      <Route
+      {/* <Route
         path="/admin/editBeasiswaNonkademik"
         element={
           <PrivateRoutes>
             <EditBeasiswaNonakademik />
           </PrivateRoutes>
         }
-      />
+      /> */}
 
       {/* edit luar negeri */}
-      <Route
+      {/* <Route
         path="/admin/EditBeasiswaLuarNegeri"
         element={
           <PrivateRoutes>
             <EditBeasiswaLuarNegeri />
           </PrivateRoutes>
         }
-      />
+      /> */}
 
       {/* edit dinsos */}
-      <Route
+      {/* <Route
         path="/admin/EditBeasiswaDinsos"
         element={
           <PrivateRoutes>
             <EditBeasiswaDinsos />
           </PrivateRoutes>
         }
-      />
+      /> */}
 
       {/* edit kesra */}
-      <Route
+      {/* <Route
         path="/admin/EditBeasiswaKesra"
         element={
           <PrivateRoutes>
             <EditBeasiswaKesra />
           </PrivateRoutes>
         }
-      />
+      /> */}
 
       {/* route "/" */}
       <Route path="/" element={<Home />} />
