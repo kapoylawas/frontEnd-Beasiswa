@@ -100,42 +100,7 @@ export default function RiwayatIndex() {
     });
   }, []);
 
-  useEffect(() => {
-    if (statusFinish === 1) {
-      setLoading(true);
 
-      const formData = new FormData();
-      formData.append("status_finish", 1);
-      formData.append("jenis_verif_nik", cekNik);
-      formData.append("_method", "PUT");
-
-      Api.post(`/api/admin/users/verif/${idUser}`, formData, {
-        //header
-        headers: {
-          //header
-          "content-type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => {
-          if (response) {
-            setLoading(false);
-            toast.success(response.data.message, {
-              position: "top-right",
-              duration: 4000,
-            });
-          } else {
-            toast.error(response.data.message, {
-              position: "top-right",
-              duration: 4000,
-            });
-          }
-        })
-        .catch((error) => {
-          console.error("Terjadi kesalahan:", error);
-        });
-    }
-  }, [statusFinish]);
 
   const handleClick = () => {
     // Mengubah status dan merubahnya menjadi 1 saat tombol diklik
