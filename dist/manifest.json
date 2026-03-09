@@ -1,0 +1,21 @@
+{
+  "index.css": {
+    "file": "assets/index.c003ad14.css",
+    "src": "index.css"
+  },
+  "index.html": {
+    "assets": [
+      "assets/lock.a30176df.svg"
+    ],
+    "css": [
+      "assets/index.c003ad14.css"
+    ],
+    "file": "assets/index.85bc1438.js",
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "public/images/lock.svg": {
+    "file": "assets/lock.a30176df.svg",
+    "src": "public/images/lock.svg"
+  }
+}
