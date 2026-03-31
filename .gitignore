@@ -8,6 +8,14 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+dist
+build
+*.egg-info/
+
+# Service Worker cache
+.cache/
+*.swp
+
 #dist
 dist-ssr
 *.local
