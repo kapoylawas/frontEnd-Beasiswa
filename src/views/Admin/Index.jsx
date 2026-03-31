@@ -1841,7 +1841,7 @@ export default function Dashboard() {
                           </span>
                           <div className="d-flex align-items-center">
                             <span className="h5 fw-bold text-dark me-2">
-                              {dashboard.SudahVerifDinsos}
+                              {/* {dashboard.SudahVerifDinsos} */}
                             </span>
                             <span className="badge bg-success">
                               {Math.round(
