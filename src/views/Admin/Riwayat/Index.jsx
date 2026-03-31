@@ -31,7 +31,7 @@ export default function RiwayatIndex() {
   });
   const [idUser, setIdUser] = useState("");
   const [statusFinish, setStatusFinish] = useState("");
-  const [cekNik, setCekNik] = useState("");
+  // const [cekNik, setCekNik] = useState("");
 
   // variabel untuk mengambil data di kesra
   const dataTipeKesra = dataKesra.kesra;
@@ -107,38 +107,38 @@ export default function RiwayatIndex() {
     setStatusFinish(1);
   };
 
-  const handleButtonClick = async () => {
+  // const handleButtonClick = async () => {
 
-    const postData = {
-      USER_ID: "290220241042163515522230800018550",
-      PASSWORD: "gT8!jiPQ",
-      IP_USER: "10.35.15.152",
-      TRESHOLD: "1",
-      NIK: "3515082306920001",
-      NAMA_LGKP: "ARIEF SANGGA UTAMA"
-    };
+  //   const postData = {
+  //     USER_ID: "290220241042163515522230800018550",
+  //     PASSWORD: "gT8!jiPQ",
+  //     IP_USER: "10.35.15.152",
+  //     TRESHOLD: "1",
+  //     NIK: "3515082306920001",
+  //     NAMA_LGKP: "ARIEF SANGGA UTAMA"
+  //   };
 
-    try {
-      const response = await axios.post("https://172.16.160.177:8000/dukcapil/get_json/351552223080001/CALL_VERIFY_BY_ELEMEN", postData, {
-        // Header
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      });
+  //   try {
+  //     const response = await axios.post("https://172.16.160.177:8000/dukcapil/get_json/351552223080001/CALL_VERIFY_BY_ELEMEN", postData, {
+  //       // Header
+  //       headers: {
+  //         "content-type": "multipart/form-data",
+  //       },
+  //     });
 
-      navigate("/admin/riwayat");
-      // Handle success scenario, e.g., set a success message in state if needed
-      // setSuccessMessage(response.data.message);
+  //     navigate("/admin/riwayat");
+  //     // Handle success scenario, e.g., set a success message in state if needed
+  //     // setSuccessMessage(response.data.message);
 
-    } catch (error) {
-      console.log(error);
+  //   } catch (error) {
+  //     console.log(error);
 
-      // Handle error scenario, e.g., set an error message in state if needed
-      // setErrorMessage("Lengkapi Data Anda!!");
-    } finally {
-      setLoading(false); // Ensure loading is set to false when done
-    }
-  };
+  //     // Handle error scenario, e.g., set an error message in state if needed
+  //     // setErrorMessage("Lengkapi Data Anda!!");
+  //   } finally {
+  //     setLoading(false); // Ensure loading is set to false when done
+  //   }
+  // };
 
   return (
     <LayoutAdmin>
