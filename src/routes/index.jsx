@@ -11,7 +11,7 @@ import Forbidden from "../views/Auth/Forbidden";
 import PrivateRoutes from "./PrivateRoutes";
 import Dashboard from "../views/Admin/Index";
 import Home from "../views/Web/Home/Index";
-import Register from "../views/Web/register/Index";
+import Register from "../views/Web/Register/Index";
 import Info from "../views/Web/Info/Index";
 import PermissionsIndex from "../views/Admin/Permissions/Index";
 import RolesIndex from "../views/Admin/Roles/Index";
