@@ -328,6 +328,122 @@ export default function YatimDetail() {
                             </div>
                         </div>
 
+                        {/* Informasi Buku Tabungan & Rekening */}
+                        {(yatim.status_ketrima === "1" || yatim.status_ketrima === 1) && (
+                            <div className="card border-0 rounded-4 shadow-sm mt-4 tabungan-card">
+                                <div className="card-header bg-white py-3 rounded-top-4 border-bottom">
+                                    <div className="d-flex align-items-center justify-content-between">
+                                        <div className="d-flex align-items-center">
+                                            <div className="icon-wrapper bg-success rounded-3 p-2 me-3">
+                                                <i className="fas fa-piggy-bank fa-lg text-white"></i>
+                                            </div>
+                                            <div>
+                                                <h3 className="h5 mb-0 text-dark fw-bold">Informasi Buku Tabungan</h3>
+                                                <small className="text-muted">Data pencairan beasiswa</small>
+                                            </div>
+                                        </div>
+                                        <span className="badge bg-success-subtle text-success fs-6 px-3 py-2">
+                                            <i className="fas fa-check-circle me-1"></i>
+                                            Penerima Beasiswa
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="card-body p-4">
+                                    <div className="row g-3">
+                                        {/* Nomor Rekening */}
+                                        <div className="col-md-6">
+                                            <div className="info-box bg-light rounded-3 p-3 h-100">
+                                                <div className="d-flex align-items-start">
+                                                    <div className="info-icon bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                                                        <i className="fas fa-credit-card"></i>
+                                                    </div>
+                                                    <div className="flex-grow-1">
+                                                        <div className="fw-semibold text-muted small mb-1">Nomor Rekening</div>
+                                                        <div className="text-dark fw-bold fs-5">
+                                                            {yatim.no_rekening || <span className="text-muted fs-6 fw-normal">Belum diisi</span>}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* NIK Orang Tua */}
+                                        <div className="col-md-6">
+                                            <div className="info-box bg-light rounded-3 p-3 h-100">
+                                                <div className="d-flex align-items-start">
+                                                    <div className="info-icon bg-info text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                                                        <i className="fas fa-id-card"></i>
+                                                    </div>
+                                                    <div className="flex-grow-1">
+                                                        <div className="fw-semibold text-muted small mb-1">NIK Orang Tua / Wali</div>
+                                                        <div className="text-dark fw-bold fs-5">
+                                                            {yatim.nik_ortu || <span className="text-muted fs-6 fw-normal">Belum diisi</span>}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Nama Orang Tua */}
+                                        <div className="col-md-12">
+                                            <div className="info-box bg-light rounded-3 p-3">
+                                                <div className="d-flex align-items-start">
+                                                    <div className="info-icon bg-warning text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                                                        <i className="fas fa-user-tie"></i>
+                                                    </div>
+                                                    <div className="flex-grow-1">
+                                                        <div className="fw-semibold text-muted small mb-1">Nama Orang Tua / Wali</div>
+                                                        <div className="text-dark fw-bold fs-5">
+                                                            {yatim.nama_ortu || <span className="text-muted fs-6 fw-normal">Belum diisi</span>}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* File Buku Tabungan */}
+                                        <div className="col-md-12">
+                                            <div className="info-box bg-light rounded-3 p-3">
+                                                <div className="d-flex align-items-start justify-content-between flex-wrap gap-3">
+                                                    <div className="d-flex align-items-start flex-grow-1">
+                                                        <div className="info-icon bg-danger text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                                                            <i className="fas fa-file-alt"></i>
+                                                        </div>
+                                                        <div className="flex-grow-1">
+                                                            <div className="fw-semibold text-muted small mb-1">File Buku Tabungan / No. Rekening</div>
+                                                            <div className="text-dark fw-bold">
+                                                                {yatim.imageketrima ? (
+                                                                    <span className="badge bg-success-subtle text-success fs-6 px-3 py-2">
+                                                                        <i className="fas fa-check-circle me-1"></i>
+                                                                        File sudah diupload
+                                                                    </span>
+                                                                ) : (
+                                                                    <span className="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
+                                                                        <i className="fas fa-exclamation-triangle me-1"></i>
+                                                                        Belum diupload
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {yatim.imageketrima && (
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-success rounded-pill px-4"
+                                                            onClick={() => openDocument(yatim.imageketrima, 'Buku Tabungan')}
+                                                        >
+                                                            <i className="fas fa-eye me-2"></i>
+                                                            Lihat File
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         {/* Timeline */}
                         <div className="card border-0 rounded-4 shadow-sm mt-4">
                             <div className="card-header bg-white py-3 rounded-top-4 border-bottom">
@@ -527,6 +643,26 @@ export default function YatimDetail() {
                 }
                 .bg-info-subtle {
                     background-color: rgba(13, 202, 240, 0.1) !important;
+                }
+                .bg-warning-subtle {
+                    background-color: rgba(255, 193, 7, 0.15) !important;
+                }
+                .tabungan-card {
+                    background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
+                    border-left: 4px solid #198754 !important;
+                }
+                .info-box {
+                    transition: all 0.3s ease;
+                    border: 1px solid transparent;
+                }
+                .info-box:hover {
+                    background-color: #ffffff !important;
+                    border-color: #e0e0e0;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+                    transform: translateY(-2px);
+                }
+                .info-icon {
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
                 }
                 .loading-spinner {
                     animation: pulse 1.5s ease-in-out infinite alternate;

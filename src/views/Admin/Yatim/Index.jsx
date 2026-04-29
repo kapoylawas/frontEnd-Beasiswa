@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import LayoutAdmin from "../../../layouts/Admin";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,26 @@ export default function YatimIndex() {
   const [userData, setUserData] = useState(null);
   const [userId, setUserId] = useState(null);
   const [pendaftaranDitutup, setPendaftaranDitutup] = useState(true); // Default true untuk ditutup
+  
+  // State untuk modal upload buku tabungan
+  const [showTabunganModal, setShowTabunganModal] = useState(false);
+  const [selectedYatim, setSelectedYatim] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [tabunganData, setTabunganData] = useState({
+    yatim_id: "",
+    buku_tabungan: null,
+    spjmt: null,
+    no_rekening: "",
+    nik_ortu: "",
+    nama_ortu: ""
+  });
+  const [tabunganErrors, setTabunganErrors] = useState({});
+  
+  // State untuk modal lihat data tabungan
+  const [showViewTabunganModal, setShowViewTabunganModal] = useState(false);
+  const [viewTabunganData, setViewTabunganData] = useState(null);
+  const [loadingTabungan, setLoadingTabungan] = useState(false);
+  
   const navigate = useNavigate();
 
   // Form state
@@ -340,6 +361,188 @@ export default function YatimIndex() {
     }
   };
 
+  // Fungsi untuk mendapatkan badge status keterimaan
+  const getStatusKetrimaBadge = (status) => {
+    if (status === "1" || status === 1) {
+      return (
+        <span className="badge bg-success">
+          <i className="fa fa-check-circle me-1"></i>
+          Diterima
+        </span>
+      );
+    }
+    return (
+      <span className="badge bg-secondary">
+        <i className="fa fa-minus-circle me-1"></i>
+        Belum
+      </span>
+    );
+  };
+
+  // Handler untuk membuka modal upload buku tabungan
+  const handleOpenTabunganModal = (item) => {
+    setSelectedYatim(item);
+    setTabunganData({
+      yatim_id: item.id,
+      buku_tabungan: null,
+      spjmt: null,
+      no_rekening: item.no_rekening || "",
+      nik_ortu: item.nik_ortu || "",
+      nama_ortu: item.nama_ortu || ""
+    });
+    setTabunganErrors({});
+    setShowTabunganModal(true);
+  };
+
+  // Handler untuk menutup modal
+  const handleCloseTabunganModal = () => {
+    // Close modal first - keep selectedYatim until unmounted
+    setShowTabunganModal(false);
+    
+    // Reset other state after modal unmounts
+    setTimeout(() => {
+      setSelectedYatim(null);
+      setTabunganData({
+        yatim_id: "",
+        buku_tabungan: null,
+        spjmt: null,
+        no_rekening: "",
+        nik_ortu: "",
+        nama_ortu: ""
+      });
+      setTabunganErrors({});
+    }, 300);
+  };
+
+  // Handler input change untuk form tabungan
+  const handleTabunganInputChange = (e) => {
+    const { name, value, files } = e.target;
+    
+    if (name === 'nik_ortu') {
+      const numericValue = value.replace(/[^0-9]/g, '');
+      if (numericValue.length <= 16) {
+        setTabunganData(prev => ({
+          ...prev,
+          [name]: numericValue
+        }));
+      }
+    } else if (name === 'no_rekening') {
+      const numericValue = value.replace(/[^0-9]/g, '');
+      setTabunganData(prev => ({
+        ...prev,
+        [name]: numericValue
+      }));
+    } else if (files && files[0]) {
+      setTabunganData(prev => ({
+        ...prev,
+        [name]: files[0]
+      }));
+    } else {
+      setTabunganData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+    
+    // Clear error saat user input
+    if (tabunganErrors[name]) {
+      setTabunganErrors(prev => ({
+        ...prev,
+        [name]: ""
+      }));
+    }
+  };
+
+  // Handler submit form tabungan
+  const handleSubmitTabungan = async (e) => {
+    e.preventDefault();
+    setUploading(true);
+    setTabunganErrors({});
+
+    try {
+      const formDataToSend = new FormData();
+      
+      // Append file imageketrima (buku tabungan)
+      if (tabunganData.buku_tabungan) {
+        formDataToSend.append('imageketrima', tabunganData.buku_tabungan);
+      }
+      
+      // Append file imagespjmt (surat SPJMT)
+      if (tabunganData.spjmt) {
+        formDataToSend.append('imagespjmt', tabunganData.spjmt);
+      }
+      
+      // Append other fields
+      formDataToSend.append('nik_ortu', tabunganData.nik_ortu);
+      formDataToSend.append('nama_ortu', tabunganData.nama_ortu);
+      formDataToSend.append('no_rekening', tabunganData.no_rekening);
+
+      // Use yatim ID in the URL
+      const response = await Api.post(
+        `/api/admin/yatim/${tabunganData.yatim_id}/upload-imageketrima`, 
+        formDataToSend, 
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data.success) {
+        // Step 1: Show toast notification (non-blocking)
+        toast.success(response.data.message || 'Data buku tabungan berhasil disimpan!', {
+          duration: 3000,
+          position: 'top-right',
+          style: {
+            background: '#10b981',
+            color: '#fff',
+            fontWeight: '500',
+          },
+          iconTheme: {
+            primary: '#fff',
+            secondary: '#10b981',
+          },
+        });
+        
+        // Step 2: Close modal ONLY (keep selectedYatim until modal is unmounted)
+        setShowTabunganModal(false);
+        setUploading(false);
+        
+        // Step 3: After modal unmounts, reset state and refresh data
+        setTimeout(() => {
+          setSelectedYatim(null);
+          setTabunganData({
+            yatim_id: "",
+            buku_tabungan: null,
+            spjmt: null,
+            no_rekening: "",
+            nik_ortu: "",
+            nama_ortu: ""
+          });
+          setTabunganErrors({});
+          fetchYatim();
+        }, 800);
+        return;
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 422) {
+        setTabunganErrors(error.response.data.errors || {});
+        toast.error('Validasi gagal, periksa form kembali', {
+          duration: 4000,
+          position: 'top-right',
+        });
+      } else {
+        toast.error(error.response?.data?.message || 'Gagal menyimpan data', {
+          duration: 4000,
+          position: 'top-right',
+        });
+      }
+    } finally {
+      setUploading(false);
+    }
+  };
+
   // Fungsi untuk mendapatkan class berdasarkan status
   const getStatusClass = (status) => {
     switch (status) {
@@ -356,12 +559,61 @@ export default function YatimIndex() {
     navigate(`/admin/adminYatim/${id}`);
   };
 
+  // Handler untuk membuka modal lihat data tabungan
+  const handleViewTabunganData = async (item) => {
+    setLoadingTabungan(true);
+    try {
+      const response = await Api.get(`/api/admin/yatim/${item.id}`, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+
+      if (response.data.success) {
+        const data = response.data.data;
+        
+        // Check if imageketrima has actual file (not just base path)
+        // Valid file should have extension like .pdf, .jpg, .png, etc.
+        const hasActualFile = data.imageketrima && 
+          (data.imageketrima.match(/\.(pdf|jpg|jpeg|png|gif)$/i) || 
+           !data.imageketrima.endsWith('/dokumen/yatim'));
+        
+        // Check if imagespjmt has actual file (not just base path)
+        const hasSpjmtFile = data.imagespjmt && 
+          (data.imagespjmt.match(/\.(pdf|jpg|jpeg|png|gif)$/i) || 
+           !data.imagespjmt.endsWith('/dokumen/yatim'));
+        
+        // Update the data to reflect actual file status
+        data._hasFile = hasActualFile;
+        data._hasSpjmtFile = hasSpjmtFile;
+        
+        setViewTabunganData(data);
+        setShowViewTabunganModal(true);
+      } else {
+        toast.error("Gagal mengambil data tabungan");
+      }
+    } catch (error) {
+      console.error("Error fetching tabungan data:", error);
+      toast.error("Terjadi kesalahan saat mengambil data");
+    } finally {
+      setLoadingTabungan(false);
+    }
+  };
+
+  // Handler untuk menutup modal lihat tabungan
+  const handleCloseViewTabunganModal = () => {
+    setShowViewTabunganModal(false);
+    setTimeout(() => {
+      setViewTabunganData(null);
+    }, 300);
+  };
+
   // Karena endpoint baru tidak support pagination, selalu return false
   const shouldShowPagination = false;
 
   return (
     <LayoutAdmin>
-      <div className="container-fluid mb-5 mt-5">
+      <div className="container-fluid mb-5 mt-5 notranslate" translate="no">
         <div className="row">
           <div className="col-md-12">
             {/* Form Tambah Data Yatim */}
@@ -912,6 +1164,17 @@ export default function YatimIndex() {
                         ></div>
                         <small>Belum Diverifikasi</small>
                       </div>
+                      <div className="d-flex align-items-center">
+                        <div
+                          className="status-indicator bg-success me-2"
+                          style={{
+                            width: "15px",
+                            height: "15px",
+                            borderRadius: "50%",
+                          }}
+                        ></div>
+                        <small><strong>Diterima Beasiswa</strong></small>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -945,7 +1208,10 @@ export default function YatimIndex() {
                             <th scope="col">Alasan Verifikasi</th>
                             <th scope="col">Alasan Verif KK</th>
                             <th scope="col">Status Verifikasi</th>
-                            <th scope="col"> Verifikasi KK</th>
+                            <th scope="col">Verifikasi KK</th>
+                            <th scope="col">Status Beasiswa</th>
+                            <th scope="col">Status Upload</th>
+                            <th scope="col" width="130">Upload Tabungan</th>
                             <th scope="col" width="150">
                               Aksi
                             </th>
@@ -1014,34 +1280,71 @@ export default function YatimIndex() {
                                   )}
                                 </td>
                                 <td>
-                                  <div className="btn-group" role="group">
+                                  {getStatusKetrimaBadge(item.status_ketrima)}
+                                </td>
+                                <td className="text-center">
+                                  {(() => {
+                                    // Check if file actually exists (not just base path)
+                                    const hasFile = item.imageketrima && 
+                                      (item.imageketrima.match(/\.(pdf|jpg|jpeg|png|gif)$/i) || 
+                                       !item.imageketrima.endsWith('/dokumen/yatim'));
+                                    
+                                    if ((item.status_ketrima === "1" || item.status_ketrima === 1)) {
+                                      return hasFile ? (
+                                        <span className="badge bg-success">
+                                          <i className="fa fa-check-circle me-1"></i>
+                                          Sudah Upload
+                                        </span>
+                                      ) : (
+                                        <span className="badge bg-warning text-dark">
+                                          <i className="fa fa-exclamation-triangle me-1"></i>
+                                          Belum Upload
+                                        </span>
+                                      );
+                                    }
+                                    return <span className="text-muted">-</span>;
+                                  })()}
+                                </td>
+                                <td className="text-center">
+                                  {(item.status_ketrima === "1" || item.status_ketrima === 1) ? (
+                                    <div className="d-flex flex-column gap-2">
+                                      <button
+                                        type="button"
+                                        onClick={() => handleViewTabunganData(item)}
+                                        className="btn btn-sm btn-info"
+                                        title="Lihat Data Tabungan"
+                                      >
+                                        <span><i className="fa fa-eye me-1"></i>Lihat</span>
+                                      </button>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleOpenTabunganModal(item)}
+                                        className="btn btn-sm btn-success"
+                                        title="Upload Buku Tabungan"
+                                      >
+                                        <span><i className="fa fa-upload me-1"></i>Upload</span>
+                                      </button>
+                                    </div>
+                                  ) : (
+                                    <span className="text-muted small">-</span>
+                                  )}
+                                </td>
+                                <td>
+                                  <div className="btn-group-vertical" role="group">
                                     <button
+                                      type="button"
                                       onClick={() => handleViewDetail(item.id)}
                                       className="btn btn-sm btn-primary"
                                     >
-                                      Detail
+                                      <span>Detail</span>
                                     </button>
-                                    {/* <button
-                                      onClick={() => handleDelete(item)}
-                                      className="btn btn-sm btn-danger"
-                                      disabled={deletingId === item.id}
-                                    >
-                                      {deletingId === item.id ? (
-                                        <span
-                                          className="spinner-border spinner-border-sm"
-                                          role="status"
-                                        ></span>
-                                      ) : (
-                                        "Hapus"
-                                      )}
-                                    </button> */}
                                   </div>
                                 </td>
                               </tr>
                             ))
                           ) : (
                             <tr>
-                              <td colSpan="9" className="text-center py-4">
+                              <td colSpan="16" className="text-center py-4">
                                 <div className="text-muted">
                                   <i className="fa fa-inbox fa-3x mb-3"></i>
                                   <p>Tidak ada data yatim</p>
@@ -1077,8 +1380,452 @@ export default function YatimIndex() {
         </div>
       </div>
 
+      {/* Modal Upload Buku Tabungan - menggunakan Portal */}
+      {showTabunganModal && selectedYatim && createPortal(
+        <div 
+          className="modal yatim-modal-portal" 
+          tabIndex="-1"
+          translate="no"
+          style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              handleCloseTabunganModal();
+            }
+          }}
+        >
+          <div className="modal-dialog modal-lg modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header bg-success text-white">
+                <h5 className="modal-title">
+                  <span><i className="fa fa-upload me-2"></i>Upload Buku Tabungan - {selectedYatim?.name || ''}</span>
+                </h5>
+                <button 
+                  type="button" 
+                  className="btn-close btn-close-white" 
+                  onClick={handleCloseTabunganModal}
+                  aria-label="Close"
+                ></button>
+              </div>
+              <form onSubmit={handleSubmitTabungan}>
+                <div className="modal-body">
+                  {/* Info Penerima */}
+                  <div className="alert alert-info mb-3">
+                    <div className="row">
+                      <div className="col-md-6">
+                        <strong>Nama:</strong> {selectedYatim?.name || '-'}
+                      </div>
+                      <div className="col-md-6">
+                        <strong>NIK:</strong> {selectedYatim?.nik || '-'}
+                      </div>
+                      <div className="col-md-6">
+                        <strong>NISN:</strong> {selectedYatim?.nisn || '-'}
+                      </div>
+                      <div className="col-md-6">
+                        <strong>Asal Sekolah:</strong> {selectedYatim?.asal_sekolah || '-'}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    {/* Upload Buku Tabungan */}
+                    <div className="col-md-12 mb-3">
+                      <label className="form-label fw-bold">
+                        File No. Rekening / Buku Tabungan <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="file"
+                        className={`form-control ${tabunganErrors.imageketrima ? 'is-invalid' : ''}`}
+                        name="buku_tabungan"
+                        onChange={handleTabunganInputChange}
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        required
+                      />
+                      {tabunganErrors.imageketrima && (
+                        <div className="invalid-feedback">{tabunganErrors.imageketrima[0]}</div>
+                      )}
+                      <div className="form-text">
+                        <i className="fa fa-info-circle me-1"></i>
+                        Upload foto/scan buku tabungan atau nomor rekening (PDF/JPG/PNG, max 5MB)
+                      </div>
+                    </div>
+
+                    {/* Upload Surat SPJMT */}
+                    <div className="col-md-12 mb-3">
+                      <label className="form-label fw-bold">
+                        Surat SPJMT <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="file"
+                        className={`form-control ${tabunganErrors.imagespjmt ? 'is-invalid' : ''}`}
+                        name="spjmt"
+                        onChange={handleTabunganInputChange}
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        required
+                      />
+                      {tabunganErrors.imagespjmt && (
+                        <div className="invalid-feedback">{tabunganErrors.imagespjmt[0]}</div>
+                      )}
+                      <div className="form-text">
+                        <i className="fa fa-info-circle me-1"></i>
+                        Upload surat SPJMT (Surat Pernyataan_joint) dalam format PDF/JPG/PNG (max 5MB)
+                      </div>
+                    </div>
+
+                    {/* No Rekening */}
+                    <div className="col-md-6 mb-3">
+                      <label className="form-label fw-bold">
+                        Nomor Rekening <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className={`form-control ${tabunganErrors.no_rekening ? 'is-invalid' : ''}`}
+                        name="no_rekening"
+                        value={tabunganData.no_rekening}
+                        onChange={handleTabunganInputChange}
+                        placeholder="Masukkan nomor rekening"
+                      />
+                      {tabunganErrors.no_rekening && (
+                        <div className="invalid-feedback">{tabunganErrors.no_rekening[0]}</div>
+                      )}
+                      <div className="form-text">
+                        Nomor rekening bank untuk pencairan beasiswa
+                      </div>
+                    </div>
+
+                    {/* NIK Orang Tua */}
+                    <div className="col-md-6 mb-3">
+                      <label className="form-label fw-bold">
+                        NIK Orang Tua / Wali <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className={`form-control ${tabunganErrors.nik_ortu ? 'is-invalid' : ''}`}
+                        name="nik_ortu"
+                        value={tabunganData.nik_ortu}
+                        onChange={handleTabunganInputChange}
+                        placeholder="Masukkan 16 digit NIK"
+                        maxLength={16}
+                      />
+                      {tabunganErrors.nik_ortu && (
+                        <div className="invalid-feedback">{tabunganErrors.nik_ortu[0]}</div>
+                      )}
+                      <div className="form-text">
+                        {tabunganData.nik_ortu.length}/16 digit NIK orang tua/wali
+                      </div>
+                    </div>
+
+                    {/* Nama Orang Tua */}
+                    <div className="col-md-12 mb-3">
+                      <label className="form-label fw-bold">
+                        Nama Orang Tua / Wali <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className={`form-control ${tabunganErrors.nama_ortu ? 'is-invalid' : ''}`}
+                        name="nama_ortu"
+                        value={tabunganData.nama_ortu}
+                        onChange={handleTabunganInputChange}
+                        placeholder="Masukkan nama lengkap orang tua/wali"
+                      />
+                      {tabunganErrors.nama_ortu && (
+                        <div className="invalid-feedback">{tabunganErrors.nama_ortu[0]}</div>
+                      )}
+                      <div className="form-text">
+                        Nama lengkap sesuai KTP orang tua/wali
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Warning */}
+                  <div className="alert alert-warning mb-0">
+                    <i className="fa fa-exclamation-triangle me-2"></i>
+                    <strong>Perhatian:</strong> Pastikan data yang diisi sudah benar untuk proses pencairan beasiswa.
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" onClick={handleCloseTabunganModal}>
+                    Batal
+                  </button>
+                  <button 
+                    type="submit" 
+                    className="btn btn-success"
+                    disabled={uploading}
+                  >
+                    <span>
+                      {uploading ? 'Menyimpan...' : 'Simpan Data'}
+                    </span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      , document.body)}
+
+      {/* Modal Lihat Data Tabungan - menggunakan Portal */}
+      {showViewTabunganModal && viewTabunganData && createPortal(
+        <div 
+          className="modal yatim-modal-portal" 
+          tabIndex="-1"
+          translate="no"
+          style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              handleCloseViewTabunganModal();
+            }
+          }}
+        >
+          <div className="modal-dialog modal-lg modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header bg-info text-white">
+                <h5 className="modal-title">
+                  <span><i className="fa fa-eye me-2"></i>Data Tabungan - {viewTabunganData?.name || ''}</span>
+                </h5>
+                <button 
+                  type="button" 
+                  className="btn-close btn-close-white" 
+                  onClick={handleCloseViewTabunganModal}
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body">
+                {loadingTabungan ? (
+                  <div className="text-center py-4">
+                    <div className="spinner-border text-primary mb-3" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="text-muted">Memuat data...</p>
+                  </div>
+                ) : (
+                  <div className="row g-3">
+                    {/* Info Siswa */}
+                    <div className="col-12">
+                      <div className="alert alert-info mb-3">
+                        <div className="row">
+                          <div className="col-md-6">
+                            <strong>Nama:</strong> {viewTabunganData?.name || '-'}
+                          </div>
+                          <div className="col-md-6">
+                            <strong>NIK:</strong> {viewTabunganData?.nik || '-'}
+                          </div>
+                          <div className="col-md-6">
+                            <strong>NISN:</strong> {viewTabunganData?.nisn || '-'}
+                          </div>
+                          <div className="col-md-6">
+                            <strong>Asal Sekolah:</strong> {viewTabunganData?.asal_sekolah || '-'}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Nomor Rekening */}
+                    <div className="col-md-6">
+                      <div className="info-box bg-light rounded-3 p-3 h-100">
+                        <div className="d-flex align-items-start">
+                          <div className="info-icon bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                            <i className="fa fa-credit-card"></i>
+                          </div>
+                          <div className="flex-grow-1">
+                            <div className="fw-semibold text-muted small mb-1">Nomor Rekening</div>
+                            <div className="text-dark fw-bold fs-5">
+                              {viewTabunganData?.no_rekening || <span className="text-muted fs-6 fw-normal">Belum diisi</span>}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* NIK Orang Tua */}
+                    <div className="col-md-6">
+                      <div className="info-box bg-light rounded-3 p-3 h-100">
+                        <div className="d-flex align-items-start">
+                          <div className="info-icon bg-info text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                            <i className="fa fa-id-card"></i>
+                          </div>
+                          <div className="flex-grow-1">
+                            <div className="fw-semibold text-muted small mb-1">NIK Orang Tua / Wali</div>
+                            <div className="text-dark fw-bold fs-5">
+                              {viewTabunganData?.nik_ortu || <span className="text-muted fs-6 fw-normal">Belum diisi</span>}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Nama Orang Tua */}
+                    <div className="col-md-12">
+                      <div className="info-box bg-light rounded-3 p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="info-icon bg-warning text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                            <i className="fa fa-user-tie"></i>
+                          </div>
+                          <div className="flex-grow-1">
+                            <div className="fw-semibold text-muted small mb-1">Nama Orang Tua / Wali</div>
+                            <div className="text-dark fw-bold fs-5">
+                              {viewTabunganData?.nama_ortu || <span className="text-muted fs-6 fw-normal">Belum diisi</span>}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* File Buku Tabungan */}
+                    <div className="col-md-12">
+                      <div className="info-box bg-light rounded-3 p-3">
+                        <div className="d-flex align-items-start mb-3">
+                          <div className="info-icon bg-danger text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                            <i className="fa fa-file-alt"></i>
+                          </div>
+                          <div className="flex-grow-1">
+                            <div className="fw-semibold text-muted small mb-1">File Buku Tabungan / No. Rekening</div>
+                            <div className="text-dark fw-bold">
+                              {viewTabunganData?._hasFile ? (
+                                <span className="badge bg-success-subtle text-success fs-6 px-3 py-2">
+                                  <i className="fa fa-check-circle me-1"></i>
+                                  File sudah diupload
+                                </span>
+                              ) : (
+                                <span className="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
+                                  <i className="fa fa-exclamation-triangle me-1"></i>
+                                  Belum diupload
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Preview File atau Pesan Belum Upload */}
+                        {viewTabunganData?._hasFile ? (
+                          <div className="mt-3">
+                            <div className="border rounded-3 overflow-hidden bg-white">
+                              <iframe
+                                src={viewTabunganData.imageketrima}
+                                title="Preview Buku Tabungan"
+                                style={{
+                                  width: '100%',
+                                  height: '500px',
+                                  border: 'none'
+                                }}
+                              />
+                            </div>
+                            <div className="mt-2 text-center">
+                              <a
+                                href={viewTabunganData.imageketrima}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn btn-success btn-sm"
+                              >
+                                <i className="fa fa-external-link me-1"></i>
+                                Buka di Tab Baru
+                              </a>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="mt-3 text-center p-4 bg-warning bg-opacity-10 rounded-3 border border-warning">
+                            <i className="fa fa-exclamation-circle fa-3x text-warning mb-3"></i>
+                            <h6 className="text-muted mb-2">File Belum Diupload</h6>
+                            <p className="text-muted small mb-0">
+                              File buku tabungan belum diupload. Silakan klik tombol "Upload" untuk mengupload file.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* File Surat SPJMT */}
+                    <div className="col-md-12">
+                      <div className="info-box bg-light rounded-3 p-3">
+                        <div className="d-flex align-items-start mb-3">
+                          <div className="info-icon bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                            <i className="fa fa-file-contract"></i>
+                          </div>
+                          <div className="flex-grow-1">
+                            <div className="fw-semibold text-muted small mb-1">Surat SPJMT</div>
+                            <div className="text-dark fw-bold">
+                              {viewTabunganData?._hasSpjmtFile ? (
+                                <span className="badge bg-success-subtle text-success fs-6 px-3 py-2">
+                                  <i className="fa fa-check-circle me-1"></i>
+                                  File sudah diupload
+                                </span>
+                              ) : (
+                                <span className="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
+                                  <i className="fa fa-exclamation-triangle me-1"></i>
+                                  Belum diupload
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Preview File SPJMT atau Pesan Belum Upload */}
+                        {viewTabunganData?._hasSpjmtFile ? (
+                          <div className="mt-3">
+                            <div className="border rounded-3 overflow-hidden bg-white">
+                              <iframe
+                                src={viewTabunganData.imagespjmt}
+                                title="Preview Surat SPJMT"
+                                style={{
+                                  width: '100%',
+                                  height: '500px',
+                                  border: 'none'
+                                }}
+                              />
+                            </div>
+                            <div className="mt-2 text-center">
+                              <a
+                                href={viewTabunganData.imagespjmt}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn btn-primary btn-sm"
+                              >
+                                <i className="fa fa-external-link me-1"></i>
+                                Buka di Tab Baru
+                              </a>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="mt-3 text-center p-4 bg-warning bg-opacity-10 rounded-3 border border-warning">
+                            <i className="fa fa-exclamation-circle fa-3x text-warning mb-3"></i>
+                            <h6 className="text-muted mb-2">File Belum Diupload</h6>
+                            <p className="text-muted small mb-0">
+                              Surat SPJMT belum diupload. Silakan klik tombol "Upload" untuk mengupload file.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={handleCloseViewTabunganModal}>
+                  Tutup
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      , document.body)}
+
       {/* Tambahkan style untuk SweetAlert dan warna dokumen */}
-      <style jsx>{`
+      <style>{`
+        /* CSS Isolation untuk mencegah DOM conflict */
+        .yatim-modal-portal {
+          isolation: isolate;
+          contain: layout style;
+          z-index: 1055;
+        }
+        .yatim-modal-portal .modal-dialog {
+          z-index: 1056;
+        }
+        /* Prevent Google Translate & extensions interference */
+        .notranslate {
+          translate: no;
+        }
+        .yatim-table-container {
+          isolation: isolate;
+          contain: layout;
+        }
         .sweet-alert-custom {
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
             sans-serif;

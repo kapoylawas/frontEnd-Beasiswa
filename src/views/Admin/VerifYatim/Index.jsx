@@ -22,6 +22,7 @@ export default function VerifYatimIndex() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedJenjang, setSelectedJenjang] = useState("");
     const [filterStatus, setFilterStatus] = useState("");
+    const [filterKetrima, setFilterKetrima] = useState("");
 
     // State untuk modal detail
     const [showDetailModal, setShowDetailModal] = useState(false);
@@ -34,6 +35,11 @@ export default function VerifYatimIndex() {
     const [alasanVerif, setAlasanVerif] = useState("");
     const [selectedItem, setSelectedItem] = useState(null);
     const [savingAlasan, setSavingAlasan] = useState(false);
+
+    // State untuk modal lihat data tabungan
+    const [showViewTabunganModal, setShowViewTabunganModal] = useState(false);
+    const [viewTabunganData, setViewTabunganData] = useState(null);
+    const [loadingTabungan, setLoadingTabungan] = useState(false);
 
     const navigate = useNavigate();
 
@@ -51,7 +57,7 @@ export default function VerifYatimIndex() {
         }
     }, []);
 
-    const fetchYatim = useCallback(async (page = 1, search = "", jenjang = "", status = "") => {
+    const fetchYatim = useCallback(async (page = 1, search = "", jenjang = "", status = "", ketrima = "") => {
         setLoading(true);
         try {
             let url = `/api/admin/yatim?page=${page}`;
@@ -63,6 +69,9 @@ export default function VerifYatimIndex() {
             }
             if (status) {
                 url += `&status=${encodeURIComponent(status)}`;
+            }
+            if (ketrima !== "") {
+                url += `&status_ketrima=${encodeURIComponent(ketrima)}`;
             }
 
             const response = await Api.get(url, {
@@ -111,7 +120,7 @@ export default function VerifYatimIndex() {
         setSearchQuery(query);
         setCurrentPage(1);
         const timeoutId = setTimeout(() => {
-            fetchYatim(1, query, selectedJenjang, filterStatus);
+            fetchYatim(1, query, selectedJenjang, filterStatus, filterKetrima);
         }, 500);
         return () => clearTimeout(timeoutId);
     };
@@ -120,20 +129,28 @@ export default function VerifYatimIndex() {
         const jenjang = e.target.value;
         setSelectedJenjang(jenjang);
         setCurrentPage(1);
-        fetchYatim(1, searchQuery, jenjang, filterStatus);
+        fetchYatim(1, searchQuery, jenjang, filterStatus, filterKetrima);
     };
 
     const handleStatusChange = (e) => {
         const status = e.target.value;
         setFilterStatus(status);
         setCurrentPage(1);
-        fetchYatim(1, searchQuery, selectedJenjang, status);
+        fetchYatim(1, searchQuery, selectedJenjang, status, filterKetrima);
+    };
+
+    const handleKetrimaChange = (e) => {
+        const ketrima = e.target.value;
+        setFilterKetrima(ketrima);
+        setCurrentPage(1);
+        fetchYatim(1, searchQuery, selectedJenjang, filterStatus, ketrima);
     };
 
     const clearSearch = () => {
         setSearchQuery("");
         setSelectedJenjang("");
         setFilterStatus("");
+        setFilterKetrima("");
         setCurrentPage(1);
         fetchYatim(1);
     };
@@ -142,6 +159,7 @@ export default function VerifYatimIndex() {
         setSearchQuery("");
         setSelectedJenjang("");
         setFilterStatus("");
+        setFilterKetrima("");
         setCurrentPage(1);
         fetchYatim(1);
     };
@@ -353,6 +371,54 @@ export default function VerifYatimIndex() {
         }
     };
 
+    // Handler untuk membuka modal lihat data tabungan
+    const handleViewTabunganData = async (item) => {
+        setLoadingTabungan(true);
+        try {
+            const response = await Api.get(`/api/admin/yatim/${item.id}`, {
+                headers: {
+                    Authorization: `Bearer ${Cookies.get("token")}`,
+                },
+            });
+
+            if (response.data.success) {
+                const data = response.data.data;
+                
+                // Check if imageketrima has actual file (not just base path)
+                const hasActualFile = data.imageketrima && 
+                    (data.imageketrima.match(/\.(pdf|jpg|jpeg|png|gif)$/i) || 
+                     !data.imageketrima.endsWith('/dokumen/yatim'));
+                
+                // Check if imagespjmt has actual file (not just base path)
+                const hasSpjmtFile = data.imagespjmt && 
+                    (data.imagespjmt.match(/\.(pdf|jpg|jpeg|png|gif)$/i) || 
+                     !data.imagespjmt.endsWith('/dokumen/yatim'));
+                
+                // Update the data to reflect actual file status
+                data._hasFile = hasActualFile;
+                data._hasSpjmtFile = hasSpjmtFile;
+                
+                setViewTabunganData(data);
+                setShowViewTabunganModal(true);
+            } else {
+                toast.error("Gagal mengambil data tabungan");
+            }
+        } catch (error) {
+            console.error("Error fetching tabungan data:", error);
+            toast.error("Terjadi kesalahan saat mengambil data");
+        } finally {
+            setLoadingTabungan(false);
+        }
+    };
+
+    // Handler untuk menutup modal lihat tabungan
+    const handleCloseViewTabunganModal = () => {
+        setShowViewTabunganModal(false);
+        setTimeout(() => {
+            setViewTabunganData(null);
+        }, 300);
+    };
+
     const handleOpenAlasanModal = (item) => {
         setSelectedItem(item);
         setAlasanVerif(item.alasan_verif || "");
@@ -409,7 +475,7 @@ export default function VerifYatimIndex() {
     const handlePageChange = (page) => {
         if (page < 1 || page > lastPage) return;
         setCurrentPage(page);
-        fetchYatim(page, searchQuery, selectedJenjang, filterStatus);
+        fetchYatim(page, searchQuery, selectedJenjang, filterStatus, filterKetrima);
     };
 
     const formatDate = (dateString) => {
@@ -452,6 +518,24 @@ export default function VerifYatimIndex() {
             default:
                 return <span className="badge bg-warning">Belum Diverifikasi</span>;
         }
+    };
+
+    // Fungsi untuk mendapatkan badge status keterimaan
+    const getStatusKetrimaBadge = (status) => {
+        if (status === "1" || status === 1 || status === true) {
+            return (
+                <span className="badge bg-success">
+                    <i className="fa fa-check-circle me-1"></i>
+                    Diterima Beasiswa
+                </span>
+            );
+        }
+        return (
+            <span className="badge bg-secondary">
+                <i className="fa fa-times-circle me-1"></i>
+                Tidak Lolos
+            </span>
+        );
     };
 
     const generatePaginationNumbers = () => {
@@ -520,7 +604,7 @@ export default function VerifYatimIndex() {
                                             <span className="input-group-text border-0 shadow-sm">
                                                 <i className="fa fa-search"></i>
                                             </span>
-                                            {(searchQuery || selectedJenjang || filterStatus) && (
+                                            {(searchQuery || selectedJenjang || filterStatus || filterKetrima) && (
                                                 <button
                                                     className="btn btn-outline-secondary border-0 shadow-sm"
                                                     type="button"
@@ -563,6 +647,20 @@ export default function VerifYatimIndex() {
                                         </select>
                                         <small className="text-muted mt-1">
                                             Filter berdasarkan status verifikasi
+                                        </small>
+                                    </div>
+                                    <div className="col-md-3 col-12 mb-2">
+                                        <select
+                                            className="form-select border-1 shadow-sm"
+                                            value={filterKetrima}
+                                            onChange={handleKetrimaChange}
+                                        >
+                                            <option value="">Semua Status Beasiswa</option>
+                                            <option value="1">Diterima Beasiswa</option>
+                                            <option value="null">Tidak Lolos</option>
+                                        </select>
+                                        <small className="text-muted mt-1">
+                                            Filter berdasarkan status penerimaan beasiswa
                                         </small>
                                     </div>
                                 </div>
@@ -614,6 +712,9 @@ export default function VerifYatimIndex() {
                                                         <th scope="col">NISN</th>
                                                         <th scope="col">Jenjang</th>
                                                         <th scope="col">Asal Sekolah</th>
+                                                        <th scope="col">Status Beasiswa</th>
+                                                        <th scope="col">Status Upload Rekening</th>
+                                                        <th scope="col" width="100">Lihat File Rekening dan SPJMT</th>
                                                         <th scope="col">Alasan Verifikasi</th>
                                                         <th scope="col">Alasan Verif KK</th>
                                                         <th scope="col" width="150">Aksi</th>
@@ -634,6 +735,45 @@ export default function VerifYatimIndex() {
                                                                     <span className="badge bg-info">{item.jenjang}</span>
                                                                 </td>
                                                                 <td>{item.asal_sekolah}</td>
+                                                                <td className="text-center">
+                                                                    {getStatusKetrimaBadge(item.status_ketrima)}
+                                                                </td>
+                                                                <td className="text-center">
+                                                                    {(() => {
+                                                                        const hasFile = item.imageketrima && 
+                                                                            (item.imageketrima.match(/\.(pdf|jpg|jpeg|png|gif)$/i) || 
+                                                                             !item.imageketrima.endsWith('/dokumen/yatim'));
+                                                                        
+                                                                        if ((item.status_ketrima === "1" || item.status_ketrima === 1 || item.status_ketrima === true)) {
+                                                                            return hasFile ? (
+                                                                                <span className="badge bg-success">
+                                                                                    <i className="fa fa-check-circle me-1"></i>
+                                                                                    Sudah Upload
+                                                                                </span>
+                                                                            ) : (
+                                                                                <span className="badge bg-warning text-dark">
+                                                                                    <i className="fa fa-exclamation-triangle me-1"></i>
+                                                                                    Belum Upload
+                                                                                </span>
+                                                                            );
+                                                                        }
+                                                                        return <span className="text-muted">-</span>;
+                                                                    })()}
+                                                                </td>
+                                                                <td className="text-center">
+                                                                    {(item.status_ketrima === "1" || item.status_ketrima === 1 || item.status_ketrima === true) ? (
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={() => handleViewTabunganData(item)}
+                                                                            className="btn btn-sm btn-info"
+                                                                            title="Lihat Data Tabungan"
+                                                                        >
+                                                                            <i className="fa fa-eye"></i> Lihat
+                                                                        </button>
+                                                                    ) : (
+                                                                        <span className="text-muted">-</span>
+                                                                    )}
+                                                                </td>
                                                                 <td>
                                                                     {item.alasan_verif ? (
                                                                         <div
@@ -731,16 +871,16 @@ export default function VerifYatimIndex() {
                                                         ))
                                                     ) : (
                                                         <tr>
-                                                            <td colSpan="10" className="text-center py-4">
+                                                            <td colSpan="15" className="text-center py-4">
                                                                 <div className="text-muted">
                                                                     <i className="fa fa-inbox fa-3x mb-3"></i>
                                                                     <p>
-                                                                        {searchQuery || selectedJenjang || filterStatus
+                                                                        {searchQuery || selectedJenjang || filterStatus || filterKetrima
                                                                             ? `Tidak ditemukan data dengan filter yang dipilih`
                                                                             : "Tidak ada data yatim untuk diverifikasi"
                                                                         }
                                                                     </p>
-                                                                    {(searchQuery || selectedJenjang || filterStatus) && (
+                                                                    {(searchQuery || selectedJenjang || filterStatus || filterKetrima) && (
                                                                         <button
                                                                             className="btn btn-primary btn-sm mt-2"
                                                                             onClick={clearFilters}
@@ -764,6 +904,7 @@ export default function VerifYatimIndex() {
                                                         {searchQuery && ` untuk pencarian "${searchQuery}"`}
                                                         {selectedJenjang && ` dengan jenjang ${selectedJenjang}`}
                                                         {filterStatus && ` dengan status ${filterStatus === 'verif' ? 'Terverifikasi' : filterStatus === 'ditolak' ? 'Ditolak' : 'Belum Diverifikasi'}`}
+                                                        {filterKetrima !== "" && ` dengan status beasiswa ${filterKetrima === '1' ? 'Diterima' : 'Tidak Lolos'}`}
                                                     </small>
                                                 </div>
                                                 <nav>
@@ -1228,6 +1369,238 @@ export default function VerifYatimIndex() {
                                     ) : (
                                         'Simpan Alasan'
                                     )}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {/* Modal Lihat Data Tabungan */}
+            {showViewTabunganModal && viewTabunganData && (
+                <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <div className="modal-dialog modal-lg modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header bg-info text-white">
+                                <h5 className="modal-title">
+                                    <i className="fa fa-eye me-2"></i>Data Tabungan - {viewTabunganData?.name || ''}
+                                </h5>
+                                <button 
+                                    type="button" 
+                                    className="btn-close btn-close-white" 
+                                    onClick={handleCloseViewTabunganModal}
+                                    aria-label="Close"
+                                ></button>
+                            </div>
+                            <div className="modal-body" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+                                {loadingTabungan ? (
+                                    <div className="text-center py-4">
+                                        <div className="spinner-border text-primary mb-3" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                        <p className="text-muted">Memuat data...</p>
+                                    </div>
+                                ) : (
+                                    <div className="row g-3">
+                                        {/* Info Siswa */}
+                                        <div className="col-12">
+                                            <div className="alert alert-info mb-3">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <strong>Nama:</strong> {viewTabunganData?.name || '-'}
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <strong>NIK:</strong> {viewTabunganData?.nik || '-'}
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <strong>NISN:</strong> {viewTabunganData?.nisn || '-'}
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <strong>Asal Sekolah:</strong> {viewTabunganData?.asal_sekolah || '-'}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Nomor Rekening */}
+                                        <div className="col-md-6">
+                                            <div className="info-box bg-light rounded-3 p-3 h-100">
+                                                <div className="d-flex align-items-start">
+                                                    <div className="info-icon bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                                                        <i className="fa fa-credit-card"></i>
+                                                    </div>
+                                                    <div className="flex-grow-1">
+                                                        <div className="fw-semibold text-muted small mb-1">Nomor Rekening</div>
+                                                        <div className="text-dark fw-bold fs-5">
+                                                            {viewTabunganData?.no_rekening || <span className="text-muted fs-6 fw-normal">Belum diisi</span>}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* NIK Orang Tua */}
+                                        <div className="col-md-6">
+                                            <div className="info-box bg-light rounded-3 p-3 h-100">
+                                                <div className="d-flex align-items-start">
+                                                    <div className="info-icon bg-info text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                                                        <i className="fa fa-id-card"></i>
+                                                    </div>
+                                                    <div className="flex-grow-1">
+                                                        <div className="fw-semibold text-muted small mb-1">NIK Orang Tua / Wali</div>
+                                                        <div className="text-dark fw-bold fs-5">
+                                                            {viewTabunganData?.nik_ortu || <span className="text-muted fs-6 fw-normal">Belum diisi</span>}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Nama Orang Tua */}
+                                        <div className="col-md-12">
+                                            <div className="info-box bg-light rounded-3 p-3">
+                                                <div className="d-flex align-items-start">
+                                                    <div className="info-icon bg-warning text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                                                        <i className="fa fa-user-tie"></i>
+                                                    </div>
+                                                    <div className="flex-grow-1">
+                                                        <div className="fw-semibold text-muted small mb-1">Nama Orang Tua / Wali</div>
+                                                        <div className="text-dark fw-bold fs-5">
+                                                            {viewTabunganData?.nama_ortu || <span className="text-muted fs-6 fw-normal">Belum diisi</span>}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* File Buku Tabungan */}
+                                        <div className="col-md-12">
+                                            <div className="info-box bg-light rounded-3 p-3">
+                                                <div className="d-flex align-items-start mb-3">
+                                                    <div className="info-icon bg-danger text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                                                        <i className="fa fa-file-alt"></i>
+                                                    </div>
+                                                    <div className="flex-grow-1">
+                                                        <div className="fw-semibold text-muted small mb-1">File Buku Tabungan / No. Rekening</div>
+                                                        <div className="text-dark fw-bold">
+                                                            {viewTabunganData?._hasFile ? (
+                                                                <span className="badge bg-success-subtle text-success fs-6 px-3 py-2">
+                                                                    <i className="fa fa-check-circle me-1"></i>
+                                                                    File sudah diupload
+                                                                </span>
+                                                            ) : (
+                                                                <span className="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
+                                                                    <i className="fa fa-exclamation-triangle me-1"></i>
+                                                                    Belum diupload
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                {viewTabunganData?._hasFile ? (
+                                                    <div className="mt-3">
+                                                        <div className="border rounded-3 overflow-hidden bg-white">
+                                                            <iframe
+                                                                src={viewTabunganData.imageketrima}
+                                                                title="Preview Buku Tabungan"
+                                                                style={{
+                                                                    width: '100%',
+                                                                    height: '500px',
+                                                                    border: 'none'
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2 text-center">
+                                                            <a
+                                                                href={viewTabunganData.imageketrima}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="btn btn-success btn-sm"
+                                                            >
+                                                                <i className="fa fa-external-link me-1"></i>
+                                                                Buka di Tab Baru
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="mt-3 text-center p-4 bg-warning bg-opacity-10 rounded-3 border border-warning">
+                                                        <i className="fa fa-exclamation-circle fa-3x text-warning mb-3"></i>
+                                                        <h6 className="text-muted mb-2">File Belum Diupload</h6>
+                                                        <p className="text-muted small mb-0">
+                                                            File buku tabungan belum diupload.
+                                                        </p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        {/* File Surat SPJMT */}
+                                        <div className="col-md-12">
+                                            <div className="info-box bg-light rounded-3 p-3">
+                                                <div className="d-flex align-items-start mb-3">
+                                                    <div className="info-icon bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                                                        <i className="fa fa-file-contract"></i>
+                                                    </div>
+                                                    <div className="flex-grow-1">
+                                                        <div className="fw-semibold text-muted small mb-1">Surat SPJMT</div>
+                                                        <div className="text-dark fw-bold">
+                                                            {viewTabunganData?._hasSpjmtFile ? (
+                                                                <span className="badge bg-success-subtle text-success fs-6 px-3 py-2">
+                                                                    <i className="fa fa-check-circle me-1"></i>
+                                                                    File sudah diupload
+                                                                </span>
+                                                            ) : (
+                                                                <span className="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
+                                                                    <i className="fa fa-exclamation-triangle me-1"></i>
+                                                                    Belum diupload
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                {viewTabunganData?._hasSpjmtFile ? (
+                                                    <div className="mt-3">
+                                                        <div className="border rounded-3 overflow-hidden bg-white">
+                                                            <iframe
+                                                                src={viewTabunganData.imagespjmt}
+                                                                title="Preview Surat SPJMT"
+                                                                style={{
+                                                                    width: '100%',
+                                                                    height: '500px',
+                                                                    border: 'none'
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div className="mt-2 text-center">
+                                                            <a
+                                                                href={viewTabunganData.imagespjmt}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="btn btn-primary btn-sm"
+                                                            >
+                                                                <i className="fa fa-external-link me-1"></i>
+                                                                Buka di Tab Baru
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="mt-3 text-center p-4 bg-warning bg-opacity-10 rounded-3 border border-warning">
+                                                        <i className="fa fa-exclamation-circle fa-3x text-warning mb-3"></i>
+                                                        <h6 className="text-muted mb-2">File Belum Diupload</h6>
+                                                        <p className="text-muted small mb-0">
+                                                            Surat SPJMT belum diupload.
+                                                        </p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" onClick={handleCloseViewTabunganModal}>
+                                    Tutup
                                 </button>
                             </div>
                         </div>
