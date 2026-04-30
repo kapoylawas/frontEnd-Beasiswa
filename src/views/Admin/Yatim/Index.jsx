@@ -1316,14 +1316,14 @@ export default function YatimIndex() {
                                       >
                                         <span><i className="fa fa-eye me-1"></i>Lihat</span>
                                       </button>
-                                      {/* <button
+                                      <button
                                         type="button"
                                         onClick={() => handleOpenTabunganModal(item)}
                                         className="btn btn-sm btn-success"
                                         title="Upload Buku Tabungan"
                                       >
                                         <span><i className="fa fa-upload me-1"></i>Upload</span>
-                                      </button> */}
+                                      </button>
                                     </div>
                                   ) : (
                                     <span className="text-muted small">-</span>

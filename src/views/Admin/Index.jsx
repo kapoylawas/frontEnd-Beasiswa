@@ -55,6 +55,8 @@ export default function Dashboard() {
 
   const [usersbyid, setUsersByid] = useState("");
   const [step, setStep] = useState("");
+  const [statusKetrima, setStatusKetrima] = useState(null);
+  const [tipeBeasiswaUser, setTipeBeasiswaUser] = useState(null);
   const [modal, setModal] = useState("");
   const [showModal, setShowModal] = useState(false);
 
@@ -98,6 +100,8 @@ export default function Dashboard() {
       //set data
       setUsersByid(response.data.data.id);
       setStep(response.data.data.step);
+      setStatusKetrima(response.data.data.status_ketrima);
+      setTipeBeasiswaUser(response.data.data.tipe_beasiswa);
       setShowModal(response.data.data.modal);
 
       // Jika modal true, tampilkan modal
@@ -632,7 +636,67 @@ export default function Dashboard() {
           )}
           
           {hasAnyPermission(["mahasiswa.index"]) && (
-            <div className="registration-guide mt-3">
+            <>
+              {(statusKetrima === "1" || statusKetrima === 1) ? (
+                <div className="mt-3">
+                  <div
+                    className="alert border-0 shadow-sm d-flex align-items-center"
+                    role="alert"
+                    style={{
+                      backgroundColor: "#28a745",
+                      color: "#fff",
+                      borderRadius: "15px",
+                      padding: "1.5rem",
+                    }}
+                  >
+                    <div
+                      className="bg-white rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0"
+                      style={{ width: "60px", height: "60px" }}
+                    >
+                      <i
+                        className="fa fa-trophy text-success"
+                        style={{ fontSize: "1.8rem" }}
+                      ></i>
+                    </div>
+                    <div className="flex-grow-1">
+                      <h4 className="fw-bold mb-1">
+                        🎉 Selamat Anda Diterima Beasiswa!
+                      </h4>
+                      <p className="mb-2">
+                        Selamat, Anda telah dinyatakan{" "}
+                        <strong>DITERIMA</strong> sebagai penerima Beasiswa
+                        Kab. Sidoarjo
+                        {tipeBeasiswaUser === 1 && " - Akademik"}
+                        {tipeBeasiswaUser === 2 && " - Non Akademik"}
+                        {tipeBeasiswaUser === 3 && " - Kesra"}
+                        {tipeBeasiswaUser === 4 && " - Dinsos"}
+                        {tipeBeasiswaUser === 5 && " - Luar Negeri"}
+                        . Silakan cek menu{" "}
+                        <strong>Riwayat Pendaftar</strong> untuk melihat detail
+                        dan melakukan upload dokumen SPJMT.
+                      </p>
+                      <div className="mt-3 p-3 bg-white rounded" style={{ color: "#333" }}>
+                        <h6 className="fw-bold mb-2 text-success">
+                          <i className="fa fa-file-word me-2"></i>
+                          Contoh Surat SPJMT
+                        </h6>
+                        <p className="mb-2 small">
+                          Silakan download contoh surat SPJMT terlebih dahulu sebelum melakukan upload:
+                        </p>
+                        <a
+                          href="/spjmt_mahasiswa.docx"
+                          download="spjmt_mahasiswa.docx"
+                          className="btn btn-success btn-sm fw-bold"
+                        >
+                          <i className="fa fa-download me-2"></i>
+                          Download Contoh SPJMT (.docx)
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="registration-guide mt-3">
               <div className="card border-0 shadow-sm">
                 <div className="card-header bg-primary text-white">
                   <h6 className="mb-0">
@@ -772,7 +836,9 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-            </div>
+                </div>
+              )}
+            </>
           )}
 
           {maintenance ? (
