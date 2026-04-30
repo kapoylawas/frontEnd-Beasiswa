@@ -1454,6 +1454,26 @@ export default function YatimIndex() {
                       <label className="form-label fw-bold">
                         Surat SPJMT <span className="text-danger">*</span>
                       </label>
+
+                      {/* Download Contoh SPJMT Yatim */}
+                      <div className="alert alert-info d-flex align-items-center justify-content-between mb-2 py-2">
+                        <div className="d-flex align-items-center">
+                          <i className="fa fa-file-word fa-2x text-primary me-3"></i>
+                          <div>
+                            <h6 className="mb-1 fw-bold">Belum punya contoh SPJMT?</h6>
+                            <p className="mb-0 small">Download template contoh Surat SPJMT Yatim (SD/SMP) di sini</p>
+                          </div>
+                        </div>
+                        <a
+                          href="/spjmt_yatimsdsmp.docx"
+                          download="spjmt_yatimsdsmp.docx"
+                          className="btn btn-primary btn-sm fw-bold"
+                        >
+                          <i className="fa fa-download me-2"></i>
+                          Download
+                        </a>
+                      </div>
+
                       <input
                         type="file"
                         className={`form-control ${tabunganErrors.imagespjmt ? 'is-invalid' : ''}`}
