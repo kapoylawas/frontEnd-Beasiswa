@@ -32,7 +32,8 @@ export default function YatimIndex() {
     spjmt: null,
     no_rekening: "",
     nik_ortu: "",
-    nama_ortu: ""
+    nama_ortu: "",
+    punya_rekening: ""
   });
   const [tabunganErrors, setTabunganErrors] = useState({});
   
@@ -388,7 +389,8 @@ export default function YatimIndex() {
       spjmt: null,
       no_rekening: item.no_rekening || "",
       nik_ortu: item.nik_ortu || "",
-      nama_ortu: item.nama_ortu || ""
+      nama_ortu: item.nama_ortu || "",
+      punya_rekening: item.punya_rekening || ""
     });
     setTabunganErrors({});
     setShowTabunganModal(true);
@@ -408,7 +410,8 @@ export default function YatimIndex() {
         spjmt: null,
         no_rekening: "",
         nik_ortu: "",
-        nama_ortu: ""
+        nama_ortu: "",
+        punya_rekening: ""
       });
       setTabunganErrors({});
     }, 300);
@@ -476,6 +479,7 @@ export default function YatimIndex() {
       formDataToSend.append('nik_ortu', tabunganData.nik_ortu);
       formDataToSend.append('nama_ortu', tabunganData.nama_ortu);
       formDataToSend.append('no_rekening', tabunganData.no_rekening);
+      formDataToSend.append('punya_rekening', tabunganData.punya_rekening);
 
       // Use yatim ID in the URL
       const response = await Api.post(
@@ -518,7 +522,8 @@ export default function YatimIndex() {
             spjmt: null,
             no_rekening: "",
             nik_ortu: "",
-            nama_ortu: ""
+            nama_ortu: "",
+            punya_rekening: ""
           });
           setTabunganErrors({});
           fetchYatim();
@@ -1290,15 +1295,33 @@ export default function YatimIndex() {
                                        !item.imageketrima.endsWith('/dokumen/yatim'));
                                     
                                     if ((item.status_ketrima === "1" || item.status_ketrima === 1)) {
-                                      return hasFile ? (
-                                        <span className="badge bg-success">
-                                          <i className="fa fa-check-circle me-1"></i>
-                                          Sudah Upload
-                                        </span>
-                                      ) : (
-                                        <span className="badge bg-warning text-dark">
-                                          <i className="fa fa-exclamation-triangle me-1"></i>
-                                          Belum Upload
+                                      // Determine status based on punya_rekening field
+                                      if (item.punya_rekening === "tidak") {
+                                        return (
+                                          <span className="badge bg-secondary">
+                                            <i className="fa fa-times-circle me-1"></i>
+                                            Tidak Punya Rekening
+                                          </span>
+                                        );
+                                      }
+                                      if (item.punya_rekening === "ya") {
+                                        return hasFile ? (
+                                          <span className="badge bg-success">
+                                            <i className="fa fa-check-circle me-1"></i>
+                                            Sudah Upload
+                                          </span>
+                                        ) : (
+                                          <span className="badge bg-warning text-dark">
+                                            <i className="fa fa-exclamation-triangle me-1"></i>
+                                            Belum Upload
+                                          </span>
+                                        );
+                                      }
+                                      // punya_rekening is null/empty - not chosen yet
+                                      return (
+                                        <span className="badge bg-info text-dark">
+                                          <i className="fa fa-question-circle me-1"></i>
+                                          Belum Dipilih
                                         </span>
                                       );
                                     }
@@ -1427,27 +1450,77 @@ export default function YatimIndex() {
                   </div>
 
                   <div className="row">
-                    {/* Upload Buku Tabungan */}
+                    {/* Punya Rekening Bank Jatim? */}
                     <div className="col-md-12 mb-3">
                       <label className="form-label fw-bold">
-                        File No. Rekening / Buku Tabungan <span className="text-danger">*</span>
+                        Apakah punya Rekening Bank Jatim? <span className="text-danger">*</span>
                       </label>
-                      <input
-                        type="file"
-                        className={`form-control ${tabunganErrors.imageketrima ? 'is-invalid' : ''}`}
-                        name="buku_tabungan"
-                        onChange={handleTabunganInputChange}
-                        accept=".pdf,.jpg,.jpeg,.png"
-                        required
-                      />
-                      {tabunganErrors.imageketrima && (
-                        <div className="invalid-feedback">{tabunganErrors.imageketrima[0]}</div>
+                      <div className="d-flex gap-4 mt-2">
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="radio"
+                            name="punya_rekening"
+                            id="punya_rekening_ya"
+                            value="ya"
+                            checked={tabunganData.punya_rekening === "ya"}
+                            onChange={handleTabunganInputChange}
+                            required
+                          />
+                          <label className="form-check-label fw-semibold" htmlFor="punya_rekening_ya">
+                            <i className="fa fa-check-circle text-success me-1"></i>
+                            Iya, punya
+                          </label>
+                        </div>
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="radio"
+                            name="punya_rekening"
+                            id="punya_rekening_tidak"
+                            value="tidak"
+                            checked={tabunganData.punya_rekening === "tidak"}
+                            onChange={handleTabunganInputChange}
+                            required
+                          />
+                          <label className="form-check-label fw-semibold" htmlFor="punya_rekening_tidak">
+                            <i className="fa fa-times-circle text-secondary me-1"></i>
+                            Tidak punya
+                          </label>
+                        </div>
+                      </div>
+                      {tabunganErrors.punya_rekening && (
+                        <div className="text-danger small mt-1">{tabunganErrors.punya_rekening[0]}</div>
                       )}
                       <div className="form-text">
                         <i className="fa fa-info-circle me-1"></i>
-                        Upload foto/scan buku tabungan atau nomor rekening (PDF/JPG/PNG, max 5MB)
+                        Pilih "Iya" jika sudah memiliki rekening Bank Jatim dan ingin mengupload buku tabungan
                       </div>
                     </div>
+
+                    {/* Upload Buku Tabungan - hanya muncul jika punya rekening */}
+                    {tabunganData.punya_rekening === "ya" && (
+                      <div className="col-md-12 mb-3">
+                        <label className="form-label fw-bold">
+                          File No. Rekening / Buku Tabungan khusus bank jatim <span className="text-danger">*</span>
+                        </label>
+                        <input
+                          type="file"
+                          className={`form-control ${tabunganErrors.imageketrima ? 'is-invalid' : ''}`}
+                          name="buku_tabungan"
+                          onChange={handleTabunganInputChange}
+                          accept=".pdf,.jpg,.jpeg,.png"
+                          required
+                        />
+                        {tabunganErrors.imageketrima && (
+                          <div className="invalid-feedback">{tabunganErrors.imageketrima[0]}</div>
+                        )}
+                        <div className="form-text">
+                          <i className="fa fa-info-circle me-1"></i>
+                          Upload foto/scan buku tabungan Bank Jatim (PDF/JPG/PNG, max 5MB)
+                        </div>
+                      </div>
+                    )}
 
                     {/* Upload Surat SPJMT */}
                     <div className="col-md-12 mb-3">
@@ -1638,6 +1711,38 @@ export default function YatimIndex() {
                       </div>
                     </div>
 
+                    {/* Punya Rekening Bank Jatim */}
+                    <div className="col-md-12">
+                      <div className="info-box bg-light rounded-3 p-3">
+                        <div className="d-flex align-items-start">
+                          <div className={`info-icon ${viewTabunganData?.punya_rekening === 'ya' ? 'bg-success' : viewTabunganData?.punya_rekening === 'tidak' ? 'bg-secondary' : 'bg-info'} text-white rounded-circle me-3 d-flex align-items-center justify-content-center`} style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                            <i className="fa fa-university"></i>
+                          </div>
+                          <div className="flex-grow-1">
+                            <div className="fw-semibold text-muted small mb-1">Status Rekening Bank Jatim</div>
+                            <div className="text-dark fw-bold">
+                              {viewTabunganData?.punya_rekening === 'ya' ? (
+                                <span className="badge bg-success fs-6 px-3 py-2">
+                                  <i className="fa fa-check-circle me-1"></i>
+                                  Iya, Punya Rekening Bank Jatim
+                                </span>
+                              ) : viewTabunganData?.punya_rekening === 'tidak' ? (
+                                <span className="badge bg-secondary fs-6 px-3 py-2">
+                                  <i className="fa fa-times-circle me-1"></i>
+                                  Tidak Punya Rekening Bank Jatim
+                                </span>
+                              ) : (
+                                <span className="badge bg-info text-dark fs-6 px-3 py-2">
+                                  <i className="fa fa-question-circle me-1"></i>
+                                  Belum Dipilih
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     {/* Nomor Rekening */}
                     <div className="col-md-6">
                       <div className="info-box bg-light rounded-3 p-3 h-100">
@@ -1699,7 +1804,12 @@ export default function YatimIndex() {
                           <div className="flex-grow-1">
                             <div className="fw-semibold text-muted small mb-1">File Buku Tabungan / No. Rekening</div>
                             <div className="text-dark fw-bold">
-                              {viewTabunganData?._hasFile ? (
+                              {viewTabunganData?.punya_rekening === 'tidak' ? (
+                                <span className="badge bg-secondary fs-6 px-3 py-2">
+                                  <i className="fa fa-times-circle me-1"></i>
+                                  Tidak Punya Rekening
+                                </span>
+                              ) : viewTabunganData?._hasFile ? (
                                 <span className="badge bg-success-subtle text-success fs-6 px-3 py-2">
                                   <i className="fa fa-check-circle me-1"></i>
                                   File sudah diupload
@@ -1714,8 +1824,16 @@ export default function YatimIndex() {
                           </div>
                         </div>
                         
-                        {/* Preview File atau Pesan Belum Upload */}
-                        {viewTabunganData?._hasFile ? (
+                        {/* Preview File / Pesan Tidak Punya / Pesan Belum Upload */}
+                        {viewTabunganData?.punya_rekening === 'tidak' ? (
+                          <div className="mt-3 text-center p-4 bg-secondary bg-opacity-10 rounded-3 border border-secondary">
+                            <i className="fa fa-ban fa-3x text-secondary mb-3"></i>
+                            <h6 className="text-muted mb-2">Tidak Punya Rekening Bank Jatim</h6>
+                            <p className="text-muted small mb-0">
+                              Penerima menyatakan tidak memiliki rekening Bank Jatim, sehingga tidak perlu mengupload buku tabungan.
+                            </p>
+                          </div>
+                        ) : viewTabunganData?._hasFile ? (
                           <div className="mt-3">
                             <div className="border rounded-3 overflow-hidden bg-white">
                               <iframe

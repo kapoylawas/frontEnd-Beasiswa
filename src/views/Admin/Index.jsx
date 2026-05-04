@@ -501,109 +501,141 @@ export default function Dashboard() {
 
                   {/* Modal Body */}
                   <div className="modal-body p-4">
-                    {/* Alert Warning */}
-                    <div className="alert alert-warning border-warning bg-warning bg-opacity-10 d-flex align-items-start mb-4">
-                      <i className="fas fa-info-circle me-3 mt-1 fs-4 text-warning"></i>
+                    {/* Header Pengumuman */}
+                    <div className="alert alert-danger border-danger bg-danger bg-opacity-10 d-flex align-items-start mb-4">
+                      <i className="fas fa-bullhorn me-3 mt-1 fs-4 text-danger"></i>
                       <div className="flex-grow-1">
                         <h6 className="alert-heading fw-bold text-dark">
-                          PERIKSA DATA YATIM YANG ANDA INPUT!
+                          PENGUMUMAN BEASISWA YATIM SD-SMP KAB. SIDOARJO 2026
                         </h6>
                         <p className="mb-0 text-dark">
-                          Barangkali data tidak terinput dengan benar. Mohon
-                          periksa kembali kelengkapan data yang telah Anda
-                          submit.
+                          Perhatikan informasi penting berikut mengenai proses pencairan beasiswa yatim
                         </p>
                       </div>
                     </div>
 
-                    {/* Checklist */}
-                    {/* <div className="mb-4">
-                      <h6 className="fw-bold text-dark mb-3">
-                        <i className="fas fa-clipboard-check me-2 text-primary"></i>
-                        Hal-hal yang perlu diperiksa:
-                      </h6>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="d-flex align-items-start mb-3">
-                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
-                            <span>Data identitas lengkap dan valid</span>
+                    {/* Point 1: Deadline */}
+                    <div className="card border-start border-warning border-4 shadow-sm mb-3">
+                      <div className="card-body p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="me-3">
+                            <div className="bg-warning rounded-circle d-flex align-items-center justify-content-center" style={{ width: '32px', height: '32px' }}>
+                              <i className="fas fa-clock text-white"></i>
+                            </div>
                           </div>
-                          <div className="d-flex align-items-start mb-3">
-                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
-                            <span>Dokumen pendukung sudah terupload</span>
+                          <div className="flex-grow-1">
+                            <h6 className="fw-bold text-dark mb-2">
+                              1. DEADLINE PENGISIAN DATA REKENING
+                            </h6>
+                            <p className="mb-0 text-dark">
+                              Bagi peserta didik yang <span className="fw-bold text-success">LOLOS</span> sebagai penerima beasiswa yatim SD-SMP dimohon untuk <span className="fw-bold text-danger">SEGERA MELENGKAPI DATA REKENING</span> dengan batas akhir pengisian pada <span className="fw-bold text-danger">HARI SENIN, 18 MEI 2026</span>.
+                            </p>
                           </div>
-                          <div className="d-flex align-items-start mb-3">
-                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
-                            <span>Semua kolom wajib telah diisi</span>
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="d-flex align-items-start mb-3">
-                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
-                            <span>Data tidak ada duplikasi</span>
-                          </div>
-                          <div className="d-flex align-items-start mb-3">
-                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
-                            <span>Format file sesuai persyaratan</span>
-                          </div>
-                          <div className="d-flex align-items-start mb-3">
-                            <i className="fas fa-check-circle text-success me-2 mt-1"></i>
-                            <span>Data yatim sesuai dengan kategori</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div> */}
-
-                    {/* Additional Information */}
-                    <div className="bg-light rounded p-3 mb-3">
-                      <div className="d-flex align-items-start">
-                        <i className="fas fa-exclamation-circle text-danger me-2 mt-1"></i>
-                        <div>
-                          <h6 className="fw-bold text-dark mb-2">PENTING:</h6>
-                          <p className="mb-2 text-dark">
-                            Data yatim yang tidak sesuai atau tidak lengkap
-                            dapat menyebabkan{" "}
-                            <span className="fw-bold text-danger">
-                              penolakan pendaftaran
-                            </span>
-                            . Pastikan semua informasi sudah benar sebelum
-                            melanjutkan.
-                          </p>
-                          <small className="text-muted">
-                            <i className="fas fa-clock me-1"></i>
-                            Mohon segera periksa dan perbaiki jika ada
-                            kalau tidak ada mohon input kembali.
-                          </small>
                         </div>
                       </div>
                     </div>
 
-                    {/* Contact Info */}
-                    <div className="bg-primary bg-opacity-10 rounded p-3">
-                      <h6 className="fw-bold text-primary mb-2">
-                        <i className="fas fa-headset me-2"></i>
-                        Butuh Bantuan?
-                      </h6>
-                      <p className="mb-0 text-dark">
-                        Jika Anda menemui kendala atau perlu bantuan dalam
-                        memperbaiki data, silakan hubungi tim administrator
-                        
-                      </p>
-                      {/* <div className="mt-2">
-                        <span className="badge bg-info me-2">
-                          <i className="fas fa-envelope me-1"></i>{" "}
-                          admin@beasiswa.id
-                        </span>
-                        <span className="badge bg-success">
-                          <i className="fas fa-phone me-1"></i> (031) 123-4567
-                        </span>
-                      </div> */}
+                    {/* Point 2: Bank Jatim */}
+                    <div className="card border-start border-primary border-4 shadow-sm mb-3">
+                      <div className="card-body p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="me-3">
+                            <div className="bg-primary rounded-circle d-flex align-items-center justify-content-center" style={{ width: '32px', height: '32px' }}>
+                              <i className="fas fa-university text-white"></i>
+                            </div>
+                          </div>
+                          <div className="flex-grow-1">
+                            <h6 className="fw-bold text-dark mb-2">
+                              2. INFORMASI REKENING BANK JATIM
+                            </h6>
+                            <p className="mb-2 text-dark">
+                              <strong>HANYA MENERIMA DATA REKENING BANK JATIM.</strong>
+                            </p>
+                            <p className="mb-0 text-dark">
+                              Bagi peserta didik/orang tua yang <strong>TIDAK MEMILIKI</strong> rekening Bank Jatim, maka Dinas Pendidikan dan Kebudayaan Kab. Sidoarjo bekerja sama dengan Bank Jatim akan <span className="fw-bold text-primary">MEMBUATKAN TABUNGAN PELAJAR</span> sesuai nama anak penerima beasiswa yatim.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Point 3: Update Transfer */}
+                    <div className="card border-start border-success border-4 shadow-sm mb-3">
+                      <div className="card-body p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="me-3">
+                            <div className="bg-success rounded-circle d-flex align-items-center justify-content-center" style={{ width: '32px', height: '32px' }}>
+                              <i className="fas fa-info-circle text-white"></i>
+                            </div>
+                          </div>
+                          <div className="flex-grow-1">
+                            <h6 className="fw-bold text-dark mb-2">
+                              3. STATUS TRANSFER BEASISWA
+                            </h6>
+                            <p className="mb-0 text-dark">
+                              Pengumuman bahwa uang beasiswa sudah ditransfer ke masing-masing rekening Bank Jatim peserta didik akan <span className="fw-bold text-success">DIUPDATE MELALUI WEBSITE INI</span>.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Point 4: Pencairan */}
+                    <div className="card border-start border-info border-4 shadow-sm mb-3">
+                      <div className="card-body p-3">
+                        <div className="d-flex align-items-start">
+                          <div className="me-3">
+                            <div className="bg-info rounded-circle d-flex align-items-center justify-content-center" style={{ width: '32px', height: '32px' }}>
+                              <i className="fas fa-money-bill-wave text-white"></i>
+                            </div>
+                          </div>
+                          <div className="flex-grow-1">
+                            <h6 className="fw-bold text-dark mb-2">
+                              4. PROSES PENCAIRAN UANG BEASISWA
+                            </h6>
+                            <p className="mb-2 text-dark">
+                              Bagi peserta didik yang nantinya mendapatkan rekening pelajar Bank Jatim baru dapat mengambil uang beasiswa <span className="fw-bold text-primary">LANGSUNG KE BANK JATIM CABANG SIDOARJO KOTA</span>.
+                            </p>
+                            <div className="bg-light rounded p-3 mt-2">
+                              <div className="mb-2">
+                                <i className="fas fa-map-marker-alt text-danger me-2"></i>
+                                <strong>Alamat:</strong> Jl. Ahmad Yani No. 29 Sidokumpul, Sidoarjo
+                              </div>
+                              <div className="mb-2">
+                                <i className="fas fa-clock text-primary me-2"></i>
+                                <strong>Waktu:</strong> Pukul 08.00 s.d. 14.00 WIB
+                              </div>
+                              <div className="mb-2">
+                                <i className="fas fa-user-tie text-success me-2"></i>
+                                <strong>Pendamping:</strong> Ibu/Wali Orang Tua
+                              </div>
+                              <div>
+                                <i className="fas fa-file-alt text-warning me-2"></i>
+                                <strong>Dokumen Asli:</strong> Akte Anak, KK, dan KTP Ibu/Orang Tua Wali
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Important Warning */}
+                    <div className="bg-danger bg-opacity-10 border border-danger rounded p-3 mt-4">
+                      <div className="d-flex align-items-start">
+                        <i className="fas fa-exclamation-triangle text-danger me-3 mt-1 fs-4"></i>
+                        <div>
+                          <h6 className="fw-bold text-danger mb-2">PERHATIAN PENTING!</h6>
+                          <p className="mb-0 text-dark">
+                            Harap segera lengkapi data rekening sebelum deadline. Keterlambatan pengisian data dapat menyebabkan <span className="fw-bold text-danger">penundaan pencairan beasiswa</span>.
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
                   {/* Modal Footer */}
                   <div
-                    className="modal-footer border-0 bg-light"
+                    className="modal-footer border-0 bg-light d-flex justify-content-center"
                     style={{
                       borderBottomLeftRadius: "15px",
                       borderBottomRightRadius: "15px",
@@ -611,23 +643,11 @@ export default function Dashboard() {
                   >
                     <button
                       type="button"
-                      className="btn btn-outline-secondary"
+                      className="btn btn-success fw-bold px-5"
                       onClick={closeModal}
                     >
-                      <i className="fas fa-times me-2"></i>
-                      Tutup Saja
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-success fw-bold"
-                      onClick={() => {
-                        // Anda bisa menambahkan fungsi untuk menandai bahwa data sudah diperiksa
-                        // Misalnya: update status di database atau cookies
-                        closeModal();
-                      }}
-                    >
-                      <i className="fas fa-check-double me-2"></i>
-                      Data Sudah Benar
+                      <i className="fas fa-check me-2"></i>
+                      Saya Mengerti
                     </button>
                   </div>
                 </div>

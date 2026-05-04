@@ -745,15 +745,33 @@ export default function VerifYatimIndex() {
                                                                              !item.imageketrima.endsWith('/dokumen/yatim'));
                                                                         
                                                                         if ((item.status_ketrima === "1" || item.status_ketrima === 1 || item.status_ketrima === true)) {
-                                                                            return hasFile ? (
-                                                                                <span className="badge bg-success">
-                                                                                    <i className="fa fa-check-circle me-1"></i>
-                                                                                    Sudah Upload
-                                                                                </span>
-                                                                            ) : (
-                                                                                <span className="badge bg-warning text-dark">
-                                                                                    <i className="fa fa-exclamation-triangle me-1"></i>
-                                                                                    Belum Upload
+                                                                            // Determine status based on punya_rekening field
+                                                                            if (item.punya_rekening === "tidak") {
+                                                                                return (
+                                                                                    <span className="badge bg-secondary">
+                                                                                        <i className="fa fa-times-circle me-1"></i>
+                                                                                        Tidak Punya Rekening
+                                                                                    </span>
+                                                                                );
+                                                                            }
+                                                                            if (item.punya_rekening === "ya") {
+                                                                                return hasFile ? (
+                                                                                    <span className="badge bg-success">
+                                                                                        <i className="fa fa-check-circle me-1"></i>
+                                                                                        Sudah Upload
+                                                                                    </span>
+                                                                                ) : (
+                                                                                    <span className="badge bg-warning text-dark">
+                                                                                        <i className="fa fa-exclamation-triangle me-1"></i>
+                                                                                        Belum Upload
+                                                                                    </span>
+                                                                                );
+                                                                            }
+                                                                            // punya_rekening is null/empty - not chosen yet
+                                                                            return (
+                                                                                <span className="badge bg-info text-dark">
+                                                                                    <i className="fa fa-question-circle me-1"></i>
+                                                                                    Belum Dipilih
                                                                                 </span>
                                                                             );
                                                                         }
@@ -1472,7 +1490,39 @@ export default function VerifYatimIndex() {
                                             </div>
                                         </div>
 
-                                        {/* File Buku Tabungan */}
+                                        {/* Status Punya Rekening Bank Jatim */}
+                                        <div className="col-md-12">
+                                            <div className="info-box bg-light rounded-3 p-3">
+                                                <div className="d-flex align-items-start">
+                                                    <div className="info-icon bg-secondary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', flexShrink: 0 }}>
+                                                        <i className="fa fa-university"></i>
+                                                    </div>
+                                                    <div className="flex-grow-1">
+                                                        <div className="fw-semibold text-muted small mb-1">Status Rekening Bank Jatim</div>
+                                                        <div className="text-dark fw-bold">
+                                                            {viewTabunganData?.punya_rekening === "ya" ? (
+                                                                <span className="badge bg-success-subtle text-success fs-6 px-3 py-2">
+                                                                    <i className="fa fa-check-circle me-1"></i>
+                                                                    Punya Rekening Bank Jatim
+                                                                </span>
+                                                            ) : viewTabunganData?.punya_rekening === "tidak" ? (
+                                                                <span className="badge bg-secondary-subtle text-secondary fs-6 px-3 py-2">
+                                                                    <i className="fa fa-times-circle me-1"></i>
+                                                                    Tidak Punya Rekening Bank Jatim
+                                                                </span>
+                                                            ) : (
+                                                                <span className="badge bg-info-subtle text-info fs-6 px-3 py-2">
+                                                                    <i className="fa fa-question-circle me-1"></i>
+                                                                    Belum Dipilih
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* File Buku Tabungan - Status Upload */}
                                         <div className="col-md-12">
                                             <div className="info-box bg-light rounded-3 p-3">
                                                 <div className="d-flex align-items-start mb-3">
@@ -1482,22 +1532,42 @@ export default function VerifYatimIndex() {
                                                     <div className="flex-grow-1">
                                                         <div className="fw-semibold text-muted small mb-1">File Buku Tabungan / No. Rekening</div>
                                                         <div className="text-dark fw-bold">
-                                                            {viewTabunganData?._hasFile ? (
-                                                                <span className="badge bg-success-subtle text-success fs-6 px-3 py-2">
-                                                                    <i className="fa fa-check-circle me-1"></i>
-                                                                    File sudah diupload
+                                                            {viewTabunganData?.punya_rekening === "tidak" ? (
+                                                                <span className="badge bg-secondary-subtle text-secondary fs-6 px-3 py-2">
+                                                                    <i className="fa fa-minus-circle me-1"></i>
+                                                                    Tidak Perlu Upload
                                                                 </span>
+                                                            ) : viewTabunganData?.punya_rekening === "ya" ? (
+                                                                viewTabunganData?._hasFile ? (
+                                                                    <span className="badge bg-success-subtle text-success fs-6 px-3 py-2">
+                                                                        <i className="fa fa-check-circle me-1"></i>
+                                                                        Sudah Upload
+                                                                    </span>
+                                                                ) : (
+                                                                    <span className="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
+                                                                        <i className="fa fa-exclamation-triangle me-1"></i>
+                                                                        Belum Upload
+                                                                    </span>
+                                                                )
                                                             ) : (
-                                                                <span className="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
-                                                                    <i className="fa fa-exclamation-triangle me-1"></i>
-                                                                    Belum diupload
+                                                                <span className="badge bg-info-subtle text-info fs-6 px-3 py-2">
+                                                                    <i className="fa fa-question-circle me-1"></i>
+                                                                    Belum Dipilih
                                                                 </span>
                                                             )}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
-                                                {viewTabunganData?._hasFile ? (
+                                                {viewTabunganData?.punya_rekening === "tidak" ? (
+                                                    <div className="mt-3 text-center p-4 bg-secondary bg-opacity-10 rounded-3 border border-secondary">
+                                                        <i className="fa fa-info-circle fa-3x text-secondary mb-3"></i>
+                                                        <h6 className="text-muted mb-2">Tidak Memiliki Rekening Bank Jatim</h6>
+                                                        <p className="text-muted small mb-0">
+                                                            Penerima tidak memiliki rekening Bank Jatim, sehingga tidak perlu upload buku tabungan.
+                                                        </p>
+                                                    </div>
+                                                ) : viewTabunganData?._hasFile ? (
                                                     <div className="mt-3">
                                                         <div className="border rounded-3 overflow-hidden bg-white">
                                                             <iframe
