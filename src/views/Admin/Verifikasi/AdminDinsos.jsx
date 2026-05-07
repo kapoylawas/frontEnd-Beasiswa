@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import LoadingTable from "../../../components/general/LoadingTable";
 import Pagination from "../../../components/general/Pagination";
 import PaginationNoDtks from "../../../components/general/PaginationNoDtks";
+import toast from "react-hot-toast";
 
 export default function AdminDinsos() {
   document.title = "Disporapar - Beasiswa Sidoarjo";
@@ -24,6 +25,24 @@ export default function AdminDinsos() {
   const [keywords, setKeywords] = useState("");
 
   const [keywordsNo, setKeywordsNo] = useState("");
+
+  const [selectStatusKetrima, setSelectStatusKetrima] = useState("");
+
+  const handleselectStatusKetrima = (event) => {
+    const getStatus = event.target.value;
+    setSelectStatusKetrima(getStatus);
+  };
+
+  const [selectStatusKetrimaNo, setSelectStatusKetrimaNo] = useState("");
+
+  const handleselectStatusKetrimaNo = (event) => {
+    const getStatus = event.target.value;
+    setSelectStatusKetrimaNo(getStatus);
+  };
+
+  const [showSpjmtModal, setShowSpjmtModal] = useState(false);
+  const [spjmtUrl, setSpjmtUrl] = useState("");
+  const [spjmtName, setSpjmtName] = useState("");
 
   //define state "pagination"
   const [pagination, setPagination] = useState({
@@ -47,7 +66,7 @@ export default function AdminDinsos() {
     //define variable "page"
     const page = pageNumber ? pageNumber : pagination.currentPage;
     await Api.get(
-      `/api/admin/beasiswa/dinsosDtks?search=${keywords}&page=${page}`,
+      `/api/admin/beasiswa/dinsosDtks?search=${keywords}&page=${page}&status_ketrima=${selectStatusKetrima}`,
       {
         //header
         headers: {
@@ -77,7 +96,7 @@ export default function AdminDinsos() {
     //define variable "page"
     const page = pageNumberNo ? pageNumberNo : paginationNo.currentPage;
     await Api.get(
-      `/api/admin/beasiswa/dinsosNoDtks?search=${keywordsNo}&page=${page}`,
+      `/api/admin/beasiswa/dinsosNoDtks?search=${keywordsNo}&page=${page}&status_ketrima=${selectStatusKetrimaNo}`,
       {
         //header
         headers: {
@@ -120,7 +139,7 @@ export default function AdminDinsos() {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, []);
+  }, [selectStatusKetrima, selectStatusKetrimaNo]);
 
   const searchData = async (e) => {
     //set value to state "keywords"
@@ -131,11 +150,41 @@ export default function AdminDinsos() {
   };
 
   const searchDataNoDtks = async (e) => {
-    //set value to state "keywords"
     setKeywordsNo(e.target.value);
-
-    //call function "fetchData"
     fetchDataNoDtks(1, e.target.value);
+  };
+
+  const checkHasSpjmtFile = (imagespjmt) => {
+    if (!imagespjmt) return false;
+    return (
+      imagespjmt.match(/\.(pdf|jpg|jpeg|png|gif)$/i) ||
+      (!imagespjmt.endsWith('/dokumen/dinsos') &&
+        !imagespjmt.endsWith('/storage/imagespjmt') &&
+        !imagespjmt.endsWith('/storage/imagespjmt/'))
+    );
+  };
+
+  const handleViewSpjmt = (dinsos) => {
+    const imagespjmt = dinsos?.user?.imagespjmt;
+    if (!checkHasSpjmtFile(imagespjmt)) {
+      toast.error('File SPJMT belum diupload');
+      return;
+    }
+
+    let fileUrl = imagespjmt;
+    if (!fileUrl.startsWith('http')) {
+      fileUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${fileUrl}`;
+    }
+
+    setSpjmtUrl(fileUrl);
+    setSpjmtName(`SPJMT - ${dinsos.user.name}`);
+    setShowSpjmtModal(true);
+  };
+
+  const handleCloseSpjmtModal = () => {
+    setShowSpjmtModal(false);
+    setSpjmtUrl("");
+    setSpjmtName("");
   };
 
   return (
@@ -143,9 +192,9 @@ export default function AdminDinsos() {
       <main>
         <div className="container-fluid px-4 mb-4 mt-3">
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-12">
               <div className="row">
-                <div className="col-md-9 col-12 mb-2">
+                <div className="col-md-6 col-12 mb-2">
                   <div className="input-group">
                     <input
                       type="text"
@@ -156,6 +205,19 @@ export default function AdminDinsos() {
                     <span className="input-group-text border-0 shadow-sm">
                       <i className="fa fa-search"></i>
                     </span>
+                  </div>
+                </div>
+                <div className="col-md-6 mb-2">
+                  <div className="input-group">
+                    <select
+                      className="form-select"
+                      value={selectStatusKetrima}
+                      onChange={handleselectStatusKetrima}
+                    >
+                      <option value="">-- Semua Status --</option>
+                      <option value="1">Diterima Beasiswa</option>
+                      <option value="null">Tidak Diterima</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -178,6 +240,8 @@ export default function AdminDinsos() {
                           <th className="border-0">Nohp</th>
                           <th className="border-0">Email</th>
                           <th className="border-0">Status Verif</th>
+                          <th className="border-0">Status Beasiswa</th>
+                          <th className="border-0">SPJMT</th>
                           <th className="border-0" style={{ width: "15%" }}>
                             Actions
                           </th>
@@ -263,9 +327,41 @@ export default function AdminDinsos() {
                                         )}
                                     </td>
                                     <td className="text-center">
+                                      {(dinsosDtks.user.status_ketrima === "1" || dinsosDtks.user.status_ketrima === 1) ? (
+                                        <span className="badge bg-success fs-6 px-3 py-2">
+                                          <i className="fa fa-check-circle me-1"></i>
+                                          Diterima Beasiswa
+                                        </span>
+                                      ) : (
+                                        <span className="badge bg-secondary fs-6 px-3 py-2">
+                                          <i className="fa fa-minus-circle me-1"></i>
+                                          Belum Diterima
+                                        </span>
+                                      )}
+                                    </td>
+                                    <td className="text-center">
+                                      {(dinsosDtks.user.status_ketrima === "1" || dinsosDtks.user.status_ketrima === 1) && (
+                                        checkHasSpjmtFile(dinsosDtks.user.imagespjmt) ? (
+                                          <button
+                                            onClick={() => handleViewSpjmt(dinsosDtks)}
+                                            className="btn btn-success btn-sm"
+                                            title="Lihat SPJMT"
+                                          >
+                                            <i className="fa fa-file-pdf me-1"></i>
+                                            SPJMT
+                                          </button>
+                                        ) : (
+                                          <span className="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
+                                            <i className="fa fa-exclamation-triangle me-1"></i>
+                                            Belum Upload SPJMT
+                                          </span>
+                                        )
+                                      )}
+                                    </td>
+                                    <td className="text-center">
                                       <Link
                                         to={`/admin/editDinsosDtks/${dinsosDtks.id}`}
-                                        className="btn btn-primary btn-sm me-2"
+                                        className="btn btn-primary btn-sm"
                                       >
                                         <a>DETAIL</a>
                                       </Link>
@@ -275,7 +371,7 @@ export default function AdminDinsos() {
                               ) : (
                                 //tampilkan pesan data belum tersedia
                                 <tr>
-                                  <td colSpan={8}>
+                                  <td colSpan={10}>
                                     <div
                                       className="alert alert-danger border-0 rounded shadow-sm w-100 text-center"
                                       role="alert"
@@ -309,7 +405,7 @@ export default function AdminDinsos() {
           <div className="row">
             <div className="col-md-12">
               <div className="row">
-                <div className="col-md-9 col-12 mb-2">
+                <div className="col-md-6 col-12 mb-2">
                   <div className="input-group">
                     <input
                       type="text"
@@ -320,6 +416,19 @@ export default function AdminDinsos() {
                     <span className="input-group-text border-0 shadow-sm">
                       <i className="fa fa-search"></i>
                     </span>
+                  </div>
+                </div>
+                <div className="col-md-6 mb-2">
+                  <div className="input-group">
+                    <select
+                      className="form-select"
+                      value={selectStatusKetrimaNo}
+                      onChange={handleselectStatusKetrimaNo}
+                    >
+                      <option value="">-- Semua Status --</option>
+                      <option value="1">Diterima Beasiswa</option>
+                      <option value="null">Tidak Diterima</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -342,6 +451,8 @@ export default function AdminDinsos() {
                           <th className="border-0">Nohp</th>
                           <th className="border-0">Email</th>
                           <th className="border-0">Status Verif</th>
+                          <th className="border-0">Status Beasiswa</th>
+                          <th className="border-0">SPJMT</th>
                           <th className="border-0" style={{ width: "15%" }}>
                             Actions
                           </th>
@@ -427,9 +538,41 @@ export default function AdminDinsos() {
                                         )}
                                     </td>
                                     <td className="text-center">
+                                      {(dinsosNoDtks.user.status_ketrima === "1" || dinsosNoDtks.user.status_ketrima === 1) ? (
+                                        <span className="badge bg-success fs-6 px-3 py-2">
+                                          <i className="fa fa-check-circle me-1"></i>
+                                          Diterima Beasiswa
+                                        </span>
+                                      ) : (
+                                        <span className="badge bg-secondary fs-6 px-3 py-2">
+                                          <i className="fa fa-minus-circle me-1"></i>
+                                          Belum Diterima
+                                        </span>
+                                      )}
+                                    </td>
+                                    <td className="text-center">
+                                      {(dinsosNoDtks.user.status_ketrima === "1" || dinsosNoDtks.user.status_ketrima === 1) && (
+                                        checkHasSpjmtFile(dinsosNoDtks.user.imagespjmt) ? (
+                                          <button
+                                            onClick={() => handleViewSpjmt(dinsosNoDtks)}
+                                            className="btn btn-success btn-sm"
+                                            title="Lihat SPJMT"
+                                          >
+                                            <i className="fa fa-file-pdf me-1"></i>
+                                            SPJMT
+                                          </button>
+                                        ) : (
+                                          <span className="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
+                                            <i className="fa fa-exclamation-triangle me-1"></i>
+                                            Belum Upload SPJMT
+                                          </span>
+                                        )
+                                      )}
+                                    </td>
+                                    <td className="text-center">
                                       <Link
                                         to={`/admin/editDinsosNoDtks/${dinsosNoDtks.id}`}
-                                        className="btn btn-primary btn-sm me-2"
+                                        className="btn btn-primary btn-sm"
                                       >
                                         <a>DETAIL</a>
                                       </Link>
@@ -439,7 +582,7 @@ export default function AdminDinsos() {
                               ) : (
                                 //tampilkan pesan data belum tersedia
                                 <tr>
-                                  <td colSpan={8}>
+                                  <td colSpan={10}>
                                     <div
                                       className="alert alert-danger border-0 rounded shadow-sm w-100 text-center"
                                       role="alert"
@@ -470,6 +613,78 @@ export default function AdminDinsos() {
           </div>
         </div>
       </main>
+
+      {/* Modal Preview SPJMT */}
+      {showSpjmtModal && (
+        <div
+          className="modal fade show"
+          style={{ display: "block", backgroundColor: "rgba(0,0,0,0.8)" }}
+          tabIndex="-1"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              handleCloseSpjmtModal();
+            }
+          }}
+        >
+          <div className="modal-dialog modal-xl modal-dialog-centered">
+            <div className="modal-content border-0 shadow-lg">
+              <div className="modal-header bg-success text-white border-0">
+                <div className="d-flex align-items-center w-100">
+                  <div
+                    className="bg-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                    style={{ width: "40px", height: "40px" }}
+                  >
+                    <i className="fas fa-file-pdf text-success fs-5"></i>
+                  </div>
+                  <div className="flex-grow-1">
+                    <h5 className="modal-title fw-bold mb-0">
+                      {spjmtName}
+                    </h5>
+                    <small className="text-white opacity-75">
+                      Preview Dokumen SPJMT
+                    </small>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="btn-close btn-close-white"
+                  onClick={handleCloseSpjmtModal}
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div className="modal-body p-0" style={{ minHeight: '75vh' }}>
+                <iframe
+                  src={spjmtUrl}
+                  title={spjmtName}
+                  className="w-100 h-100 border-0"
+                  style={{ minHeight: '75vh' }}
+                ></iframe>
+              </div>
+
+              <div className="modal-footer border-0 bg-light">
+                <a
+                  href={spjmtUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-success"
+                >
+                  <i className="fas fa-external-link-alt me-2"></i>
+                  Buka di Tab Baru
+                </a>
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  onClick={handleCloseSpjmtModal}
+                >
+                  <i className="fas fa-times me-2"></i>
+                  Tutup
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </LayoutAdmin>
   );
 }
