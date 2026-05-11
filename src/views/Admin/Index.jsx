@@ -695,23 +695,6 @@ export default function Dashboard() {
                         <strong>Riwayat Pendaftar</strong> untuk melihat detail
                         dan melakukan upload dokumen SPJMT.
                       </p>
-                      <div className="mt-3 p-3 bg-white rounded" style={{ color: "#333" }}>
-                        <h6 className="fw-bold mb-2 text-success">
-                          <i className="fa fa-file-word me-2"></i>
-                          Contoh Surat SPJMT
-                        </h6>
-                        <p className="mb-2 small">
-                          Silakan download contoh surat SPJMT terlebih dahulu sebelum melakukan upload:
-                        </p>
-                        <a
-                          href="/spjmt_mahasiswa.docx"
-                          download="spjmt_mahasiswa.docx"
-                          className="btn btn-success btn-sm fw-bold"
-                        >
-                          <i className="fa fa-download me-2"></i>
-                          Download Contoh SPJMT (.docx)
-                        </a>
-                      </div>
                     </div>
                   </div>
                 </div>

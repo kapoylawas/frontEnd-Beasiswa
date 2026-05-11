@@ -61,18 +61,18 @@ export default function RiwayatIndex() {
   const handleSpjmtChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Validasi file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        setSpjmtError("File terlalu besar. Maksimal 5MB");
+      // Validasi file size (max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        setSpjmtError("File terlalu besar. Maksimal 2MB");
         setSpjmtFile(null);
         e.target.value = "";
         return;
       }
       
       // Validasi file type
-      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+      const allowedTypes = ['application/pdf'];
       if (!allowedTypes.includes(file.type)) {
-        setSpjmtError("Format file tidak valid. Gunakan PDF, JPG, atau PNG");
+        setSpjmtError("Format file tidak valid. Gunakan PDF saja");
         setSpjmtFile(null);
         e.target.value = "";
         return;
@@ -1853,40 +1853,21 @@ export default function RiwayatIndex() {
                         Pastikan file yang Anda upload adalah <strong>Surat SPJMT</strong> yang benar.
                       </p>
                       <ul className="mb-0 small">
-                        <li>Format file: PDF, JPG, atau PNG</li>
-                        <li>Ukuran maksimal: 5MB</li>
+                        <li>Format file: PDF</li>
+                        <li>Ukuran maksimal: 2MB</li>
                         <li>Pastikan dokumen jelas dan terbaca</li>
                       </ul>
                     </div>
                   </div>
                 </div>
 
-                {/* Download Contoh SPJMT */}
-                <div className="alert alert-info d-flex align-items-center justify-content-between">
-                  <div className="d-flex align-items-center">
-                    <i className="fa fa-file-word fa-2x text-primary me-3"></i>
-                    <div>
-                      <h6 className="mb-1 fw-bold">Belum punya contoh SPJMT?</h6>
-                      <p className="mb-0 small">Download template contoh surat SPJMT di sini</p>
-                    </div>
-                  </div>
-                  <a
-                    href="/spjmt_mahasiswa.docx"
-                    download="spjmt_mahasiswa.docx"
-                    className="btn btn-primary btn-sm fw-bold"
-                  >
-                    <i className="fa fa-download me-2"></i>
-                    Download
-                  </a>
-                </div>
-
                 {/* Upload Form */}
                 <div className="mb-3">
-                  <label className="form-label fw-bold">Pilih File SPJMT</label>
+                  <label className="form-label fw-bold">Pilih File SPJMT (FORMAT PDF)</label>
                   <input
                     type="file"
                     className="form-control form-control-lg"
-                    accept=".pdf,.jpg,.jpeg,.png"
+                    accept=".pdf"
                     onChange={handleSpjmtChange}
                     disabled={uploadingSpjmt}
                   />
