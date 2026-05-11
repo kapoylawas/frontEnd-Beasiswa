@@ -283,17 +283,9 @@ export default function RiwayatIndex() {
                             <i className="fa fa-info-circle fa-2x text-primary me-3"></i>
                             <div>
                               <h6 className="mb-1">Upload Surat SPJMT Anda</h6>
-                              <p className="text-muted mb-2 small">
+                              <p className="text-muted mb-0 small">
                                 Klik tombol di bawah untuk upload atau lihat file SPJMT
                               </p>
-                              <a
-                                href="/spjmt_mahasiswa.docx"
-                                download="spjmt_mahasiswa.docx"
-                                className="btn btn-outline-success btn-sm fw-bold"
-                              >
-                                <i className="fa fa-download me-2"></i>
-                                Download Contoh SPJMT (.docx)
-                              </a>
                             </div>
                           </div>
                         </div>
