@@ -96,8 +96,8 @@ export default function Home() {
               <div className="divider-icon-wrapper-page">
                 <i className="fas fa-file-word"></i>
               </div>
-              <h3>Template SPJMT</h3>
-              <p>Download dan isi formulir SPJMT sesuai kategori beasiswa Anda</p>
+              <h3>Template SPTJM</h3>
+              <p>Download dan isi formulir SPTJM sesuai kategori beasiswa Anda</p>
             </div>
 
             {/* SPJMT Download Cards */}
@@ -190,15 +190,15 @@ export default function Home() {
                 <ul className="note-steps-page">
                   <li>
                     <span className="step-icon-page">1</span>
-                    <span>Download template SPJMT sesuai kategori beasiswa Anda</span>
+                    <span>Download template SPTJM sesuai kategori beasiswa Anda</span>
                   </li>
                   <li>
                     <span className="step-icon-page">2</span>
-                    <span>Isi formulir SPJMT dengan lengkap dan benar</span>
+                    <span>Isi formulir SPTJM dengan lengkap dan benar</span>
                   </li>
                   <li>
                     <span className="step-icon-page">3</span>
-                    <span>Login ke sistem dan upload file SPJMT yang sudah diisi</span>
+                    <span>Login ke sistem dan upload file SPTJM yang sudah diisi</span>
                   </li>
                   <li>
                     <span className="step-icon-page">4</span>
@@ -490,11 +490,11 @@ export default function Home() {
                       </li>
                       <li>
                         <span className="step-badge">2</span>
-                        <span>Upload file SPJMT yang telah diisi</span>
+                        <span>Upload file SPTJM yang telah diisi</span>
                       </li>
                       <li>
                         <span className="step-badge">3</span>
-                        <span>Contoh format SPJMT tersedia di dashboard setelah login</span>
+                        <span>Contoh format SPTJM tersedia di dashboard setelah login</span>
                       </li>
                     </ul>
                   </div>
@@ -512,7 +512,7 @@ export default function Home() {
                     <div className="info-highlight-box">
                       <i className="fas fa-phone-alt"></i>
                       <p>
-                        <strong>Hubungi admin sekolah masing-masing</strong> untuk melakukan upload SPJMT dan kelengkapan berkas lainnya.
+                        <strong>Hubungi admin sekolah masing-masing</strong> untuk melakukan upload SPTJM dan kelengkapan berkas lainnya.
                       </p>
                     </div>
                   </div>
@@ -527,7 +527,7 @@ export default function Home() {
                   </p>
                   <p className="info-note-deadline">
                     <i className="fas fa-calendar-alt"></i>
-                    <span>Batas akhir upload SPJMT dan berkas kelengkapan:</span>
+                    <span>Batas akhir upload SPTJM dan berkas kelengkapan:</span>
                     <strong>18 Mei 2026</strong>
                   </p>
                   <p className="info-note-warning">
@@ -565,8 +565,8 @@ export default function Home() {
                 <div className="divider-icon-wrapper">
                   <i className="fas fa-file-word"></i>
                 </div>
-                <h3>Template SPJMT</h3>
-                <p>Download dan isi formulir SPJMT sesuai kategori beasiswa Anda</p>
+                <h3>Template SPTJM</h3>
+                <p>Download dan isi formulir SPTJM sesuai kategori beasiswa Anda</p>
               </div>
 
               {/* SPJMT Download Section */}
@@ -659,15 +659,15 @@ export default function Home() {
                     <ul className="note-steps">
                       <li>
                         <span className="step-icon">1</span>
-                        <span>Download template SPJMT sesuai kategori beasiswa Anda</span>
+                        <span>Download template SPTJM sesuai kategori beasiswa Anda</span>
                       </li>
                       <li>
                         <span className="step-icon">2</span>
-                        <span>Isi formulir SPJMT dengan lengkap dan benar</span>
+                        <span>Isi formulir SPTJM dengan lengkap dan benar</span>
                       </li>
                       <li>
                         <span className="step-icon">3</span>
-                        <span>Login ke sistem dan upload file SPJMT yang sudah diisi</span>
+                        <span>Login ke sistem dan upload file SPTJM yang sudah diisi</span>
                       </li>
                       <li>
                         <span className="step-icon">4</span>

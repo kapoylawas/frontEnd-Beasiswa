@@ -274,7 +274,7 @@ export default function RiwayatIndex() {
                 <div className="col-md-12">
                   <div className="card border-0 rounded shadow-sm border-top-success">
                     <div className="card-header bg-success text-white">
-                      <h5 className="mb-0"><i className="fa fa-upload me-2"></i>Upload Surat SPJMT</h5>
+                      <h5 className="mb-0"><i className="fa fa-upload me-2"></i>Upload Surat SPTJM</h5>
                     </div>
                     <div className="card-body">
                       <div className="row align-items-center">
@@ -282,9 +282,9 @@ export default function RiwayatIndex() {
                           <div className="d-flex align-items-center">
                             <i className="fa fa-info-circle fa-2x text-primary me-3"></i>
                             <div>
-                              <h6 className="mb-1">Upload Surat SPJMT Anda</h6>
+                              <h6 className="mb-1">Upload Surat SPTJM Anda</h6>
                               <p className="text-muted mb-0 small">
-                                Klik tombol di bawah untuk upload atau lihat file SPJMT
+                                Klik tombol di bawah untuk upload atau lihat file SPTJM
                               </p>
                             </div>
                           </div>
@@ -295,7 +295,7 @@ export default function RiwayatIndex() {
                             onClick={handleOpenSpjmtModal}
                           >
                             <i className="fa fa-upload me-2"></i>
-                            Upload SPJMT
+                            Upload SPTJM
                           </button>
                           {dataAkademik.imagespjmt || dataNonAkademik.imagespjmt || dataKesra.imagespjmt || dataDinsos.imagespjmt || dataLuarNegeri.imagespjmt ? (
                             <button

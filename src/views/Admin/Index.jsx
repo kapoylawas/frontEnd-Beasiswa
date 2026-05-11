@@ -693,7 +693,7 @@ export default function Dashboard() {
                         {tipeBeasiswaUser === 5 && " - Luar Negeri"}
                         . Silakan cek menu{" "}
                         <strong>Riwayat Pendaftar</strong> untuk melihat detail
-                        dan melakukan upload dokumen SPJMT.
+                        dan melakukan upload dokumen SPTJM.
                       </p>
                     </div>
                   </div>
