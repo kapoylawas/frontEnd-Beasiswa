@@ -103,15 +103,34 @@ export default function Home() {
             {/* SPJMT Download Cards */}
             <div className="download-grid-page">
               <div className="download-card-page">
-                <div className="card-badge-page prestasi">Prestasi & Keagamaan</div>
+                <div className="card-badge-page prestasi">Prestasi</div>
                 <div className="download-icon-page prestasi">
                   <i className="fas fa-trophy"></i>
                 </div>
                 <div className="download-content-page">
-                  <h4>Beasiswa Prestasi & Keagamaan</h4>
+                  <h4>Beasiswa Prestasi</h4>
                   <p className="download-category-page">Mahasiswa</p>
                   <a
                     href="/spjmt_mahasiswa.docx"
+                    download
+                    className="btn-download-file-page"
+                  >
+                    <i className="fas fa-download"></i>
+                    <span>Download Template</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="download-card-page">
+                <div className="card-badge-page keagamaan">Keagamaan</div>
+                <div className="download-icon-page keagamaan">
+                  <i className="fas fa-mosque"></i>
+                </div>
+                <div className="download-content-page">
+                  <h4>Beasiswa Keagamaan</h4>
+                  <p className="download-category-page">Mahasiswa</p>
+                  <a
+                    href="/sptjm_kesra.docx"
                     download
                     className="btn-download-file-page"
                   >
@@ -573,15 +592,34 @@ export default function Home() {
               <div className="download-section">
                 <div className="download-grid">
                   <div className="download-card">
-                    <div className="card-badge prestasi">Prestasi & Keagamaan</div>
+                    <div className="card-badge prestasi">Prestasi</div>
                     <div className="download-icon prestasi">
                       <i className="fas fa-trophy"></i>
                     </div>
                     <div className="download-content">
-                      <h4>Beasiswa Prestasi & Keagamaan</h4>
+                      <h4>Beasiswa Prestasi</h4>
                       <p className="download-category">Mahasiswa</p>
                       <a
                         href="/spjmt_mahasiswa.docx"
+                        download
+                        className="btn-download-file"
+                      >
+                        <i className="fas fa-download"></i>
+                        <span>Download Template</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="download-card">
+                    <div className="card-badge keagamaan">Keagamaan</div>
+                    <div className="download-icon keagamaan">
+                      <i className="fas fa-mosque"></i>
+                    </div>
+                    <div className="download-content">
+                      <h4>Beasiswa Keagamaan</h4>
+                      <p className="download-category">Mahasiswa</p>
+                      <a
+                        href="/sptjm_kesra.docx"
                         download
                         className="btn-download-file"
                       >
@@ -1210,14 +1248,18 @@ export default function Home() {
         }
 
         .download-card:nth-child(2)::before {
-          background: linear-gradient(135deg, #4caf50, #8bc34a);
+          background: linear-gradient(135deg, #2196f3, #00bcd4);
         }
 
         .download-card:nth-child(3)::before {
-          background: linear-gradient(135deg, #2196f3, #21cbf3);
+          background: linear-gradient(135deg, #4caf50, #8bc34a);
         }
 
         .download-card:nth-child(4)::before {
+          background: linear-gradient(135deg, #2196f3, #21cbf3);
+        }
+
+        .download-card:nth-child(5)::before {
           background: linear-gradient(135deg, #ff9800, #ff5722);
         }
 
@@ -1242,6 +1284,10 @@ export default function Home() {
 
         .card-badge.prestasi {
           background: linear-gradient(135deg, #9c27b0, #e91e63);
+        }
+
+        .card-badge.keagamaan {
+          background: linear-gradient(135deg, #2196f3, #00bcd4);
         }
 
         .card-badge.yatim-sd {
@@ -1269,6 +1315,10 @@ export default function Home() {
 
         .download-icon.prestasi {
           background: linear-gradient(135deg, #9c27b0, #e91e63);
+        }
+
+        .download-icon.keagamaan {
+          background: linear-gradient(135deg, #2196f3, #00bcd4);
         }
 
         .download-icon.yatim-sd {
@@ -2172,14 +2222,18 @@ export default function Home() {
         }
 
         .download-card-page:nth-child(2)::before {
-          background: linear-gradient(135deg, #4caf50, #8bc34a);
+          background: linear-gradient(135deg, #2196f3, #00bcd4);
         }
 
         .download-card-page:nth-child(3)::before {
-          background: linear-gradient(135deg, #2196f3, #21cbf3);
+          background: linear-gradient(135deg, #4caf50, #8bc34a);
         }
 
         .download-card-page:nth-child(4)::before {
+          background: linear-gradient(135deg, #2196f3, #21cbf3);
+        }
+
+        .download-card-page:nth-child(5)::before {
           background: linear-gradient(135deg, #ff9800, #ff5722);
         }
 
@@ -2204,6 +2258,10 @@ export default function Home() {
 
         .card-badge-page.prestasi {
           background: linear-gradient(135deg, #9c27b0, #e91e63);
+        }
+
+        .card-badge-page.keagamaan {
+          background: linear-gradient(135deg, #2196f3, #00bcd4);
         }
 
         .card-badge-page.yatim-sd {
@@ -2231,6 +2289,10 @@ export default function Home() {
 
         .download-icon-page.prestasi {
           background: linear-gradient(135deg, #9c27b0, #e91e63);
+        }
+
+        .download-icon-page.keagamaan {
+          background: linear-gradient(135deg, #2196f3, #00bcd4);
         }
 
         .download-icon-page.yatim-sd {
