@@ -462,6 +462,50 @@ export default function YatimIndex() {
     setUploading(true);
     setTabunganErrors({});
 
+    // Validasi file size dan type
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    const allowedTypes = ['application/pdf'];
+    
+    // Validasi buku_tabungan
+    if (tabunganData.buku_tabungan) {
+      if (tabunganData.buku_tabungan.size > maxSize) {
+        toast.error('File buku tabungan maksimal 2MB!', {
+          duration: 4000,
+          position: 'top-right',
+        });
+        setUploading(false);
+        return;
+      }
+      if (!allowedTypes.includes(tabunganData.buku_tabungan.type)) {
+        toast.error('File buku tabungan harus format PDF!', {
+          duration: 4000,
+          position: 'top-right',
+        });
+        setUploading(false);
+        return;
+      }
+    }
+    
+    // Validasi spjmt
+    if (tabunganData.spjmt) {
+      if (tabunganData.spjmt.size > maxSize) {
+        toast.error('File SPJMT maksimal 2MB!', {
+          duration: 4000,
+          position: 'top-right',
+        });
+        setUploading(false);
+        return;
+      }
+      if (!allowedTypes.includes(tabunganData.spjmt.type)) {
+        toast.error('File SPJMT harus format PDF!', {
+          duration: 4000,
+          position: 'top-right',
+        });
+        setUploading(false);
+        return;
+      }
+    }
+
     try {
       const formDataToSend = new FormData();
       
@@ -478,7 +522,12 @@ export default function YatimIndex() {
       // Append other fields
       formDataToSend.append('nik_ortu', tabunganData.nik_ortu);
       formDataToSend.append('nama_ortu', tabunganData.nama_ortu);
-      formDataToSend.append('no_rekening', tabunganData.no_rekening);
+      
+      // Only append no_rekening if user has rekening
+      if (tabunganData.punya_rekening === "ya") {
+        formDataToSend.append('no_rekening', tabunganData.no_rekening);
+      }
+      
       formDataToSend.append('punya_rekening', tabunganData.punya_rekening);
 
       // Use yatim ID in the URL
@@ -1509,15 +1558,15 @@ export default function YatimIndex() {
                           className={`form-control ${tabunganErrors.imageketrima ? 'is-invalid' : ''}`}
                           name="buku_tabungan"
                           onChange={handleTabunganInputChange}
-                          accept=".pdf,.jpg,.jpeg,.png"
+                          accept=".pdf"
                           required
                         />
                         {tabunganErrors.imageketrima && (
                           <div className="invalid-feedback">{tabunganErrors.imageketrima[0]}</div>
                         )}
-                        <div className="form-text">
+                        <div className="form-text text-danger">
                           <i className="fa fa-info-circle me-1"></i>
-                          Upload foto/scan buku tabungan Bank Jatim (PDF/JPG/PNG, max 5MB)
+                          Upload buku tabungan Bank Jatim dalam format <strong>PDF</strong> (maksimal <strong>2MB</strong>)
                         </div>
                       </div>
                     )}
@@ -1552,22 +1601,22 @@ export default function YatimIndex() {
                         className={`form-control ${tabunganErrors.imagespjmt ? 'is-invalid' : ''}`}
                         name="spjmt"
                         onChange={handleTabunganInputChange}
-                        accept=".pdf,.jpg,.jpeg,.png"
+                        accept=".pdf"
                         required
                       />
                       {tabunganErrors.imagespjmt && (
                         <div className="invalid-feedback">{tabunganErrors.imagespjmt[0]}</div>
                       )}
-                      <div className="form-text">
+                      <div className="form-text text-danger">
                         <i className="fa fa-info-circle me-1"></i>
-                        Upload surat SPJMT (Surat Pernyataan_joint) dalam format PDF/JPG/PNG (max 5MB)
+                        Upload surat SPJMT dalam format <strong>PDF</strong> (maksimal <strong>2MB</strong>)
                       </div>
                     </div>
 
-                    {/* No Rekening */}
+                    {/* No Rekening - hanya required jika punya rekening */}
                     <div className="col-md-6 mb-3">
                       <label className="form-label fw-bold">
-                        Nomor Rekening <span className="text-danger">*</span>
+                        Nomor Rekening {tabunganData.punya_rekening === "ya" && <span className="text-danger">*</span>}
                       </label>
                       <input
                         type="text"
@@ -1575,13 +1624,16 @@ export default function YatimIndex() {
                         name="no_rekening"
                         value={tabunganData.no_rekening}
                         onChange={handleTabunganInputChange}
-                        placeholder="Masukkan nomor rekening"
+                        placeholder={tabunganData.punya_rekening === "tidak" ? "Tidak perlu diisi" : "Masukkan nomor rekening"}
+                        disabled={tabunganData.punya_rekening === "tidak"}
                       />
                       {tabunganErrors.no_rekening && (
                         <div className="invalid-feedback">{tabunganErrors.no_rekening[0]}</div>
                       )}
                       <div className="form-text">
-                        Nomor rekening bank untuk pencairan beasiswa
+                        {tabunganData.punya_rekening === "tidak" 
+                          ? "Tidak perlu diisi karena tidak punya rekening Bank Jatim"
+                          : "Nomor rekening bank untuk pencairan beasiswa"}
                       </div>
                     </div>
 
