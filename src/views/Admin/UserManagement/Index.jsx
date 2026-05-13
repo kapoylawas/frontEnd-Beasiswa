@@ -215,7 +215,7 @@ export default function UserManagement() {
   const handleResetPassword = (userId, userName) => {
     Swal.fire({
       title: 'Reset Password?',
-      html: `Apakah Anda yakin ingin mereset password user <strong>${userName}</strong>?<br><br>Password akan diubah menjadi <code>password</code>`,
+      html: `Apakah Anda yakin ingin mereset password user <strong>${userName}</strong>?<br><br>Password baru akan digenerate secara otomatis dan dapat dilihat setelah proses reset berhasil.`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -235,9 +235,40 @@ export default function UserManagement() {
           });
           
           if (response.data.success) {
+            console.log('Reset password response:', response.data);
+            const { name, email, default_password, password_info } = response.data.data;
+            
+            console.log('Showing SweetAlert with:', { name, email, default_password, password_info });
+            
+            Swal.fire({
+              title: 'Password Berhasil Direset!',
+              html: `
+                <div class="text-start">
+                  <p class="mb-2">Password untuk user <strong>${name}</strong> telah berhasil direset.</p>
+                  <div class="alert alert-info">
+                    <p class="mb-1"><strong>Email:</strong> ${email}</p>
+                    <p class="mb-2"><strong>Password Baru:</strong></p>
+                    <div class="alert alert-secondary text-center" style="font-size: 1.2em; font-weight: bold; letter-spacing: 2px;">
+                      ${default_password}
+                    </div>
+                    <small class="text-muted mt-2 d-block">${password_info}</small>
+                  </div>
+                  <div class="alert alert-warning">
+                    <i class="fa fa-exclamation-triangle me-2"></i>
+                    <strong>Penting:</strong> Segera berikan password ini kepada pengguna dan minta mereka untuk mengubahnya setelah login.
+                  </div>
+                </div>
+              `,
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Mengerti',
+              width: '600px'
+            });
+          } else {
+            // Fallback if success is false but no error thrown
             Swal.fire(
               'Berhasil!',
-              response.data.message,
+              response.data.message || 'Password berhasil direset',
               'success'
             );
           }
