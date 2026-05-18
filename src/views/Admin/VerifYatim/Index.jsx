@@ -23,6 +23,7 @@ export default function VerifYatimIndex() {
     const [selectedJenjang, setSelectedJenjang] = useState("");
     const [filterStatus, setFilterStatus] = useState("");
     const [filterKetrima, setFilterKetrima] = useState("");
+    const [filterPunyaRekening, setFilterPunyaRekening] = useState("");
 
     // State untuk modal detail
     const [showDetailModal, setShowDetailModal] = useState(false);
@@ -57,7 +58,7 @@ export default function VerifYatimIndex() {
         }
     }, []);
 
-    const fetchYatim = useCallback(async (page = 1, search = "", jenjang = "", status = "", ketrima = "") => {
+    const fetchYatim = useCallback(async (page = 1, search = "", jenjang = "", status = "", ketrima = "", punyaRekening = "") => {
         setLoading(true);
         try {
             let url = `/api/admin/yatim?page=${page}`;
@@ -72,6 +73,9 @@ export default function VerifYatimIndex() {
             }
             if (ketrima !== "") {
                 url += `&status_ketrima=${encodeURIComponent(ketrima)}`;
+            }
+            if (punyaRekening !== "") {
+                url += `&punya_rekening=${encodeURIComponent(punyaRekening)}`;
             }
 
             const response = await Api.get(url, {
@@ -120,7 +124,7 @@ export default function VerifYatimIndex() {
         setSearchQuery(query);
         setCurrentPage(1);
         const timeoutId = setTimeout(() => {
-            fetchYatim(1, query, selectedJenjang, filterStatus, filterKetrima);
+            fetchYatim(1, query, selectedJenjang, filterStatus, filterKetrima, filterPunyaRekening);
         }, 500);
         return () => clearTimeout(timeoutId);
     };
@@ -129,21 +133,28 @@ export default function VerifYatimIndex() {
         const jenjang = e.target.value;
         setSelectedJenjang(jenjang);
         setCurrentPage(1);
-        fetchYatim(1, searchQuery, jenjang, filterStatus, filterKetrima);
+        fetchYatim(1, searchQuery, jenjang, filterStatus, filterKetrima, filterPunyaRekening);
     };
 
     const handleStatusChange = (e) => {
         const status = e.target.value;
         setFilterStatus(status);
         setCurrentPage(1);
-        fetchYatim(1, searchQuery, selectedJenjang, status, filterKetrima);
+        fetchYatim(1, searchQuery, selectedJenjang, status, filterKetrima, filterPunyaRekening);
     };
 
     const handleKetrimaChange = (e) => {
         const ketrima = e.target.value;
         setFilterKetrima(ketrima);
         setCurrentPage(1);
-        fetchYatim(1, searchQuery, selectedJenjang, filterStatus, ketrima);
+        fetchYatim(1, searchQuery, selectedJenjang, filterStatus, ketrima, filterPunyaRekening);
+    };
+
+    const handlePunyaRekeningChange = (e) => {
+        const punyaRekening = e.target.value;
+        setFilterPunyaRekening(punyaRekening);
+        setCurrentPage(1);
+        fetchYatim(1, searchQuery, selectedJenjang, filterStatus, filterKetrima, punyaRekening);
     };
 
     const clearSearch = () => {
@@ -151,6 +162,7 @@ export default function VerifYatimIndex() {
         setSelectedJenjang("");
         setFilterStatus("");
         setFilterKetrima("");
+        setFilterPunyaRekening("");
         setCurrentPage(1);
         fetchYatim(1);
     };
@@ -160,6 +172,7 @@ export default function VerifYatimIndex() {
         setSelectedJenjang("");
         setFilterStatus("");
         setFilterKetrima("");
+        setFilterPunyaRekening("");
         setCurrentPage(1);
         fetchYatim(1);
     };
@@ -604,7 +617,7 @@ export default function VerifYatimIndex() {
                                             <span className="input-group-text border-0 shadow-sm">
                                                 <i className="fa fa-search"></i>
                                             </span>
-                                            {(searchQuery || selectedJenjang || filterStatus || filterKetrima) && (
+                                            {(searchQuery || selectedJenjang || filterStatus || filterKetrima || filterPunyaRekening) && (
                                                 <button
                                                     className="btn btn-outline-secondary border-0 shadow-sm"
                                                     type="button"
@@ -661,6 +674,21 @@ export default function VerifYatimIndex() {
                                         </select>
                                         <small className="text-muted mt-1">
                                             Filter berdasarkan status penerimaan beasiswa
+                                        </small>
+                                    </div>
+                                    <div className="col-md-3 col-12 mb-2">
+                                        <select
+                                            className="form-select border-1 shadow-sm"
+                                            value={filterPunyaRekening}
+                                            onChange={handlePunyaRekeningChange}
+                                        >
+                                            <option value="">Semua Rekening</option>
+                                            <option value="ya">Punya Rekening</option>
+                                            <option value="tidak">Tidak Punya Rekening</option>
+                                            <option value="null">Belum Diisi</option>
+                                        </select>
+                                        <small className="text-muted mt-1">
+                                            Filter berdasarkan status rekening bank
                                         </small>
                                     </div>
                                 </div>
