@@ -488,7 +488,7 @@ export default function VerifYatimIndex() {
     const handlePageChange = (page) => {
         if (page < 1 || page > lastPage) return;
         setCurrentPage(page);
-        fetchYatim(page, searchQuery, selectedJenjang, filterStatus, filterKetrima);
+        fetchYatim(page, searchQuery, selectedJenjang, filterStatus, filterKetrima, filterPunyaRekening);
     };
 
     const formatDate = (dateString) => {
