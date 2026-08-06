@@ -11,14 +11,14 @@ import Navbar from "../components/web/Navbar";
 //import navbar
 import Footer from "../components/web/Footer";
 
-export default function Web({ children }) {
+export default function Web({ children, hideFooter = false }) {
   return (
     <>
       <Navbar />
 
       {children}
 
-      <Footer />
+      {!hideFooter && <Footer />}
     </>
   );
 }

@@ -14,6 +14,15 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
 export default function Navbar() {
+  // get user from cookies safely
+  const userCookie = Cookies.get("user");
+  let user = {};
+  try {
+    user = userCookie ? JSON.parse(userCookie) : {};
+  } catch (err) {
+    user = {};
+  }
+
   //state toggle
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -86,213 +95,92 @@ export default function Navbar() {
 
   return (
     <nav
-      className="navbar navbar-expand navbar-dark bg-gradient-primary border-bottom shadow-sm fixed-top"
-      style={{
-        paddingLeft: 0,
-        height: "64px",
-        zIndex: "1039",
-        background: "linear-gradient(135deg, #2c7744 0%, #4CAF50 100%)",
-        borderBottom: "3px solid #FFD700"
-      }}
+      className="navbar navbar-expand fixed-top admin-navbar-3d d-flex align-items-center justify-content-between"
     >
-      {/* Brand Logo */}
-      <div className="navbar-brand-wrapper d-flex align-items-center">
-        <Link to="/" className="navbar-brand ps-3 fw-bold text-white d-flex align-items-center">
-          <div className="brand-icon-wrapper me-2">
-            <i className="fas fa-graduation-cap fs-4"></i>
-          </div>
-          <span className="brand-text">Sistem Beasiswa</span>
+      {/* Left Group: Brand Logo & Sidebar Toggle */}
+      <div className="d-flex align-items-center gap-2 ps-2">
+        <Link to="/admin/dashboard" className="brand-box-3d">
+          <i className="fas fa-graduation-cap text-dark fs-5"></i>
+          <span>Sistem Beasiswa</span>
         </Link>
+
+        {/* Sidebar Toggle Button 3D */}
+        <button
+          className="toggle-btn-3d"
+          id="sidebarToggle"
+          onClick={sidebarToggleHandler}
+          title="Toggle Navigation"
+        >
+          <i className="fas fa-bars"></i>
+        </button>
       </div>
 
-      {/* Sidebar Toggle */}
-      <button
-        className="btn btn-link btn-sm order-1 order-lg-0 me-3 text-white"
-        id="sidebarToggle"
-        onClick={sidebarToggleHandler}
-        style={{
-          border: "1px solid rgba(255,255,255,0.2)",
-          borderRadius: "6px",
-          padding: "8px 12px",
-          transition: "all 0.3s ease"
-        }}
-        onMouseEnter={(e) => {
-          e.target.style.backgroundColor = "rgba(255,255,255,0.1)";
-          e.target.style.transform = "scale(1.05)";
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.backgroundColor = "transparent";
-          e.target.style.transform = "scale(1)";
-        }}
-      >
-        <i className="fas fa-bars"></i>
-      </button>
-
-      {/* Spacer */}
-      <div className="d-none d-md-flex flex-grow-1"></div>
-
-      {/* User Menu */}
-      <ul className="navbar-nav ms-auto" ref={dropdownRef}>
-        <li className="nav-item dropdown">
-          <a
-            className="nav-link d-flex align-items-center text-white"
-            href="#!"
-            role="button"
-            style={{
-              padding: "8px 16px",
-              borderRadius: "8px",
-              transition: "all 0.3s ease",
-              position: "relative",
-              cursor: "pointer"
-            }}
+      {/* Right Group: User Profile 3D Pill & Dropdown */}
+      <ul className="navbar-nav me-2" ref={dropdownRef}>
+        <li className="nav-item dropdown position-relative">
+          <div
+            className="user-pill-3d"
             onClick={toggleDropdown}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = "rgba(255,255,255,0.15)";
-            }}
-            onMouseLeave={(e) => {
-              if (!isDropdownOpen) {
-                e.target.style.backgroundColor = "transparent";
-              }
-            }}
           >
-            <div className="user-avatar me-3">
-              <div
-                className="d-flex align-items-center justify-content-center rounded-circle"
-                style={{
-                  width: "38px",
-                  height: "38px",
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                  color: "white",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  transition: "all 0.3s ease"
-                }}
-              >
-                <i className="fas fa-user"></i>
-              </div>
+            <div className="user-avatar-3d">
+              <i className="fas fa-user"></i>
             </div>
-            <div className="user-info d-none d-md-block me-3">
-              <small className="d-block" style={{ fontSize: "12px", opacity: 0.9 }}>Welcome Back</small>
-              <span style={{ fontSize: "14px", fontWeight: "500" }}></span>
+            <div className="user-info d-none d-sm-block">
+              <span className="d-block text-dark fw-bold" style={{ fontSize: "0.85rem", lineHeight: "1.2" }}>
+                {user?.name || "Administrator"}
+              </span>
             </div>
-
-            {/* Animated Arrow - Straight Down/Up */}
-            <div
-              className="arrow-wrapper"
+            <i
+              className="fas fa-caret-down text-dark ms-1"
               style={{
-                transition: "transform 0.3s ease",
+                transition: "transform 0.2s ease",
+                transform: isDropdownOpen ? "rotate(180deg)" : "rotate(0deg)"
               }}
-            >
-              <i
-                className="fas fa-caret-down"
-                style={{
-                  fontSize: "16px",
-                  opacity: 0.8,
-                  transition: "all 0.3s ease",
-                  transform: isDropdownOpen ? "rotate(180deg)" : "rotate(0deg)"
-                }}
-              ></i>
-            </div>
-          </a>
+            ></i>
+          </div>
 
-          {/* Dropdown Menu */}
+          {/* Dropdown Menu 3D */}
           {isDropdownOpen && (
             <div
-              className="dropdown-menu show shadow border-0"
+              className="dropdown-menu-3d position-absolute"
               style={{
-                borderRadius: "12px",
-                border: "1px solid rgba(0,0,0,0.1)",
-                minWidth: "220px",
-                position: "absolute",
-                top: "100%", // Muncul tepat di bawah navbar
-                right: "0",
-                left: "auto",
-                marginTop: "8px", // Jarak dari trigger
-                animation: "dropdownSlideDown 0.3s ease",
+                top: "calc(100% + 8px)",
+                right: 0,
                 zIndex: 1040
               }}
               onMouseEnter={() => setIsDropdownOpen(true)}
               onMouseLeave={() => setIsDropdownOpen(false)}
             >
-              <div className="dropdown-header text-muted small d-flex align-items-center">
-                <i className="fas fa-user-circle me-2"></i>
-                User Menu
+              <div className="px-3 py-2 border-bottom mb-2">
+                <div className="fw-bold text-dark" style={{ fontSize: "0.9rem" }}>{user?.name || "Administrator"}</div>
+                <small className="text-muted" style={{ fontSize: "0.75rem" }}>{user?.email || "admin@beasiswa.go.id"}</small>
               </div>
-              <hr className="dropdown-divider my-2" />
+
               <Link
-                className="dropdown-item d-flex align-items-center py-3"
+                className="dropdown-item-3d d-flex align-items-center gap-2 mb-1"
                 to="/admin/gantiPassword"
-                style={{
-                  transition: "all 0.2s ease",
-                  borderRadius: "6px",
-                  margin: "2px 8px"
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = "#f8f9fa";
-                  e.target.style.transform = "translateX(5px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = "transparent";
-                  e.target.style.transform = "translateX(0)";
-                }}
                 onClick={() => setIsDropdownOpen(false)}
               >
-                <div className="icon-wrapper me-3">
-                  <i
-                    className="fas fa-key text-primary"
-                    style={{
-                      transition: "all 0.3s ease",
-                      fontSize: "16px"
-                    }}
-                  ></i>
-                </div>
-                <div className="flex-grow-1">
-                  <div style={{ fontWeight: "500", color: "#333" }}>Ganti Password</div>
-                  <small className="text-muted" style={{ fontSize: "12px" }}>Update password akun</small>
-                </div>
+                <i className="fas fa-key text-primary me-1"></i>
+                <span>Ganti Password</span>
               </Link>
-              <Link
-                className="dropdown-item d-flex align-items-center py-3"
+
+              <div className="dropdown-divider my-2 border-secondary opacity-25"></div>
+
+              <button
+                className="dropdown-item-3d d-flex align-items-center gap-2 text-danger w-100 bg-transparent border-0 text-start"
                 onClick={(e) => {
                   logout(e);
                   setIsDropdownOpen(false);
                 }}
-                style={{
-                  transition: "all 0.2s ease",
-                  borderRadius: "6px",
-                  margin: "2px 8px"
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = "#fff5f5";
-                  e.target.style.transform = "translateX(5px)";
-                  e.target.style.color = "#dc3545";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = "transparent";
-                  e.target.style.transform = "translateX(0)";
-                  e.target.style.color = "#dc3545";
-                }}
               >
-                <div className="icon-wrapper me-3">
-                  <i
-                    className="fas fa-sign-out-alt"
-                    style={{
-                      transition: "all 0.3s ease",
-                      fontSize: "16px",
-                      color: "#dc3545"
-                    }}
-                  ></i>
-                </div>
-                <div className="flex-grow-1">
-                  <div style={{ fontWeight: "500" }}>Logout</div>
-                  <small className="text-muted" style={{ fontSize: "12px" }}>Keluar dari sistem</small>
-                </div>
-              </Link>
+                <i className="fas fa-sign-out-alt text-danger me-1"></i>
+                <span className="fw-bold">Logout</span>
+              </button>
             </div>
           )}
         </li>
       </ul>
-
       {/* CSS Animation */}
       <style>
         {`

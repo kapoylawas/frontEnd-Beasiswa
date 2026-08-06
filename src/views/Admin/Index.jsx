@@ -16,7 +16,7 @@ export default function Dashboard() {
   //navigata
   const navigate = useNavigate();
 
-  const maintenance = true;
+  const maintenance = false;
 
   const [nim, setNim] = useState("");
   const [ktm, setKtm] = useState("");
@@ -48,6 +48,13 @@ export default function Dashboard() {
   const [yatims, setYatims] = useState(0);
   const [dinsoses, setDinsoses] = useState(0);
   const [kesras, setKesras] = useState(0);
+
+  // Helper untuk persentase aman tanpa NaN / Infinity
+  const calcPercent = (numerator, denominator) => {
+    if (!denominator || isNaN(denominator) || denominator === 0) return 0;
+    const res = Math.round(((numerator || 0) / denominator) * 100);
+    return isNaN(res) || !isFinite(res) ? 0 : res;
+  };
   const [luarNegeris, setLuarNegeris] = useState(0);
   const [nonAkademiks, setNonAkademiks] = useState(0);
 
@@ -1670,16 +1677,11 @@ export default function Dashboard() {
                             className="position-relative"
                             style={{ width: "100px", height: "100px" }}
                           >
-                            <div className="position-absolute top-50 start-50 translate-middle text-center">
-                              <div className="h3 fw-bold text-primary">
-                                {Math.round(
-                                  (dashboard.jumlahSudahVerifAkademik /
-                                    akademiks) *
-                                    100 || 0,
-                                )}
-                                %
+                            <div className="position-absolute top-50 start-50 translate-middle circular-chart-center">
+                              <div className="circular-chart-percent text-primary">
+                                {calcPercent(dashboard?.jumlahSudahVerifAkademik, akademiks)}%
                               </div>
-                              <div className="text-muted small">Verified</div>
+                              <div className="circular-chart-label">Verified</div>
                             </div>
                             <svg
                               width="100"
@@ -1704,7 +1706,7 @@ export default function Dashboard() {
                                 fill="none"
                                 stroke="#0d6efd"
                                 strokeWidth="3"
-                                strokeDasharray={`${(dashboard.jumlahSudahVerifAkademik / akademiks) * 100 || 0}, 100`}
+                                strokeDasharray={`${calcPercent(dashboard?.jumlahSudahVerifAkademik, akademiks)}, 100`}
                               />
                             </svg>
                           </div>
@@ -1815,16 +1817,11 @@ export default function Dashboard() {
                             className="position-relative"
                             style={{ width: "100px", height: "100px" }}
                           >
-                            <div className="position-absolute top-50 start-50 translate-middle text-center">
-                              <div className="h3 fw-bold text-warning">
-                                {Math.round(
-                                  (dashboard.jumlahSudahVerifNonAkademik /
-                                    nonAkademiks) *
-                                    100 || 0,
-                                )}
-                                %
+                            <div className="position-absolute top-50 start-50 translate-middle circular-chart-center">
+                              <div className="circular-chart-percent text-warning">
+                                {calcPercent(dashboard?.jumlahSudahVerifNonAkademik, nonAkademiks)}%
                               </div>
-                              <div className="text-muted small">Verified</div>
+                              <div className="circular-chart-label">Verified</div>
                             </div>
                             <svg
                               width="100"
@@ -1849,7 +1846,7 @@ export default function Dashboard() {
                                 fill="none"
                                 stroke="#ffc107"
                                 strokeWidth="3"
-                                strokeDasharray={`${(dashboard.jumlahSudahVerifNonAkademik / nonAkademiks) * 100 || 0}, 100`}
+                                strokeDasharray={`${calcPercent(dashboard?.jumlahSudahVerifNonAkademik, nonAkademiks)}, 100`}
                               />
                             </svg>
                           </div>
@@ -2170,7 +2167,7 @@ export default function Dashboard() {
           {/* KUSUS ADMIN */}
         </div>
       </main>
-      <style jsx>{`
+      <style>{`
         /* Tambahkan di file CSS Anda */
         .circular-chart {
           display: block;

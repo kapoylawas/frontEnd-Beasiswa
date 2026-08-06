@@ -1,754 +1,451 @@
-import { useState } from "react";
-import LayoutAuth from "../../layouts/Auth";
-import Cookies from "js-cookie";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Api from "../../services/Api";
+import LayoutWeb from "../../layouts/Web";
 
 export default function LupaPassword() {
-    //title page
-    document.title = "Reset Password - BEASISWA SIDOARJO";
+  // Title Page
+  document.title = "Reset Password - Beasiswa Sidoarjo";
 
-    const [isLoading, setLoading] = useState(false);
-    const [email, setEmail] = useState("");
-    const [errors, setErrors] = useState([]);
-    const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
 
-    const reset = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        await Api.post("/api/send-welcome-email", {
-            email: email,
-        })
-            .then((response) => {
-                setLoading(false);
-                console.log(response);
+  // State Math Captcha
+  const [mathCaptcha, setMathCaptcha] = useState({
+    question: "",
+    answer: 0,
+    userAnswer: "",
+    verified: false,
+  });
 
-                //show toast
-                toast('Reset password berhasil! Silakan cek email Anda.', {
-                    icon: '✅',
-                    style: {
-                        borderRadius: '12px',
-                        background: '#10B981',
-                        color: '#fff',
-                        fontWeight: '500',
-                        padding: '16px',
-                        fontSize: '14px'
-                    },
-                    duration: 120000,
-                });
+  // Initialize Captcha
+  useEffect(() => {
+    generateMathQuestion();
+  }, []);
 
-                //redirect dashboard page
-                navigate("/");
-            })
-            .catch((error) => {
-                setLoading(false);
-                setErrors(error.response.data);
-            });
-    };
+  const generateMathQuestion = () => {
+    const useAddition = Math.random() > 0.5;
+    let num1, num2, answer;
 
-    return (
-        <>
-            <div className="reset-password-container">
-                <div className="background-animation">
-                    {/* Animated Key SVG */}
-                    <svg className="floating-key key-1" viewBox="0 0 100 100">
-                        <path d="M50 15 C30 15, 15 30, 15 50 C15 70, 30 85, 50 85 C70 85, 85 70, 85 50 C85 30, 70 15, 50 15 Z"
-                            fill="rgba(59, 130, 246, 0.1)" stroke="rgba(59, 130, 246, 0.3)" strokeWidth="2" />
-                        <rect x="45" y="35" width="10" height="30" rx="2" fill="rgba(59, 130, 246, 0.5)" />
-                        <circle cx="50" cy="25" r="8" fill="rgba(59, 130, 246, 0.7)" />
-                    </svg>
+    if (useAddition) {
+      num1 = Math.floor(Math.random() * 10) + 1;
+      num2 = Math.floor(Math.random() * 10) + 1;
+      answer = num1 + num2;
 
-                    {/* Animated Mail SVG */}
-                    <svg className="floating-mail mail-1" viewBox="0 0 100 100">
-                        <rect x="15" y="25" width="70" height="50" rx="8" fill="rgba(16, 185, 129, 0.1)" stroke="rgba(16, 185, 129, 0.3)" strokeWidth="2" />
-                        <polygon points="15,25 50,45 85,25" fill="rgba(16, 185, 129, 0.2)" />
-                        <line x1="25" y1="40" x2="45" y2="55" stroke="rgba(16, 185, 129, 0.4)" strokeWidth="2" />
-                        <line x1="55" y1="55" x2="75" y2="40" stroke="rgba(16, 185, 129, 0.4)" strokeWidth="2" />
-                    </svg>
+      while (answer > 20) {
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
+        answer = num1 + num2;
+      }
 
-                    {/* Animated Shield SVG */}
-                    <svg className="floating-shield shield-1" viewBox="0 0 100 100">
-                        <path d="M50 15 L85 30 V60 C85 75, 70 85, 50 85 C30 85, 15 75, 15 60 V30 Z"
-                            fill="rgba(139, 92, 246, 0.1)" stroke="rgba(139, 92, 246, 0.3)" strokeWidth="2" />
-                        <path d="M50 40 L60 50 L50 60 L40 50 Z" fill="rgba(139, 92, 246, 0.4)" />
-                    </svg>
+      setMathCaptcha({
+        question: `${num1} + ${num2}`,
+        answer: answer,
+        userAnswer: "",
+        verified: false,
+      });
+    } else {
+      num1 = Math.floor(Math.random() * 15) + 5;
+      num2 = Math.floor(Math.random() * (num1 - 1)) + 1;
+      answer = num1 - num2;
 
-                    {/* Animated Lock SVG */}
-                    <svg className="floating-lock lock-1" viewBox="0 0 100 100">
-                        <rect x="30" y="45" width="40" height="35" rx="5" fill="rgba(245, 158, 11, 0.1)" stroke="rgba(245, 158, 11, 0.3)" strokeWidth="2" />
-                        <path d="M35 45 C35 35, 45 25, 50 25 C55 25, 65 35, 65 45" fill="none" stroke="rgba(245, 158, 11, 0.3)" strokeWidth="2" />
-                        <circle cx="50" cy="60" r="3" fill="rgba(245, 158, 11, 0.5)" />
-                    </svg>
+      setMathCaptcha({
+        question: `${num1} - ${num2}`,
+        answer: answer,
+        userAnswer: "",
+        verified: false,
+      });
+    }
+  };
 
-                    {/* Additional floating elements */}
-                    <div className="floating-circle circle-1"></div>
-                    <div className="floating-circle circle-2"></div>
-                    <div className="floating-circle circle-3"></div>
+  const checkMathAnswer = () => {
+    if (mathCaptcha.userAnswer.trim() === "") {
+      toast.error("Masukkan jawaban verifikasi!", {
+        position: "top-center",
+        duration: 2000,
+      });
+      return;
+    }
+
+    const userAnswer = parseInt(mathCaptcha.userAnswer);
+    if (isNaN(userAnswer)) {
+      toast.error("Jawaban harus berupa angka!", {
+        position: "top-center",
+        duration: 2000,
+      });
+      return;
+    }
+
+    if (userAnswer === mathCaptcha.answer) {
+      setMathCaptcha((prev) => ({ ...prev, verified: true }));
+      toast.success("Verifikasi berhasil!", {
+        position: "top-center",
+        duration: 1500,
+      });
+    } else {
+      toast.error("Jawaban salah! Silakan coba lagi.", {
+        position: "top-center",
+        duration: 2000,
+      });
+      setTimeout(() => {
+        generateMathQuestion();
+      }, 1500);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !mathCaptcha.verified) {
+      checkMathAnswer();
+    }
+  };
+
+  const resetCaptcha = () => {
+    generateMathQuestion();
+  };
+
+  const reset = async (e) => {
+    e.preventDefault();
+
+    if (!mathCaptcha.verified) {
+      toast.error("Harap verifikasi captcha terlebih dahulu!", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+
+    setLoading(true);
+    const toastId = toast.loading("Sedang memproses & mengirim link reset ke email...", {
+      position: "top-center",
+    });
+
+    await Api.post("/api/send-welcome-email", {
+      email: email,
+    })
+      .then((response) => {
+        setLoading(false);
+        setIsSuccess(true);
+        console.log(response);
+
+        toast.success("Reset password berhasil! Silakan periksa inbox/spam email Anda.", {
+          id: toastId,
+          position: "top-center",
+          duration: 6000,
+        });
+      })
+      .catch((error) => {
+        setLoading(false);
+        toast.dismiss(toastId);
+        if (error.response && error.response.data) {
+          setErrors(error.response.data);
+        } else {
+          toast.error("Gagal mengirim email reset password! Periksa koneksi atau email Anda.", {
+            position: "top-center",
+            duration: 3000,
+          });
+        }
+      });
+  };
+
+  return (
+    <LayoutWeb>
+      {/* HERO SECTION (SAWERIA 3D RETRO STYLE) */}
+      <section className="saweria-hero-section text-center py-5">
+        <div className="container max-w-5xl mx-auto px-4">
+          <div className="saweria-mascot-badge">
+            <i className="fas fa-key text-rose-500 me-1"></i>
+            <span>Reset Password Beasiswa Sidoarjo</span>
+          </div>
+
+          <h1 className="hero-title-3d">
+            Lupa Password? <br />
+            <span className="hero-title-highlight mt-3 d-inline-block">Kami Siap Membantu</span>
+          </h1>
+
+          <p className="hero-subtitle-3d mx-auto">
+            Masukkan alamat email terdaftar Anda. Tautan instruksi pemulihan kata sandi baru akan dikirimkan secara resmi ke email Anda.
+          </p>
+        </div>
+      </section>
+
+      {/* MAIN FORM SECTION */}
+      <section className="py-5 bg-white border-bottom border-slate-900">
+        <div className="container max-w-xl mx-auto px-4">
+          <div
+            className="saweria-3d-card p-4 p-md-5 text-start"
+            style={{
+              background: "#ffffff",
+              border: "2.5px solid #1e293b",
+              boxShadow: "8px 8px 0px #1e293b",
+              borderRadius: "18px",
+            }}
+          >
+            {isSuccess ? (
+              <div
+                className="p-4 rounded-3 text-center"
+                style={{
+                  background: "#e6f4ec",
+                  border: "2.5px solid #1e293b",
+                  boxShadow: "4px 4px 0px #1e293b",
+                }}
+              >
+                <div
+                  className="d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+                  style={{
+                    width: "70px",
+                    height: "70px",
+                    backgroundColor: "#34d399",
+                    color: "#1e293b",
+                    border: "2.5px solid #1e293b",
+                    boxShadow: "3px 3px 0px #1e293b",
+                  }}
+                >
+                  <i className="fas fa-paper-plane" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <h4 className="fw-black text-slate-900 fs-5 mb-2">
+                  Instruksi Reset Berhasil Dikirim!
+                </h4>
+                <p className="text-slate-700 font-bold text-sm leading-relaxed mb-4">
+                  Tautan & petunjuk reset password telah sukses dikirimkan ke alamat email{" "}
+                  <strong>{email}</strong>. Silakan periksa pesan pada <strong>Kotak Masuk (Inbox)</strong> atau <strong>Folder Spam</strong> email Anda.
+                </p>
+
+                <div className="d-flex flex-wrap align-items-center justify-content-center gap-2">
+                  <Link
+                    to="/login"
+                    className="btn-saweria-3d-teal px-4 py-2.5 font-black text-sm d-inline-flex align-items-center gap-2"
+                  >
+                    <i className="fas fa-arrow-left"></i> Kembali ke Login
+                  </Link>
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-white border-dark font-black px-3 py-2 text-xs"
+                    style={{
+                      border: "2px solid #1e293b",
+                      boxShadow: "2px 2px 0px #1e293b",
+                      borderRadius: "8px",
+                      background: "#ffffff",
+                    }}
+                    onClick={() => {
+                      setIsSuccess(false);
+                      generateMathQuestion();
+                    }}
+                  >
+                    <i className="fas fa-rotate me-1"></i> Kirim Ulang
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Header Icon & Intro Box */}
+                <div
+                  className="p-3 mb-4 d-flex align-items-center gap-3"
+                  style={{
+                    background: "#fffbeb",
+                    border: "2.5px solid #1e293b",
+                    borderRadius: "12px",
+                    boxShadow: "3px 3px 0px #1e293b",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "45px",
+                      height: "45px",
+                      borderRadius: "10px",
+                      background: "#fbbf24",
+                      border: "2px solid #1e293b",
+                      boxShadow: "2px 2px 0px #1e293b",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "1.2rem",
+                      color: "#1e293b",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <i className="fas fa-envelope"></i>
+                  </div>
+                  <div>
+                    <strong className="d-block font-black text-slate-900 text-sm">
+                      Pemulihan Kata Sandi Akun
+                    </strong>
+                    <span className="text-slate-700 text-xs font-extrabold">
+                      Pastikan email yang dimasukkan sesuai dengan email pendaftaran akun Anda.
+                    </span>
+                  </div>
                 </div>
 
-                <div className="reset-content">
-                    <div className="reset-card">
-                        {/* Header Section */}
-                        <div className="card-header">
-                            <div className="logo-section">
-                                <div className="logo-container">
-                                    <img
-                                        src="/images/sidoarjo-logo.png"
-                                        alt="Logo Kabupaten Sidoarjo"
-                                        className="logo"
-                                        onError={(e) => {
-                                            e.target.style.display = 'none';
-                                            const fallback = document.createElement('div');
-                                            fallback.className = 'logo-fallback';
-                                            fallback.innerHTML = '<i class="fa-solid fa-graduation-cap"></i>';
-                                            e.target.parentNode.appendChild(fallback);
-                                        }}
-                                    />
-                                </div>
-                                <div className="title-container">
-                                    <h1 className="app-title">Beasiswa Sidoarjo 2026</h1>
-                                    <p className="app-subtitle">
-                                        Reset Password Akun Anda
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                {/* Error Notification */}
+                {errors.message && (
+                  <div
+                    className="p-3 mb-4 text-xs font-bold text-rose-900 d-flex align-items-center gap-2"
+                    style={{
+                      background: "#ffe4e6",
+                      border: "2px solid #1e293b",
+                      boxShadow: "3px 3px 0px #1e293b",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <i className="fas fa-circle-exclamation text-rose-600 fs-6"></i>
+                    <span>{errors.message}</span>
+                  </div>
+                )}
 
-                        <div className="card-body">
-                            {/* Alert Info */}
-                            <div className="info-section">
-                                <div className="info-icon">
-                                    <i className="fa-solid fa-key"></i>
-                                </div>
-                                <div className="info-content">
-                                    <h3>Reset Password</h3>
-                                    <p>Masukkan email terdaftar Anda. Link reset password akan dikirim ke email tersebut.</p>
-                                </div>
-                            </div>
+            <form onSubmit={reset}>
+              {/* EMAIL FIELD */}
+              <div className="mb-4">
+                <label
+                  className="form-label d-block text-slate-800 font-bold text-sm mb-1"
+                  style={{ fontFamily: "var(--font-family-code)" }}
+                >
+                  Alamat Email Terdaftar: <span className="text-rose-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  className="form-control text-slate-900 font-bold"
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    borderBottom: "2.5px solid #1e293b",
+                    borderRadius: "0",
+                    boxShadow: "none",
+                    padding: "8px 0",
+                    fontFamily: "var(--font-family-code)",
+                    fontSize: "0.95rem",
+                  }}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="contoh: nama@domain.com"
+                  required
+                />
+              </div>
 
-                            {/* Error Message */}
-                            {errors.message && (
-                                <div className="alert-error">
-                                    <i className="fa-solid fa-circle-exclamation"></i>
-                                    <span>{errors.message}</span>
-                                </div>
-                            )}
-
-                            {/* Form */}
-                            <form onSubmit={reset} className="reset-form">
-                                <div className="form-group">
-                                    <label className="form-label">Email Address</label>
-                                    <div className="input-container">
-                                        <div className="input-icon">
-                                            <i className="fa-solid fa-envelope"></i>
-                                        </div>
-                                        <input
-                                            type="email"
-                                            className={`form-input ${errors.email ? 'error' : ''}`}
-                                            placeholder="Masukkan email yang terdaftar"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    {errors.email && (
-                                        <div className="error-message">
-                                            <i className="fa-solid fa-circle-exclamation"></i>
-                                            <span>{errors.email[0]}</span>
-                                        </div>
-                                    )}
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    className={`submit-button ${isLoading ? 'loading' : ''}`}
-                                    disabled={isLoading}
-                                >
-                                    {isLoading ? (
-                                        <>
-                                            <i className="fa-solid fa-spinner fa-spin"></i>
-                                            <span>MEMPROSES...</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <i className="fa-solid fa-paper-plane"></i>
-                                            <span>KIRIM LINK RESET</span>
-                                        </>
-                                    )}
-                                </button>
-
-                                <div className="form-footer">
-                                    <Link to="/login" className="back-link">
-                                        <i className="fa-solid fa-arrow-left"></i>
-                                        <span>Kembali ke Halaman Login</span>
-                                    </Link>
-                                </div>
-                            </form>
-
-                            {/* Additional Info */}
-                            <div className="additional-info">
-                                <div className="info-icon-wrapper">
-                                    <i className="fa-solid fa-lightbulb"></i>
-                                </div>
-                                <div className="info-text-content">
-                                    <h4>Tips Penting!</h4>
-                                    <p>Pastikan email yang Anda masukkan adalah email yang valid dan aktif. Periksa folder spam jika tidak menemukan email reset password.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Footer */}
-                    <div className="page-footer">
-                        <p>&copy; {new Date().getFullYear()} Beasiswa SIDOARJO. All rights reserved.</p>
-                    </div>
+              {/* SAWERIA STYLE CAPTCHA BOX (FRESH MINT BACKGROUND) */}
+              <div
+                className="p-3 mb-4 rounded-3 d-flex align-items-center justify-content-between"
+                style={{
+                  background: "#e6f4ec",
+                  border: "2.5px solid #1e293b",
+                  boxShadow: "3px 3px 0px #1e293b",
+                }}
+              >
+                <div className="d-flex align-items-center gap-2">
+                  <span
+                    className="font-bold text-slate-900 text-sm"
+                    style={{ fontFamily: "var(--font-family-code)" }}
+                  >
+                    {mathCaptcha.question} =
+                  </span>
+                  <input
+                    type="text"
+                    className="form-control text-center font-bold"
+                    style={{
+                      width: "60px",
+                      border: "2px solid #1e293b",
+                      borderRadius: "8px",
+                      padding: "4px 8px",
+                      fontSize: "0.9rem",
+                      background: "#ffffff",
+                    }}
+                    value={mathCaptcha.userAnswer}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, "");
+                      setMathCaptcha((prev) => ({ ...prev, userAnswer: value }));
+                    }}
+                    onKeyPress={handleKeyPress}
+                    placeholder="?"
+                    disabled={mathCaptcha.verified}
+                    maxLength="2"
+                  />
                 </div>
 
-                <style jsx>{`
-                    .reset-password-container {
-                        min-height: 100vh;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        padding: 20px;
-                        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-                        position: relative;
-                        overflow: hidden;
-                    }
-                    
-                    .background-animation {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        z-index: 1;
-                        overflow: hidden;
-                    }
-                    
-                    /* Floating Key Animation */
-                    .floating-key {
-                        position: absolute;
-                        opacity: 0.7;
-                        animation: float 6s ease-in-out infinite;
-                    }
-                    
-                    .key-1 {
-                        width: 80px;
-                        top: 15%;
-                        left: 10%;
-                        animation-delay: 0s;
-                    }
-                    
-                    /* Floating Mail Animation */
-                    .floating-mail {
-                        position: absolute;
-                        opacity: 0.7;
-                        animation: float 8s ease-in-out infinite;
-                    }
-                    
-                    .mail-1 {
-                        width: 70px;
-                        top: 70%;
-                        right: 15%;
-                        animation-delay: 1s;
-                    }
-                    
-                    /* Floating Shield Animation */
-                    .floating-shield {
-                        position: absolute;
-                        opacity: 0.7;
-                        animation: float 7s ease-in-out infinite;
-                    }
-                    
-                    .shield-1 {
-                        width: 90px;
-                        top: 20%;
-                        right: 10%;
-                        animation-delay: 2s;
-                    }
-                    
-                    /* Floating Lock Animation */
-                    .floating-lock {
-                        position: absolute;
-                        opacity: 0.7;
-                        animation: float 9s ease-in-out infinite;
-                    }
-                    
-                    .lock-1 {
-                        width: 75px;
-                        bottom: 20%;
-                        left: 15%;
-                        animation-delay: 3s;
-                    }
-                    
-                    /* Floating Circles */
-                    .floating-circle {
-                        position: absolute;
-                        border-radius: 50%;
-                        background: rgba(255, 255, 255, 0.1);
-                        animation: float 10s ease-in-out infinite;
-                    }
-                    
-                    .circle-1 {
-                        width: 60px;
-                        height: 60px;
-                        top: 10%;
-                        right: 20%;
-                        animation-delay: 0.5s;
-                    }
-                    
-                    .circle-2 {
-                        width: 40px;
-                        height: 40px;
-                        bottom: 30%;
-                        left: 20%;
-                        animation-delay: 1.5s;
-                    }
-                    
-                    .circle-3 {
-                        width: 80px;
-                        height: 80px;
-                        top: 60%;
-                        left: 5%;
-                        animation-delay: 2.5s;
-                    }
-                    
-                    @keyframes float {
-                        0%, 100% {
-                            transform: translateY(0px) rotate(0deg);
-                        }
-                        50% {
-                            transform: translateY(-20px) rotate(5deg);
-                        }
-                    }
-                    
-                    /* Pulse animation for additional effect */
-                    @keyframes pulse {
-                        0%, 100% {
-                            opacity: 0.5;
-                        }
-                        50% {
-                            opacity: 0.8;
-                        }
-                    }
-                    
-                    .reset-content {
-                        width: 100%;
-                        max-width: 480px;
-                        position: relative;
-                        z-index: 2;
-                    }
-                    
-                    .reset-card {
-                        background: rgba(255, 255, 255, 0.95);
-                        backdrop-filter: blur(20px);
-                        border-radius: 24px;
-                        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-                        overflow: hidden;
-                        border: 1px solid rgba(255, 255, 255, 0.2);
-                        margin-bottom: 20px;
-                    }
-                    
-                    .card-header {
-                        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-                        color: white;
-                        padding: 40px 30px 30px;
-                        text-align: center;
-                        position: relative;
-                        overflow: hidden;
-                    }
-                    
-                    .card-header::before {
-                        content: '';
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-                        opacity: 0.3;
-                    }
-                    
-                    .logo-section {
-                        position: relative;
-                        z-index: 2;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        width: 100%;
-                    }
-                    
-                    .logo-container {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        margin-bottom: 20px;
-                        width: 100%;
-                    }
-                    
-                    .logo {
-                        width: 100px;
-                        height: 100px;
-                        object-fit: contain;
-                        border-radius: 20px;
-                        background: rgba(255, 255, 255, 0.2);
-                        padding: 12px;
-                        border: 2px solid rgba(255, 255, 255, 0.3);
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                        display: block;
-                        margin: 0 auto;
-                    }
-                    
-                    .logo-fallback {
-                        width: 100px;
-                        height: 100px;
-                        background: rgba(255, 255, 255, 0.2);
-                        border-radius: 20px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        border: 2px solid rgba(255, 255, 255, 0.3);
-                        color: white;
-                        font-size: 40px;
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                        margin: 0 auto;
-                    }
-                    
-                    .title-container {
-                        text-align: center;
-                        width: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                    
-                    .app-title {
-                        font-size: 24px;
-                        font-weight: 700;
-                        margin: 0 0 8px;
-                        line-height: 1.2;
-                        text-align: center;
-                        width: 100%;
-                    }
-                    
-                    .app-subtitle {
-                        font-size: 14px;
-                        line-height: 1.5;
-                        opacity: 0.9;
-                        margin: 0;
-                        text-align: center;
-                        width: 100%;
-                    }
-                    
-                    .card-body {
-                        padding: 40px 30px 30px;
-                    }
-                    
-                    .info-section {
-                        display: flex;
-                        align-items: flex-start;
-                        gap: 15px;
-                        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-                        border: 1px solid #bae6fd;
-                        border-radius: 16px;
-                        padding: 20px;
-                        margin-bottom: 25px;
-                    }
-                    
-                    .info-icon {
-                        background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
-                        color: white;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 10px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        flex-shrink: 0;
-                        font-size: 18px;
-                    }
-                    
-                    .info-content h3 {
-                        font-size: 16px;
-                        font-weight: 700;
-                        color: #0369a1;
-                        margin: 0 0 5px;
-                    }
-                    
-                    .info-content p {
-                        font-size: 14px;
-                        color: #0c4a6e;
-                        margin: 0;
-                        line-height: 1.5;
-                    }
-                    
-                    .alert-error {
-                        background-color: #fef2f2;
-                        color: #dc2626;
-                        border: 1px solid #fecaca;
-                        border-radius: 12px;
-                        padding: 15px;
-                        margin-bottom: 20px;
-                        display: flex;
-                        align-items: center;
-                        gap: 10px;
-                        font-size: 14px;
-                    }
-                    
-                    .reset-form {
-                        margin-bottom: 20px;
-                    }
-                    
-                    .form-group {
-                        margin-bottom: 25px;
-                    }
-                    
-                    .form-label {
-                        display: block;
-                        margin-bottom: 8px;
-                        font-weight: 600;
-                        color: #374151;
-                        font-size: 14px;
-                    }
-                    
-                    .input-container {
-                        position: relative;
-                        display: flex;
-                        align-items: center;
-                    }
-                    
-                    .input-icon {
-                        position: absolute;
-                        left: 15px;
-                        color: #6b7280;
-                        z-index: 1;
-                        font-size: 16px;
-                    }
-                    
-                    .form-input {
-                        width: 100%;
-                        padding: 15px 15px 15px 45px;
-                        border: 2px solid #e5e7eb;
-                        border-radius: 12px;
-                        font-size: 15px;
-                        transition: all 0.3s ease;
-                        background: white;
-                        color: #374151;
-                    }
-                    
-                    .form-input:focus {
-                        outline: none;
-                        border-color: #3b82f6;
-                        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-                    }
-                    
-                    .form-input::placeholder {
-                        color: #9ca3af;
-                    }
-                    
-                    .form-input.error {
-                        border-color: #ef4444;
-                        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-                    }
-                    
-                    .error-message {
-                        color: #ef4444;
-                        font-size: 13px;
-                        margin-top: 8px;
-                        display: flex;
-                        align-items: center;
-                        gap: 6px;
-                    }
-                    
-                    .submit-button {
-                        width: 100%;
-                        padding: 16px;
-                        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-                        color: white;
-                        border: none;
-                        border-radius: 12px;
-                        font-size: 16px;
-                        font-weight: 600;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 10px;
-                        margin-bottom: 20px;
-                        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-                    }
-                    
-                    .submit-button:hover:not(:disabled) {
-                        transform: translateY(-2px);
-                        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
-                    }
-                    
-                    .submit-button:disabled {
-                        opacity: 0.7;
-                        cursor: not-allowed;
-                    }
-                    
-                    .submit-button.loading {
-                        background: #6b7280;
-                    }
-                    
-                    .form-footer {
-                        text-align: center;
-                        padding-top: 20px;
-                        border-top: 1px solid #f1f5f9;
-                    }
-                    
-                    .back-link {
-                        color: #64748b;
-                        text-decoration: none;
-                        font-size: 14px;
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 8px;
-                        transition: all 0.3s;
-                        padding: 10px 16px;
-                        border-radius: 8px;
-                        font-weight: 500;
-                    }
-                    
-                    .back-link:hover {
-                        color: #3b82f6;
-                        background: #f8fafc;
-                    }
-                    
-                    /* Updated Additional Info Styles */
-                    .additional-info {
-                        background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
-                        border: 2px solid #F59E0B;
-                        border-radius: 16px;
-                        padding: 20px;
-                        margin-top: 20px;
-                        display: flex;
-                        align-items: flex-start;
-                        gap: 15px;
-                        box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
-                        position: relative;
-                        overflow: hidden;
-                    }
-                    
-                    .additional-info::before {
-                        content: '';
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        height: 3px;
-                        background: linear-gradient(90deg, #F59E0B, #FBBF24, #F59E0B);
-                    }
-                    
-                    .info-icon-wrapper {
-                        background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-                        color: white;
-                        width: 44px;
-                        height: 44px;
-                        border-radius: 12px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        flex-shrink: 0;
-                        font-size: 20px;
-                        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-                    }
-                    
-                    .info-text-content {
-                        flex: 1;
-                    }
-                    
-                    .info-text-content h4 {
-                        font-size: 16px;
-                        font-weight: 700;
-                        color: #92400E;
-                        margin: 0 0 8px;
-                        line-height: 1.3;
-                    }
-                    
-                    .info-text-content p {
-                        font-size: 14px;
-                        color: #92400E;
-                        margin: 0;
-                        line-height: 1.5;
-                        font-weight: 500;
-                    }
-                    
-                    .page-footer {
-                        text-align: center;
-                    }
-                    
-                    .page-footer p {
-                        color: rgba(255, 255, 255, 0.8);
-                        font-size: 13px;
-                        margin: 0;
-                    }
-                    
-                    @media (max-width: 480px) {
-                        .reset-password-container {
-                            padding: 15px;
-                        }
-                        
-                        .reset-card {
-                            border-radius: 20px;
-                            margin-bottom: 15px;
-                        }
-                        
-                        .card-header {
-                            padding: 30px 20px 25px;
-                        }
-                        
-                        .card-body {
-                            padding: 30px 20px 25px;
-                        }
-                        
-                        .app-title {
-                            font-size: 20px;
-                        }
-                        
-                        .logo {
-                            width: 80px;
-                            height: 80px;
-                        }
-                        
-                        .info-section {
-                            flex-direction: column;
-                            text-align: center;
-                            gap: 12px;
-                        }
-                        
-                        .additional-info {
-                            flex-direction: column;
-                            text-align: center;
-                            gap: 12px;
-                            padding: 20px 16px;
-                        }
-                        
-                        .info-icon-wrapper {
-                            align-self: center;
-                        }
-                        
-                        /* Adjust floating elements for mobile */
-                        .floating-key,
-                        .floating-mail,
-                        .floating-shield,
-                        .floating-lock {
-                            width: 50px !important;
-                            opacity: 0.4;
-                        }
-                        
-                        .floating-circle {
-                            opacity: 0.2;
-                        }
-                    }
-                `}</style>
-            </div>
-        </>
-    )
+                <div>
+                  {!mathCaptcha.verified ? (
+                    <div className="d-flex gap-1">
+                      <button
+                        type="button"
+                        className="btn font-bold text-xs"
+                        style={{
+                          background: "var(--saweria-teal)",
+                          color: "#1e293b",
+                          border: "2px solid #1e293b",
+                          boxShadow: "2px 2px 0px #1e293b",
+                          borderRadius: "8px",
+                          padding: "6px 12px",
+                        }}
+                        onClick={checkMathAnswer}
+                      >
+                        Verifikasi
+                      </button>
+                      <button
+                        type="button"
+                        className="btn font-bold text-xs"
+                        style={{
+                          background: "#ffffff",
+                          color: "#1e293b",
+                          border: "2px solid #1e293b",
+                          boxShadow: "2px 2px 0px #1e293b",
+                          borderRadius: "8px",
+                          padding: "6px 10px",
+                        }}
+                        onClick={resetCaptcha}
+                      >
+                        <i className="fas fa-rotate"></i>
+                      </button>
+                    </div>
+                  ) : (
+                    <span
+                      className="badge font-black text-xs px-2.5 py-1.5 rounded-2"
+                      style={{
+                        backgroundColor: "#34d399",
+                        color: "#1e293b",
+                        border: "2px solid #1e293b",
+                        boxShadow: "2px 2px 0px #1e293b",
+                      }}
+                    >
+                      <i className="fas fa-check me-1 text-slate-900"></i> Verifikasi OK
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* BUTTON & BACK TO LOGIN ROW */}
+              <div className="d-flex align-items-center justify-content-between mt-4">
+                <Link
+                  to="/login"
+                  className="text-slate-800 text-decoration-none font-bold text-sm"
+                  style={{ fontFamily: "var(--font-family-code)" }}
+                >
+                  &larr; Kembali ke Login
+                </Link>
+
+                <button
+                  type="submit"
+                  className="btn font-bold text-base px-4 py-2"
+                  disabled={isLoading || !mathCaptcha.verified}
+                  style={{
+                    background: "var(--saweria-teal)",
+                    color: "#1e293b",
+                    border: "2.5px solid #1e293b",
+                    boxShadow: "4px 4px 0px #1e293b",
+                    borderRadius: "10px",
+                    opacity: !mathCaptcha.verified ? 0.7 : 1,
+                    transition: "all 0.15s ease",
+                  }}
+                >
+                  {isLoading ? "Mengirim..." : "Kirim Link Reset"}
+                </button>
+              </div>
+            </form>
+          </>
+        )}
+          </div>
+        </div>
+      </section>
+    </LayoutWeb>
+  );
 }

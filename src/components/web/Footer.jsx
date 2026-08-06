@@ -1,69 +1,101 @@
 import React from "react";
 
-export default function App() {
+export default function Footer() {
   return (
-    <div id="root">
-      <div className="main-content">
-        {/* Konten utama di sini */}
-      </div>
+    <footer className="kofi-footer" style={{ background: "var(--saweria-green-bright)", borderTop: "3px solid #1e293b", padding: "60px 0 30px 0", marginTop: "80px" }}>
+      <div className="container max-w-7xl mx-auto px-4">
+        <div className="row gy-5 align-items-stretch">
+          {/* Brand & Deskripsi 3D Card */}
+          <div className="col-lg-6">
+            <div className="footer-3d-card p-4 p-md-5" style={{ background: "#ffffff", border: "2.5px solid #1e293b", boxShadow: "6px 6px 0px #1e293b", borderRadius: "18px", position: "relative" }}>
+              <span className="saweria-corner-badge teal" style={{ position: "absolute", top: "-14px", right: "24px", background: "#70e4ef", color: "#1e293b", fontWeight: 800, fontSize: "0.8rem", padding: "4px 14px", borderRadius: "12px", border: "2px solid #1e293b", boxShadow: "2px 2px 0px #1e293b", fontFamily: "var(--font-family-code)" }}>
+                pemkab sidoarjo
+              </span>
 
-      <footer className="footer">
-        {/* Footer Main Content */}
-        <div className="footer-main">
-          <div className="container">
-            <div className="footer-content">
-              <div className="footer-brand">
-                <div className="footer-logo">
+              <div className="d-flex align-items-center gap-3 mb-3">
+                <div className="brand-icon-box" style={{ width: 52, height: 52, borderRadius: 14, background: "var(--saweria-green-bright)", border: "2px solid #1e293b", boxShadow: "3px 3px 0px #1e293b", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.35rem", color: "#1e293b" }}>
                   <i className="fas fa-graduation-cap"></i>
-                  <span>Beasiswa Sidoarjo</span>
                 </div>
-                <p className="footer-description">
-                  Program beasiswa Pemerintah Kabupaten Sidoarjo untuk mendukung
-                  pendidikan generasi muda yang berprestasi dan berpotensi.
-                </p>
-                <div className="footer-social">
-                  <a href="https://www.facebook.com/pemkabsidoarjo1" className="social-icon">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="https://www.instagram.com/pemkabsidoarjo" className="social-icon">
-                    <i className="fab fa-instagram"></i>
-                  </a>
-                  <a href="https://www.youtube.com/@pemerintahkabupatensidoarj380" className="social-icon">
-                    <i className="fab fa-youtube"></i>
-                  </a>
-                  <a href="mailto:beasiswa@sidoarjo.go.id" className="social-icon">
-                    <i className="fas fa-envelope"></i>
-                  </a>
+                <div>
+                  <h4 className="m-0 font-black text-slate-900" style={{ fontSize: "1.5rem", letterSpacing: "-0.5px" }}>Beasiswa Sidoarjo</h4>
+                  <span className="font-extrabold text-slate-700" style={{ fontSize: "0.875rem" }}>Diskominfo Kabupaten Sidoarjo</span>
                 </div>
               </div>
 
-              <div className="footer-contact">
-                <div className="contact-item">
-                  <i className="fas fa-map-marker-alt"></i>
-                  <div>
-                    <strong>Alamat</strong>
-                    <span>Jl. Jenderal Sudirman No. 50, Sidoarjo</span>
-                  </div>
-                </div>
-                {/* <div className="contact-item">
-                  <i className="fas fa-phone"></i>
-                  <div>
-                    <strong>Telepon</strong>
-                    <span>(031) 1234567</span>
-                  </div>
-                </div>
-                <div className="contact-item">
+              <p className="mb-4 text-slate-800 font-extrabold" style={{ fontSize: "1rem", lineHeight: "1.6" }}>
+                Program beasiswa Pemerintah Kabupaten Sidoarjo untuk mendukung pendidikan generasi muda yang berprestasi dan berpotensi.
+              </p>
+
+              {/* Social Links 3D */}
+              <div className="d-flex align-items-center gap-3">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.facebook.com/pemkabsidoarjo1"
+                  className="social-link-3d"
+                  title="Facebook Pemkab Sidoarjo"
+                  style={{ width: 42, height: 42, borderRadius: "50%", background: "#ffffff", border: "2px solid #1e293b", boxShadow: "3px 3px 0px #1e293b", display: "flex", alignItems: "center", justifyContent: "center", color: "#1e293b", textDecoration: "none", transition: "all 0.15s ease", fontSize: "1.1rem" }}
+                >
+                  <i className="fab fa-facebook-f"></i>
+                </a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.instagram.com/pemkabsidoarjo"
+                  className="social-link-3d"
+                  title="Instagram Pemkab Sidoarjo"
+                  style={{ width: 42, height: 42, borderRadius: "50%", background: "#ffffff", border: "2px solid #1e293b", boxShadow: "3px 3px 0px #1e293b", display: "flex", alignItems: "center", justifyContent: "center", color: "#1e293b", textDecoration: "none", transition: "all 0.15s ease", fontSize: "1.1rem" }}
+                >
+                  <i className="fab fa-instagram"></i>
+                </a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.youtube.com/@pemerintahkabupatensidoarj380"
+                  className="social-link-3d"
+                  title="YouTube Pemkab Sidoarjo"
+                  style={{ width: 42, height: 42, borderRadius: "50%", background: "#ffffff", border: "2px solid #1e293b", boxShadow: "3px 3px 0px #1e293b", display: "flex", alignItems: "center", justifyContent: "center", color: "#1e293b", textDecoration: "none", transition: "all 0.15s ease", fontSize: "1.1rem" }}
+                >
+                  <i className="fab fa-youtube"></i>
+                </a>
+                <a
+                  href="mailto:beasiswa@sidoarjo.go.id"
+                  className="social-link-3d"
+                  title="Email Beasiswa"
+                  style={{ width: 42, height: 42, borderRadius: "50%", background: "#ffffff", border: "2px solid #1e293b", boxShadow: "3px 3px 0px #1e293b", display: "flex", alignItems: "center", justifyContent: "center", color: "#1e293b", textDecoration: "none", transition: "all 0.15s ease", fontSize: "1.1rem" }}
+                >
                   <i className="fas fa-envelope"></i>
-                  <div>
-                    <strong>Email</strong>
-                    <span>beasiswa@sidoarjo.go.id</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Alamat & Jam Operasional 3D Card */}
+          <div className="col-lg-6">
+            <div className="footer-3d-card p-4 p-md-5" style={{ background: "#ffffff", border: "2.5px solid #1e293b", boxShadow: "6px 6px 0px #1e293b", borderRadius: "18px", position: "relative" }}>
+              <span className="saweria-corner-badge green" style={{ position: "absolute", top: "-14px", right: "24px", background: "var(--saweria-green-bright)", color: "#1e293b", fontWeight: 800, fontSize: "0.8rem", padding: "4px 14px", borderRadius: "12px", border: "2px solid #1e293b", boxShadow: "2px 2px 0px #1e293b", fontFamily: "var(--font-family-code)" }}>
+                kontak & layanan
+              </span>
+              <h5 className="font-black text-slate-900 mb-4" style={{ fontSize: "1.25rem" }}>Informasi Sekretariat</h5>
+
+              <div className="d-flex flex-column gap-3">
+                <div className="p-3 bg-slate-50 border-2 border-slate-900 rounded-3 d-flex align-items-center gap-3" style={{ boxShadow: "3px 3px 0px #1e293b", border: "2px solid #1e293b" }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: "var(--saweria-green-bright)", border: "2px solid #1e293b", boxShadow: "2px 2px 0px #1e293b", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.25rem", color: "#1e293b", flexShrink: 0 }}>
+                    <i className="fas fa-map-marker-alt"></i>
                   </div>
-                </div> */}
-                <div className="contact-item">
-                  <i className="fas fa-clock"></i>
                   <div>
-                    <strong>Jam Operasional</strong>
-                    <span>Senin - Jumat: 08:00 - 16:00 WIB</span>
+                    <strong className="text-slate-900 text-base font-black d-block mb-1">Alamat</strong>
+                    <span className="text-slate-900 text-sm font-extrabold">Jl. Jenderal Sudirman No. 50, Sidoarjo</span>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-slate-50 border-2 border-slate-900 rounded-3 d-flex align-items-center gap-3" style={{ boxShadow: "3px 3px 0px #1e293b", border: "2px solid #1e293b" }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: "var(--saweria-teal)", border: "2px solid #1e293b", boxShadow: "2px 2px 0px #1e293b", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.25rem", color: "#1e293b", flexShrink: 0 }}>
+                    <i className="fas fa-clock"></i>
+                  </div>
+                  <div>
+                    <strong className="text-slate-900 text-base font-black d-block mb-1">Jam Operasional</strong>
+                    <span className="text-slate-900 text-sm font-extrabold">Senin - Jumat: 08:00 - 16:00 WIB</span>
                   </div>
                 </div>
               </div>
@@ -71,281 +103,19 @@ export default function App() {
           </div>
         </div>
 
-        {/* Footer Bottom */}
-        <div className="footer-bottom">
-          <div className="container">
-            <div className="footer-bottom-content">
-              <div className="copyright">
-                <i className="far fa-copyright"></i>
-                <span>2026 Beasiswa Sidoarjo. All Rights Reserved.</span>
-              </div>
-              <div className="footer-credits">
-                <span>Dikelola oleh Pemerintah Kabupaten Sidoarjo</span>
-              </div>
-            </div>
+        {/* Footer Bottom Bar 3D */}
+        <div className="footer-bottom-bar pt-4 mt-5 d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3" style={{ borderTop: "2.5px solid #1e293b" }}>
+          <div className="d-flex align-items-center gap-2 font-black text-slate-900" style={{ fontSize: "0.95rem" }}>
+            <i className="far fa-copyright"></i>
+            <span><strong>Beasiswa Sidoarjo</strong>. All Rights Reserved.</span>
+          </div>
+          <div>
+            <span style={{ color: "#1e293b", backgroundColor: "#ffffff", border: "2px solid #1e293b", boxShadow: "3px 3px 0px #1e293b", fontWeight: 900, fontSize: "0.85rem", padding: "8px 18px", borderRadius: "10px", display: "inline-block" }}>
+              <i className="fas fa-code me-2 text-emerald-600"></i>Dikembangkan oleh Diskominfo Kabupaten Sidoarjo
+            </span>
           </div>
         </div>
-      </footer>
-
-      <style jsx>{`
-        .footer {
-          background: linear-gradient(135deg, #1a3364 0%, #1e3c72 100%);
-          color: white;
-          margin-top: auto;
-        }
-
-        .footer-main {
-          padding: 50px 0 30px;
-        }
-
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 20px;
-        }
-
-        .footer-content {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 50px;
-          align-items: start;
-        }
-
-        /* Brand Section */
-        .footer-brand {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .footer-logo {
-          display: flex;
-          align-items: center;
-          font-size: 28px;
-          font-weight: 700;
-          margin-bottom: 20px;
-          color: white;
-        }
-
-        .footer-logo i {
-          font-size: 32px;
-          color: #ffd700;
-          margin-right: 12px;
-        }
-
-        .footer-description {
-          line-height: 1.7;
-          margin-bottom: 30px;
-          opacity: 0.9;
-          font-size: 16px;
-          max-width: 400px;
-        }
-
-        /* Social Media */
-        .footer-social {
-          display: flex;
-          gap: 15px;
-        }
-
-        .social-icon {
-          width: 45px;
-          height: 45px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.1);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          text-decoration: none;
-          transition: all 0.3s ease;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .social-icon:hover {
-          background: #ffd700;
-          color: #1e3c72;
-          transform: translateY(-3px) scale(1.1);
-          box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        /* Contact Section */
-        .footer-contact {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
-
-        .contact-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 15px;
-          padding: 15px;
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 10px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-          background: rgba(255, 255, 255, 0.1);
-          transform: translateX(5px);
-          border-color: rgba(255, 215, 0, 0.3);
-        }
-
-        .contact-item i {
-          color: #ffd700;
-          font-size: 18px;
-          margin-top: 2px;
-          width: 20px;
-          text-align: center;
-        }
-
-        .contact-item div {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-        }
-
-        .contact-item strong {
-          font-weight: 600;
-          color: #ffd700;
-          font-size: 14px;
-        }
-
-        .contact-item span {
-          line-height: 1.4;
-          opacity: 0.9;
-          font-size: 14px;
-        }
-
-        /* Footer Bottom */
-        .footer-bottom {
-          background: rgba(0, 0, 0, 0.3);
-          padding: 25px 0;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-bottom-content {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .copyright {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          opacity: 0.8;
-          font-size: 14px;
-        }
-
-        .copyright i {
-          color: #ffd700;
-        }
-
-        .footer-credits {
-          opacity: 0.7;
-          font-size: 14px;
-          font-style: italic;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-          .footer-main {
-            padding: 40px 0 20px;
-          }
-          
-          .footer-content {
-            grid-template-columns: 1fr;
-            gap: 40px;
-          }
-          
-          .footer-logo {
-            font-size: 24px;
-            justify-content: center;
-            text-align: center;
-          }
-          
-          .footer-logo i {
-            font-size: 28px;
-          }
-          
-          .footer-description {
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-          }
-          
-          .footer-social {
-            justify-content: center;
-          }
-          
-          .footer-bottom-content {
-            flex-direction: column;
-            gap: 15px;
-            text-align: center;
-          }
-        }
-
-        @media (max-width: 576px) {
-          .footer-main {
-            padding: 30px 0 15px;
-          }
-          
-          .footer-content {
-            gap: 30px;
-          }
-          
-          .footer-logo {
-            font-size: 22px;
-          }
-          
-          .footer-logo i {
-            font-size: 26px;
-          }
-          
-          .footer-description {
-            font-size: 15px;
-          }
-          
-          .social-icon {
-            width: 40px;
-            height: 40px;
-          }
-          
-          .contact-item {
-            padding: 12px;
-            gap: 12px;
-          }
-          
-          .contact-item i {
-            font-size: 16px;
-          }
-          
-          .contact-item strong,
-          .contact-item span {
-            font-size: 13px;
-          }
-        }
-
-        @media (max-width: 375px) {
-          .footer-logo {
-            font-size: 20px;
-          }
-          
-          .footer-logo i {
-            font-size: 24px;
-          }
-          
-          .footer-social {
-            gap: 10px;
-          }
-          
-          .social-icon {
-            width: 38px;
-            height: 38px;
-          }
-        }
-      `}</style>
-    </div>
+      </div>
+    </footer>
   );
 }

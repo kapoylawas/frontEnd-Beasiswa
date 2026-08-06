@@ -1,166 +1,1144 @@
-.jumbotron-header {
-    background-color: #2e7d32;
+/* ============================================================
+   BEASISWA SIDOARJO 2027 - SAWERIA 3D NEO-BRUTALIST (GLOBAL SYSTEM)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Fira+Code:wght@500;700&display=swap');
+
+:root {
+  --font-family-base: 'Plus Jakarta Sans', sans-serif;
+  --font-family-code: 'Fira Code', monospace;
+  
+  /* Base Colors */
+  --saweria-bg: #f4fbf7;
+  --saweria-card-bg: #e6f4ec;
+  --saweria-dark: #1e293b;
+  
+  /* Fresh Emerald Palette */
+  --saweria-green-bright: #34d399; /* Bright Emerald Mint */
+  --saweria-green-main: #10b981;   /* Primary Emerald Green */
+  --saweria-green-hover: #059669;  /* Dark Emerald Green */
+  --saweria-green-deep: #047857;   /* Deep Forest Emerald for Footer */
+  --saweria-green-light: #ecfdf5;  /* Soft Mint Cream */
+  
+  /* Supporting 3D Accents */
+  --saweria-teal: #70e4ef;
+  --saweria-teal-hover: #48cae4;
+  --saweria-pink: #ff85a1;
+  --saweria-pink-hover: #f72585;
+  --saweria-purple: #9b5de5;
+  
+  /* 3D Neo-Brutalist Border & Hard Shadows */
+  --saweria-border-width: 2.5px;
+  --saweria-border: 2.5px solid var(--saweria-dark);
+  --saweria-border-sm: 2px solid var(--saweria-dark);
+  
+  --saweria-shadow-sm: 3px 3px 0px var(--saweria-dark);
+  --saweria-shadow: 5px 5px 0px var(--saweria-dark);
+  --saweria-shadow-lg: 8px 8px 0px var(--saweria-dark);
+  --saweria-shadow-hover: 7px 7px 0px var(--saweria-dark);
+  --saweria-shadow-active: 2px 2px 0px var(--saweria-dark);
+  
+  --saweria-radius: 18px;
+  --saweria-radius-sm: 12px;
+  --saweria-pill-radius: 10px;
 }
 
-.header-logo {
-    margin-top: 18px;
-    padding-right: 5px;
-    float: left;
+body {
+  font-family: var(--font-family-base) !important;
+  background-color: var(--saweria-bg);
+  color: var(--saweria-dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-.header-text {
-    color: white;
+/* Global Override: Ubah seluruh badge lonjong AI (rounded-pill) menjadi 3D rounded rectangular box */
+.rounded-pill,
+.badge.rounded-pill {
+  border-radius: 10px !important;
 }
 
-.header-school {
-    font-weight: bold;
-    margin-top: 25px;
+/* ============================================================
+   TOP BAR & TICKER (SAWERIA 3D STYLE)
+   ============================================================ */
+.top-navbar {
+  background: var(--saweria-green-bright);
+  color: var(--saweria-dark);
+  font-size: 0.85rem;
+  padding: 8px 0;
+  border-bottom: var(--saweria-border);
+  font-weight: 700;
 }
 
-.navbar-top {
-    background-color: #005005;
-    color: white;
+.top-nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.navbar-blue {
-    background-color: #005005;
-    border-bottom: 5px solid #f3ca35;
+.top-nav-badge {
+  background: #ffffff;
+  color: var(--saweria-dark);
+  font-weight: 800;
+  padding: 3px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  border: var(--saweria-border-sm);
+  box-shadow: 2px 2px 0px var(--saweria-dark);
+  font-family: var(--font-family-code);
 }
 
-.nav-link {
-    color: white!important;
-    border-radius: .3rem;
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.nav-web .nav-link:hover {
-    background: #f3ca35;
-    border-radius: .3rem;
-    color: #005006 !important;
+.social-link {
+  color: var(--saweria-dark);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: var(--saweria-border-sm);
+  box-shadow: 2px 2px 0px var(--saweria-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  font-size: 0.85rem;
 }
 
+.social-link:hover {
+  background: var(--saweria-green-bright);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--saweria-dark);
+  color: var(--saweria-dark);
+}
+
+/* ============================================================
+   MAIN NAVBAR (SAWERIA 3D STYLE)
+   ============================================================ */
+.main-navbar {
+  background: #ffffff;
+  border-bottom: var(--saweria-border);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1050;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--saweria-green-bright);
+  color: var(--saweria-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  border: var(--saweria-border);
+  box-shadow: var(--saweria-shadow-sm);
+}
+
+.brand-text-main {
+  font-weight: 900;
+  font-size: 1.3rem;
+  color: var(--saweria-dark);
+  letter-spacing: -0.3px;
+  line-height: 1.1;
+}
+
+.brand-badge-year {
+  background: var(--saweria-green-bright);
+  color: var(--saweria-dark);
+  font-size: 0.725rem;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: var(--saweria-border-sm);
+  box-shadow: 2px 2px 0px var(--saweria-dark);
+  margin-left: 6px;
+  font-family: var(--font-family-code);
+}
+
+.brand-subtext {
+  font-size: 0.775rem;
+  color: #475569;
+  font-weight: 700;
+}
+
+/* ============================================================
+   MOBILE TOGGLE BUTTON & DRAWER MENU 3D STYLE
+   ============================================================ */
+.mobile-toggle-box {
+  width: 44px;
+  height: 44px;
+  background: var(--saweria-green-bright);
+  color: var(--saweria-dark);
+  border: 2px solid var(--saweria-dark);
+  box-shadow: 2.5px 2.5px 0px var(--saweria-dark);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 900;
+  transition: all 0.15s ease;
+}
+
+.mobile-toggle-box:active {
+  transform: scale(0.92);
+}
+
+.navbar-toggler {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+@media (max-width: 991px) {
+  .main-navbar .navbar-collapse {
+    background: #ffffff;
+    border: 2.5px solid #1e293b;
+    box-shadow: 5px 5px 0px #1e293b;
+    border-radius: 16px;
+    padding: 18px 16px;
+    margin-top: 14px;
+  }
+  
+  .main-navbar .nav-link {
+    font-size: 1rem !important;
+    padding: 10px 14px !important;
+    border-radius: 10px;
+    font-weight: 800 !important;
+    color: var(--saweria-dark) !important;
+  }
+
+  .main-navbar .nav-link:hover,
+  .main-navbar .nav-link.active {
+    background: var(--saweria-green-bright);
+    box-shadow: 2px 2px 0px var(--saweria-dark);
+    border: 1.5px solid var(--saweria-dark);
+  }
+}
+
+/* Nav Links Saweria 3D */
 .navbar-nav .nav-link {
-    /* margin-top: 10px; */
-    padding-right: 10px;
-    padding-left: 10px;
+  color: var(--saweria-dark) !important;
+  font-weight: 800;
+  font-size: 0.925rem;
+  padding: 8px 16px !important;
+  border-radius: var(--saweria-radius-sm);
+  border: 2px solid transparent;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.nav-web .active {
-    background: #f3ca35;
-    border-radius: .3rem;
-    color: #005006 !important;
+.navbar-nav .nav-link:hover {
+  background: var(--saweria-teal);
+  border: var(--saweria-border-sm);
+  box-shadow: var(--saweria-shadow-sm);
+  transform: translate(-1px, -1px);
 }
 
-.btn-primary {
-    background-color: #2e7d32;
-    border-color: #2e7d32;
+.navbar-nav .nav-link.active {
+  background: var(--saweria-green-bright);
+  border: var(--saweria-border-sm);
+  box-shadow: var(--saweria-shadow-sm);
+  font-weight: 900;
 }
 
-.btn-primary:hover {
-    background-color: #2e7d32;
-    border-color: #2e7d32;
+/* 3D TACTILE BUTTONS */
+.btn-saweria-3d-yellow,
+.btn-saweria-3d-green,
+.btn-primary,
+.btn-success,
+.btn-register,
+.btn-login {
+  background: var(--saweria-green-bright) !important;
+  color: var(--saweria-dark) !important;
+  font-weight: 800 !important;
+  font-size: 0.95rem !important;
+  padding: 10px 24px !important;
+  border-radius: var(--saweria-radius-sm) !important;
+  border: var(--saweria-border) !important;
+  box-shadow: var(--saweria-shadow-sm) !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
 }
 
-.btn-primary-dark {
-    background-color: #005005;
-    border-color: #005005;
-    color: white;
+.btn-saweria-3d-yellow:hover,
+.btn-saweria-3d-green:hover,
+.btn-primary:hover,
+.btn-success:hover,
+.btn-register:hover,
+.btn-login:hover {
+  background: var(--saweria-green-main) !important;
+  color: #ffffff !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: var(--saweria-shadow) !important;
 }
 
-.btn-primary-dark:hover {
-    color: white;
+.btn-saweria-3d-teal,
+.btn-info {
+  background: var(--saweria-teal) !important;
+  color: var(--saweria-dark) !important;
+  font-weight: 800 !important;
+  font-size: 0.95rem !important;
+  padding: 10px 24px !important;
+  border-radius: var(--saweria-radius-sm) !important;
+  border: var(--saweria-border) !important;
+  box-shadow: var(--saweria-shadow-sm) !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
 }
 
-.img-slider {
-    height: 400px;
-    -o-object-fit: cover;
-    object-fit: cover;
+.btn-saweria-3d-teal:hover,
+.btn-info:hover {
+  background: var(--saweria-teal-hover) !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: var(--saweria-shadow) !important;
+  color: var(--saweria-dark) !important;
 }
 
-.img-post {
-    height: 160px;
-    -o-object-fit: cover;
-    object-fit: cover;
-    border-top-left-radius: .25rem;
-    border-bottom-left-radius: .25rem;
+/* ============================================================
+   GLOBAL 3D FORMS & INPUTS (INFO, REGISTER, LOGIN)
+   ============================================================ */
+.form-control,
+.form-select,
+.form-input,
+.input-container input,
+.input-group input,
+.select__control {
+  border: 2px solid var(--saweria-dark) !important;
+  border-radius: var(--saweria-radius-sm) !important;
+  box-shadow: var(--saweria-shadow-sm) !important;
+  font-weight: 700 !important;
+  padding: 10px 16px !important;
+  background: #ffffff !important;
+  color: var(--saweria-dark) !important;
+  transition: all 0.15s ease !important;
 }
 
-.card-category {
-    background-color: #C4C4C4;
+.form-control:focus,
+.form-select:focus,
+.form-input:focus,
+.input-container input:focus,
+.input-group input:focus {
+  box-shadow: var(--saweria-shadow) !important;
+  transform: translate(-1px, -1px) !important;
+  outline: none !important;
+  border-color: var(--saweria-dark) !important;
 }
 
-.footer-top {
-    background-color: #2e7d32;
-    color: white;
-    border-top: 5px solid #f3ca35;
+.form-label,
+label {
+  font-weight: 800 !important;
+  color: var(--saweria-dark) !important;
+  margin-bottom: 6px !important;
+  font-size: 0.9rem !important;
 }
 
-.footer-bottom {
-    background-color: #005005;
+/* ============================================================
+   REGISTER FORM - SAWERIA 3D NEO-BRUTALIST OVERHAUL
+   ============================================================ */
+.register-section {
+  max-width: 920px;
+  margin: 0 auto;
 }
 
-.navbar-light .navbar-toggler {
-    color: rgb(255 255 255) !important;
-    border-color: rgb(255 255 255) !important;
+/* 3D Stepper Header */
+.progress-steps {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background: #ffffff !important;
+  border: 2.5px solid #1e293b !important;
+  box-shadow: 5px 5px 0px #1e293b !important;
+  border-radius: 18px !important;
+  padding: 16px 24px !important;
+  margin-bottom: 30px !important;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.navbar-light .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+.progress-steps .step {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  opacity: 0.55 !important;
+  transition: all 0.2s ease;
 }
 
-
-/* .navbar {
-    padding-top: 0px !important;
-} */
-
-.text-green {
-    color: #2e7d32!important;
+.progress-steps .step.active {
+  opacity: 1 !important;
 }
 
-.carousel-custom {
-    z-index: 9;
-    background: #fff;
-    border: none;
-    border-radius: 50%;
-    padding: 10px;
-    width: 22px
+.progress-steps .step-number {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  border: 2px solid #1e293b !important;
+  box-shadow: 2px 2px 0px #1e293b !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 900 !important;
+  color: #1e293b !important;
+  font-size: 1rem !important;
+  flex-shrink: 0;
 }
 
-.post-content p {
-    margin-bottom: 0px!important;
-    font-size: 18px;
+.progress-steps .step.active .step-number {
+  background: var(--saweria-green-bright) !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #1e293b !important;
 }
 
-.divider-custom {
-    width: 12rem;
-    background-color: #556080;
-    border-radius: 9999px;
-    border: 0 solid #556080;
-    height: 0.25rem;
+.progress-steps .step-label {
+  font-weight: 800 !important;
+  color: #1e293b !important;
+  font-size: 0.95rem !important;
 }
 
-.list-group-item {
-    background-color: #d4d4d4;
-    padding: 0.3rem 1.25rem;
-    border: 0px;
-    box-shadow: 0 1px 3px #0000001a, 0 1px 2px #0000000f!important;
-    margin-bottom: 10px;
-    border-radius: 10px!important;
-    color: #2d3748;
+/* 3D Register Main Form Card */
+.register-card {
+  background: #ffffff !important;
+  border: 2.5px solid #1e293b !important;
+  box-shadow: 7px 7px 0px #1e293b !important;
+  border-radius: 20px !important;
+  padding: 36px !important;
+  position: relative !important;
 }
 
-#root {
-    display: flex;
+.register-card .card-header {
+  border-bottom: 2.5px solid #1e293b !important;
+  padding-bottom: 16px !important;
+  margin-bottom: 24px !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+}
+
+.register-card .card-header h2 {
+  font-weight: 900 !important;
+  color: #1e293b !important;
+  font-size: 1.6rem !important;
+  margin: 0 !important;
+}
+
+.register-card .card-header i {
+  font-size: 1.5rem !important;
+  color: #1e293b !important;
+  background: var(--saweria-green-bright);
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid #1e293b;
+  box-shadow: 2px 2px 0px #1e293b;
+}
+
+/* 3D Alert Beasiswa Info Inside Form */
+.alert-beasiswa {
+  background: var(--saweria-card-bg) !important;
+  border: 2px solid #1e293b !important;
+  box-shadow: 4px 4px 0px #1e293b !important;
+  border-radius: 14px !important;
+  padding: 20px !important;
+  margin-bottom: 28px !important;
+}
+
+.alert-beasiswa .alert-header h3 {
+  font-weight: 900 !important;
+  color: #1e293b !important;
+  font-size: 1.15rem !important;
+}
+
+.alert-beasiswa .alert-item {
+  background: #ffffff !important;
+  border: 2px solid #1e293b !important;
+  box-shadow: 2px 2px 0px #1e293b !important;
+  border-radius: 10px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 10px !important;
+}
+
+/* 3D INFO BOX (INFORMASI PENTING) */
+.info-box {
+  background: #ffffff !important;
+  border: 2.5px solid #1e293b !important;
+  box-shadow: 5px 5px 0px #1e293b !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  margin-top: 32px !important;
+  position: relative !important;
+}
+
+.info-box .info-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: 18px !important;
+  border-bottom: 2px solid #1e293b !important;
+  padding-bottom: 12px !important;
+}
+
+.info-box .info-header h4 {
+  font-weight: 900 !important;
+  color: #1e293b !important;
+  font-size: 1.25rem !important;
+  margin: 0 !important;
+}
+
+.info-box .info-header i {
+  font-size: 1.2rem !important;
+  color: #1e293b !important;
+  background: var(--saweria-teal);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 2px solid #1e293b;
+  box-shadow: 2px 2px 0px #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-box .info-item {
+  background: var(--saweria-bg) !important;
+  border: 2px solid #1e293b !important;
+  box-shadow: 2px 2px 0px #1e293b !important;
+  border-radius: 10px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+  font-size: 0.9rem !important;
+}
+
+.info-box .info-item.important-info {
+  background: #fef2f2 !important;
+  border-color: #1e293b !important;
+}
+
+.info-box .info-item i {
+  color: #1e293b !important;
+  background: var(--saweria-green-bright);
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1.5px solid #1e293b;
+  box-shadow: 1.5px 1.5px 0px #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.info-box .info-item.important-info i {
+  background: #ff85a1 !important;
+  color: #ffffff !important;
+}
+
+/* Form Action Buttons 3D */
+.form-actions {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-top: 32px !important;
+  padding-top: 24px !important;
+  border-top: 2px solid #1e293b !important;
+}
+
+.btn-prev {
+  background: #ffffff !important;
+  color: #1e293b !important;
+  border: 2px solid #1e293b !important;
+  box-shadow: 3px 3px 0px #1e293b !important;
+  font-weight: 800 !important;
+  padding: 10px 24px !important;
+  border-radius: 12px !important;
+  transition: all 0.15s ease !important;
+}
+
+.btn-prev:hover {
+  background: var(--saweria-teal) !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1e293b !important;
+}
+
+.btn-next,
+.btn-submit {
+  background: var(--saweria-green-bright) !important;
+  color: #1e293b !important;
+  border: 2px solid #1e293b !important;
+  box-shadow: 3px 3px 0px #1e293b !important;
+  font-weight: 900 !important;
+  padding: 12px 28px !important;
+  border-radius: 12px !important;
+  transition: all 0.15s ease !important;
+}
+
+.btn-next:hover,
+.btn-submit:hover {
+  background: var(--saweria-green-main) !important;
+  color: #ffffff !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1e293b !important;
+}
+
+/* ============================================================
+   GLOBAL 3D CARDS & CONTAINERS (INFO, REGISTER, LOGIN)
+   ============================================================ */
+.card,
+.login-card,
+.info-card,
+.completion-notice,
+.scholarship-tabs,
+.tab-content-container,
+.download-card-page,
+.contact-card-vertical {
+  background: #ffffff !important;
+  border: var(--saweria-border) !important;
+  box-shadow: var(--saweria-shadow) !important;
+  border-radius: var(--saweria-radius) !important;
+  transition: all 0.2s ease !important;
+}
+
+.card:hover,
+.download-card-page:hover,
+.contact-card-vertical:hover {
+  transform: translate(-3px, -3px) !important;
+  box-shadow: var(--saweria-shadow-lg) !important;
+}
+
+/* 3D TABS (INFO & REGISTER) */
+.tab-button,
+.scholarship-tabs button,
+.nav-tabs .nav-link {
+  border: var(--saweria-border-sm) !important;
+  box-shadow: var(--saweria-shadow-sm) !important;
+  border-radius: var(--saweria-radius-sm) !important;
+  background: #ffffff !important;
+  font-weight: 800 !important;
+  color: var(--saweria-dark) !important;
+  margin-right: 8px !important;
+  padding: 10px 20px !important;
+  transition: all 0.15s ease !important;
+}
+
+.tab-button:hover,
+.scholarship-tabs button:hover,
+.nav-tabs .nav-link:hover {
+  background: var(--saweria-teal) !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: var(--saweria-shadow) !important;
+}
+
+.tab-button.active,
+.scholarship-tabs button.active,
+.nav-tabs .nav-link.active {
+  background: var(--saweria-green-bright) !important;
+  box-shadow: var(--saweria-shadow) !important;
+  transform: translate(-2px, -2px) !important;
+  font-weight: 900 !important;
+}
+
+/* HERO HEADERS (INFO & REGISTER) */
+.info-hero,
+.register-hero {
+  background: #ffffff !important;
+  border-bottom: var(--saweria-border) !important;
+  padding: 40px 0 !important;
+  text-align: center !important;
+}
+
+.info-hero .hero-title,
+.register-hero .hero-title {
+  color: var(--saweria-dark) !important;
+  font-weight: 900 !important;
+  font-size: 2.2rem !important;
+}
+
+/* ============================================================
+   HERO SECTION (SAWERIA 3D GREEN STYLE)
+   ============================================================ */
+.saweria-hero-section {
+  background: #ffffff;
+  padding: 60px 0 70px 0;
+  border-bottom: var(--saweria-border);
+  position: relative;
+}
+
+.saweria-mascot-badge {
+  background: #ffffff;
+  color: #1e293b;
+  border: 2px solid #1e293b;
+  box-shadow: 3px 3px 0px #1e293b;
+  padding: 7px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  font-family: var(--font-family-code);
+  transition: all 0.15s ease;
+}
+
+.saweria-mascot-badge i {
+  color: #059669 !important;
+}
+
+.saweria-mascot-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px #1e293b;
+}
+
+.hero-title-3d {
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1.35;
+  letter-spacing: -1px;
+  color: var(--saweria-dark);
+  margin-bottom: 22px;
+}
+
+.hero-title-highlight {
+  background: var(--saweria-green-bright);
+  padding: 4px 16px;
+  border-radius: 12px;
+  border: var(--saweria-border);
+  box-shadow: 4px 4px 0px var(--saweria-dark);
+  display: inline-block;
+  margin-top: 12px;
+}
+
+.hero-subtitle-3d {
+  font-size: 1.15rem;
+  color: #334155;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  font-weight: 600;
+  max-width: 680px;
+}
+
+/* ============================================================
+   SAWERIA 3D CARD CONTAINERS
+   ============================================================ */
+.saweria-3d-card {
+  background: var(--saweria-card-bg);
+  border-radius: var(--saweria-radius);
+  border: var(--saweria-border);
+  box-shadow: var(--saweria-shadow);
+  padding: 30px;
+  position: relative;
+  transition: all 0.2s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.saweria-3d-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--saweria-shadow-lg);
+}
+
+/* Top Right Tag Badge */
+.saweria-corner-badge {
+  position: absolute;
+  top: -14px;
+  right: 24px;
+  background: var(--saweria-green-bright);
+  color: var(--saweria-dark);
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 4px 14px;
+  border-radius: 8px;
+  border: var(--saweria-border-sm);
+  box-shadow: 2.5px 2.5px 0px var(--saweria-dark);
+  font-family: var(--font-family-code);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  z-index: 10;
+}
+
+.saweria-corner-badge.yellow,
+.saweria-corner-badge.green,
+.saweria-corner-badge.teal {
+  background: var(--saweria-green-bright);
+  color: var(--saweria-dark);
+}
+
+.saweria-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  border: var(--saweria-border);
+  box-shadow: var(--saweria-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.icon-yellow,
+.icon-green { background: var(--saweria-green-bright); color: var(--saweria-dark); }
+.icon-teal { background: var(--saweria-teal); color: var(--saweria-dark); }
+.icon-pink { background: var(--saweria-pink); color: #ffffff; }
+.icon-purple { background: var(--saweria-purple); color: #ffffff; }
+
+.saweria-card-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--saweria-dark);
+  margin-bottom: 12px;
+}
+
+.saweria-card-desc {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.6;
+  font-weight: 600;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* ============================================================
+   SAWERIA CHIP SELECTOR (GREEN THEME)
+   ============================================================ */
+.category-chips-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.category-chip-btn {
+  background: #ffffff;
+  color: var(--saweria-dark);
+  border: var(--saweria-border);
+  box-shadow: var(--saweria-shadow-sm);
+  border-radius: var(--saweria-radius-sm);
+  padding: 10px 22px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.category-chip-btn:hover {
+  background: var(--saweria-teal);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--saweria-shadow);
+}
+
+.category-chip-btn.active {
+  background: var(--saweria-green-bright);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--saweria-shadow);
+}
+
+/* ============================================================
+   NUMBERED STEPS BOX (SAWERIA 3D GREEN LIST STYLE)
+   ============================================================ */
+.saweria-steps-box {
+  background: #ffffff;
+  border-radius: var(--saweria-radius);
+  border: var(--saweria-border);
+  box-shadow: var(--saweria-shadow-lg);
+  padding: 36px 30px 30px 30px;
+  position: relative;
+}
+
+.saweria-steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-family-code);
+  font-size: 0.95rem;
+  color: var(--saweria-dark);
+  font-weight: 600;
+}
+
+.saweria-steps-list li {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  line-height: 1.5;
+}
+
+.step-num-badge {
+  background: var(--saweria-green-bright);
+  color: var(--saweria-dark);
+  border: var(--saweria-border-sm);
+  box-shadow: 2px 2px 0px var(--saweria-dark);
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   MATCHING GREEN FOOTER (SAWERIA 3D NEO-BRUTALIST STYLE)
+   ============================================================ */
+.kofi-footer {
+  background: var(--saweria-green-bright);
+  color: var(--saweria-dark);
+  padding: 60px 0 28px 0;
+  margin-top: 80px;
+  border-top: var(--saweria-border);
+  position: relative;
+}
+
+.footer-3d-card {
+  background: #ffffff;
+  border: var(--saweria-border);
+  box-shadow: var(--saweria-shadow);
+  border-radius: var(--saweria-radius);
+  padding: 24px;
+  height: 100%;
+  position: relative;
+  transition: all 0.15s ease;
+  overflow: visible !important;
+}
+
+.footer-3d-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--saweria-shadow-lg);
+}
+
+.footer-brand-title {
+  font-weight: 900;
+  font-size: 1.45rem;
+  color: var(--saweria-dark);
+  margin-bottom: 12px;
+}
+
+.footer-text {
+  font-size: 0.9rem;
+  color: #334155;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+.footer-heading {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--saweria-dark);
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: var(--saweria-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-links a:hover {
+  color: var(--saweria-pink);
+  transform: translateX(4px);
+}
+
+.footer-bottom-bar {
+  border-top: var(--saweria-border);
+  padding-top: 24px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--saweria-dark);
+}
+
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS & MOBILE-FIRST UX OPTIMIZATIONS
+   ============================================================ */
+@media (max-width: 991px) {
+  .hero-title-3d {
+    font-size: 2.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile Hero Section */
+  .saweria-hero-section {
+    padding: 36px 0 40px 0 !important;
+  }
+
+  .hero-title-3d {
+    font-size: 1.85rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .hero-subtitle-3d {
+    font-size: 0.95rem !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Single Column Form Grid for Mobile */
+  .form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Touch-friendly inputs & selects (prevents iOS Safari auto-zoom) */
+  .form-control, 
+  .form-select, 
+  .form-input,
+  .form-textarea,
+  .upload-area {
+    font-size: 16px !important;
+    min-height: 50px !important;
+    border-radius: 12px !important;
+    padding: 12px 14px !important;
+  }
+
+  .upload-area {
+    padding: 20px 14px !important;
+  }
+
+  /* Sticky Bottom Action Bar for Easy One-Thumb Navigation */
+  .step-actions {
+    position: sticky !important;
+    bottom: 0 !important;
+    background: #ffffff !important;
+    padding: 14px 16px !important;
+    border-top: 2.5px solid #1e293b !important;
+    margin-left: -16px !important;
+    margin-right: -16px !important;
+    margin-bottom: -16px !important;
+    border-bottom-left-radius: 14px !important;
+    border-bottom-right-radius: 14px !important;
+    z-index: 100 !important;
+    box-shadow: 0 -4px 12px rgba(30, 41, 59, 0.08) !important;
+    display: flex !important;
+    gap: 10px !important;
+  }
+
+  /* Full-width 3D Touch Buttons */
+  .btn-next,
+  .btn-prev,
+  .btn-submit,
+  .btn-saweria-3d-green,
+  .btn-saweria-3d-yellow,
+  .btn-saweria-3d-teal {
+    min-height: 50px !important;
+    flex: 1 !important;
+    width: 100% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1rem !important;
+    font-weight: 800 !important;
+    touch-action: manipulation;
+  }
+
+  .btn-next:active,
+  .btn-prev:active,
+  .btn-submit:active {
+    transform: scale(0.98) !important;
+  }
+
+  /* Register Card Padding for Mobile */
+  .register-card {
+    padding: 20px 16px !important;
+    border-radius: 16px !important;
+  }
+
+  .card-header h2 {
+    font-size: 1.4rem !important;
+  }
+
+  /* Category Chips Filter Scroll for Mobile */
+  .category-chips-wrapper {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    padding-bottom: 8px !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .category-chip-btn {
+    flex: 0 0 auto !important;
+    padding: 8px 16px !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title-3d {
+    font-size: 1.65rem !important;
+  }
+
+  .saweria-3d-card {
+    padding: 18px 16px !important;
+  }
+
+  .footer-bottom-bar {
     flex-direction: column;
-    min-height: 35vh;
-}
-
-.main-content {
-    flex: 1;
-}
-
-footer {
-    background-color: #343a40;
-    /* Warna latar belakang footer */
-    color: white;
-    /* Warna teks footer */
+    gap: 12px;
+    text-align: center;
+  }
 }

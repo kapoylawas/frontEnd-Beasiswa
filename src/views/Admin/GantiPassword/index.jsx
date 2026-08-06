@@ -13,6 +13,8 @@ export default function GantiPassword() {
 
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [usersbyid, setUsersByid] = useState("");
 
     // Navigate
@@ -68,58 +70,127 @@ export default function GantiPassword() {
             })
             .catch((error) => {
                 // Set error message to state "errors"
-                setErros(error.response.data);
+                toast.error(error.response?.data?.message || "Gagal mengupdate password");
             });
     };
 
     return (
         <LayoutAdmin>
             <main>
-                <div className="container-fluid mb-5 mt-5">
-                    <div className="col-md-3 col-12 mb-2">
+                <div className="container-fluid mb-5 mt-4" style={{ maxWidth: "600px" }}>
+                    <div className="mb-3">
                         <Link
-                            to="/"
-                            className="btn btn-md btn-primary border-0 shadow w-100"
+                            to="/admin/dashboard"
+                            className="btn btn-3d bg-white text-dark border-2 font-bold px-3 py-2"
                             type="button"
                         >
-                            <i className="fa-solid fa-backward"></i> Kembali
+                            <i className="fa-solid fa-backward me-2"></i> Kembali ke Dashboard
                         </Link>
                     </div>
-                    <div className="card border-0 rounded shadow-sm border-top-success">
-                        <div className="card-body">
-                            <h6>
-                                <i className="fa fa-shield-alt"></i> Ganti Password
-                            </h6>
-                            <hr />
+                    <div className="card border-0 rounded-4 shadow-sm" style={{
+                        background: "#ffffff",
+                        border: "2.5px solid #1e293b",
+                        boxShadow: "5px 5px 0px #1e293b"
+                    }}>
+                        <div className="card-body p-4">
+                            <h5 className="fw-extrabold text-dark mb-3">
+                                <i className="fa fa-shield-alt text-success me-2"></i> Ganti Password Akun
+                            </h5>
+                            <hr style={{ borderTop: "2px solid #1e293b" }} />
                             <form onSubmit={updatePassword}>
-                                <div className="mb-3">
-                                    <label className="form-label fw-bold">Ganti Password</label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="Ganti Password"
-                                        required
-                                    />
+                                <div className="mb-4">
+                                    <label className="form-label fw-bold text-dark mb-1">Ganti Password Baru</label>
+                                    <div className="position-relative">
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            className="form-control font-bold"
+                                            style={{
+                                                background: "#ffffff",
+                                                border: "2.5px solid #1e293b",
+                                                borderRadius: "12px",
+                                                boxShadow: "3px 3px 0px #1e293b",
+                                                padding: "10px 45px 10px 14px",
+                                                fontSize: "0.95rem"
+                                            }}
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            placeholder="Ganti Password"
+                                            required
+                                        />
+                                        <button
+                                            type="button"
+                                            className="btn position-absolute top-50 translate-middle-y border-0 text-slate-600"
+                                            style={{
+                                                right: "12px",
+                                                background: "transparent",
+                                                padding: "4px 8px",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                cursor: "pointer",
+                                                zIndex: 5
+                                            }}
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            title={showPassword ? "Sembunyikan password" : "Tampilkan password"}
+                                        >
+                                            <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} fs-6`}></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="mb-3">
-                                    <label className="form-label fw-bold">Konfirmasi Password</label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
-                                        placeholder="Konfirmasi Password"
-                                        required
-                                    />
+
+                                <div className="mb-4">
+                                    <label className="form-label fw-bold text-dark mb-1">Konfirmasi Password Baru</label>
+                                    <div className="position-relative">
+                                        <input
+                                            type={showConfirmPassword ? "text" : "password"}
+                                            className="form-control font-bold"
+                                            style={{
+                                                background: "#ffffff",
+                                                border: "2.5px solid #1e293b",
+                                                borderRadius: "12px",
+                                                boxShadow: "3px 3px 0px #1e293b",
+                                                padding: "10px 45px 10px 14px",
+                                                fontSize: "0.95rem"
+                                            }}
+                                            value={confirmPassword}
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                            placeholder="Konfirmasi Password"
+                                            required
+                                        />
+                                        <button
+                                            type="button"
+                                            className="btn position-absolute top-50 translate-middle-y border-0 text-slate-600"
+                                            style={{
+                                                right: "12px",
+                                                background: "transparent",
+                                                padding: "4px 8px",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                cursor: "pointer",
+                                                zIndex: 5
+                                            }}
+                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                            title={showConfirmPassword ? "Sembunyikan password" : "Tampilkan password"}
+                                        >
+                                            <i className={`fas ${showConfirmPassword ? "fa-eye-slash" : "fa-eye"} fs-6`}></i>
+                                        </button>
+                                    </div>
                                 </div>
+
                                 <div>
                                     <button
                                         type="submit"
-                                        className="btn btn-md btn-primary me-2"
+                                        className="btn btn-3d bg-success text-dark font-bold px-4 py-2"
+                                        style={{
+                                            background: "var(--saweria-green-bright)",
+                                            border: "2.5px solid #1e293b",
+                                            boxShadow: "3.5px 3.5px 0px #1e293b",
+                                            borderRadius: "12px",
+                                            fontWeight: "900"
+                                        }}
                                     >
-                                        <i className="fa fa-save"></i> Update
+                                        <i className="fa fa-save me-2"></i> Update Password
                                     </button>
                                 </div>
                             </form>

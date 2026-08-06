@@ -285,10 +285,10 @@ export default function Sidebar() {
             aria-expanded={isCollapsedActive}
             aria-controls={`collapse${item.name.replace(/\s+/g, "")}`}
           >
-            {item.icon}
-            {item.name}
-            <div className="sb-sidenav-collapse-arrow">
-              <FaAngleDown className="text-muted" />
+            <span className="nav-icon-box">{item.icon}</span>
+            <span className="flex-grow-1 text-truncate">{item.name}</span>
+            <div className="sb-sidenav-collapse-arrow ms-auto">
+              <FaAngleDown className="text-dark" />
             </div>
           </a>
           <div
@@ -300,15 +300,15 @@ export default function Sidebar() {
             <nav className="sb-sidenav-menu-nested nav">
               {item.children.map(
                 (child, childIndex) =>
-                  child.permission &&
-                  hasAnyPermission(child.permission) && (
+                  (!child.permission ||
+                    hasAnyPermission(child.permission)) && (
                     <Link
                       key={childIndex}
                       className={isActive(child.path)}
                       to={child.path}
                     >
-                      {child.icon}
-                      {child.name}
+                      <span className="nav-icon-box">{child.icon}</span>
+                      <span className="text-truncate">{child.name}</span>
                     </Link>
                   )
               )}
@@ -320,8 +320,8 @@ export default function Sidebar() {
 
     return (
       <Link key={index} className={isActive(item.path)} to={item.path}>
-        {item.icon}
-        {item.name}
+        <span className="nav-icon-box">{item.icon}</span>
+        <span className="text-truncate">{item.name}</span>
       </Link>
     );
   };

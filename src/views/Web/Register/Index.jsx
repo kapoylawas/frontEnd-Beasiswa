@@ -37,6 +37,10 @@ export default function Register() {
   const [currentStep, setCurrentStep] = useState(1);
   const [showPersyaratan, setShowPersyaratan] = useState(false);
 
+  // State Pendaftaran Multi-Tahun & Kategori Beasiswa
+  const [tahunPendaftaran, setTahunPendaftaran] = useState("2027");
+  const [kategoriBeasiswa, setKategoriBeasiswa] = useState("Beasiswa Akademik");
+
   // State baru yang ditambahkan
   const [duplicateNik, setDuplicateNik] = useState(false);
   const [duplicateEmail, setDuplicateEmail] = useState(false);
@@ -191,6 +195,8 @@ export default function Register() {
       nohp,
       email,
       gender,
+      tahun_pendaftaran: tahunPendaftaran,
+      kategori_beasiswa: kategoriBeasiswa,
       id_kecamatan: selectedKecamatan,
       id_kelurahan: selectedKelurahan,
       codepos,
@@ -440,6 +446,13 @@ export default function Register() {
     return Object.keys(newErrors).length === 0;
   };
 
+  const scrollToFormCard = () => {
+    const cardElement = document.getElementById("registerFormCard");
+    if (cardElement) {
+      cardElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   const nextStep = () => {
     let isValid = false;
 
@@ -459,7 +472,7 @@ export default function Register() {
 
     if (isValid) {
       setCurrentStep(currentStep + 1);
-      window.scrollTo(0, 0);
+      setTimeout(scrollToFormCard, 50);
       setErrors({});
     } else {
       setTimeout(scrollToFirstError, 100);
@@ -468,7 +481,7 @@ export default function Register() {
 
   const prevStep = () => {
     setCurrentStep(currentStep - 1);
-    window.scrollTo(0, 0);
+    setTimeout(scrollToFormCard, 50);
     setErrors({});
   };
 
@@ -1061,49 +1074,54 @@ export default function Register() {
 
   return (
     <LayoutWeb>
-      <div className="register-container">
-        <div className="register-hero">
-          <div className="container">
-            <div className="hero-content">
-              <div className="hero-logo">
-                <img
-                  src="/images/sidoarjo.png"
-                  alt="Logo Sidoarjo"
-                  className="logo-image"
-                  onError={(e) => {
-                    e.target.src = "/sidoarjo.png";
-                    e.target.onerror = () => {
-                      e.target.src =
-                        "https://via.placeholder.com/100x100?text=Logo+Sidoarjo";
-                    };
-                  }}
-                />
-              </div>
-              <h1 className="hero-title">Pendaftaran Beasiswa</h1>
-              <p className="hero-subtitle">
-                Daftarkan diri Anda untuk menjadi penerima beasiswa
-                <span className="highlight"> Kabupaten Sidoarjo 2026</span>
-              </p>
-              <div className="hero-divider"></div>
-            </div>
+      <section className="saweria-hero-section text-center">
+        <div className="container max-w-5xl mx-auto px-4">
+          <div className="saweria-mascot-badge">
+            <i className="fas fa-id-card"></i>
+            <span>Formulir Pendaftaran Beasiswa Pemkab Sidoarjo</span>
           </div>
-        </div>
 
-        <div className="container main-container mt-5 mb-5">
+          <h1 className="hero-title-3d">
+            Formulir Pendaftaran <br />
+            <span className="hero-title-highlight mt-3 d-inline-block">Beasiswa Pemkab Sidoarjo</span>
+          </h1>
+
+          <p className="hero-subtitle-3d mx-auto">
+            Silakan lengkapi data diri, NIK KTP-El Kabupaten Sidoarjo, alamat, serta kelengkapan berkas dokumen persyaratan Anda dengan benar.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-5 bg-white border-bottom border-slate-900">
+        <div className="container main-container">
           {maintenance ? (
-            <div className="maintenance-section">
-              <div className="maintenance-card">
-                <div className="maintenance-icon">
-                  <i className="fas fa-tools"></i>
-                </div>
-                <h2>Pendaftaran Sudah Ditutup</h2>
-                <p>
-                  Masa pendaftaran beasiswa telah berakhir. Terima kasih atas
-                  minat Anda.
-                </p>
-                <div className="maintenance-image">
-                  <img src={Logo} alt="Maintenance" />
-                </div>
+            <div className="saweria-3d-card text-center p-4 p-md-5 mx-auto max-w-3xl" style={{ background: "#fffbeb", border: "2.5px solid #1e293b", boxShadow: "8px 8px 0px #1e293b", borderRadius: "16px" }}>
+              <div
+                className="d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+                style={{
+                  width: "75px",
+                  height: "75px",
+                  backgroundColor: "#ef4444",
+                  color: "#ffffff",
+                  border: "2.5px solid #1e293b",
+                  boxShadow: "4px 4px 0px #1e293b"
+                }}
+              >
+                <i className="fas fa-lock" style={{ fontSize: "2.2rem", color: "#ffffff" }}></i>
+              </div>
+              <h2 className="fw-black text-slate-900 fs-2 mb-2">Pendaftaran Beasiswa Ditutup</h2>
+              <p className="text-slate-700 font-bold fs-6 mb-4 max-w-xl mx-auto">
+                Masa pendaftaran beasiswa Kabupaten Sidoarjo saat ini resmi <strong>DITUTUP</strong>. Terima kasih atas partisipasi dan antusiasme seluruh mahasiswa Sidoarjo. Pantau secara berkala informasi pembukaan gelombang berikutnya.
+              </p>
+              
+              <div className="mb-4 position-relative overflow-hidden inline-block w-100" style={{ border: "2.5px solid #1e293b", borderRadius: "14px", boxShadow: "4px 4px 0px #1e293b", background: "#ffffff" }}>
+                <img src="/banner2026.jpg" alt="Pengumuman Pendaftaran Ditutup" className="img-fluid w-100" style={{ width: "100%", height: "auto", display: "block" }} />
+              </div>
+
+              <div>
+                <a href="/" className="btn-saweria-3d-teal px-4 py-2.5 font-black text-sm d-inline-flex align-items-center gap-2">
+                  <i className="fas fa-arrow-left"></i> Kembali ke Beranda
+                </a>
               </div>
             </div>
           ) : (
@@ -1118,27 +1136,7 @@ export default function Register() {
                 </div>
               )}
 
-              {/* Progress Steps */}
-              <div className="progress-steps">
-                <div className={`step ${currentStep >= 1 ? "active" : ""}`}>
-                  <div className="step-number">1</div>
-                  <div className="step-label">Data Pribadi</div>
-                </div>
-                <div className={`step ${currentStep >= 2 ? "active" : ""}`}>
-                  <div className="step-number">2</div>
-                  <div className="step-label">Alamat</div>
-                </div>
-                <div className={`step ${currentStep >= 3 ? "active" : ""}`}>
-                  <div className="step-number">3</div>
-                  <div className="step-label">Dokumen</div>
-                </div>
-                <div className={`step ${currentStep >= 4 ? "active" : ""}`}>
-                  <div className="step-number">4</div>
-                  <div className="step-label">Akun</div>
-                </div>
-              </div>
-
-              <div className="register-card">
+              <div className="register-card" id="registerFormCard">
                 <div className="card-header">
                   <i className="fas fa-user-plus"></i>
                   <h2>Formulir Pendaftaran</h2>
@@ -1258,11 +1256,34 @@ export default function Register() {
                         className="upload-progress-fill"
                         style={{ width: `${uploadProgress}%` }}
                       >
-                        {uploadProgress}%
                       </div>
                     </div>
                   </div>
                 )}
+
+                {/* VISUAL PROGRESS BAR & STEP INDICATOR FOR Frictionless UX */}
+                <div className="p-3 bg-slate-50 border-2 border-slate-900 rounded-3 mb-4" style={{ boxShadow: "3px 3px 0px #1e293b" }}>
+                  <div className="d-flex align-items-center justify-content-between mb-2">
+                    <span className="font-black text-slate-900 text-xs text-uppercase">
+                      <i className="fas fa-list-check me-1 text-emerald-600"></i>
+                      Langkah {currentStep} dari 4: {
+                        currentStep === 1 ? "Data Pribadi & Kontak" :
+                        currentStep === 2 ? "Alamat Lengkap Sesuai KTP" :
+                        currentStep === 3 ? "Upload Dokumen PDF (KTP & KK)" :
+                        "Konfirmasi Password & Submit"
+                      }
+                    </span>
+                    <span className="badge bg-emerald-400 text-slate-900 border border-slate-900 font-black text-xs px-2 py-1" style={{ boxShadow: "1.5px 1.5px 0px #1e293b" }}>
+                      {currentStep * 25}% Selesai
+                    </span>
+                  </div>
+                  <div className="progress" style={{ height: "10px", background: "#ffffff", border: "1.5px solid #1e293b", borderRadius: "8px", overflow: "hidden" }}>
+                    <div
+                      className="progress-bar bg-emerald-400"
+                      style={{ width: `${currentStep * 25}%`, transition: "width 0.3s ease" }}
+                    ></div>
+                  </div>
+                </div>
 
                 <form onSubmit={storeRegister}>
                   {/* Step 1: Data Pribadi */}
@@ -1270,8 +1291,56 @@ export default function Register() {
                     <div className="step-content">
                       <h3 className="step-title">Data Pribadi</h3>
                       <p className="step-description">
-                        Isi data pribadi Anda dengan benar sesuai dokumen resmi
+                        Isi data pribadi Anda dengan benar sesuai dokumen resmi KTP-El
                       </p>
+
+                      {/* Badge Otomatis Tahun Periode Pendaftaran 2027 3D Saweria */}
+                      <div className="p-3 mb-4 d-flex align-items-center justify-content-between flex-wrap gap-2" style={{
+                        background: "#e6f4ec",
+                        border: "2.5px solid #1e293b",
+                        borderRadius: "14px",
+                        boxShadow: "4px 4px 0px #1e293b"
+                      }}>
+                        <div className="d-flex align-items-center gap-3">
+                          <div style={{
+                            width: "42px",
+                            height: "42px",
+                            background: "#34d399",
+                            border: "2px solid #1e293b",
+                            boxShadow: "2px 2px 0px #1e293b",
+                            borderRadius: "10px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            color: "#1e293b"
+                          }}>
+                            <i className="fas fa-calendar-check fs-5"></i>
+                          </div>
+                          <div>
+                            <span className="d-block font-black text-uppercase text-slate-700" style={{ fontSize: "0.72rem", letterSpacing: "0.6px", fontFamily: "var(--font-family-code)" }}>
+                              TAHUN PERIODE PENDAFTARAN
+                            </span>
+                            <span className="font-extrabold text-slate-900" style={{ fontSize: "1.05rem" }}>
+                              Pemerintah Kabupaten Sidoarjo
+                            </span>
+                          </div>
+                        </div>
+                        <span style={{
+                          background: "#34d399",
+                          color: "#1e293b",
+                          border: "2px solid #1e293b",
+                          boxShadow: "2.5px 2.5px 0px #1e293b",
+                          borderRadius: "10px",
+                          fontWeight: "900",
+                          fontSize: "0.75rem",
+                          padding: "6px 14px",
+                          letterSpacing: "0.5px",
+                          fontFamily: "var(--font-family-code)"
+                        }}>
+                          <i className="fas fa-circle-check me-1 text-emerald-900"></i>
+                          PORTAL RESMI
+                        </span>
+                      </div>
 
                       <div className="form-grid">
                         <div className="form-group">
@@ -1298,9 +1367,13 @@ export default function Register() {
                         </div>
 
                         <div className="form-group">
-                          <label className="form-label">
-                            <i className="fas fa-id-card"></i>
-                            NIK Sesuai KTP-EL
+                          <label className="form-label d-flex align-items-center justify-content-between">
+                            <span>
+                              <i className="fas fa-id-card"></i> NIK (No Induk Kependudukan)
+                            </span>
+                            <span className={`badge ${nik.length === 16 ? "bg-emerald-400" : "bg-amber-200"} text-slate-900 border border-slate-900 text-xs font-black`} style={{ boxShadow: "1px 1px 0px #1e293b" }}>
+                              {nik.length}/16 Digit
+                            </span>
                           </label>
                           <div className="input-with-indicator">
                             <input
@@ -1327,15 +1400,19 @@ export default function Register() {
                           <div className="input-hint">
                             <i className="fas fa-info-circle"></i>
                             <span>
-                              Pastikan NIK belum pernah terdaftar sebelumnya
+                              Pastikan NIK 16 digit sesuai KTP-El Kabupaten Sidoarjo
                             </span>
                           </div>
                         </div>
 
                         <div className="form-group">
-                          <label className="form-label">
-                            <i className="fas fa-home"></i>
-                            No Kartu Keluarga (KK)
+                          <label className="form-label d-flex align-items-center justify-content-between">
+                            <span>
+                              <i className="fas fa-home"></i> No Kartu Keluarga (KK)
+                            </span>
+                            <span className={`badge ${nokk.length === 16 ? "bg-emerald-400" : "bg-amber-200"} text-slate-900 border border-slate-900 text-xs font-black`} style={{ boxShadow: "1px 1px 0px #1e293b" }}>
+                              {nokk.length}/16 Digit
+                            </span>
                           </label>
                           <input
                             type="text"
@@ -1813,7 +1890,8 @@ export default function Register() {
               </div>
 
               {/* Info Box */}
-              <div className="info-box">
+              <div className="info-box position-relative">
+                <span className="saweria-corner-badge teal">petunjuk penting</span>
                 <div className="info-header">
                   <i className="fas fa-info-circle"></i>
                   <h4>Informasi Penting</h4>
@@ -1852,7 +1930,75 @@ export default function Register() {
             </div>
           )}
         </div>
-      </div>
+      </section>
+
+      {/* SAWERIA 3D HELPDESK CONTACTS */}
+      <section className="py-5 bg-slate-50 border-top border-slate-900">
+        <div className="container max-w-7xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto mb-5">
+            <span className="badge bg-teal-300 text-slate-900 border border-slate-900 px-3 py-2 rounded-pill font-black text-xs uppercase" style={{ boxShadow: "2px 2px 0px #1e293b" }}>
+              LAYANAN KONSULTASI HELPDESK
+            </span>
+            <h2 className="fw-black mt-3 text-3xl text-slate-900">
+              Butuh Bantuan Saat Pendaftaran?
+            </h2>
+          </div>
+
+          <div className="row g-4">
+            <div className="col-md-6 col-lg-3">
+              <div className="saweria-3d-card p-4">
+                <div className="saweria-card-icon icon-yellow">
+                  <i className="fas fa-hands-holding-child"></i>
+                </div>
+                <h5 className="fw-black text-slate-900 text-base mb-1">Dinas Sosial</h5>
+                <p className="text-xs font-bold text-slate-600 mb-3">DTKS & Yatim Mahasiswa</p>
+                <a href="https://wa.me/6282230338338" target="_blank" rel="noopener noreferrer" className="btn-saweria-3d-yellow w-100 justify-content-center text-xs py-2">
+                  <i className="fab fa-whatsapp me-2"></i> WA Helpdesk
+                </a>
+              </div>
+            </div>
+
+            <div className="col-md-6 col-lg-3">
+              <div className="saweria-3d-card p-4">
+                <div className="saweria-card-icon icon-teal">
+                  <i className="fas fa-graduation-cap"></i>
+                </div>
+                <h5 className="fw-black text-slate-900 text-base mb-1">Dispendik</h5>
+                <p className="text-xs font-bold text-slate-600 mb-3">Beasiswa Yatim SD/SMP</p>
+                <a href="https://wa.me/6281336766061" target="_blank" rel="noopener noreferrer" className="btn-saweria-3d-teal w-100 justify-content-center text-xs py-2">
+                  <i className="fab fa-whatsapp me-2"></i> WA Helpdesk
+                </a>
+              </div>
+            </div>
+
+            <div className="col-md-6 col-lg-3">
+              <div className="saweria-3d-card p-4">
+                <div className="saweria-card-icon icon-pink">
+                  <i className="fas fa-mosque"></i>
+                </div>
+                <h5 className="fw-black text-slate-900 text-base mb-1">Bagian Kesra</h5>
+                <p className="text-xs font-bold text-slate-600 mb-3">Keagamaan & Hafiz</p>
+                <a href="https://wa.me/6285646151120" target="_blank" rel="noopener noreferrer" className="btn-saweria-3d-yellow w-100 justify-content-center text-xs py-2">
+                  <i className="fab fa-whatsapp me-2"></i> WA Helpdesk
+                </a>
+              </div>
+            </div>
+
+            <div className="col-md-6 col-lg-3">
+              <div className="saweria-3d-card p-4">
+                <div className="saweria-card-icon icon-purple">
+                  <i className="fas fa-running"></i>
+                </div>
+                <h5 className="fw-black text-slate-900 text-base mb-1">Disporapar</h5>
+                <p className="text-xs font-bold text-slate-600 mb-3">Prestasi Non-Akademik</p>
+                <a href="https://wa.me/6282332008658" target="_blank" rel="noopener noreferrer" className="btn-saweria-3d-teal w-100 justify-content-center text-xs py-2">
+                  <i className="fab fa-whatsapp me-2"></i> WA Helpdesk
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <style jsx>{`
         /* Error Fallback Styles */
