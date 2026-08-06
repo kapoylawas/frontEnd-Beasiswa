@@ -234,7 +234,7 @@ export default function Sidebar() {
           permission: ["admindinsos.index"],
         },
         {
-          name: "Beasiswa Yatim Piatu",
+          name: "Beasiswa Yatim",
           path: "/admin/adminYatim",
           icon: <FaUsers className="sb-nav-link-icon" />,
           permission: ["yatim.index"],
@@ -276,9 +276,8 @@ export default function Sidebar() {
       return (
         <div key={index}>
           <a
-            className={`nav-link collapsed ${
-              isCollapsedActive ? "active-sidebar" : ""
-            }`}
+            className={`nav-link collapsed ${isCollapsedActive ? "active-sidebar" : ""
+              }`}
             href="#"
             data-bs-toggle="collapse"
             data-bs-target={`#collapse${item.name.replace(/\s+/g, "")}`}
