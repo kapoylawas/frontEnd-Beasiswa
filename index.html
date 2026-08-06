@@ -3,10 +3,14 @@
 
 <head>
     <meta charset="UTF-8" />
+    <!-- Meta Cache-Control No-Cache agar browser selalu mengambil versi website terbaru -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <link rel="icon" type="image/svg+xml" href="/sidoarjo.png" />
-    <meta name="beasiswa kabupaten sidoarjo" content="Portal Resmi Pendaftaran Beasiswa Pendidikan Sidoarjo Tahun 2027" />
+    <meta name="beasiswa kabupaten sidoarjo" content="Portal Resmi Pendaftaran Beasiswa Pendidikan Pemkab Sidoarjo" />
     <meta name="robots" content="noindex, nofollow">
-    <title>Beasiswa Sidoarjo 2027 - Portal Resmi Pemkab Sidoarjo</title>
+    <title>Beasiswa Sidoarjo - Portal Resmi Pemkab Sidoarjo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -15,6 +19,20 @@
     <link href="/css/tabler-payments.min.css?1684106062" rel="stylesheet" />
     <link href="/css/tabler-vendors.min.css?1684106062" rel="stylesheet" />
     <link href="/css/demo.min.css?1684106062" rel="stylesheet" />
+
+    <!-- Script Pembersih Cache & Service Worker Otomatis -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for (let registration of registrations) { registration.unregister(); }
+        });
+      }
+      if ('caches' in window) {
+        caches.keys().then(function(names) {
+          for (let name of names) caches.delete(name);
+        });
+      }
+    </script>
 </head>
 
 <body>
